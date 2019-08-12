@@ -1,20 +1,22 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+Route::group(['middleware' => 'auth'], function() {
+
+    Route::resource('types', 'TypeController', ['except' => ['index', 'show']]);
+    Route::resource('times', 'TimeController', ['except' => ['index', 'show']]);
+    Route::resource('languages', 'LanguageController', ['except' => ['index', 'show']]);
+    Route::resource('format', 'FormatController', ['except' => ['index', 'show']]);
+    Route::resource('status', 'StatusController', ['except' => ['index', 'show']]);
+});
 
 Route::get('/', function () {
     return view('welcome');
 });
 
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
+Route::resource('types', 'TypeController', ['only' => ['index', 'show']]);
+Route::resource('times', 'TimeController', ['only' => ['index', 'show']]);
+Route::resource('languages', 'LanguageController', ['only' => ['index', 'show']]);
+Route::resource('format', 'FormatController', ['only' => ['index', 'show']]);
+Route::resource('status', 'StatusController', ['only' => ['index', 'show']]);

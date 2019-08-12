@@ -22,7 +22,7 @@
         <div class="container-fluid p=0 align-content-center">
             <nav class="navbar navbar-expand-lg">
                 <a class="navbar-brand" href="index.html">
-                    <img src="../assets/logo-perpunas.png" width="33" height="30" class="d-inline-block align-top"
+                    <img src="../img/logo-perpunas.png" width="33" height="30" class="d-inline-block align-top"
                         alt="">Indeks Artikel /
                 </a>
                 <div class="mr-auto">
@@ -33,7 +33,7 @@
                 </div>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"><img src="../assets/menu-2x.png"></span>
+                    <span class="navbar-toggler-icon"><img src="../img/menu-2x.png"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                 @guest
