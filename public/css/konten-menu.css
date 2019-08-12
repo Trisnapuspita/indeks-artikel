@@ -1,0 +1,19 @@
+.form-search-wrap {
+    background: lightgrey;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+.form-search-wrap .form-control {
+    border: none;
+}
+
+@media (max-width: 1199.98px) {
+    .form-search-wrap .form-control {
+        height: 60px;
+    }
+}
+
+.form-search-wrap .btn {
+    padding: 9px 40px;
+}
