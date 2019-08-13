@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\Models\User;
 use App\Models\Language;
 use Illuminate\Http\Request;
@@ -15,7 +16,8 @@ class LanguageController extends Controller
      */
     public function index()
     {
-        //
+        $languages = Language::all();
+        return view('languages.index', compact('languages'));
     }
 
     /**
@@ -25,7 +27,7 @@ class LanguageController extends Controller
      */
     public function create()
     {
-        //
+        return view('languages.create');
     }
 
     /**
@@ -36,7 +38,23 @@ class LanguageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'title' => 'required|min:3',
+
+        ]);
+
+        $slug = str_slug($request->title, '_');
+        //cek slug ngga kembar
+        if(Language::where('slug', $slug)->first() != null)
+            $slug = $slug . '-'.time();
+
+        $languages = Language::create([
+            'title' => $request->title,
+            'slug' => $slug,
+            'user_id'=> Auth::user()->id
+        ]);
+
+        return redirect('languages')->with('msg', 'berhasil ditambahkan');
     }
 
     /**
@@ -47,7 +65,7 @@ class LanguageController extends Controller
      */
     public function show($id)
     {
-        //
+        //return view('languages.index', compact('language'));
     }
 
     /**
@@ -58,7 +76,8 @@ class LanguageController extends Controller
      */
     public function edit($id)
     {
-        //
+        $language= Language::findOrFail($id);
+        return view('languages.edit', compact('language'));
     }
 
     /**
@@ -70,7 +89,20 @@ class LanguageController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'title' => 'required|min:3',
+
+        ]);
+
+        $language= Language::findOrFail($id);
+        if ($language->isOwner())
+            $language->update([
+            'title'=> $request->title
+        ]);
+
+        else abort(403);
+
+        return redirect('languages')->with('msg', 'kutipan berhasil diedit');
     }
 
     /**
@@ -81,6 +113,11 @@ class LanguageController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $language= Language::findOrFail($id);
+        if($language->isOwner())
+            $language->delete();
+        else abort(404);
+
+        return redirect('languages')->with('msg', 'kutipan berhasil di hapus');
     }
 }

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCtime html>
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
 <!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
 <!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
@@ -112,7 +112,7 @@
             <ul id="menu" class="collapse">
 
                 
-                <li class="panel active">
+                <li class="panel">
                     <a href="index.html" >
                         <i class="icon-table"></i> Dashboard
 	   
@@ -120,7 +120,7 @@
                     </a>                   
                 </li>
 
-                <li class="panel ">
+                <li class="panel active">
                     <a href="#" data-parent="#menu" data-toggle="collapse" class="accordion-toggle" data-target="#pagesr-nav">
                         <i class="icon-tasks"> </i> Setting
                         <span class="pull-right">
@@ -147,7 +147,7 @@
                             </ul>
                 </li>
                 <li class="panel ">
-                    <a href="{{url('/addsource')}}" data-parent="#menu" data-toggle="collapse" class="accordion-toggle collapsed" data-target="#form-nav">
+                    <a href="#" data-parent="#menu" data-toggle="collapse" class="accordion-toggle collapsed" data-target="#form-nav">
                         <i class="icon-pencil"></i> Sumber Bacaan </a>
                 </li>
                 <li class="panel">
@@ -160,10 +160,68 @@
         <!--END MENU SECTION -->
 
         <!--PAGE CONTENT -->
-        @yield('content')
+        <!--PAGE CONTENT -->
+        <div id="content">
+            @if (session('msg'))
+            <div class="alert alert-success">
+                <p> {{session('msg')}} </p>
+            </div>
+            @endif
+            <div class="inner">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h2> Setting Kala Terbit </h2>
+                    </div>
+                </div>
+                <hr>
 
-    </div>
-    </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <a href='/times/create' class="btn btn-primary btn-lg">Tambah</a>
+                    </div>
+                </div>
+                <br>
+
+                <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Daftar Setting
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <thead>
+                                        <tr>
+                                            <th>No.</th>
+                                            <th>Nama Jenis</th>
+                                            <th> </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach ($times as $time)
+                                        <tr class="odd gradeX">
+                                            <td>{{$time->id}}</td>
+                                            <td>{{$time->title}}</td>
+                                            <td>
+                                            @if($time->isOwner())
+                                                <a href='/times/{{$time->id}}/edit' class="btn btn-primary">Sunting</a>
+                                                <a href='/times' class="btn btn-danger">Hapus</a>
+                                                </form>
+                                            @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+       <!--END PAGE CONTENT -->
 
     <!-- GLOBAL SCRIPTS -->
     <script src="assets/plugins/jquery-2.0.3.min.js"></script>

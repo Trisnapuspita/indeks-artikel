@@ -16,4 +16,12 @@ class Type extends Model
     {
         return $this->belongsTo('App\Models\User');
     }
+
+    public function isOwner()
+    {
+        if(Auth::guest())
+            return false;
+
+        return Auth::user()->id == $this->user->id;
+    }
 }

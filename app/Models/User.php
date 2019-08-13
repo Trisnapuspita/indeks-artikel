@@ -57,7 +57,7 @@ class User extends Authenticatable
         return $this->belongsTo('App\Models\Format');
     }
 
-    public function status()
+    public function statuses()
     {
         return $this->belongsTo('App\Models\Status');
     }

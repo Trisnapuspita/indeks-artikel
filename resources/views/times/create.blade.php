@@ -13,15 +13,15 @@
         </div>
     @endif
 
-        <form method="POST" action="/types">
+        <form method="POST" action="/times">
             <div class= "form-group">
                 <label for="title">Judul</label>
-                <input type="text" name="title" class="form-control" value="{{old('title')}}" placeholder="tulis nama disini">
+                <input time="text" name="title" class="form-control" value="{{old('title')}}" placeholder="tulis nama disini">
             </div>
 
             {{csrf_field() }}
 
-            <button type="submit" class="btn btn-default btn-block">Simpan</button>
+            <button time="submit" class="btn btn-default btn-block">Simpan</button>
         </form>
 </div>
 @endsection

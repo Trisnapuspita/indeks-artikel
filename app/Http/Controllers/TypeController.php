@@ -16,7 +16,8 @@ class TypeController extends Controller
      */
     public function index()
     {
-        //
+        $types = Type::all();
+        return view('types.index', compact('types'));
     }
 
     /**
@@ -37,6 +38,11 @@ class TypeController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'title' => 'required|min:3',
+
+        ]);
+
         $slug = str_slug($request->title, '_');
         //cek slug ngga kembar
         if(Type::where('slug', $slug)->first() != null)
@@ -59,7 +65,7 @@ class TypeController extends Controller
      */
     public function show($id)
     {
-        //
+        //return view('types.index', compact('type'));
     }
 
     /**
@@ -70,7 +76,8 @@ class TypeController extends Controller
      */
     public function edit($id)
     {
-        //
+        $type= Type::findOrFail($id);
+        return view('types.edit', compact('type'));
     }
 
     /**
@@ -82,7 +89,20 @@ class TypeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'title' => 'required|min:3',
+
+        ]);
+
+        $type= Type::findOrFail($id);
+        if ($type->isOwner())
+            $type->update([
+            'title'=> $request->title
+        ]);
+
+        else abort(403);
+
+        return redirect('types')->with('msg', 'kutipan berhasil diedit');
     }
 
     /**
@@ -93,6 +113,11 @@ class TypeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $type= Type::findOrFail($id);
+        if($type->isOwner())
+            $type->delete();
+        else abort(404);
+
+        return redirect('types')->with('msg', 'kutipan berhasil di hapus');
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\Models\User;
 use App\Models\Status;
 use Illuminate\Http\Request;
@@ -15,7 +16,8 @@ class StatusController extends Controller
      */
     public function index()
     {
-        //
+        $statuses = Status::all();
+        return view('statuses.index', compact('statuses'));
     }
 
     /**
@@ -25,7 +27,7 @@ class StatusController extends Controller
      */
     public function create()
     {
-        //
+        return view('statuses.create');
     }
 
     /**
@@ -36,7 +38,23 @@ class StatusController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'title' => 'required|min:3',
+
+        ]);
+
+        $slug = str_slug($request->title, '_');
+        //cek slug ngga kembar
+        if(Status::where('slug', $slug)->first() != null)
+            $slug = $slug . '-'.time();
+
+        $statuses = Status::create([
+            'title' => $request->title,
+            'slug' => $slug,
+            'user_id'=> Auth::user()->id
+        ]);
+
+        return redirect('statuses')->with('msg', 'berhasil ditambahkan');
     }
 
     /**
@@ -47,7 +65,7 @@ class StatusController extends Controller
      */
     public function show($id)
     {
-        //
+        //return view('statuses.index', compact('status'));
     }
 
     /**
@@ -58,7 +76,8 @@ class StatusController extends Controller
      */
     public function edit($id)
     {
-        //
+        $status= Status::findOrFail($id);
+        return view('statuses.edit', compact('status'));
     }
 
     /**
@@ -70,7 +89,20 @@ class StatusController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'title' => 'required|min:3',
+
+        ]);
+
+        $status= Status::findOrFail($id);
+        if ($status->isOwner())
+            $status->update([
+            'title'=> $request->title
+        ]);
+
+        else abort(403);
+
+        return redirect('statuses')->with('msg', 'kutipan berhasil diedit');
     }
 
     /**
@@ -81,6 +113,11 @@ class StatusController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $status= Status::findOrFail($id);
+        if($status->isOwner())
+            $status->delete();
+        else abort(404);
+
+        return redirect('statuses')->with('msg', 'kutipan berhasil di hapus');
     }
 }

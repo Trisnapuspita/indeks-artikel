@@ -82,8 +82,8 @@
                     <form method="POST" class="form-container" action="{{ route('login') }}">
                     @csrf
                         <div class="form-group">
-                        <label for="email">{{ __('NIP') }}</label>
-                            <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" placeholder="Masukkan NIP"
+                        <label for="email">Username</label>
+                            <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" placeholder="Masukkan Username"
                             name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
 
                             @error('name')

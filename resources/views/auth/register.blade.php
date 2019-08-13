@@ -83,9 +83,9 @@
                     <form method="POST" class="form-container" ACTION="{{ route('register') }}">
                     @csrf
                         <div class="form-group">
-                            <label for="name">NIP</label>
+                            <label for="name">Username</label>
                             <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name"
-                            value="{{ old('name')}}" required autocomplete="name" autofocus placeholder="Masukkan No. NIP">
+                            value="{{ old('name')}}" required autocomplete="name" autofocus placeholder="Masukkan Username">
                                 
                                 @error('name')
                                         <span class="invalid-feedback" role="alert">

@@ -79,7 +79,6 @@
         <!-- END HEADER SECTION -->
 
 
-
         <!-- MENU SECTION -->
        <div id="left" >
             <div class="media user-media well-small">

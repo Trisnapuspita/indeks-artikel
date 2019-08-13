@@ -25,4 +25,19 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
+    public function addsource()
+    {
+        return view('addsource');
+    }
+
+    public function addedition()
+    {
+        return view('addedition');
+    }
+
+    public function addarticle()
+    {
+        return view('addarticle');
+    }
 }
