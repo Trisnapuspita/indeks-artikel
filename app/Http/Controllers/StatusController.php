@@ -16,6 +16,7 @@ class StatusController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();
         $statuses = Status::all();
         return view('statuses.index', compact('statuses'));
     }
@@ -43,15 +44,8 @@ class StatusController extends Controller
 
         ]);
 
-        $slug = str_slug($request->title, '_');
-        //cek slug ngga kembar
-        if(Status::where('slug', $slug)->first() != null)
-            $slug = $slug . '-'.time();
-
         $statuses = Status::create([
-            'title' => $request->title,
-            'slug' => $slug,
-            'user_id'=> Auth::user()->id
+            'title' => $request->title
         ]);
 
         return redirect('statuses')->with('msg', 'berhasil ditambahkan');
@@ -95,12 +89,9 @@ class StatusController extends Controller
         ]);
 
         $status= Status::findOrFail($id);
-        if ($status->isOwner())
             $status->update([
             'title'=> $request->title
         ]);
-
-        else abort(403);
 
         return redirect('statuses')->with('msg', 'kutipan berhasil diedit');
     }
@@ -114,9 +105,7 @@ class StatusController extends Controller
     public function destroy($id)
     {
         $status= Status::findOrFail($id);
-        if($status->isOwner())
-            $status->delete();
-        else abort(404);
+        $status->delete();
 
         return redirect('statuses')->with('msg', 'kutipan berhasil di hapus');
     }

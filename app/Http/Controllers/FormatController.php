@@ -16,6 +16,7 @@ class FormatController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();
         $formats = Format::all();
         return view('formats.index', compact('formats'));
     }
@@ -43,15 +44,8 @@ class FormatController extends Controller
 
         ]);
 
-        $slug = str_slug($request->title, '_');
-        //cek slug ngga kembar
-        if(Format::where('slug', $slug)->first() != null)
-            $slug = $slug . '-'.time();
-
         $formats = Format::create([
-            'title' => $request->title,
-            'slug' => $slug,
-            'user_id'=> Auth::user()->id
+            'title' => $request->title
         ]);
 
         return redirect('formats')->with('msg', 'berhasil ditambahkan');
@@ -95,12 +89,9 @@ class FormatController extends Controller
         ]);
 
         $format= Format::findOrFail($id);
-        if ($format->isOwner())
             $format->update([
             'title'=> $request->title
         ]);
-
-        else abort(403);
 
         return redirect('formats')->with('msg', 'kutipan berhasil diedit');
     }
@@ -114,9 +105,7 @@ class FormatController extends Controller
     public function destroy($id)
     {
         $format= Format::findOrFail($id);
-        if($format->isOwner())
-            $format->delete();
-        else abort(404);
+        $format->delete();
 
         return redirect('formats')->with('msg', 'kutipan berhasil di hapus');
     }

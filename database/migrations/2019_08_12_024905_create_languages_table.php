@@ -16,10 +16,7 @@ class CreateLanguagesTable extends Migration
         Schema::create('languages', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('title', 100);
-            $table->string('slug', 120);
-            $table->unsignedBigInteger('user_id');
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

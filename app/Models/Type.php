@@ -2,26 +2,21 @@
 
 namespace App\Models;
 
-use Auth;
 use Illuminate\Database\Eloquent\Model;
 
 class Type extends Model
 {
-    
     protected $fillable = [
-        'title', 'slug', 'user_id'
+        'title', 'user_id'
     ];
-
-    public function user()
+    public function users()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsToMany('App\Models\User');
     }
 
-    public function isOwner()
+    public function titles()
     {
-        if(Auth::guest())
-            return false;
-
-        return Auth::user()->id == $this->user->id;
+        return $this->belongsToMany('App\Models\Title');
     }
+
 }

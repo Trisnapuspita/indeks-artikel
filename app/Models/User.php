@@ -39,27 +39,32 @@ class User extends Authenticatable
 
     public function types()
     {
-        return $this->belongsTo('App\Models\Type');
+        return $this->belongsToMany('App\Models\Type');
     }
 
     public function times()
     {
-        return $this->belongsTo('App\Models\Time');
+        return $this->belongsToMany('App\Models\Time');
     }
 
     public function languages()
     {
-        return $this->belongsTo('App\Models\Language');
+        return $this->belongsToMany('App\Models\Language');
     }
 
     public function formats()
     {
-        return $this->belongsTo('App\Models\Format');
+        return $this->belongsToMany('App\Models\Format');
     }
 
     public function statuses()
     {
-        return $this->belongsTo('App\Models\Status');
+        return $this->belongsToMany('App\Models\Status');
+    }
+
+    public function titles()
+    {
+        return $this->belongsToMany('App\Models\Title');
     }
 
 }

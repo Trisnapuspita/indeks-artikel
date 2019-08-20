@@ -16,6 +16,7 @@ class TimeController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();
         $times = Time::all();
         return view('times.index', compact('times'));
     }
@@ -43,15 +44,8 @@ class TimeController extends Controller
 
         ]);
 
-        $slug = str_slug($request->title, '_');
-        //cek slug ngga kembar
-        if(Time::where('slug', $slug)->first() != null)
-            $slug = $slug . '-'.time();
-
         $times = Time::create([
-            'title' => $request->title,
-            'slug' => $slug,
-            'user_id'=> Auth::user()->id
+            'title' => $request->title
         ]);
 
         return redirect('times')->with('msg', 'berhasil ditambahkan');
@@ -95,12 +89,9 @@ class TimeController extends Controller
         ]);
 
         $time= Time::findOrFail($id);
-        if ($time->isOwner())
             $time->update([
             'title'=> $request->title
         ]);
-
-        else abort(403);
 
         return redirect('times')->with('msg', 'kutipan berhasil diedit');
     }
@@ -114,9 +105,7 @@ class TimeController extends Controller
     public function destroy($id)
     {
         $time= Time::findOrFail($id);
-        if($time->isOwner())
-            $time->delete();
-        else abort(404);
+        $time->delete();
 
         return redirect('times')->with('msg', 'kutipan berhasil di hapus');
     }

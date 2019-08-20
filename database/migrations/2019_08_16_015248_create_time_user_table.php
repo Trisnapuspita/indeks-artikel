@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFormatsTable extends Migration
+class CreateTimeUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,12 @@ class CreateFormatsTable extends Migration
      */
     public function up()
     {
-        Schema::create('formats', function (Blueprint $table) {
+        Schema::create('time_user', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('title', 100);
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('time_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('time_id')->references('id')->on('times')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -27,6 +30,6 @@ class CreateFormatsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('formats');
+        Schema::dropIfExists('time_user');
     }
 }

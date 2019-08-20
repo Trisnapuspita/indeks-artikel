@@ -44,11 +44,12 @@
                                             <td>{{$type->id}}</td>
                                             <td>{{$type->title}}</td>
                                             <td>
-                                            @if($type->isOwner())
                                                 <a href='/types/{{$type->id}}/edit' class="btn btn-primary">Sunting</a>
-                                                <a href='/types' class="btn btn-danger">Hapus</a>
+                                                <form method="POST" action="/types/{{$type->id}}">
+                                                {{ csrf_field() }}
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <button type="submit" class="btn btn-danger">DELETE</button>
                                                 </form>
-                                            @endif
                                             </td>
                                         </tr>
                                     @endforeach

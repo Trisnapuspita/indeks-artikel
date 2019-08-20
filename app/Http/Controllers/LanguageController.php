@@ -16,6 +16,7 @@ class LanguageController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();
         $languages = Language::all();
         return view('languages.index', compact('languages'));
     }
@@ -43,15 +44,8 @@ class LanguageController extends Controller
 
         ]);
 
-        $slug = str_slug($request->title, '_');
-        //cek slug ngga kembar
-        if(Language::where('slug', $slug)->first() != null)
-            $slug = $slug . '-'.time();
-
         $languages = Language::create([
-            'title' => $request->title,
-            'slug' => $slug,
-            'user_id'=> Auth::user()->id
+            'title' => $request->title
         ]);
 
         return redirect('languages')->with('msg', 'berhasil ditambahkan');
@@ -95,12 +89,9 @@ class LanguageController extends Controller
         ]);
 
         $language= Language::findOrFail($id);
-        if ($language->isOwner())
             $language->update([
             'title'=> $request->title
         ]);
-
-        else abort(403);
 
         return redirect('languages')->with('msg', 'kutipan berhasil diedit');
     }
@@ -114,9 +105,7 @@ class LanguageController extends Controller
     public function destroy($id)
     {
         $language= Language::findOrFail($id);
-        if($language->isOwner())
-            $language->delete();
-        else abort(404);
+        $language->delete();
 
         return redirect('languages')->with('msg', 'kutipan berhasil di hapus');
     }
