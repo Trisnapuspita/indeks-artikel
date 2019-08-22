@@ -4,12 +4,11 @@
     --Patua: "Patua One", cursive;
     --Lobster: "lobster", cursive;
     --light-black: #2e2c2caf;
-    --bggradient: linear-gradient(to bottom, #e63e1c, #c71062);
     --light-gray: rgba(255, 255, 255, 0.877);
 }
 
 main {
-    background: var(--bggradient);
+    background: white;
     padding-top: 5%;
     padding-bottom: 5%;
 }

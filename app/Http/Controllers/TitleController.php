@@ -23,6 +23,7 @@ class TitleController extends Controller
     public function index()
     {
         $titles = Title::all();
+        $editions = EditionTitle::all();
         return view('titles.index', compact('titles', 'editions'));
     }
     
@@ -38,7 +39,6 @@ class TitleController extends Controller
     public function store(Request $request)
     {
         $this->validate(request(), [
-            'title'=>'required|min:2',
             'featured_img' => 'mimes:jpeg,jpg,png|max:1000'
         ]);
 
@@ -104,7 +104,6 @@ class TitleController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'title'=>'required|min:2',
             'featured_img' => 'mimes:jpeg,jpg,png|max:1000'
 
         ]);

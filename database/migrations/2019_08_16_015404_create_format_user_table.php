@@ -16,9 +16,9 @@ class CreateFormatUserTable extends Migration
         Schema::create('format_user', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('status_id');
+            $table->unsignedBigInteger('format_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('status_id')->references('id')->on('statuses')->onDelete('cascade');
+            $table->foreign('format_id')->references('id')->on('formats')->onDelete('cascade');
             $table->timestamps();
         });
     }

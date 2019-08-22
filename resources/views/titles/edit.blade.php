@@ -1,4 +1,4 @@
-@extends('layouts.coba')
+@extends('layouts.form')
 
 @section('content')
 <div id="content">   

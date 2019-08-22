@@ -48,6 +48,8 @@ class LanguageController extends Controller
             'title' => $request->title
         ]);
 
+
+
         return redirect('languages')->with('msg', 'berhasil ditambahkan');
     }
 

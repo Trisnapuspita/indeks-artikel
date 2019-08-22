@@ -67,4 +67,9 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Models\Title');
     }
 
+    public function editions()
+    {
+        return $this->hasMany('App\Models\EditionTitle');
+    }
+
 }

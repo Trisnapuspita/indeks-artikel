@@ -22,7 +22,6 @@ class EditionTitleController extends Controller
 
         $title = Title::findOrFail($id);
 
-
         $editions = EditionTitle::create([
             'user_id'=> Auth::user()->id,
             'edition_year'=>$request->edition_year,

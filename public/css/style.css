@@ -33,7 +33,7 @@ header .navbar-brand {
 }
 
 header .nav-link:hover {
-    color: rgb(201, 55, 176);
+    color: #407088;
 }
 
 header .row .col-md-7 {
@@ -50,7 +50,7 @@ header .row .col-md-5 img {
 }
 
 header {
-    background: var(--bggradient);
+    background: #132743;
 }
 
 header .container .col-md-7 {
@@ -146,4 +146,29 @@ footer .column i+i {
     background: rgba(0, 0, 0, 0.815);
     z-index: 9999;
     transition: all 1.5s ease;
+}
+
+#sidebar-wrapper {
+    height: 100%;
+}
+
+#sidebar-wrapper .sidebar-heading {
+    padding: 0.875rem 1.25rem;
+    font-size: 1.2rem;
+}
+
+#sidebar-wrapper .list-group {
+    width: 15rem;
+}
+
+.card-title1 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    color: black;
+}
+
+main .col-md-9 {
+    width: 100%;
+    height: 100%;
+    padding-right: 50px;
 }

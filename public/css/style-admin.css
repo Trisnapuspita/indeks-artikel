@@ -1,0 +1,255 @@
+@import url("https://fonts.googleapis.com/css?family=Acme|Lobster|Patua+One|Rubik|Sniglet");
+
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --Sniglet-font: "Sniglet", cursive;
+    --Rubik: "Rubik", cursive;
+    --Patua: "Patua One", cursive;
+    --Lobster: "lobster", cursive;
+    --light-black: #2e2c2caf;
+    --bggradient: linear-gradient(to bottom, #c71062, #e63e1c);
+    --light-gray: rgba(255, 255, 255, 0.877);
+}
+
+header a {
+    font-family: var(--Sniglet-font);
+    font-size: 1.1em;
+    color: whitesmoke;
+}
+
+header .nav-item:last-child {
+    padding-right: 1em;
+}
+
+header .nav-item {
+    padding: 0.9em;
+}
+
+header .navbar-brand {
+    padding-left: 2rem;
+}
+
+header .nav-link:hover {
+    color: #407088;
+}
+
+header .row .col-md-7 {
+    padding: 22vmin 1vmin;
+    padding-bottom: 35vmin;
+}
+
+header .row .col-md-5 {
+    padding: 4.2vmin 1vmin;
+}
+
+header .row .col-md-5 img {
+    width: 90%;
+}
+
+header {
+    background: #132743;
+}
+
+header .container .col-md-7 {
+    font-family: "Rubik", sans-serif;
+}
+
+header .container .col-md-7 h6 {
+    padding: 1vmin;
+    letter-spacing: 4px;
+}
+
+header .container .col-md-7 h1 {
+    font-size: 8.5vmin;
+    font-weight: bold;
+    padding: 0.1em 0em;
+}
+
+header .container .col-md-7 p {
+    padding: 1vmin 5vmin;
+}
+
+.imgBeranda {
+    background-image: url('../assets/bg10_opacity50.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.primary-btn {
+    border-radius: 0px;
+    font-weight: bold;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 2px 15px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.navbar-collapse {
+    width: 30px;
+    height: 0%;
+}
+
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.815);
+    z-index: 9999;
+    transition: all 1.5s ease;
+}
+
+#sidebar-wrapper {
+    height: 100%;
+}
+
+#sidebar-wrapper .sidebar-heading {
+    padding: 0.875rem 1.25rem;
+    font-size: 1.2rem;
+}
+
+#sidebar-wrapper .list-group {
+    width: 15rem;
+}
+
+
+.search {
+    padding-right: 45px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    padding-bottom: 2%;
+}
+
+.search-box {
+    width: 300px;
+}
+
+.box {
+    height: 29.31px;
+}
+
+
+.searchButton {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+}
+
+main {
+    font-family: var(--Rubik), sans-serif;
+    background: white;
+    padding-top: 2%;
+    padding-bottom: 5%;
+    height: 688px;
+}
+
+main .container .col-md-7 h6 {
+    padding: 1vmin;
+    letter-spacing: 4px;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+main .container .col-md-7 h1 {
+    font-size: 8.5vmin;
+    font-weight: bold;
+    padding: 0.1em 0em;
+    color: white;
+    letter-spacing: 10px;
+}
+
+main .form {
+    font-family: var(--Rubik);
+    height: 100%;
+    color: black;
+}
+
+.container {
+    padding-bottom: 10px;
+    padding-top: 30px;
+}
+
+.containerImgCover {
+    padding-left: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 45px;
+}
+
+.containerImgCover img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+img {
+    vertical-align: middle;
+}
+
+.card-title1 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    color: black;
+}
+
+main .col-md-9 {
+    width: 100%;
+    height: 100%;
+    padding-right: 60px;
+}
+
+footer {
+    background: rgba(0, 0, 0, 0.815);
+    overflow-x: hidden;
+    padding: 14vmin 18vmin;
+}
+
+footer p>span {
+    color: #ff512f;
+}
+
+footer input {
+    border: none !important;
+}
+
+footer input::placeholder {
+    color: white !important;
+}
+
+footer .input-group .input-group-text {
+    background: var(--bggradient);
+    border: none;
+}
+
+footer .column i {
+    color: #dd2476;
+}
+
+/* It is Adjacent sibling combinator */
+
+footer .column i+i {
+    padding: 0 0.5em;
+}

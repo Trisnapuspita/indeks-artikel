@@ -1,0 +1,22 @@
+.sumber-grid {
+    display: inline-flex;
+    grid-template-rows: 1fr, 2fr;
+    grid-auto-columns: minmax(100px, auto);
+    padding: 5%;
+}
+
+.konten-sumber {
+    padding-top: 3%;
+    padding-left: 5%;
+    width: 1000px;
+    height: 179.98px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.col-md-3 {
+    padding-left: 5%;
+}
+
+.img-sampul {
+    width: fit-content;
+}

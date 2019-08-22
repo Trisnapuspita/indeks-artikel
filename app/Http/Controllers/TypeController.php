@@ -37,17 +37,20 @@ class TypeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
         $this->validate($request, [
             'title' => 'required|min:3',
 
         ]);
 
+        $user = User::findOrFail($id);
+
         $types = Type::create([
             'title' => $request->title
         ]);
 
+        $types->users()->attach($id);
         return redirect('types')->with('msg', 'berhasil ditambahkan');
     }
 
@@ -71,6 +74,8 @@ class TypeController extends Controller
     public function edit($id)
     {
         $type= Type::findOrFail($id);
+        
+        $type->users()->sync($id);
         return view('types.edit', compact('type'));
     }
 

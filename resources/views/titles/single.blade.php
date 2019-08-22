@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.coba')
 
 @section('content')
 <div id="content">
@@ -18,7 +18,7 @@
                             <h5>Membuat Edisi Sumber</h5>
                         </header>
                         <div>
-                            <form class="form-horizontal" id="popup-validation" method="POST" action="/editions/{{$title->slug}}" enctype="multipart/form-data">
+                            <form class="form-horizontal" id="popup-validation" method="POST" action="/editions/{{$title->id}}" enctype="multipart/form-data">
                                 <div class="form-group">
                                     <label class="control-label col-lg-2">Keterangan Edisi :</label>
                                         <div class="col-lg-2">
@@ -57,38 +57,23 @@
                                 <div class="form-group">
                                     <label class="control-label col-lg-2">Tanggal Terbit Edisi * :</label>
                                     <div class="col-lg-2">
-                                        <select name="publish_date" value="{{old('publish_date')}}" class="validate[required] form-control">
-                                            <option type="number" min="1" max="31" value="">-- Tanggal --</option>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                            <option value="6">6</option>
-                                            <option value="7">7</option>
-                                            <option value="8">8</option>
-                                            <option value="9">9</option>
-                                            <option value="10">10</option>
-                                        </select>
+                                            <label >Tanggal
+                                                <input class="form-control" type="text" tabindex="6" 
+                                                name="publish_date" value="{{old('publish_date')}}">
+                                            </label>
+                                    </div>
+                                    <div class="col-lg-2">
+                                            <label >Bulan
+                                                <input class="form-control" type="text" tabindex="6" 
+                                                name="publish_month" value="{{old('publish_month')}}">
+                                            </label>
                                     </div>
                                     <br>
                                     <div class="col-lg-2">
-                                        <select class="validate[required] form-control"
-                                        name="publish_month" value="{{old('publish_month')}}">
-                                            <option value="option">-- Bulan --</option>
-                                            <option value="option1">Januari</option>
-                                            <option value="option2">Februari</option>
-                                            <option value="option3">Maret</option>
-                                            <option value="option4">April</option>
-                                            <option value="option5">Mei</option>
-                                            <option value="option1">Juni</option>
-                                            <option value="option2">Juli</option>
-                                            <option value="option3">Agustus</option>
-                                            <option value="option4">September</option>
-                                            <option value="option5">Oktober</option>
-                                            <option value="option4">November</option>
-                                            <option value="option5">Desember</option>
-                                        </select>
+                                    <label >Tanggal
+                                                <input class="form-control" type="text" tabindex="6" 
+                                                name="publish_date" value="{{old('publish_date')}}">
+                                            </label>
                                     </div>
                                     <br>
                                     <div class="col-lg-2">
@@ -135,13 +120,13 @@
 
                 <div class="row">
                 <div class="col-lg-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
+                    <div>
+                        <div>
                             Sumber Bacaan
                         </div>
-                        <div class="panel-body">
-                            <div class="table-responsive">
-                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                        <div>
+                            <div>
+                                <table>
                                     <thead>
                                         <tr>
                                             <th>No.</th>
@@ -152,6 +137,22 @@
                                             <th>    </th>
                                         </tr>
                                     </thead>
+                                    <tbody>
+                                    @foreach ($title->editions as $edition)
+                                        <tr>
+                                            <td>{{$edition->id}}</td>
+                                            <td><img src="{{asset('storage/upload/'. $edition->edition_image)}}" style="max-width: 150px; height: auto; "class="image-fluid"></td>
+                                            <td>{{$edition->edition_year}}</td>
+                                            <td>{{$edition->edition_title}}</td>
+                                            <td>Disana disini dimanamana</td>
+                                            <td>
+                                                <button href=" " class="btn btn-primary">Tambah</button>
+                                                <button type="submit" class="btn btn-danger">Hapus</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
                             </table>
                         </div>  
                     </div>

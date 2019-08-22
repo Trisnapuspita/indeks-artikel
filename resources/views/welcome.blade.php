@@ -2,15 +2,15 @@
 <html lang="en">
 
 <head>
+    <script src="https://kit.fontawesome.com/0543565c6e.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Indeks Artikel</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/responsive.css">
-    <link rel="stylesheet" href="../css/konten-menu.css">
+    <link rel="stylesheet" href="../../css/konten-menu.css">
+    <link rel="stylesheet" href="../../css/style-admin.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.7/css/mdb.min.css" rel="stylesheet">
 
 </head>
@@ -20,42 +20,72 @@
     <header>
         <!-- NAV BAR -->
         <div class="container-fluid p=0 align-content-center">
-        @if (Route::has('login'))
+		 @if (Route::has('login'))
             <nav class="navbar navbar-expand-lg">
                 <a class="navbar-brand" href="index.html">
-                    <img src="../img/logo-perpunas.png" width="33" height="30" class="d-inline-block align-top"
-                        alt="">Indeks Artikel
+                    <img src="../../assets/logo-perpunas.png" width="33" height="30" class="d-inline-block align-top"
+                        alt="">Indeks
+                    Artikel
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"><img src="../img/menu-2x.png"></span>
+                    <span class="navbar-toggler-icon"><img src="../../assets/menu-2x.png"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <div class="mr-auto"></div>
                     <ul class="navbar-nav">
                         <li class="nav-item active">
-                            <a class="nav-link" href="">Beranda <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="/home">Beranda <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="etalase.html">Etalase IA</a>
+                            <a class="nav-link" href="/etalase">Etalase IA</a>
                         </li>
-                        @auth
-                        <li class=" nav-item">
-                            <a class="nav-link" href="{{ url('/home') }}">Home</a>
+						@auth
+						 <li class="nav-item dropdown">
+                            <div class="dropdown">
+                                <a href="#" class="nav-link">Setting Master
+                                    <i class="fa fa-chevron-down" style="font-size: .8em;"></i></a>
+                                <div class="dropdown-content">
+                                    <a href="/types" style="width: 100%">Master Jenis</a>
+                                    <a href="/times" style="width: 100%">Kala Terbit</a>
+                                    <a href="/languages" style="width: 100%">Bahasa</a>
+                                    <a href="/formats" style="width: 100%">Format</a>
+                                    <a href="/statuses" style="width: 100%">Status Ketersediaan</a>
+                                </div>
+                            </div>
                         </li>
-                        @else
-                        <li class=" nav-item">
-                            <a class="nav-link" href="{{route('login')}}">Login</a>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/titles">Sumber</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/reports">Laporan Kinerja User</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <div class="dropdown">
+                                <a href="#" class="nav-link">
+                                    <i class="fa fa-user"></i>
+                                    {{ Auth::user()->name }}
+                                    <i class="fa fa-chevron-down" style="font-size: .8em;"></i></a>
+                                <div class="dropdown-content">
+                                    <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();" style="width: 100%">Logout</a>
+                                </div>
+                            </div>
+                        </li>
+						@else
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('login')}}"}}>Login</a>
                         </li>
                         @endauth
                     </ul>
                 </div>
-                @endauth
+			@endif
             </nav>
         </div>
+    </header>
 
-        <!-- CONTENT -->
-        <div class="container text-center">
+    <main class="imgBeranda">
+        <div class="container text-center" style="padding-top: 15%;">
             <div class="row">
                 <div class="col-lg-12 col-md-7">
                     <h6>Perpustakaan Nasional Republik Indonesia</h6>
@@ -82,7 +112,7 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-10 col-xl-1">
-                                    <input type="submit" class="btn btn-primary btn-block rounded" value="Telusuri">
+                                    <input type="submit" class="btn btn-dark btn-block rounded" value="Telusuri">
                                 </div>
                             </div>
                         </form>
@@ -90,13 +120,10 @@
                 </div>
             </div>
         </div>
-    </header>
-
-    <main>
     </main>
 
-    <!-- Footer -->
-    <footer>
+<!-- Footer -->
+<footer>
         <div class="container-fluid p-0">
             <div class="row text-left">
                 <div class="col-md-7 col-sm-3">
@@ -111,8 +138,9 @@
                 </div>
                 <div class="col-md-5 col-sm-12">
                     <div id="map-container" class="z-depth-1-half map-container mb-5" style="height: 400px"></div>
-                </div>s
+                </div>
     </footer>
+
 </body>
 
 </html>
