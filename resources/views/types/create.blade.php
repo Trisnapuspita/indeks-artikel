@@ -36,9 +36,17 @@ Indeks Artikel | Buat Master Jenis
 
                             {{csrf_field() }}
 
-                        <a type="submit" class="btn btn-dark"
-                        style="text-align: center; width:100%; color:white; font-size: 17px; font-weight: 2px">S i m p
-                        a n</a>
+
+                            <button type="submit" class="btn btn-dark"
+                                style="text-align: center; width:100%; color:white; font-size: 17px; font-weight: 2px">S i m p
+                            a n</button>
+                        
+
+                        {{--  <div class="form-group" style="text-align: center;">
+                            <button type="submit" class="btn btn-dark"
+                                style="text-align: center; width:100%; color:white; font-size: 17px; font-weight: 2px">S i m p
+                                a n</button>
+                        </div>  --}}
                     </div>
             </form>
         </div>

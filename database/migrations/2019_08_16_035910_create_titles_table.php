@@ -18,10 +18,11 @@ class CreateTitlesTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->text('title');
-            $table->string('slug', 120);
+            $table->string('slug', 155);
             $table->string('city');
             $table->string('publisher');
             $table->integer('year');
+            $table->integer('original_year');
             $table->string('featured_img');
             $table->timestamps();
         });

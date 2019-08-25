@@ -44,8 +44,17 @@ class LanguageController extends Controller
 
         ]);
 
+        $slug = str_slug($request->title, '_');
+
+        if(Language::where('slug', $slug)->first() != null)
+            $slug = $slug . '-'.time();
+
+            // $user = User::findOrFail($id);
+
         $languages = Language::create([
-            'title' => $request->title
+            'title' => $request->title,
+            'slug' => $slug,
+            'user_id'=> Auth::user()->id
         ]);
 
 

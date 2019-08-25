@@ -78,7 +78,9 @@
                     <th>Bahasa</th>
                     <th>Format</th>
                     <th>Jumlah Edisi</th>
+                    <th> </th>
                     <th>Jumlah Artikel</th>
+                    <th> </th>
                 </tr>
             </thead>
             <tbody>
@@ -105,7 +107,13 @@
                     <td>@foreach ($title->languages()->get() as $languages){{$languages->title}}@endforeach</td>
                     <td>@foreach ($title->formats()->get() as $formats){{$formats->title}}@endforeach</td>
                     <td> 5 </td>
+                    <td>
+                            <a href="/titles/{{$title->slug}}" class="btn btn-primary">Tambah</a>
+                    </td>
                     <td> 5 </td>
+                    <td>
+                            <a href="" class="btn btn-primary">Tambah</a>
+                    </td>
                 </tr>
                 @endforeach
             </tbody>

@@ -8,7 +8,7 @@ class Title extends Model
 {
     protected $fillable = [
         'user_id', 'type_id', 'time_id', 'language_id', 'format_id',
-        'title', 'slug', 'city', 'publisher', 'year', 'featured_img', 
+        'title', 'slug', 'city', 'publisher', 'year', 'featured_img', 'original_year'
     ];
 
     public function user()
@@ -46,5 +46,5 @@ class Title extends Model
         return $this->belongsToMany('App\Models\Status');
     }
 
-    
+
 }

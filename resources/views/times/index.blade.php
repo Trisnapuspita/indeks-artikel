@@ -18,22 +18,21 @@ Indeks Artikel | Master Kala Terbit
                 <li class="breadcrumb-item active" aria-current="page">Master Kala Terbit</li>
             </ol>
         </div>
-		
-		
+
+
 		<div class="container mb-5 mt-3">
                     <div class="col-lg-10">
                         <a class="btn btn-dark" href="/times/create">Tambah</a>
                         <a class="btn btn-dark" href=''>Import</a>
                     </div>
                 </div>
-				
+
         <div class="container mb-5 mt-3">
             <table class="table table-striped table-bordered" id="mydatatable">
                 <thead>
                     <tr>
                         <th scope="col">No</th>
                         <th scope="col">Nama Jenis</th>
-                        <th scope="col">Jumlah</th>
                         <th scope="col">Jumlah</th>
                         <th>Edit</th>
                     </tr>
@@ -58,7 +57,7 @@ Indeks Artikel | Master Kala Terbit
                 </tbody>
             </table>
         </div>
-				
+
         <div id="divTools" class="ToolsTable" style="padding: 2%">
             <table cellpadding="0" cellspacing="0">
                 <tbody>
@@ -88,5 +87,5 @@ Indeks Artikel | Master Kala Terbit
                 </tbody>
             </table>
         </div>
-    </menu>            
+    </menu>
 @endsection

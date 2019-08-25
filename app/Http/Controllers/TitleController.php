@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 
 class TitleController extends Controller
 {
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -26,7 +26,7 @@ class TitleController extends Controller
         $editions = EditionTitle::all();
         return view('titles.index', compact('titles', 'editions'));
     }
-    
+
     public function create()
     {
         $types = Type::all();
@@ -58,7 +58,8 @@ class TitleController extends Controller
             'city'=>$request->city,
             'publisher'=>$request->publisher,
             'year'=>$request->year,
-            'featured_img'=> $fileName
+            'featured_img'=> $fileName,
+            'original_year'=>$request->original_year
         ]);
 
         $title->types()->attach($request->types);
@@ -117,9 +118,10 @@ class TitleController extends Controller
                     'city'=>$request->city,
                     'publisher'=>$request->publisher,
                     'year'=>$request->year,
-                    'featured_img'=> $fileName
+                    'featured_img'=> $fileName,
+                    'original_year'=>$request->original_year
                 ]);
-        
+
         $title->types()->sync($request->types);
         $title->times()->sync($request->times);
         $title->languages()->sync($request->languages);
@@ -145,5 +147,5 @@ class TitleController extends Controller
         return redirect('titles')->with('msg', 'kutipan berhasil di hapus');
     }
 
-    
+
 }

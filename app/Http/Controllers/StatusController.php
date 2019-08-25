@@ -44,8 +44,17 @@ class StatusController extends Controller
 
         ]);
 
+        $slug = str_slug($request->title, '_');
+
+        if(Status::where('slug', $slug)->first() != null)
+            $slug = $slug . '-'.time();
+
+            // $user = User::findOrFail($id);
+
         $statuses = Status::create([
-            'title' => $request->title
+            'title' => $request->title,
+            'slug' => $slug,
+            'user_id'=> Auth::user()->id
         ]);
 
         return redirect('statuses')->with('msg', 'berhasil ditambahkan');

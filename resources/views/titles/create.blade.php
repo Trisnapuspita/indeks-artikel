@@ -21,22 +21,23 @@ Indeks Artikel | Buat Judul Sumber
                     Judul Sumber</h4>
                 <fieldset class="form-group">
                     <div class="row was-validated">
-                        <legend class="col-form-label col-sm-2 pt-0">Jenis*</legend>
-                        <div class="col-sm-10">
+                        <legend class="col-form-label col-sm-3 pt-0">Jenis*</legend>
+                        <div class="col-sm-8">
+                        @foreach ($types as $types)
                             <div class="form-check form-check-inline custom-control-inline custom-radio">
-								 @foreach ($types as $types)
                             <label class="form-check-label" for="types" >
                                 <input class="form-check-input" type="radio" value='{{$types->id}}' name="types[]" id="type_Select"required>{{$types->title}}
                                 </label>
-                                 @endforeach
                             </div>
+                            @endforeach
                         </div>
                     </div>
                 </fieldset>
-                <div class="form-group row was-validated">
-                    <label class="col-sm-2 col-form-label">Kala Terbit*</label>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Kala Terbit*</label>
                     <div class="col">
-                        <select class="form-control custom-select" name="times[]" id="time_Select" required>
+                        <select class="form-control" name="times[]" id="time_Select" required>
+                            <option disabled selected hidden>-- Pilih Kala Terbit --</option>
                             @foreach ($times as $times)
                                      <option value='{{$times->id}}'>{{$times->title}}</option>
                             @endforeach
@@ -44,14 +45,14 @@ Indeks Artikel | Buat Judul Sumber
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="inputEmail3" class="col-sm-2 col-form-label">Judul*</label>
-                    <div class="col-sm-10">
+                    <label for="inputEmail3" class="col-sm-3 col-form-label">Judul*</label>
+                    <div class="col">
                         <input type="text" class="form-control" id="title" name="title"
                          value="{{old('title')}}" placeholder="Tulis judul disini" required>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Penerbitan*</label>
+                    <label class="col-sm-3 col-form-label">Penerbitan*</label>
                     <div class="col">
                         <input type="text" class="form-control"  name="city" value="{{old('city')}}" placeholder="Kota Terbit">
                     </div>
@@ -63,10 +64,17 @@ Indeks Artikel | Buat Judul Sumber
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Bahasa*</label>
+                    <label for="inputEmail3" class="col-sm-3 col-form-label">Tahun Terbit Pertama*</label>
+                    <div class="col">
+                        <input type="text" class="form-control" id="original_year" name="original_year"
+                         value="{{old('original_year')}}" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Bahasa*</label>
                     <div class="col">
                         <select class="form-control" name="languages[]" id="language_Select">
-                            <option>Pilih Bahasa</option>
+                            <option disabled selected hidden>-- Pilih Bahasa --</option>
 							@foreach ($languages as $languages)
 								<option value='{{$languages->id}}'>{{$languages->title}}</option>
 							@endforeach
@@ -74,10 +82,10 @@ Indeks Artikel | Buat Judul Sumber
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="inputPassword3" class="col-sm-2 col-form-label">Format*</label>
+                    <label for="inputPassword3" class="col-sm-3 col-form-label">Format*</label>
                     <div class="col">
                         <select class="form-control" name="formats[]" id="format_Select">
-                            <option>Pilih Format</option>
+                            <option disabled selected hidden>-- Pilih Format --</option>
 							@foreach ($formats as $formats)
 								<option value='{{$formats->id}}'>{{$formats->title}}</option>
 							@endforeach
@@ -86,7 +94,7 @@ Indeks Artikel | Buat Judul Sumber
                 </div>
 
                 <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Gambar</label>
+                <label class="col-sm-3 col-form-label">Gambar</label>
                 <div class="col">
                     <input type="file" class="form-control-file" type="file" name="featured_img" id="featured_img">
 					  @if ($errors->has('featured_img'))
@@ -97,9 +105,9 @@ Indeks Artikel | Buat Judul Sumber
                     </div>
                 </div>
                 (*) Wajib Diisi
-                
+
                 {{ csrf_field() }}
-                
+
                 <div class="form-group" style="text-align: center;">
                     <button type="submit" class="btn btn-dark"
                         style="text-align: center; width:100%; color:white; font-size: 17px; font-weight: 2px">S i m p

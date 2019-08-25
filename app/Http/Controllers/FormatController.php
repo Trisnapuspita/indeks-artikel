@@ -44,8 +44,17 @@ class FormatController extends Controller
 
         ]);
 
+        $slug = str_slug($request->title, '_');
+
+        if(Format::where('slug', $slug)->first() != null)
+            $slug = $slug . '-'.time();
+
+            // $user = User::findOrFail($id);
+
         $formats = Format::create([
-            'title' => $request->title
+            'title' => $request->title,
+            'slug' => $slug,
+            'user_id'=> Auth::user()->id
         ]);
 
         return redirect('formats')->with('msg', 'berhasil ditambahkan');

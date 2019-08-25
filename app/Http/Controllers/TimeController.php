@@ -44,8 +44,17 @@ class TimeController extends Controller
 
         ]);
 
+        $slug = str_slug($request->title, '_');
+
+        if(Time::where('slug', $slug)->first() != null)
+            $slug = $slug . '-'.time();
+
+            // $user = User::findOrFail($id);
+
         $times = Time::create([
-            'title' => $request->title
+            'title' => $request->title,
+            'slug' => $slug,
+            'user_id'=> Auth::user()->id
         ]);
 
         return redirect('times')->with('msg', 'berhasil ditambahkan');

@@ -28,7 +28,7 @@
 
 .GridItem,
 .AutoGridItem:nth-child(odd) {
-    background-color: #e6e6e6;
+    background-color: whitesmoke;
 }
 
 .GridAltItem,
