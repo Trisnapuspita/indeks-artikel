@@ -20,15 +20,18 @@ class EditionTitleController extends Controller
         // dd('masuk');
 
         $slug = str_slug($request->edition_title, '_');
+        //$publish_month = array('1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12');
 
         //cek slug ngga kembar
         if(EditionTitle::where('slug', $slug)->first() != null)
             $slug = $slug . '-'.time();
+            
 
-        $fileName = time(). '.png';
-        $request->file('edition_image')->storeAs('public/upload', $fileName);
-        $title = Title::findOrfail($id);
-
+            $fileName = time(). '.png';
+            $request->file('edition_image')->storeAs('public/upload_title', $fileName);
+        $title = Title::find($id);
+        //dd($request->all());
+        // dd( auth()->user() );
         $editions = EditionTitle::create([
             'user_id'=> Auth::user()->id,
             'edition_year'=>$request->edition_year,
@@ -38,7 +41,6 @@ class EditionTitleController extends Controller
             'volume'=>$request->volume,
             'chapter'=>$request->chapter,
             'edition_no'=>$request->edition_no,
-            'year'=>$request->year,
             'publish_date'=>$request->publish_date,
             'publish_month'=>$request->publish_month,
             'publish_year'=>$request->publish_year,
@@ -46,7 +48,7 @@ class EditionTitleController extends Controller
             'call_number'=>$request->call_number,
             'edition_image'=> $fileName
         ]);
-        // dd('masuk');
+
         return redirect('/titles/'.$title->slug)->with('msg', 'berhasil ditambahkan');
     }
     public function show($id)
@@ -78,7 +80,8 @@ class EditionTitleController extends Controller
             'edition_image' => 'mimes:jpeg,jpg,png|max:1000'
         ]);
         $fileName = time(). '.png';
-        $request->file('edition_image')->storeAs('public/upload', $fileName);
+            $request->file('edition_image')->storeAs('public/upload_title', $fileName);
+
         $editions= EditionTitle::findOrFail($id);
         $editions->update([
             'edition_year'=>$request->edition_year,
@@ -91,10 +94,10 @@ class EditionTitleController extends Controller
             'publish_year'=>$request->publish_year,
             'original_date'=>$request->original_date,
             'call_data'=>$request->call_data,
-            'edition_image'=> $fileName
+            'edition_image'=> $fileName,
         ]);
 
-        return redirect('/titles/'. $editions->title->slug)->with('msg', 'kutipan berhasil diedit');
+        return redirect('/titles/'.$editions->title->slug)->with('msg', 'kutipan berhasil diedit');
     }
     /**
      * Remove the specified resource from storage.
@@ -106,7 +109,7 @@ class EditionTitleController extends Controller
     {
         $editions= EditionTitle::findOrFail($id);
         $editions->delete();
-        return redirect('/titles/'. $editions->title->slug)->with('msg', 'kutipan berhasil di hapus');
+        return redirect('/titles/'.$editions->title->slug)->with('msg', 'kutipan berhasil di hapus');
     }
 
 }

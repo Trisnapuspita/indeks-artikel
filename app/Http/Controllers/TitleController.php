@@ -42,14 +42,25 @@ class TitleController extends Controller
             'featured_img' => 'mimes:jpeg,jpg,png|max:1000'
         ]);
 
+
         $slug = str_slug($request->title, '_');
 
         //cek slug ngga kembar
         if(Title::where('slug', $slug)->first() != null)
             $slug = $slug . '-'.time();
 
-        $fileName = time(). '.png';
-        $request->file('featured_img')->storeAs('public/upload', $fileName);
+            $fileName = null;
+
+            if($request->featured_img != null) {
+                $fileName = $request->featured_img->getClientOriginalName();
+                $request->featured_img->storeAs('public/upload', $fileName);
+            }
+            // else {
+            //     $fileName = $title->featured_img;
+            // }
+
+        // $fileName = time(). '.png';
+        // $request->file('featured_img')->storeAs('public/upload', $fileName);
 
         $title = Title::create([
             'user_id'=> Auth::user()->id,
@@ -108,11 +119,20 @@ class TitleController extends Controller
             'featured_img' => 'mimes:jpeg,jpg,png|max:1000'
 
         ]);
+        $fileName = null;
+        $title= Title::find($id);
 
-        $fileName = time(). '.png';
-        $request->file('featured_img')->storeAs('public/upload', $fileName);
+        if($request->featured_img != null) {
+            $fileName = $request->gambar->getClientOriginalName();
+            $request->gambar->storeAs('public/upload', $fileName);
+        }else {
+            $fileName = $title->featured_img;
+        }
 
-        $title= Title::findOrFail($id);
+        // $fileName = time(). '.png';
+        // $request->file('featured_img')->storeAs('public/upload', $fileName);
+
+
         $title->update([
                     'title'=>$request->title,
                     'city'=>$request->city,

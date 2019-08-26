@@ -53,20 +53,20 @@ Indeks Artikel | Buat Edisi Sumber
                                         <input class="form-control" type="text" name="publish_date" placeholder="Tanggal" value="{{ old('publish_date') }}">
                                     </div>
                                     <div class="col-sm-2">
-                                            <select class="validate[required] form-control" name="publish_month[]" id="month_selected"  value="{{old('publish_month')}}">
+                                            <select class=" form-control" name="publish_month[]" id="month_selected"  >
                                                 <option value="" disabled selected hidden>-- Bulan --</option>
-                                                <option value="option1">Januari</option>
-                                                <option value="option2">Februari</option>
-                                                <option value="option3">Maret</option>
-                                                <option value="option4">April</option>
-                                                <option value="option5">Mei</option>
-                                                <option value="option1">Juni</option>
-                                                <option value="option2">Juli</option>
-                                                <option value="option3">Agustus</option>
-                                                <option value="option4">September</option>
-                                                <option value="option5">Oktober</option>
-                                                <option value="option4">November</option>
-                                                <option value="option5">Desember</option>
+                                                <option value="1">Januari</option>
+                                                <option value="2">Februari</option>
+                                                <option value="3">Maret</option>
+                                                <option value="4">April</option>
+                                                <option value="5">Mei</option>
+                                                <option value="6">Juni</option>
+                                                <option value="7">Juli</option>
+                                                <option value="8">Agustus</option>
+                                                <option value="9">September</option>
+                                                <option value="10">Oktober</option>
+                                                <option value="11">November</option>
+                                                <option value="12">Desember</option>
                                             </select>
                                         </div>
                                     <div class="col-sm-2">
@@ -91,12 +91,12 @@ Indeks Artikel | Buat Edisi Sumber
                             398
                             x 560 pixel</label>
                             <div class="col">
-                                <input type="file" class="form-control-file" type="file" name="edition_image" >
+                                <input type="file" class="form-control-file" type="file" name="edition_image" id="edition_image">
                                   @if ($errors->has('edition_image'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('edition_image') }}</strong>
-                                    </span>
-                                  @endif
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('edition_image') }}</strong>
+                                </span>
+                                @endif
                             </div>
                     </div>
 
