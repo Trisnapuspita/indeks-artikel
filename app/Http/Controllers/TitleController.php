@@ -58,6 +58,7 @@ class TitleController extends Controller
             'city'=>$request->city,
             'publisher'=>$request->publisher,
             'year'=>$request->year,
+            'first_year'=>$request->first_year,
             'featured_img'=> $fileName
         ]);
 

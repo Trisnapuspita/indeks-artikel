@@ -60,11 +60,11 @@
         </table>
         <div class="createnew" style="padding-bottom: 10px">
             <a href="/titles/create"><button>Tambah Sumber</button></a>
-            <button>Import Sumber</button>
+            <a href=""><button>Import</button></a>
         </div>
         <table class="Grid" cellspacing="0" cellpadding="4" id="ContentPlaceHolder1_dgData"
             style="font-family:Tahoma;font-size:12px;width:100%;border-collapse:collapse;">
-            <thead>
+           <thead>
                 <tr class="GridHeader">
                     <th>No.</th>
                     <th>Gambar</th>
@@ -75,39 +75,37 @@
                     <th>Tempat Terbit</th>
                     <th>Penerbit</th>
                     <th>Tahun Terbit</th>
+                    <th>Tahun Terbit Pertama</th>
                     <th>Bahasa</th>
                     <th>Format</th>
                     <th>Jumlah Edisi</th>
                     <th>Jumlah Artikel</th>
                 </tr>
-            </thead>
-            <tbody>
-            @foreach ($titles as $title)
+			</head>
+			<tbody>
+			@foreach ($titles as $title)
                 <tr class="GridItem">
-                    <td>{{$title->id}}</td>
+                    <td style="width:20px; text-align: center">{{$title->id}}</td>
                     <td><img src="{{asset('storage/upload/'. $title->featured_img) }}" style="max-width: 150px; height: auto; "class="image-fluid"></td>
-                    <td>{{$title->title}}</td>
-                    <td>
-                    <div class="col-md-2">
-                            <p><a href="/titles/{{$title->id}}/edit" class="btn btn-primary">EDIT</a></p>
-                        <form method="POST" action="/titles/{{$title->id}}">
+                    <td style="width:300px; text-align: center"><a href="/titles/{{$title->slug}}">{{$title->title}}</a></td>
+                    <td style="width:100px;text-align: center">
+						<a href="/titles/{{$title->id}}/edit"><button class="fa fa-pencil"></button></a>
+						<a><form method="POST" action="/titles/{{$title->id}}">
                         {{ csrf_field() }}
-                        <input type="hidden" name="_method" value="DELETE">
-                        <button type="submit" class="btn btn-danger">DELETE</button>
-                        </form>
-                    </div>
-                    </td>
-                    <td>@foreach ($title->types()->get() as $types){{$types->title}}@endforeach</td>
-                    <td>@foreach ($title->times()->get() as $times){{$times->title}}@endforeach</td>
-                    <td>{{$title->city}}</td>
-                    <td>{{$title->publisher}}</td>
-                    <td>{{$title->year}}</td>
-                    <td>@foreach ($title->languages()->get() as $languages){{$languages->title}}@endforeach</td>
-                    <td>@foreach ($title->formats()->get() as $formats){{$formats->title}}@endforeach</td>
-                    <td> 5 </td>
-                    <td> 5 </td>
+							<input type="hidden" name="_method" value="DELETE">
+							<button type="submit" class="fa fa-trash"></button></form></a></td>
+                    <td style="width:150px; text-align: center">@foreach ($title->types()->get() as $types){{$types->title}}@endforeach</td>
+                    <td style="width:150px; text-align: center">@foreach ($title->times()->get() as $times){{$times->title}}@endforeach</td>
+                    <td style="width:150px; text-align: center">{{$title->city}}</td>
+                    <td style="width:150px;text-align: center">{{$title->publisher}}</td>
+                    <td style="width:150px; text-align: center">{{$title->year}}</td>
+                    <td style="width:150px; text-align: center">{{$title->first_year}}</td>
+                    <td style="width:100px; text-align: center">@foreach ($title->languages()->get() as $languages){{$languages->title}}@endforeach</td>
+                    <td style="width:100px; text-align: center">@foreach ($title->formats()->get() as $formats){{$formats->title}}@endforeach</td>
+                    <td style="width:100px; text-align: center">-<a href="/editions/create"><button style="float: right"><strong>+</strong></button></a></td>
+                    <td style="width:100px; text-align: center">-<a href="/articles/create"><button style="float: right"><strong>+</strong></button></a></td>
                 </tr>
-                @endforeach
+				 @endforeach
             </tbody>
         </table>
         <nav style="padding-top:10px;">

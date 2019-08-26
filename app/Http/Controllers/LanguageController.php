@@ -16,7 +16,6 @@ class LanguageController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
         $languages = Language::all();
         return view('languages.index', compact('languages'));
     }
@@ -45,6 +44,7 @@ class LanguageController extends Controller
         ]);
 
         $languages = Language::create([
+            'user_id'=> Auth::user()->id,
             'title' => $request->title
         ]);
 

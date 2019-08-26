@@ -32,14 +32,15 @@ Indeks Artikel | Buat Master Format
                         <label for="inputEmail3" class="col-sm-2 col-form-label">Nama*</label>
                             <div class="col-sm-10">
                                 <input type="text" name="title" class="form-control" value="{{old('title')}}" placeholder="tulis nama disini" required>
-                            </div>
-
-                            {{csrf_field() }}
-
-                        <a type="submit" class="btn btn-dark"
-                        style="text-align: center; width:100%; color:white; font-size: 17px; font-weight: 2px">S i m p
-                        a n</a>
+                            </div> 
                     </div>
+
+                    {{csrf_field() }}
+                    <div class="form-group" style="text-align: center;">
+                        <button type="submit" class="btn btn-dark"
+                            style="text-align: center; width:100%; color:white; font-size: 17px; font-weight: 2px">S i m p
+                                a n</button>
+                </div>
             </form>
         </div>
 </main>

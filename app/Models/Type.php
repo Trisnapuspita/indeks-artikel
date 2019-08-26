@@ -9,9 +9,9 @@ class Type extends Model
     protected $fillable = [
         'title', 'user_id'
     ];
-    public function users()
+    public function user()
     {
-        return $this->belongsToMany('App\Models\User');
+        return $this->belongsTo('App\Models\User');
     }
 
     public function titles()

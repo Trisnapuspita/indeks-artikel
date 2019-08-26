@@ -16,7 +16,6 @@ class StatusController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
         $statuses = Status::all();
         return view('statuses.index', compact('statuses'));
     }
@@ -41,10 +40,10 @@ class StatusController extends Controller
     {
         $this->validate($request, [
             'title' => 'required|min:3',
-
         ]);
 
         $statuses = Status::create([
+            'user_id'=> Auth::user()->id,
             'title' => $request->title
         ]);
 

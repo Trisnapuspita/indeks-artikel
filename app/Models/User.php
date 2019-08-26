@@ -39,27 +39,27 @@ class User extends Authenticatable
 
     public function types()
     {
-        return $this->belongsToMany('App\Models\Type');
+        return $this->hasMany('App\Models\Type');
     }
 
     public function times()
     {
-        return $this->belongsToMany('App\Models\Time');
+        return $this->hasMany('App\Models\Time');
     }
 
     public function languages()
     {
-        return $this->belongsToMany('App\Models\Language');
+        return $this->hasMany('App\Models\Language');
     }
 
     public function formats()
     {
-        return $this->belongsToMany('App\Models\Format');
+        return $this->hasMany('App\Models\Format');
     }
 
     public function statuses()
     {
-        return $this->belongsToMany('App\Models\Status');
+        return $this->hasMany('App\Models\Status');
     }
 
     public function titles()
@@ -70,6 +70,11 @@ class User extends Authenticatable
     public function editions()
     {
         return $this->hasMany('App\Models\EditionTitle');
+    }
+
+    public function articles()
+    {
+        return $this->hasMany('App\Models\ArticleEdition');
     }
 
 }

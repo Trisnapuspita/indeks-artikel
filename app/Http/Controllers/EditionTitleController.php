@@ -16,7 +16,12 @@ class EditionTitleController extends Controller
             'edition_image' => 'mimes:jpeg,jpg,png|max:1000'
         ]);
 
-        
+        $slug = str_slug($request->edition_title, '_');
+
+        //cek slug ngga kembar
+        if(Title::where('slug', $slug)->first() != null)
+            $slug = $slug . '-'.time();
+
         $fileName = time(). '.png';
         $request->file('edition_image')->storeAs('public/upload', $fileName);
 
@@ -26,6 +31,7 @@ class EditionTitleController extends Controller
             'user_id'=> Auth::user()->id,
             'edition_year'=>$request->edition_year,
             'edition_title'=>$request->edition_title,
+            'slug'=>$slug,
             'title_id' => $id,
             'volume'=>$request->volume,
             'chapter'=>$request->chapter,
@@ -41,9 +47,10 @@ class EditionTitleController extends Controller
         return redirect('/titles/'.$title->slug)->with('msg', 'berhasil ditambahkan');
     }
 
-    public function show($id)
+    public function show($slug)
     {
-        //
+        $editions= EditionTitle::with('articles')->where('slug', $slug)->first();
+        return view('editions.single', compact('editions'));
     }
 
     /**
@@ -91,21 +98,15 @@ class EditionTitleController extends Controller
             'edition_image'=> $fileName
         ]);
         
-        return redirect('/editions/'. $editions->title->slug)->with('msg', 'kutipan berhasil diedit');
+        return redirect('/titles/'. $editions->title->slug)->with('msg', 'kutipan berhasil diedit');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $editions= EditionTitle::findOrFail($id);
         $editions->delete();
 
-        return redirect('/editions/'. $editions->title->slug)->with('msg', 'kutipan berhasil di hapus');
+        return redirect('/titles/'. $editions->title->slug)->with('msg', 'kutipan berhasil di hapus');
     }
 
     

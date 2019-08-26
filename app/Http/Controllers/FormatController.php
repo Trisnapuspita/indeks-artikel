@@ -16,7 +16,6 @@ class FormatController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
         $formats = Format::all();
         return view('formats.index', compact('formats'));
     }
@@ -45,6 +44,7 @@ class FormatController extends Controller
         ]);
 
         $formats = Format::create([
+            'user_id'=> Auth::user()->id,
             'title' => $request->title
         ]);
 

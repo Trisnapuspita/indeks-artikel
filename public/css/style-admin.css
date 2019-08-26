@@ -73,7 +73,7 @@ header .container .col-md-7 p {
 }
 
 .imgBeranda {
-    background-image: url('../assets/bg10_opacity50.jpg');
+    background-image: url('../../img/bg10_opacity50.jpg');
     background-repeat: no-repeat;
     background-size: cover;
 }

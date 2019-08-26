@@ -16,7 +16,6 @@ class TimeController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
         $times = Time::all();
         return view('times.index', compact('times'));
     }
@@ -45,6 +44,7 @@ class TimeController extends Controller
         ]);
 
         $times = Time::create([
+            'user_id'=> Auth::user()->id,
             'title' => $request->title
         ]);
 
