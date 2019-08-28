@@ -1,60 +1,67 @@
 @extends('layouts.mix')
 
 @section('title')
-Indeks Artikel | Buat Edisi Sumber
+Indeks Artikel | Edisi
 @endsection
 
 @section('content')
 <main style="background: white; padding: 45px">
         <div class="mr-auto" style="padding-bottom:10px;">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/home">Beranda</a></li>
-                <li class="breadcrumb-item"><a href="/titles">Sumber</a></li>
-                <li class="breadcrumb-item active" aria-current="page"></li>
+                <li class="breadcrumb-item"><a href="beranda-user.html">Beranda</a></li>
+                <li class="breadcrumb-item"><a href="sumber.html">Sumber</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Tempo : Madjalah Berita Mingguan</li>
             </ol>
         </div>
         <a data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
             aria-controls="collapseExample">
             <h5
-                style="width: 100%;background: whitesmoke; height: 50px; padding-top:15px; padding-left: 15px; border-radius: 4px">
-                Buat Edisi Sumber
-                <i class="fas fa-angle-down" style="padding-right: 20px; float: right"></i></h5>
+                style="width: 100%;background: whitesmoke; height: 50px; padding-top:15px; padding-left: 15px; border-radius: 4px">Tambah Edisi<i class="fas fa-angle-down" style="padding-right: 20px; float: right"></i></h5>
         </a>
         <div id="collapseExample">
             <div class="container" style="background:whitesmoke;-webkit-box-shadow: 0px 0px 17px -4px rgba(0,0,0,0.75);
         -moz-box-shadow: 0px 0px 17px -4px rgba(0,0,0,0.75);
         box-shadow: 0px 0px 17px -4px rgba(0,0,0,0.75);">
-                <form class="form" method="POST" action="/editions/{{$title->id}}" enctype="multipart/form-data">
-                    <h4 style="font-weight: bold; padding-bottom:10px; text-align:center;color: black">Data
-                        Edisi Sumber</h4>
-
+                 <form class="form-horizontal" id="popup-validation" method="POST" action="/editions/{{$title->id}}" enctype="multipart/form-data">
+                    <h4 style="font-weight: bold; padding-bottom:10px; text-align:center;color: black">Data Edisi Sumber</h4>
+                    <fieldset class="form-group">
                         <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Keterangan Edisi</label>
+                            <label class="col-sm-2 col-form-label">Keterangan Edisi</label>
                             <div class="col">
-                                <input class="form-control" type="text" name="edition_year" placeholder="Tahun" value="{{ old('edition_year') }}">
+                                <input class="form-control" type="text" placeholder="Tahun"
+								 name="edition_year" value="{{old('edition_year')}}">
                             </div>
                             <div class="col">
-                                <input class="form-control" type="text" name="edition_title" placeholder="Edisi" value="{{ old('edition_title') }}">
+                                <input class="form-control" type="text" placeholder="Edisi"
+								name="edition_title" value="{{old('edition_title')}}">
                             </div>
                             <div class="col">
-                                <input class="form-control" type="text" name="volume" placeholder="Volume" value="{{ old('volume') }}">
+                                <input class="form-control" type="text" placeholder="Volume"
+								name="volume" value="{{old('volume')}}">
                             </div>
                             <div class="col">
-                                <input class="form-control" type="text" name="chapter" placeholder="Jilid" value="{{ old('chapter') }}">
+                                <input class="form-control" type="text" placeholder="Jilid"
+								name="chapter" value="{{old('chapter')}}">
                             </div>
                             <div class="col">
-                                <input class="form-control" type="text" name="edition_no" placeholder="No" value="{{ old('edition_no') }}">
+                                <input class="form-control" type="text" placeholder="No"
+								name="edition_no" value="{{old('edition_no')}}">
                             </div>
                         </div>
 
                         <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Tanggal Terbit Edisi*</label>
-                                <div class="col-sm-2">
-                                        <input class="form-control" type="text" name="publish_date" placeholder="Tanggal" value="{{ old('publish_date') }}">
+                            <label class="col-sm-2 col-form-label" for="validationServer03">Tanggal Terbit
+                                Edisi*</label>
+                             <div class="col-lg-2">
+                                            <label >Tanggal
+                                                <input class="form-control" type="text" tabindex="6"
+                                                name="publish_date" value="{{old('publish_date')}}" placeholder="Tanggal">
+                                            </label>
                                     </div>
-                                    <div class="col-sm-2">
-                                            <select class=" form-control" name="publish_month[]" id="month_selected"  >
-                                                <option value="" disabled selected hidden>-- Bulan --</option>
+                                    <div class="col-lg-2">
+                                            <label >Bulan
+                                            <select class="form-control custom-select"name="publish_month" id="publish_month_Select" required>
+                                                <option disabled selected hidden>Pilih Bulan</option>
                                                 <option value="1">Januari</option>
                                                 <option value="2">Februari</option>
                                                 <option value="3">Maret</option>
@@ -68,44 +75,50 @@ Indeks Artikel | Buat Edisi Sumber
                                                 <option value="11">November</option>
                                                 <option value="12">Desember</option>
                                             </select>
-                                        </div>
-                                    <div class="col-sm-2">
-                                        <input class="form-control" type="text" name="publish_year" placeholder="Tahun" value="{{ old('publish_year') }}">
+                                            </label>
                                     </div>
-                            </div>
-
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Penulisan Tanggal Asli*</label>
-                        <div class="col">
-                            <input class="form-control" type="text" name="original_date" placeholder="" value="{{ old('original_date') }}" required >
+                                    <br>
+                                    <div class="col-lg-2">
+                                    <label >Tahun
+                                                <input class="form-control" type="text" tabindex="6"
+                                                name="publish_year" value="{{old('publish_year')}}" placeholder="Tahun">
+                                            </label>
+                                    </div>
+							</div>
+                    </fieldset>
+                    <div class="form-group row was-validated">
+                        <label class="col-sm-2 col-form-label">Penulisan Tanggal Asli*</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" type="text" placeholder=""  name="original_date" value="{{old('original_date')}}" required>
                         </div>
                     </div>
-                    <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">No. Panggil*</label>
-                            <div class="col">
-                                <input class="form-control" type="text" name="call_number" placeholder="" value="{{ old('call_number') }}" required >
-                            </div>
+                    <div class="form-group row was-validated">
+                        <label class="col-sm-2 col-form-label" for="validationServer03">No. Panggil*</label>
+                        <div class="col-sm-10">
+                            <input class="form-control is-invalid" type="text" placeholder="" name="call_number" value="{{old('call_number')}}"
+                                required>
                         </div>
-                    <div class="form-group">
-                        <label for="exampleFormControlFile1" style="font-weight: bold">Masukan foto sampul dengan ukuran
-                            398
-                            x 560 pixel</label>
-                            <div class="col">
-                                <input type="file" class="form-control-file" type="file" name="edition_image" id="edition_image">
-                                  @if ($errors->has('edition_image'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('edition_image') }}</strong>
-                                </span>
-                                @endif
+                    </div>
+                    <div class="form-group row was-validated">
+                        <label class="col-sm-2 col-form-label">Gambar :</label>
+                        <div class="col-sm-10">
+						<input type="file" name="edition_image" id="edition_image">
+						@if ($errors->has('edition_image'))
+							<span class="help-block">
+								<strong>{{ $errors->first('edition_image') }}</strong>
+							</span>
+							@endif
                             </div>
                     </div>
-
-                    (*) Wajib Diisi
 
                     {{ csrf_field() }}
-                    <div class="form-group" style="text-align: center;">
+
+                    (*) Wajib Diisi
+                    <div class="form-group" style="text-align: center">
                         <button type="submit" class="btn btn-dark"
-                            style="text-align: center; width:100%; color:white; font-size: 17px; font-weight: 2px">S i m p a n</button>
+                            style="text-align: center; width:100%; color:white; font-size: 17px; font-weight: 2px">
+                            Simpan
+                        </button>
                     </div>
                 </form>
             </div>
@@ -141,6 +154,7 @@ Indeks Artikel | Buat Edisi Sumber
                                             <option value="6">Nomor</option>
                                             <option value="7">Tanggal</option>
                                             <option value="8">Nomor Panggil</option>
+                                            <option value="8"> </option>
                                         </select>
                                     </td>
                                     <td>
@@ -161,44 +175,50 @@ Indeks Artikel | Buat Edisi Sumber
         </table>
         <table class="Grid" cellspacing="0" cellpadding="4"
             style="font-family:Tahoma;font-size:12px;width:100%;border-collapse:collapse;">
-            <tbody>
+            <thead>
                 <tr class="GridHeader" style="text-align: center">
-                    <td>No.</td>
-                    <td>Gambar</td>
-                    <td>Keterangan Edisi</td>
-                    <td>Tahun</td>
-                    <td>Edisi</td>
-                    <td>Volume</td>
-                    <td>Jilid</td>
-                    <td>Nomor</td>
-                    <td>Tanggal</td>
-                    <td>Nomor Panggil</td>
-                    <td>Judul Sumber</td>
-                    <td>Jml Artikel</td>
-                    <td>&nbsp;</td>
+                    <th>No</th>
+                    <th>Gambar</th>
+                    <th>Keterangan Edisi</th>
+                    <th>Tahun</th>
+                    <th>Edisi</th>
+                    <th>Volume</th>
+                    <th>Jilid</th>
+                    <th>Nomor</th>
+                    <th>Tanggal</th>
+                    <th>Nomor Panggil</th>
+                    <th>Judul Artikel</th>
+                    <th>Jumlah Artikel</th>
+                    <th>Action</th>
                 </tr>
-                @foreach ($title->editions as $edition)
+			</thead>
+			<tbody>
+            @php $i=1 @endphp
+            @foreach ($title->editions as $edition)
                 <tr class="GridItem">
-                    <td style="width:20px;text-align: center">{{ $edition->id }}</td>
+                    <td style="width:20px;text-align: center">{{$i++}}</td>
                     <td><img src="{{asset('storage/upload/'. $edition->edition_image) }}" style="max-width: 150px; height: auto; "class="image-fluid"></td>
-                    <td style="width:300px;"><a href="data-edisi.html">{{ $edition->edition_year }}, {{ $edition->edition_no }}, {{ $edition->original_date }}</a></td>
-                    <td style="width:100px;">{{ $edition->edition_year }}</td>
-                    <td style="width:100px;">{{ $edition->edition_title }}</td>
-                    <td style="width:100px;">{{ $edition->volume }}</td>
-                    <td style="width:100px;">{{ $edition->chapter }}</td>
-                    <td style="width:100px;">{{ $edition->edition_no }}</td>
-                    <td style="width:150px;">{{ $edition->original_date }}</td>
-                    <td style="width:150px;">{{ $edition->call_number }}</td>
-
-                    <td style="width:300px;">
-                        disini aja
-                        {{--  {{ $title->title }}  --}}
-                    </td>
-                    <td style="width:100px;">
-                        49
-                    </td>
+                    <td style="width:300px;"><a href="/editions/{{$edition->slug}}">{{$edition->edition_year}}, {{$edition->edition_no}}, {{$edition->original_date}}</a></td>
+                    <td style="width:100px;">{{$edition->edition_year}}</td>
+                    <td style="width:100px;">{{$edition->edition_title}}</td>
+                    <td style="width:100px;">{{$edition->volume}}</td>
+                    <td style="width:100px;">{{$edition->chapter}}</td>
+                    <td style="width:100px;">{{$edition->edition_no}}</td>
+                    <td style="width:150px;">{{$edition->original_date}}</td>
+                    <td style="width:150px;">{{$edition->call_number}}</td>
+                    <td style="width:300px;">TEMPO : Madjalah Berita Mingguan</td>
+                    <td style="width:100px;">49</td>
                     <td style="width:100px; text-align: center;">
-                        <button>Hapus</button>
+                    <div class="row" style="text-align: center">
+                        <div>
+                            <a href='/editions/{{$edition->id}}/edit'><button>Sunting</button></a>
+                            <br>
+                            <form method="POST" action="/editions/{{$edition->id}}">
+                                    {{ csrf_field() }}
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <button type="submit">Hapus</button>
+                                </form>
+                            </div>
                     </td>
                 </tr>
                 @endforeach

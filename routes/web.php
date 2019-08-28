@@ -10,13 +10,25 @@ Route::group(['middleware' => 'auth'], function() {
     Route::resource('titles', 'TitleController', ['except' => ['index', 'show']]);
     Route::post('/editions/{id}', 'EditionTitleController@store');
     Route::put('/editions/{id}', 'EditionTitleController@update');
+    Route::get('/editions/{slug}', 'EditionTitleController@show');
     Route::get('/editions/{id}/edit', 'EditionTitleController@edit');
     Route::delete('/editions/{id}', 'EditionTitleController@destroy');
-    
+    Route::post('/articles/{id}', 'ArticleEditionController@store');
+    Route::put('/articles/{id}', 'ArticleEditionController@update');
+    Route::get('/articles/{id}/edit', 'ArticleEditionController@edit');
+    Route::delete('/articles/{id}', 'ArticleEditionController@destroy');
 });
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('/etalase', function () {
+    return view('etalase');
+});
+
+Route::get('/report', function () {
+    return view('report');
 });
 
 Auth::routes();

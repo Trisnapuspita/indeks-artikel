@@ -16,7 +16,6 @@ class FormatController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
         $formats = Format::all();
         return view('formats.index', compact('formats'));
     }
@@ -44,17 +43,16 @@ class FormatController extends Controller
 
         ]);
 
-        $slug = str_slug($request->title, '_');
+        // $slug = str_slug($request->title, '_');
 
-        if(Format::where('slug', $slug)->first() != null)
-            $slug = $slug . '-'.time();
+        // if(Format::where('slug', $slug)->first() != null)
+        //     $slug = $slug . '-'.time();
 
             // $user = User::findOrFail($id);
 
         $formats = Format::create([
-            'title' => $request->title,
-            'slug' => $slug,
-            'user_id'=> Auth::user()->id
+            'user_id'=> Auth::user()->id,
+            'title' => $request->title
         ]);
 
         return redirect('formats')->with('msg', 'berhasil ditambahkan');

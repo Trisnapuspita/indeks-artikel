@@ -16,7 +16,6 @@ class TypeController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
         $types = Type::all();
         return view('types.index', compact('types'));
     }
@@ -44,20 +43,11 @@ class TypeController extends Controller
 
         ]);
 
-        $slug = str_slug($request->title, '_');
-
-        if(Type::where('slug', $slug)->first() != null)
-            $slug = $slug . '-'.time();
-
-        // $user = User::findOrFail($id);
-
         $types = Type::create([
-            'title' => $request->title,
-            'slug' => $slug,
-            'user_id'=> Auth::user()->id
+            'user_id'=> Auth::user()->id,
+            'title' => $request->title
         ]);
 
-        // $types->users()->attach($id);
         return redirect('types')->with('msg', 'berhasil ditambahkan');
     }
 
@@ -81,8 +71,6 @@ class TypeController extends Controller
     public function edit($id)
     {
         $type= Type::findOrFail($id);
-
-        $type->users()->sync($id);
         return view('types.edit', compact('type'));
     }
 

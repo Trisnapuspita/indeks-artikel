@@ -16,7 +16,6 @@ class LanguageController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
         $languages = Language::all();
         return view('languages.index', compact('languages'));
     }
@@ -44,17 +43,16 @@ class LanguageController extends Controller
 
         ]);
 
-        $slug = str_slug($request->title, '_');
+        // $slug = str_slug($request->title, '_');
 
-        if(Language::where('slug', $slug)->first() != null)
-            $slug = $slug . '-'.time();
+        // if(Language::where('slug', $slug)->first() != null)
+        //     $slug = $slug . '-'.time();
 
             // $user = User::findOrFail($id);
 
         $languages = Language::create([
-            'title' => $request->title,
-            'slug' => $slug,
-            'user_id'=> Auth::user()->id
+            'user_id'=> Auth::user()->id,
+            'title' => $request->title
         ]);
 
 

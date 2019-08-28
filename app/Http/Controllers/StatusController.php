@@ -16,7 +16,6 @@ class StatusController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
         $statuses = Status::all();
         return view('statuses.index', compact('statuses'));
     }
@@ -41,20 +40,18 @@ class StatusController extends Controller
     {
         $this->validate($request, [
             'title' => 'required|min:3',
-
         ]);
 
-        $slug = str_slug($request->title, '_');
+        // $slug = str_slug($request->title, '_');
 
-        if(Status::where('slug', $slug)->first() != null)
-            $slug = $slug . '-'.time();
+        // if(Status::where('slug', $slug)->first() != null)
+        //     $slug = $slug . '-'.time();
 
             // $user = User::findOrFail($id);
 
         $statuses = Status::create([
-            'title' => $request->title,
-            'slug' => $slug,
-            'user_id'=> Auth::user()->id
+            'user_id'=> Auth::user()->id,
+            'title' => $request->title
         ]);
 
         return redirect('statuses')->with('msg', 'berhasil ditambahkan');

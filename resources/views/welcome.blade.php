@@ -38,7 +38,7 @@
                             <a class="nav-link" href="/home">Beranda <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/etalase">Etalase IA</a>
+                            <a class="nav-link" href="/etalase">Etalase</a>
                         </li>
 						@auth
 						 <li class="nav-item dropdown">

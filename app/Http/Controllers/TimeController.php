@@ -16,7 +16,6 @@ class TimeController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
         $times = Time::all();
         return view('times.index', compact('times'));
     }
@@ -44,17 +43,16 @@ class TimeController extends Controller
 
         ]);
 
-        $slug = str_slug($request->title, '_');
+        // $slug = str_slug($request->title, '_');
 
-        if(Time::where('slug', $slug)->first() != null)
-            $slug = $slug . '-'.time();
+        // if(Time::where('slug', $slug)->first() != null)
+        //     $slug = $slug . '-'.time();
 
             // $user = User::findOrFail($id);
 
         $times = Time::create([
-            'title' => $request->title,
-            'slug' => $slug,
-            'user_id'=> Auth::user()->id
+            'user_id'=> Auth::user()->id,
+            'title' => $request->title
         ]);
 
         return redirect('times')->with('msg', 'berhasil ditambahkan');

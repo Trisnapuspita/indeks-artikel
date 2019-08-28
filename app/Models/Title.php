@@ -8,7 +8,7 @@ class Title extends Model
 {
     protected $fillable = [
         'user_id', 'type_id', 'time_id', 'language_id', 'format_id',
-        'title', 'slug', 'city', 'publisher', 'year', 'featured_img', 'original_year'
+        'title', 'slug', 'city', 'publisher', 'year', 'first_year', 'featured_img',
     ];
 
     public function user()

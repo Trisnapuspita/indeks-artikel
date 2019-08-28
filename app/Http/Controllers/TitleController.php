@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use Auth;
 use App\Models\User;
 use App\Models\Type;
@@ -11,7 +9,6 @@ use App\Models\Format;
 use App\Models\Title;
 use App\Models\EditionTitle;
 use Illuminate\Http\Request;
-
 class TitleController extends Controller
 {
 
@@ -35,33 +32,17 @@ class TitleController extends Controller
         $formats = Format::all();
         return view('titles.create', compact('types', 'times', 'languages', 'formats'));
     }
-
     public function store(Request $request)
     {
         $this->validate(request(), [
             'featured_img' => 'mimes:jpeg,jpg,png|max:1000'
         ]);
-
-
         $slug = str_slug($request->title, '_');
-
         //cek slug ngga kembar
         if(Title::where('slug', $slug)->first() != null)
             $slug = $slug . '-'.time();
-
-            $fileName = null;
-
-            if($request->featured_img != null) {
-                $fileName = $request->featured_img->getClientOriginalName();
-                $request->featured_img->storeAs('public/upload', $fileName);
-            }
-            // else {
-            //     $fileName = $title->featured_img;
-            // }
-
-        // $fileName = time(). '.png';
-        // $request->file('featured_img')->storeAs('public/upload', $fileName);
-
+        $fileName = time(). '.png';
+        $request->file('featured_img')->storeAs('public/upload', $fileName);
         $title = Title::create([
             'user_id'=> Auth::user()->id,
             'title'=>$request->title,
@@ -69,27 +50,23 @@ class TitleController extends Controller
             'city'=>$request->city,
             'publisher'=>$request->publisher,
             'year'=>$request->year,
-            'featured_img'=> $fileName,
-            'original_year'=>$request->original_year
+            'first_year'=>$request->first_year,
+            'featured_img'=> $fileName
         ]);
-
         $title->types()->attach($request->types);
         $title->times()->attach($request->times);
         $title->languages()->attach($request->languages);
         $title->formats()->attach($request->formats);
         return redirect('titles')->with('msg', 'berhasil ditambahkan');
     }
-
     public function show($slug)
     {
         $title= Title::with('editions')->where('slug', $slug)->first();
         if(empty($title)){
             abort(404);
         }
-
         return view('titles.single', compact('title'));
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -105,7 +82,6 @@ class TitleController extends Controller
         $title = Title::findOrFail($id);
         return view('titles.edit', compact('types', 'times', 'languages', 'formats', 'title'));
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -117,29 +93,16 @@ class TitleController extends Controller
     {
         $this->validate($request, [
             'featured_img' => 'mimes:jpeg,jpg,png|max:1000'
-
         ]);
-        $fileName = null;
-        $title= Title::find($id);
-
-        if($request->featured_img != null) {
-            $fileName = $request->gambar->getClientOriginalName();
-            $request->gambar->storeAs('public/upload', $fileName);
-        }else {
-            $fileName = $title->featured_img;
-        }
-
-        // $fileName = time(). '.png';
-        // $request->file('featured_img')->storeAs('public/upload', $fileName);
-
-
+        $fileName = time(). '.png';
+        $request->file('featured_img')->storeAs('public/upload', $fileName);
+        $title= Title::findOrFail($id);
         $title->update([
                     'title'=>$request->title,
                     'city'=>$request->city,
                     'publisher'=>$request->publisher,
                     'year'=>$request->year,
-                    'featured_img'=> $fileName,
-                    'original_year'=>$request->original_year
+                    'featured_img'=> $fileName
                 ]);
 
         $title->types()->sync($request->types);
@@ -148,7 +111,6 @@ class TitleController extends Controller
         $title->formats()->sync($request->formats);
         return redirect('titles')->with('msg', 'kutipan berhasil diedit');
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -163,9 +125,7 @@ class TitleController extends Controller
         $formats = Format::all();
         $title= Title::findOrFail($id);
         $title->delete();
-
         return redirect('titles')->with('msg', 'kutipan berhasil di hapus');
     }
-
 
 }

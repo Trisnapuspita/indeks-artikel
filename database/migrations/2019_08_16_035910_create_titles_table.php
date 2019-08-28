@@ -22,7 +22,7 @@ class CreateTitlesTable extends Migration
             $table->string('city');
             $table->string('publisher');
             $table->integer('year');
-            $table->integer('original_year');
+            $table->integer('first_year');
             $table->string('featured_img');
             $table->timestamps();
         });
