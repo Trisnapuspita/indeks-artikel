@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+
+use Session;
 use Auth;
 use App\Models\User;
 use App\Models\Type;
@@ -10,6 +12,8 @@ use App\Models\Language;
 use App\Models\Format;
 use App\Models\Title;
 use App\Models\EditionTitle;
+use App\Exports\TitleExport;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 
 class TitleController extends Controller
@@ -20,6 +24,7 @@ class TitleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
         $titles = Title::all();
@@ -27,6 +32,7 @@ class TitleController extends Controller
         return view('titles.index', compact('titles', 'editions'));
     }
     
+
     public function create()
     {
         $types = Type::all();
@@ -145,6 +151,10 @@ class TitleController extends Controller
 
         return redirect('titles')->with('msg', 'kutipan berhasil di hapus');
     }
-
+    
+    public function export_excel()
+    {
+        return Excel::download(new TitleExport, 'judul.xlsx');
+    }
     
 }

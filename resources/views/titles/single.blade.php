@@ -13,6 +13,37 @@ Indeks Artikel | Edisi
                 <li class="breadcrumb-item active" aria-current="page">Tempo : Madjalah Berita Mingguan</li>
             </ol>
         </div>
+
+        <div class="createnew" style="padding-bottom: 10px">
+            <a data-toggle="modal" data-target="#importExcel"><button>Import</button></a>
+        </div>
+
+        <!-- Import Excel -->
+		<div class="modal fade" id="importExcel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<form method="post" action="/editions/import_excel/{{$title->id}}" enctype="multipart/form-data">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">Import Excel</h5>
+						</div>
+						<div class="modal-body">
+ 
+							{{ csrf_field() }}
+ 
+							<label>Pilih file excel</label>
+							<div class="form-group">
+								<input type="file" name="file" required="required">
+							</div>
+ 
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							<button type="submit" class="btn btn-primary">Import</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
         <a data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
             aria-controls="collapseExample">
             <h5
@@ -123,61 +154,11 @@ Indeks Artikel | Edisi
                 </form>
             </div>
         </div>
-        <table id="Filtering" style="width: 100%;">
-            <tbody>
-                <tr>
-                    <td style="width: 300px">
-                        Show :
-                        <select name="ctl00$ContentPlaceHolder1$ddlPage"
-                            onchange="javascript:setTimeout('__doPostBack(\'ctl00$ContentPlaceHolder1$ddlPage\',\'\')', 0)"
-                            id="ContentPlaceHolder1_ddlPage" style="width:50px; height:29.3px">
-                            <option selected="selected" value="10">10</option>
-                            <option value="20">20</option>
-                            <option value="50">50</option>
-                            <option value="100">100</option>
-
-                        </select>
-                        entries
-                    </td>
-                    <td style="text-align: right; padding-top:10px; padding-bottom: 20px;">
-                        <table style="float: right">
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <select class="search box" name="ctl00$ContentPlaceHolder1$ddlKriteria"
-                                            id="ContentPlaceHolder1_ddlKriteria" style="width:154px;">
-                                            <option selected="selected" value="1">Ket. Edisi</option>
-                                            <option value="2">Tahun</option>
-                                            <option value="3">Edisi</option>
-                                            <option value="4">Volume</option>
-                                            <option value="5">Jilid</option>
-                                            <option value="6">Nomor</option>
-                                            <option value="7">Tanggal</option>
-                                            <option value="8">Nomor Panggil</option>
-                                            <option value="8"> </option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <input class="search search-box" name="ctl00$ContentPlaceHolder1$txtKataKunci"
-                                            type="text" id="ContentPlaceHolder1_txtKataKunci" style="width:150px;">
-                                    </td>
-                                    <td>
-                                        <button type="submit" class="searchButton"><img
-                                                src="../../assets/magnifying-glass-2x.png">
-                                        </button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <table class="Grid" cellspacing="0" cellpadding="4"
-            style="font-family:Tahoma;font-size:12px;width:100%;border-collapse:collapse;">
+        <br><br><br>
+        <table id="example" class="table table-striped table-bordered table-responsive" style="width:100%">
             <thead>
                 <tr class="GridHeader" style="text-align: center">
-                    <th>No</th>
+					<td>No</td>
                     <th>Gambar</th>
                     <th>Keterangan Edisi</th>
                     <th>Tahun</th>
@@ -193,9 +174,10 @@ Indeks Artikel | Edisi
                 </tr>
 			</thead>
 			<tbody>
+            @php $i=1 @endphp
             @foreach ($title->editions as $edition)
                 <tr class="GridItem">
-                    <td style="width:20px;text-align: center">{{$edition->id}}</td>
+					<td>{{ $i++ }}</td>
                     <td><img src="{{asset('storage/upload/'. $edition->edition_image) }}" style="max-width: 150px; height: auto; "class="image-fluid"></td>
                     <td style="width:300px;"><a href="/editions/{{$edition->slug}}">{{$edition->edition_year}}, {{$edition->edition_no}}, {{$edition->original_date}}</a></td>
                     <td style="width:100px;">{{$edition->edition_year}}</td>
@@ -208,61 +190,30 @@ Indeks Artikel | Edisi
                     <td style="width:300px;">TEMPO : Madjalah Berita Mingguan</td>
                     <td style="width:100px;">49</td>
                     <td style="width:100px; text-align: center;">
-                    <div class="row" style="text-align: center">
-                        <div>
-                            <a href='/editions/{{$edition->id}}/edit'><button>Sunting</button></a>
-                            <br>
+                            <a href='/editions/{{$edition->id}}/edit'><button class="fas fa-edit" style="width:30px;height:30px"></button></a>
+                            <br><br>
                             <form method="POST" action="/editions/{{$edition->id}}">
                                     {{ csrf_field() }}
                                     <input type="hidden" name="_method" value="DELETE">
-                                    <button type="submit">Hapus</button>
+                                    <button class="fa fa-trash" style="width:30px;height:30px"></button>
                                 </form>
-                            </div>
                     </td>
                 </tr>
                 @endforeach
             </tbody>
         </table>
-        <nav style="padding-top:30px;">
-            <ul class="pagination justify-content-center">
-                <li class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                </li>
-                <li class="page-item active"><a class="page-link" href="#">1<span class="sr-only">(current)</span></a>
-                </li>
-                <li class="page-item" aria-current="page">
-                    <a class="page-link" href="#">2 </a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#">Next</a>
-                </li>
-            </ul>
-        </nav>
         <div id="divTools" class="ToolsTable" style="padding-bottom: 10px">
             <table cellpadding="0" cellspacing="0">
                 <tbody>
                     <tr>
                         <td>
-                            Data yang akan diexport:
-                            <select name="ctl00$ContentPlaceHolder1$Exporter1$ddlExportData"
-                                id="ContentPlaceHolder1_Exporter1_ddlExportData" style="width:150px; height: 29.3px;">
-                                <option value="0">Halaman ini saja</option>
-                                <option value="1">Semua data</option>
-                                <option value="2">Maks. jumlah data</option>
-
-                            </select>
-                            <input name="ctl00$ContentPlaceHolder1$Exporter1$txtMaksJumlahData" type="text" value="200"
-                                id="ContentPlaceHolder1_Exporter1_txtMaksJumlahData"
-                                onkeypress="NumericValidation(event)" style="width: 25px; display: none;">
+                            Export:
                         </td>
                         <td style="border-right-style: solid; border-right-width: 1px; border-right-color: #EBEBEB">
                             &nbsp;</td>
                         <td>
-                            <input type="image" name="ctl00$ContentPlaceHolder1$Exporter1$btExportToExcel"
-                                id="ContentPlaceHolder1_Exporter1_btExportToExcel" title="Export To Excel"
-                                src="../../assets/Export_Excel.png"
-                                style="margin-top:10px;font-family:Arial;font-size:X-Small;height:40px;">
+                            <a href="/editions/export_excel/{{$title->id}}"><img src="../../assets/Export_Excel.png"
+                                style="margin-top:10px;font-family:Arial;font-size:X-Small;height:40px;"></a>
                         </td>
                     </tr>
                 </tbody>

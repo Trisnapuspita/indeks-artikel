@@ -20,11 +20,14 @@ class CreateArticleEditionsTable extends Migration
             $table->unsignedBigInteger('edition_title_id');
             $table->foreign('edition_title_id')->references('id')->on('edition_titles')->onDelete('cascade');
             $table->string('article_title');
+            $table->string('subject');
             $table->string('writer');
             $table->bigInteger('pages');
             $table->bigInteger('column');
             $table->string('source');
             $table->text('desc');
+            $table->string('keyword');
+            $table->string('detail_img');
             $table->timestamps();
         });
     }
