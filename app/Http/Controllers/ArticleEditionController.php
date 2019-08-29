@@ -35,6 +35,16 @@ class ArticleEditionController extends Controller
     {
         //
     }
+    // public function articlefront_show($id)
+    // {
+    //     $articles = ArticleEdition::find($id);
+
+    //     // if(empty($articles)){
+    //     //     abort(404);
+    //     // }
+        
+    //     return view('article-catalog', compact('articles'));
+    // }
 
     /**
      * Show the form for editing the specified resource.

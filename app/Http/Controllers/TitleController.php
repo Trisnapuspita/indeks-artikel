@@ -1,5 +1,7 @@
 <?php
 namespace App\Http\Controllers;
+
+use App\Models\ArticleEdition;
 use Auth;
 use App\Models\User;
 use App\Models\Type;
@@ -22,6 +24,12 @@ class TitleController extends Controller
         $titles = Title::all();
         $editions = EditionTitle::all();
         return view('titles.index', compact('titles', 'editions'));
+    }
+
+    public function etalase()
+    {
+        $titles = Title::all(); 
+        return view('etalase', compact('titles'));
     }
 
     public function create()
@@ -67,6 +75,68 @@ class TitleController extends Controller
         }
         return view('titles.single', compact('title'));
     }
+
+    public function etalase_show($id)
+    {
+        $title = Title::find($id);
+        $types = Type::all();
+        $times = Time::all();
+        $languages = Language::all();
+        $formats = Format::all();
+
+        if(empty($title)){
+            abort(404);
+        }
+        
+        return view('etalase-sumber', compact('title', 'types', 'times', 'languages', 'formats'));
+    }
+
+    public function catalog_show($id)
+    {
+        $title = Title::find($id);
+
+        if(empty($title)){
+            abort(404);
+        }
+        
+        return view('catalog-list', compact('title'));
+    }
+
+    public function articlelog_show($id)
+    {
+        $article = ArticleEdition::find($id);
+        // dd($article);
+
+        if(empty($article)){
+            abort(404);
+        }
+        
+        return view('article-catalog')->with(compact('article'));
+    }
+
+    public function hierarki_show($id)
+    {
+        $title = Title::find($id);
+
+        if(empty($title)){
+            abort(404);
+        }
+        
+        return view('hierarki-list')->with(compact('title'));
+    }
+
+    public function hierarkilog_show($id)
+    {
+        $article = ArticleEdition::find($id);
+        // dd($article);
+
+        if(empty($article)){
+            abort(404);
+        }
+        
+        return view('hierarki-catalog')->with(compact('article'));
+    }
+    
     /**
      * Show the form for editing the specified resource.
      *

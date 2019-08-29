@@ -23,9 +23,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/etalase', function () {
-    return view('etalase');
-});
+// Route::get('/etalase', function () {
+//     return view('etalase');
+// });
 
 Route::get('/report', function () {
     return view('report');
@@ -39,3 +39,10 @@ Route::resource('formats', 'FormatController', ['only' => ['index', 'show']]);
 Route::resource('statuses', 'StatusController', ['only' => ['index', 'show']]);
 Route::resource('titles', 'TitleController', ['only' => ['index', 'show']]);
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/etalase', 'TitleController@etalase');
+Route::get('/etalase/{id}', 'TitleController@etalase_show');
+Route::get('/catalog/{id}', 'TitleController@catalog_show');
+Route::get('/articlelog/{id}', 'TitleController@articlelog_show');
+Route::get('/hierarki/{id}', 'TitleController@hierarki_show');
+Route::get('/hierarkilog/{id}', 'TitleController@hierarkilog_show');
+//Route::get('/etalase','');

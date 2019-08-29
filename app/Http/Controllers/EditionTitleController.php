@@ -6,6 +6,24 @@ use App\Models\EditionTitle;
 use Illuminate\Http\Request;
 class EditionTitleController extends Controller
 {
+    // public function catalog($id)
+    // {
+    //     $titles = Title::all();
+    //     $editions = EditionTitle::find();
+
+    //     // if(empty($title)){
+    //     //     abort(404);
+    //     // }
+        
+    //     return view('catalog-list', compact('titles','editions'));
+    // }
+    // public function source_list()
+    // {
+    //     $titles = Title::all(); 
+    //     $editions = EditionTitle::all();
+    //     return view('catalog-list', compact('titles', 'editions'));
+    // }
+
     public function store(Request $request, $id)
     {
         $this->validate(request(), [
@@ -43,6 +61,18 @@ class EditionTitleController extends Controller
         $editions= EditionTitle::with('articles')->where('slug', $slug)->first();
         return view('editions.single', compact('editions'));
     }
+
+    // public function articlefront_show($id)
+    // {
+    //     $articles = ArticleEdition::find($id);
+
+    //     // if(empty($articles)){
+    //     //     abort(404);
+    //     // }
+        
+    //     return view('article-catalog', compact('articles'));
+    // }
+    
     /**
      * Show the form for editing the specified resource.
      *
