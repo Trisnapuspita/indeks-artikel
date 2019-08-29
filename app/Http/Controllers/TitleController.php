@@ -1,7 +1,12 @@
 <?php
 namespace App\Http\Controllers;
 
+<<<<<<< HEAD
 use App\Models\ArticleEdition;
+=======
+
+use Session;
+>>>>>>> 949c2d12f7e6f38ba9b025b57b43912d9af4387f
 use Auth;
 use App\Models\User;
 use App\Models\Type;
@@ -10,6 +15,8 @@ use App\Models\Language;
 use App\Models\Format;
 use App\Models\Title;
 use App\Models\EditionTitle;
+use App\Exports\TitleExport;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 class TitleController extends Controller
 {
@@ -19,18 +26,23 @@ class TitleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
         $titles = Title::all();
         $editions = EditionTitle::all();
         return view('titles.index', compact('titles', 'editions'));
     }
+<<<<<<< HEAD
 
     public function etalase()
     {
         $titles = Title::all(); 
         return view('etalase', compact('titles'));
     }
+=======
+    
+>>>>>>> 949c2d12f7e6f38ba9b025b57b43912d9af4387f
 
     public function create()
     {
@@ -197,5 +209,14 @@ class TitleController extends Controller
         $title->delete();
         return redirect('titles')->with('msg', 'kutipan berhasil di hapus');
     }
+<<<<<<< HEAD
 
+=======
+    
+    public function export_excel()
+    {
+        return Excel::download(new TitleExport, 'judul.xlsx');
+    }
+    
+>>>>>>> 949c2d12f7e6f38ba9b025b57b43912d9af4387f
 }

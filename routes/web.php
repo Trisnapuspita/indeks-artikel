@@ -8,27 +8,37 @@ Route::group(['middleware' => 'auth'], function() {
     Route::resource('formats', 'FormatController', ['except' => ['index', 'show']]);
     Route::resource('statuses', 'StatusController', ['except' => ['index', 'show']]);
     Route::resource('titles', 'TitleController', ['except' => ['index', 'show']]);
+    Route::get('/titles/export_excel', 'TitleController@export_excel');
     Route::post('/editions/{id}', 'EditionTitleController@store');
     Route::put('/editions/{id}', 'EditionTitleController@update');
     Route::get('/editions/{slug}', 'EditionTitleController@show');
     Route::get('/editions/{id}/edit', 'EditionTitleController@edit');
     Route::delete('/editions/{id}', 'EditionTitleController@destroy');
+    Route::get('/editions/export_excel/{id}', 'EditionTitleController@export_excel');
+    Route::post('/editions/import_excel/{id}', 'EditionTitleController@import_excel');
     Route::post('/articles/{id}', 'ArticleEditionController@store');
     Route::put('/articles/{id}', 'ArticleEditionController@update');
     Route::get('/articles/{id}/edit', 'ArticleEditionController@edit');
     Route::delete('/articles/{id}', 'ArticleEditionController@destroy');
+    Route::get('/articles/export_excel', 'ArticleEditionController@export_excel');
+    Route::post('/articles/import_excel/{id}', 'ArticleEditionController@import_excel');
 });
 
 Route::get('/', function () {
     return view('welcome');
 });
 
+<<<<<<< HEAD
 // Route::get('/etalase', function () {
 //     return view('etalase');
 // });
 
 Route::get('/report', function () {
     return view('report');
+=======
+Route::get('/reports', function () {
+    return view('reports.index');
+>>>>>>> 949c2d12f7e6f38ba9b025b57b43912d9af4387f
 });
 
 Auth::routes();

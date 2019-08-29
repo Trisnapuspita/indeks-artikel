@@ -175,8 +175,12 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
+<<<<<<< HEAD
         Yajra\DataTables\DataTablesServiceProvider::class,
         Elasticquent\ElasticquentServiceProvider::class,
+=======
+        Maatwebsite\Excel\ExcelServiceProvider::class,
+>>>>>>> 949c2d12f7e6f38ba9b025b57b43912d9af4387f
 
     ],
 
@@ -228,8 +232,12 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+<<<<<<< HEAD
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
         'Es' => Elasticquent\ElasticquentElasticsearchFacade::class,
+=======
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+>>>>>>> 949c2d12f7e6f38ba9b025b57b43912d9af4387f
 
     ],
 

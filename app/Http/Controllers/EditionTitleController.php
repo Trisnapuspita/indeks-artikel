@@ -1,6 +1,14 @@
 <?php
 namespace App\Http\Controllers;
+<<<<<<< HEAD
+=======
+
+use Session;
+>>>>>>> 949c2d12f7e6f38ba9b025b57b43912d9af4387f
 use Auth;
+use App\Imports\EditionImport;
+use App\Exports\EditionExportView;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Title;
 use App\Models\EditionTitle;
 use Illuminate\Http\Request;
@@ -27,8 +35,7 @@ class EditionTitleController extends Controller
     public function store(Request $request, $id)
     {
         $this->validate(request(), [
-            'edition_title'=>'required|min:1',
-            'edition_image' => 'mimes:jpeg,jpg,png|max:1000'
+            'edition_title'=>'required|min:1'
         ]);
         $slug = str_slug($request->edition_title, '_');
         //cek slug ngga kembar
@@ -56,12 +63,54 @@ class EditionTitleController extends Controller
         ]);
         return redirect('/titles/'.$title->slug)->with('msg', 'berhasil ditambahkan');
     }
+<<<<<<< HEAD
+=======
+
+    public function export_excel($id)
+	{
+        
+        $title = Title::findOrFail($id);
+		return Excel::download(new EditionExportView(), 'edition.xlsx');
+    }
+
+    public function import_excel(Request $request, $id) 
+	{
+        Auth::user()->id;
+        
+		// validasi
+		$this->validate($request, [
+			'file' => 'required|mimes:csv,xls,xlsx'
+        ]);
+        
+        $title = Title::findOrFail($id);
+ 
+		// menangkap file excel
+		$file = $request->file('file');
+ 
+		// membuat nama file unik
+		$nama_file = rand().$file->getClientOriginalName();
+ 
+		// upload ke folder file_siswa di dalam folder public
+		$file->move('file_editions',$nama_file);
+ 
+		// import data
+		Excel::import(new EditionImport, public_path('/file_editions/'.$nama_file));
+ 
+		// notifikasi dengan session
+		Session::flash('sukses','Data Berhasil Diimport!');
+ 
+		// alihkan halaman kembali
+		return redirect('/titles/'.$title->slug);
+	}
+
+>>>>>>> 949c2d12f7e6f38ba9b025b57b43912d9af4387f
     public function show($slug)
     {
         $editions= EditionTitle::with('articles')->where('slug', $slug)->first();
         return view('editions.single', compact('editions'));
     }
 
+<<<<<<< HEAD
     // public function articlefront_show($id)
     // {
     //     $articles = ArticleEdition::find($id);
@@ -73,6 +122,9 @@ class EditionTitleController extends Controller
     //     return view('article-catalog', compact('articles'));
     // }
     
+=======
+
+>>>>>>> 949c2d12f7e6f38ba9b025b57b43912d9af4387f
     /**
      * Show the form for editing the specified resource.
      *
@@ -94,8 +146,13 @@ class EditionTitleController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
+<<<<<<< HEAD
             'edition_title'=>'required|min:1',
             'edition_image' => 'mimes:jpeg,jpg,png|max:1000'
+=======
+            'edition_title'=>'required|min:1'
+
+>>>>>>> 949c2d12f7e6f38ba9b025b57b43912d9af4387f
         ]);
         $fileName = time(). '.png';
         $request->file('edition_image')->storeAs('public/upload', $fileName);
