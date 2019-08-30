@@ -9,8 +9,8 @@
     <title>Indeks Artikel</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="../src/style-admin.css">
-    <link rel="stylesheet" href="../src/grid.css">
+        <link rel="stylesheet" href="../../css/style-admin.css">
+    <link rel="stylesheet" href="../../css/grid.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.7/css/mdb.min.css" rel="stylesheet">
     <style>
         body {
@@ -24,7 +24,7 @@
         <tbody>
             <tr>
                 <td style="width: 400px;">
-                    <h5 style="font-weight: bold; color: black;">TEMPO : Madjalah Berita Mingguan</h5>
+                    <h5 style="font-weight: bold; color: black;">{{ $title->title }}</h5>
                 </td>
                 <td style="text-align: right; padding: 10px;">
                     <table style="float: right">
@@ -55,9 +55,10 @@
             </tr>
         </tbody>
     </table>
+    @foreach ($title->editions as $edition)
     <div class="accordion" id="accordionExample">
-        @foreach ($title->editions as $edition)
-        
+
+
         <div class="card">
             <div class="card-header" id="headingOne" style="background: #e9ecef">
                 <h2 class="mb-0">
@@ -67,29 +68,30 @@
                     </button>
                 </h2>
             </div>
-            
+
             <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                 <div class="card-body">Edisi <a class="btn-link" data-toggle="collapse" href="#CollapseExample"
                         role="button" aria-expanded="false" aria-controls="CollapseExample">{{$edition->edition_year}}, {{$edition->edition_no}}, {{$edition->original_date}}</a>
                     <div class="row">
-                        <div class="col"> 
-                            <div class="collapse" id="CollapseExample">   
+                        <div class="col">
+                            <div class="collapse" id="CollapseExample">
                                 <div class="card card-body">Artikel
                                     @foreach ($edition->articles as $article)
-                                    <li><a href="/hierarkilog/{{ $article->id }}">{{ $article->article_title }}, {{ $article->pages }}</a></li>
+                                    <li><a href="/hierarkilog/{{ $article->id }}">{{ $article->article_title }}, p: {{ $article->pages }}</a></li>
                                     @endforeach
                                 </div>
-                                
+
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-       
-        @endforeach
+
+
     </div>
+    @endforeach
 </body>
 
 </html>

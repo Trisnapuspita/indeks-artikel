@@ -11,9 +11,7 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="../../css/style-admin.css">
     <link rel="stylesheet" href="../../css/grid.css">
-    <!-- datatable css -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.7/css/mdb.min.css" rel="stylesheet">
     <style>
         body {
             padding: 45px;
@@ -47,7 +45,7 @@
                                 </td>
                                 <td>
                                     <button type="submit" class="searchButton"><img
-                                            src="../assets/magnifying-glass-2x.png">
+                                            src="../../assets/magnifying-glass-2x.png">
                                     </button>
                                 </td>
                             </tr>
@@ -57,44 +55,43 @@
             </tr>
         </tbody>
     </table>
-    <table class="Grid" cellspacing="0" cellpadding="4" id="ContentPlaceHolder1_dgData"
-        style="font-family:Tahoma;font-size:12px;width:100%;border-collapse:collapse;">
-        <tbody>
-            <tr class="GridHeader">
-                <td>Tahun</td>
-                <td>Judul Edisi</td>
-                <td>Judul Artikel</td>
-            </tr>
-            @foreach ($title->editions as $edition)
-            <tr class="GridItem">
-                <td style="width:20px; text-align: center">{{ $edition->publish_year }}</td>
-                <td style="width:300px"><a>{{$edition->edition_year}}, {{$edition->edition_no}}, {{$edition->original_date}}</a></td>
-                <td style="width:100px;">
-                    @foreach ($edition->articles as $article)
-                    <li style="display: block"><a href="/articlelog/{{ $article->id }}">{{ $article->article_title }}. p: {{ $article->pages }}</a></li>
-                    @endforeach
-                </td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
-    <nav style="padding-top:30px;">
-        <ul class="pagination justify-content-center">
-            <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-            </li>
-            <li class="page-item active"><a class="page-link" href="#">1<span class="sr-only">(current)</span></a>
-            </li>
-            <li class="page-item" aria-current="page">
-                <a class="page-link" href="#">2 </a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-                <a class="page-link" href="#">Next</a>
-            </li>
-        </ul>
-    </nav>
+    @foreach ($title->editions as $edition)
+    <div class="accordion" id="accordionExample">
 
+
+        <div class="card">
+            <div class="card-header" id="headingOne" style="background: #e9ecef">
+                <h2 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne"
+                        aria-expanded="true" aria-controls="collapseOne">
+                        {{ $edition->publish_year }}
+                    </button>
+                </h2>
+            </div>
+
+            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                <div class="card-body">Edisi <a class="btn-link" data-toggle="collapse" href="#CollapseExample"
+                        role="button" aria-expanded="false" aria-controls="CollapseExample">{{$edition->edition_year}}, {{$edition->edition_no}}, {{$edition->original_date}}</a>
+                    <div class="row">
+                        <div class="col">
+                            <div class="collapse" id="CollapseExample">
+                                <div class="card card-body">Artikel
+                                    @foreach ($edition->articles as $article)
+                                    <li><a href="/hierarkilog/{{ $article->id }}">{{ $article->article_title }}, p: {{ $article->pages }}</a></li>
+                                    @endforeach
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    @endforeach
 </body>
 
 </html>
@@ -107,12 +104,4 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
 </script>
-<!-- Datatable -->
-<script>
-    $(document).ready(function () {
-        $('#example').DataTable();
-    });
-</script>
-<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-<script src="
-    https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.7/js/mdb.min.js"></script>

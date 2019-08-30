@@ -10,16 +10,17 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="../../css/style-admin.css">
+    <link rel="stylesheet" href="../../css/grid.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.7/css/mdb.min.css" rel="stylesheet">
 </head>
 
 <body>
 
-    <header>
-        <!-- NAV BAR -->
-        <div class="container-fluid p=0 align-content-center">
-                @if (Route::has('login'))
-                <nav class="navbar navbar-expand-lg">
+        <header>
+                <!-- NAV BAR -->
+                <div class="container-fluid p=0 align-content-center">
+                 @if (Route::has('login'))
+                    <nav class="navbar navbar-expand-lg">
                         <a class="navbar-brand" href="index.html">
                             <img src="../../assets/logo-perpunas.png" width="33" height="30" class="d-inline-block align-top"
                                 alt="">Indeks
@@ -36,9 +37,13 @@
                                     <a class="nav-link" href="/home">Beranda <span class="sr-only">(current)</span></a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/etalase">Etalase</a>
+                                    <a class="nav-link" href="/displays/etalase">Etalase</a>
                                 </li>
-                                @auth
+                                @guest
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                </li>
+                                @else
                                  <li class="nav-item dropdown">
                                     <div class="dropdown">
                                         <a href="#" class="nav-link">Setting Master
@@ -67,14 +72,13 @@
                                         <div class="dropdown-content">
                                             <a href="{{ route('logout') }}" onclick="event.preventDefault();
                                             document.getElementById('logout-form').submit();" style="width: 100%">Logout</a>
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                                @csrf
+                                            </form>
                                         </div>
                                     </div>
                                 </li>
-                                @else
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login')}}"}}>Login</a>
-                                </li>
-                                @endauth
+                                @endguest
                             </ul>
                         </div>
                     @endif
@@ -82,7 +86,10 @@
                 </div>
             </header>
 
-    @yield('content')
+            @yield('content')
+
+
+
     <footer>
         <div class="container-fluid p-0">
             <div class="row text-left">

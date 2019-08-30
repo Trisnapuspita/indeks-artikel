@@ -48,7 +48,7 @@
                     <td style="width:100px; text-align: center">@foreach ($title->languages()->get() as $languages){{$languages->title}}@endforeach</td>
                     <td style="width:100px; text-align: center">@foreach ($title->formats()->get() as $formats){{$formats->title}}@endforeach</td>
                     <td style="width:100px; text-align: center">-<a href="/titles/{{$title->slug}}"><button style="float: right"><strong>+</strong></button></a></td>
-                    <td style="width:100px; text-align: center">-<a href="/articles/create"><button style="float: right"><strong>+</strong></button></a></td>
+                    <td style="width:100px; text-align: center">-<a href="/editions/{{$edition->slug}}"><button style="float: right"><strong>+</strong></button></a></td>
                     <td style="width:100px;text-align: center">
 						<a href="/titles/{{$title->id}}/edit"><button class="fas fa-edit" style="width:30px;height:30px"></button></a>
                         <br><br>

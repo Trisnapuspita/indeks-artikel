@@ -9,7 +9,7 @@
     <title>Indeks Artikel</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="../../css/style-admin.css">
+    <link rel="stylesheet" href="../src/admin/style-admin.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.7/css/mdb.min.css" rel="stylesheet">
 </head>
 
@@ -21,17 +21,15 @@
     <main style="height: 100%; padding: 45px">
 
         <div class="mr-auto" style="padding-bottom:10px;">
-
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/catalog/{{ $title->id }}">Etalase</a></li>
-                <li class="breadcrumb-item"><a href="/catalog/{{ $title->id }}">Daftar Isi</a></li>
-                <li class="breadcrumb-item active" aria-current="page">{{$edition->edition_year}}, {{$edition->edition_no}}, {{$edition->original_date}}
-                </li>
-                <li class="breadcrumb-item active" aria-current="page">{{ $article->article_title }}. p: {{ $article->pages }}
+                <li class="breadcrumb-item"><a href="hirarki-sumber.html">Etalase IA</a></li>
+                <li class="breadcrumb-item"><a href="hirarki-sumber.html">Hirarki Indeks</a></li>
+                <li class="breadcrumb-item"><a href="hirarki-sumber.html">Edisi TH. 1, NO. 8, 24 April 1971.</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Artikel Pendidikan.Indonesia Bahasa Asing. p: 28.
                 </li>
             </ol>
         </div>
-        <div class="row">
+        <div class="row">     
                 <div class="col-md-12">
                     <table class="table table-striped">
                         <tbody>

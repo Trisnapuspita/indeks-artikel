@@ -21,13 +21,13 @@
         <!-- NAV BAR -->
         <div class="container-fluid p=0 align-content-center">
             <nav class="navbar navbar-expand-lg">
-                <a class="navbar-brand" href="index.html">
+                <a class="navbar-brand" href="/">
                     <img src="../img/logo-perpunas.png" width="33" height="30" class="d-inline-block align-top"
-                        alt="">Indeks Artikel /
+                        alt="">Indeks Artikel
                 </a>
                 <div class="mr-auto">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Beranda</a></li>
+                        <li class="breadcrumb-item"><a href="/">Beranda</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Login</li>
                     </ol>
                 </div>
@@ -40,10 +40,10 @@
                     <div class="mr-auto"></div>
                     <ul class="navbar-nav">
                         <li class="nav-item active">
-                            <a class="nav-link" href="index.html">Beranda</a>
+                            <a class="nav-link" href="/">Beranda</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="etalase.html">Etalase IA</a>
+                            <a class="nav-link" href="/etalase">Etalase</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('login')}}">Login<span class="sr-only">(current)</span></a>
@@ -96,7 +96,7 @@
                             <label for="Password">{{ __('Password') }}</label>
                             <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password"
                                 placeholder="Masukkan Password">
-                            
+
                             @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -122,7 +122,7 @@
                                         </a>
                                     @endif
                         </div>
-                        
+
                         <span>Tidak memiliki akun?</span><a href="{{ route('register') }}">  Daftar </a>
                     </form>
                 </div>

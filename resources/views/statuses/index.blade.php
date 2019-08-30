@@ -30,18 +30,11 @@ Indeks Artikel | Master Status Ketersediaan
             @php $i=1 @endphp
 			@foreach ($statuses as $status)
                 <tr class="GridItem">
-<<<<<<< HEAD
+
                     <td style="width:20px; text-align: center">{{$i++}}</td>
-                    <td style="width:80px; text-align: center"><a href="">{{$status->title}}</a></td>
-                    <td style="width:50px;text-align: center">....</td>
-					<td style="width:50px;text-align: center"> <div>
-                            <a href='/statuses/{{$status->id}}/edit'><button>Sunting</button></a>
-                                <form method="POST" action="/statuses/{{$status->id}}">
-=======
-                    <td style="width:20px;">{{$status->id}}</td>
                     <td style="width:80px;"><a href="">{{$status->title}}</a></td>
                     <td style="width:50px;">....</td>
-					<td style="width:50px;"> 
+					<td style="width:50px;">
                     <div class="row" style="">
                         <div class="col-md-2">
                         <a href='/statuses/{{$status->id}}/edit'><button class="btn btn-primary">Sunting</button></a>
@@ -51,7 +44,6 @@ Indeks Artikel | Master Status Ketersediaan
                         </div>
                         <div class="col-md-2">
                             <form method="POST" action="/statuses/{{$status->id}}">
->>>>>>> 949c2d12f7e6f38ba9b025b57b43912d9af4387f
                                     {{ csrf_field() }}
                                     <input type="hidden" name="_method" value="DELETE">
                                     <button type="submit" class="btn btn-danger">Hapus</button>

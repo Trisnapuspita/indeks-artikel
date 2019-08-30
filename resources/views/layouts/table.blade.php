@@ -10,24 +10,10 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="../../css/style-admin.css">
-<<<<<<< HEAD
     <link rel="stylesheet" href="../../css/grid.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
-    <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.7/css/mdb.min.css" rel="stylesheet">
     <!-- datatable css -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
-
-
-=======
-    <!-- datatable css -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
->>>>>>> 949c2d12f7e6f38ba9b025b57b43912d9af4387f
 </head>
 
 <body>
@@ -52,7 +38,7 @@
                             <a class="nav-link" href="/home">Beranda <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/etalase">Etalase</a>
+                            <a class="nav-link" href="/displays/etalase">Etalase</a>
                         </li>
                         @guest
                         <li class="nav-item">
@@ -116,10 +102,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
 </script>
-<<<<<<< HEAD
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.7/js/mdb.min.js"></script>
-=======
->>>>>>> 949c2d12f7e6f38ba9b025b57b43912d9af4387f
 <!-- Datatable -->
 <script>
     $(document).ready(function () {
@@ -128,8 +110,4 @@
 </script>
 <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script src="
-<<<<<<< HEAD
 https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
-=======
-https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
->>>>>>> 949c2d12f7e6f38ba9b025b57b43912d9af4387f

@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Acme|Lobster|Patua+One|Rubik|Sniglet");
+
 * {
     box-sizing: border-box;
 }
@@ -72,7 +73,7 @@ header .container .col-md-7 p {
 }
 
 .imgBeranda {
-    background-image: url('../../img/bg10_opacity50.jpg');
+    background-image: url('../admin/img/bg10_opacity50.jpg');
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -133,6 +134,7 @@ header .container .col-md-7 p {
     width: 15rem;
 }
 
+
 .search {
     padding-right: 45px;
     font-family: Arial, Helvetica, sans-serif;
@@ -147,6 +149,7 @@ header .container .col-md-7 p {
 .box {
     height: 29.31px;
 }
+
 
 .searchButton {
     width: 30px;
@@ -244,7 +247,6 @@ footer .input-group .input-group-text {
 footer .column i {
     color: #dd2476;
 }
-
 
 /* It is Adjacent sibling combinator */
 

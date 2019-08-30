@@ -8,9 +8,9 @@ Indeks Artikel | Edisi
 <main style="background: white; padding: 45px">
         <div class="mr-auto" style="padding-bottom:10px;">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="beranda-user.html">Beranda</a></li>
-                <li class="breadcrumb-item"><a href="sumber.html">Sumber</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Tempo : Madjalah Berita Mingguan</li>
+                <li class="breadcrumb-item"><a href="/home">Beranda</a></li>
+                <li class="breadcrumb-item"><a href="/titles">Sumber</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ $title->title }}</li>
             </ol>
         </div>
 
@@ -27,14 +27,14 @@ Indeks Artikel | Edisi
 							<h5 class="modal-title" id="exampleModalLabel">Import Excel</h5>
 						</div>
 						<div class="modal-body">
- 
+
 							{{ csrf_field() }}
- 
+
 							<label>Pilih file excel</label>
 							<div class="form-group">
 								<input type="file" name="file" required="required">
 							</div>
- 
+
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -177,11 +177,7 @@ Indeks Artikel | Edisi
             @php $i=1 @endphp
             @foreach ($title->editions as $edition)
                 <tr class="GridItem">
-<<<<<<< HEAD
                     <td style="width:20px;text-align: center">{{$i++}}</td>
-=======
-					<td>{{ $i++ }}</td>
->>>>>>> 949c2d12f7e6f38ba9b025b57b43912d9af4387f
                     <td><img src="{{asset('storage/upload/'. $edition->edition_image) }}" style="max-width: 150px; height: auto; "class="image-fluid"></td>
                     <td style="width:300px;"><a href="/editions/{{$edition->slug}}">{{$edition->edition_year}}, {{$edition->edition_no}}, {{$edition->original_date}}</a></td>
                     <td style="width:100px;">{{$edition->edition_year}}</td>
@@ -191,7 +187,7 @@ Indeks Artikel | Edisi
                     <td style="width:100px;">{{$edition->edition_no}}</td>
                     <td style="width:150px;">{{$edition->original_date}}</td>
                     <td style="width:150px;">{{$edition->call_number}}</td>
-                    <td style="width:300px;">TEMPO : Madjalah Berita Mingguan</td>
+                    <td style="width:300px;">{{ $title->title }}</td>
                     <td style="width:100px;">49</td>
                     <td style="width:100px; text-align: center;">
                             <a href='/editions/{{$edition->id}}/edit'><button class="fas fa-edit" style="width:30px;height:30px"></button></a>

@@ -22,23 +22,20 @@ Route::group(['middleware' => 'auth'], function() {
     Route::delete('/articles/{id}', 'ArticleEditionController@destroy');
     Route::get('/articles/export_excel', 'ArticleEditionController@export_excel');
     Route::post('/articles/import_excel/{id}', 'ArticleEditionController@import_excel');
+    Route::get('/displays/etalase', 'TitleController@etalase_in');
+    Route::get('/displays/etalase/{id}', 'TitleController@etalase_show_in');
+    Route::get('/displays/catalog/{id}', 'TitleController@catalog_show_in');
+    Route::get('/displays/articlelog/{id}', 'TitleController@articlelog_show_in');
+    Route::get('/displays/hierarki/{id}', 'TitleController@hierarki_show_in');
+    Route::get('/displays/hierarkilog/{id}', 'TitleController@hierarkilog_show_in');
 });
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-<<<<<<< HEAD
-// Route::get('/etalase', function () {
-//     return view('etalase');
-// });
-
-Route::get('/report', function () {
-    return view('report');
-=======
 Route::get('/reports', function () {
     return view('reports.index');
->>>>>>> 949c2d12f7e6f38ba9b025b57b43912d9af4387f
 });
 
 Auth::routes();

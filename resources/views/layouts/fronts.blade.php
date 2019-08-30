@@ -2,17 +2,19 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
     <script src="https://kit.fontawesome.com/0543565c6e.js"></script>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title')</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/konten-login.css">
-    <link rel="stylesheet" href="../css/etalase.css">
+    <link rel="stylesheet" href="../../css/konten-menu.css">
+    <link rel="stylesheet" href="../../css/style-admin.css">
+    <link rel="stylesheet" href="../../css/etalase.css">
+    <link rel="stylesheet" href="../../css/grid.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.7/css/mdb.min.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -20,40 +22,52 @@
     <header>
         <!-- NAV BAR -->
         <div class="container-fluid p=0 align-content-center">
-        @if (Route::has('login'))
+            @if (Route::has('login'))
             <nav class="navbar navbar-expand-lg">
-                <a class="navbar-brand" href="index.html">
-                    <img src="../assets/logo-perpunas.png" width="33" height="30" class="d-inline-block align-top"
+                <a class="navbar-brand" href="/home">
+                    <img src="../../assets/logo-perpunas.png" width="33" height="30" class="d-inline-block align-top"
                         alt="">Indeks
                     Artikel
                 </a>
-                <div class="mr-auto">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Beranda</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Etalase IA</li>
-                    </ol>
-                </div>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"><img src="../assets/menu-2x.png"></span>
+                    <span class="navbar-toggler-icon"><img src="../../assets/menu-2x.png"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <div class="mr-auto"></div>
                     <ul class="navbar-nav">
                         <li class="nav-item active">
-                            <a class="nav-link" href="index.html">Beranda </a>
+                            <a class="nav-link" href="/home">Beranda <span
+                                    class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="etalase.html">Etalase<span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="/displays/etalase">Etalase</a>
                         </li>
-                        @auth
+                        @guest
                         <li class="nav-item">
-                                <a class="nav-link" href="/titles">Sumber</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/reports">Laporan Kinerja User</a>
-                            </li>
-                            <li class="nav-item dropdown">
+                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                        </li>
+						@else
+                        <li class="nav-item dropdown">
+                            <div class="dropdown">
+                                <a href="#" class="nav-link">Setting Master
+                                    <i class="fas fa-sort-down" style="font-size: 22px;display: inline"></i></a>
+                                <div class="dropdown-content">
+                                    <a href="/types" style="width: 100%">Master Jenis</a>
+                                    <a href="/times" style="width: 100%">Kala Terbit</a>
+                                    <a href="/languages" style="width: 100%">Bahasa</a>
+                                    <a href="/formats" style="width: 100%">Format</a>
+                                    <a href="/statuses" style="width: 100%">Status Ketersediaan</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/titles">Sumber</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/reports">Laporan Kinerja User</a>
+                        </li>
+                        <li class="nav-item dropdown">
                                 <div class="dropdown">
                                     <a href="#" class="nav-link">
                                         <i class="fa fa-user"></i>
@@ -62,23 +76,21 @@
                                     <div class="dropdown-content">
                                         <a href="{{ route('logout') }}" onclick="event.preventDefault();
                                         document.getElementById('logout-form').submit();" style="width: 100%">Logout</a>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                            @csrf
+                                        </form>
                                     </div>
                                 </div>
                             </li>
-                            @else
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login')}}"}}>Login</a>
-                            </li>
-                            @endauth
+                            @endguest
                         </ul>
                     </div>
                 @endif
                 </nav>
-        </div>
-    </header>
-    @yield('content')
-    <!-- Footer -->
+            </div>
+        </header>
 
+    @yield('content')
     <footer>
         <div class="container-fluid p-0">
             <div class="row text-left">

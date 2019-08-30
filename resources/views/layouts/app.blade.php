@@ -38,7 +38,7 @@
                             <a class="nav-link" href="/home">Beranda <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/etalase">Etalase</a>
+                            <a class="nav-link" href="/displays/etalase">Etalase</a>
                         </li>
                         @guest
                         <li class="nav-item">

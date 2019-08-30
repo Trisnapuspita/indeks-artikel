@@ -42,33 +42,33 @@ class ArticleEditionController extends Controller
 	{
 		return Excel::download(new ArticleExport, 'article.xlsx');
     }
-    
-    public function import_excel(Request $request, $id) 
+
+    public function import_excel(Request $request, $id)
 	{
-        
-        
+
+
 		// validasi
 		$this->validate($request, [
 			'file' => 'required|mimes:csv,xls,xlsx'
         ]);
-        
+
         $edition = EditionTitle::findOrFail($id);
- 
+
 		// menangkap file excel
 		$file = $request->file('file');
- 
+
 		// membuat nama file unik
 		$nama_file = rand().$file->getClientOriginalName();
- 
+
 		// upload ke folder file_siswa di dalam folder public
 		$file->move('file_articles',$nama_file);
- 
+
 		// import data
 		Excel::import(new ArticleImport, public_path('/file_articles/'.$nama_file));
- 
+
 		// notifikasi dengan session
 		Session::flash('sukses','Data Siswa Berhasil Diimport!');
- 
+
 		// alihkan halaman kembali
 		return redirect('/editions/'.$edition->slug);
 	}
@@ -77,16 +77,6 @@ class ArticleEditionController extends Controller
     {
         //
     }
-    // public function articlefront_show($id)
-    // {
-    //     $articles = ArticleEdition::find($id);
-
-    //     // if(empty($articles)){
-    //     //     abort(404);
-    //     // }
-        
-    //     return view('article-catalog', compact('articles'));
-    // }
 
     /**
      * Show the form for editing the specified resource.
@@ -126,7 +116,7 @@ class ArticleEditionController extends Controller
             'keyword'=>$request->keyword,
             'detail_img'=>$request->detail_img
         ]);
-        
+
         return redirect('/editions/'. $articles->edition_title->slug)->with('msg', 'kutipan berhasil diedit');
     }
 
@@ -137,7 +127,7 @@ class ArticleEditionController extends Controller
 
         return redirect('/editions/'. $articles->edition_title->slug)->with('msg', 'kutipan berhasil di hapus');
     }
-    
 
-    
+
+
 }
