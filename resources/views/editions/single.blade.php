@@ -33,11 +33,7 @@ Indeks Artikel | Article
         <div class="createnew" style="padding-bottom: 10px">
             <a data-toggle="modal" data-target="#importExcel"><button>Import</button></a>
         </div>
-        <a data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
-            aria-controls="collapseExample">
-            <h5
-                style="width: 100%;background: whitesmoke; height: 50px; padding-top:15px; padding-left: 15px; border-radius: 4px">Tambah Artikel<i class="fas fa-angle-down" style="padding-right: 20px; float: right"></i></h5>
-        </a>
+        
 
         <!-- Import Excel -->
 		<div class="modal fade" id="importExcel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -66,6 +62,14 @@ Indeks Artikel | Article
 			</div>
 		</div>
 
+        <a data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
+            aria-controls="collapseExample">
+            <h5
+                style="width: 100%;background: whitesmoke; height: 50px; padding-top:15px; padding-left: 15px; border-radius: 4px">
+                TEMPO :
+                Madjalah Berita
+                Mingguan<i class="fas fa-angle-down" style="padding-right: 20px; float: right"></i></h5>
+        </a>
 
         <div id="collapseExample">
             <div class="container" style="background:whitesmoke;-webkit-box-shadow: 0px 0px 17px -4px rgba(0,0,0,0.75);
@@ -128,6 +132,18 @@ Indeks Artikel | Article
                             <textarea rows="3" class="form-control" type="text" placeholder=""  name="detail_img" value="{{old('detail_img')}}" required></textarea>
                         </div>
                     </div>
+                    <div class="row was-validated">
+                        <legend class="col-form-label col-sm-2">Status Ketersediaan*</legend>
+                        <div class="col-sm-8">
+                        @foreach ($statuses as $statuses)
+                            <div class="form-check form-check-inline custom-control-inline custom-radio">
+                            <label class="form-check-label" for="statuses" >
+                                <input class="form-check-input" type="radio" value='{{$statuses->id}}' name="statuses[]" id="statuses_Select"required>{{$statuses->title}}
+                                </label>
+                            </div>
+                        @endforeach
+                        </div>
+                    </div>
                     </fieldset>
 
                     {{ csrf_field() }}
@@ -145,6 +161,7 @@ Indeks Artikel | Article
         <br><br><br>
         <table id="example" class="table table-striped table-bordered table-responsive" style="width:100%">
             <thead>
+
                 <tr class="GridHeader" style="text-align: center">
                     <th>No</th>
                     <th>Judul</th>
@@ -156,6 +173,7 @@ Indeks Artikel | Article
                     <th>Deskripsi Singkat</th>
                     <th>Kata Kunci</th>
                     <th>Keterangan Gambar</th>
+                    <th>Status</th>
                     <th>Action</th>
                 </tr>
 			</thead>
@@ -163,21 +181,22 @@ Indeks Artikel | Article
             @php $i=1 @endphp
             @foreach ($editions->articles as $article)
                 <tr class="GridItem">
-                    <td style="width:20px;text-align: center">{{$i++}}</td>
-                    <td style="width:100px;">{{$article->article_title}}</td>
-                    <td style="width:100px;">{{$article->subject}}</td>
-                    <td style="width:100px;">{{$article->writer}}</td>
-                    <td style="width:100px;">{{$article->pages}}</td>
-                    <td style="width:100px;">{{$article->column}}</td>
-                    <td style="width:100px;">{{$article->source}}</td>
-                    <td style="width:100px;">{{$article->desc}}</td>
-                    <td style="width:100px;">{{$article->keyword}}</td>
-                    <td style="width:100px;">{{$article->detail_img}}</td>
-                    <td style="width:100px">
-                        <div class="row">
+                    <td>{{$i++}}</td>
+                    <td>{{$article->article_title}}</td>
+                    <td>{{$article->subject}}</td>
+                    <td>{{$article->writer}}</td>
+                    <td>{{$article->pages}}</td>
+                    <td>{{$article->column}}</td>
+                    <td>{{$article->source}}</td>
+                    <td>{{$article->desc}}</td>
+                    <td>{{$article->keyword}}</td>
+                    <td>{{$article->detail_img}}</td>
+                    <td>  </td>
+                    <td style="center";>
                             <div class="col-md-2">
                                 <a href='/articles/{{$article->id}}/edit'><button class="fas fa-edit" title="Edit" style="width:35px;height:35px"></button></a>
                             </div>
+                            <br>
                             <div class="col-md-2">
                                 <form method="POST" action="/articles/{{$article->id}}">
                                         {{ csrf_field() }}
@@ -185,11 +204,11 @@ Indeks Artikel | Article
                                         <button type="submit" class="fa fa-trash" style="width:35px;height:35px" title="Hapus"></button>
                                 </form>
                             </div>
+                            <br>
                             <div class="col-md-2">
-                                <a href='/articles/{{$article->id}}/edit'><button class="fa fa-check" title="Verifikasi" style="width:35px;height:35px"></button></a>
+                                <a href='/articles/{{$article->id}}/verif'><button class="fa fa-check" title="Verifikasi" style="width:35px;height:35px"></button></a>
                             </div>
-                        </div>
-                    </td>
+                        </td>
                 </tr>
                 @endforeach
             </tbody>

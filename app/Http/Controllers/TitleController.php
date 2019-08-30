@@ -28,7 +28,8 @@ class TitleController extends Controller
     {
         $titles = Title::all();
         $editions = EditionTitle::all();
-        return view('titles.index', compact('titles', 'editions'));
+        $articles = ArticleEdition::all();
+        return view('titles.index', compact('titles', 'editions','articles'));
     }
 
     public function etalase()
@@ -74,7 +75,7 @@ class TitleController extends Controller
         return redirect('titles')->with('msg', 'berhasil ditambahkan');
     }
     public function show($slug)
-    {
+    {   
         $title= Title::with('editions')->where('slug', $slug)->first();
         if(empty($title)){
             abort(404);

@@ -19,6 +19,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/articles/{id}', 'ArticleEditionController@store');
     Route::put('/articles/{id}', 'ArticleEditionController@update');
     Route::get('/articles/{id}/edit', 'ArticleEditionController@edit');
+    Route::get('/articles/{id}/verif', 'ArticleEditionController@verif');
     Route::delete('/articles/{id}', 'ArticleEditionController@destroy');
     Route::get('/articles/export_excel', 'ArticleEditionController@export_excel');
     Route::post('/articles/import_excel/{id}', 'ArticleEditionController@import_excel');

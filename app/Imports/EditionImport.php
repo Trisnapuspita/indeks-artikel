@@ -2,11 +2,20 @@
 
 namespace App\Imports;
 
+use Auth;
 use App\Models\EditionTitle;
 use Maatwebsite\Excel\Concerns\ToModel;
 
 class EditionImport implements ToModel
 {
+
+    public function __construct(int $id)
+    {
+        $this->id = $id;
+    }
+
+
+
     /**
     * @param array $row
     *
@@ -16,19 +25,19 @@ class EditionImport implements ToModel
     {
         return new EditionTitle([
             'user_id' => Auth::user()->id,
-            'title_id' => $row[1],
-            'edition_year' => $row[2],
-            'edition_title' => $row[3],
-            'slug' => $row[4],
-            'volume' => $row[5],
-            'chapter' => $row[6],
-            'edition_no' => $row[7],
-            'publish_date' => $row[8],
-            'publish_month' => $row[9],
-            'publish_year' => $row[10],
-            'original_date' => $row[11],
-            'call_number' => $row[12],
-            'publish_date' => $row[13]
+            'title_id' => $this->id,
+            'edition_year' => $row[1],
+            'edition_title' => $row[2],
+            'slug' => $row[3],
+            'volume' => $row[4],
+            'chapter' => $row[5],
+            'edition_no' => $row[6],
+            'publish_date' => $row[7],
+            'publish_month' => $row[8],
+            'publish_year' => $row[9],
+            'original_date' => $row[10],
+            'call_number' => $row[11],
+            'publish_date' => $row[12]
         ]);
     }
 }

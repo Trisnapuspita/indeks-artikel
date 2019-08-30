@@ -20,4 +20,9 @@ class Status extends Model
     {
         return $this->belongsTo('App\Models\Title');
     }
+
+    public function articles()
+    {
+        return $this->belongsToMany('App\Models\ArticleEdition');
+    }
 }

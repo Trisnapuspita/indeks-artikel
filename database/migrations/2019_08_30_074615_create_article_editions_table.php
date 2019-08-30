@@ -28,6 +28,7 @@ class CreateArticleEditionsTable extends Migration
             $table->text('desc');
             $table->string('keyword');
             $table->string('detail_img');
+            $table->boolean('verification')->default(FALSE);
             $table->timestamps();
         });
     }
