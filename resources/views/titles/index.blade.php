@@ -46,8 +46,8 @@
                     <td style="width:150px; text-align: center">{{$title->first_year}}</td>
                     <td style="width:100px; text-align: center">@foreach ($title->languages()->get() as $languages){{$languages->title}}@endforeach</td>
                     <td style="width:100px; text-align: center">@foreach ($title->formats()->get() as $formats){{$formats->title}}@endforeach</td>
-                    <td style="width:100px; text-align: center">-<a href="/editions/create"><button style="float: right"><strong>+</strong></button></a></td>
-                    <td style="width:100px; text-align: center">-<a href="/articles/create"><button style="float: right"><strong>+</strong></button></a></td>
+                    <td style="width:100px; text-align: center">{{$editions->where('title_id',$title->id)->count()}}<a href="/editions/create"><button style="float: right"><strong>+</strong></button></a></td>
+                    <td style="width:100px; text-align: center">{{$articles->whereIn('edition_title_id',$editions->where('title_id',$title->id)->pluck('id'))->count()}}<a href="/articles/create"><button style="float: right"><strong>+</strong></button></a></td>
                     <td style="width:100px;text-align: center">
 						<a href="/titles/{{$title->id}}/edit"><button class="fas fa-edit" style="width:30px;height:30px"></button></a>
                         <br><br>

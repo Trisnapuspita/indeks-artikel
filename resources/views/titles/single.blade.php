@@ -178,7 +178,11 @@ Indeks Artikel | Edisi
             @foreach ($title->editions as $edition)
                 <tr class="GridItem">
 					<td>{{ $i++ }}</td>
+                    @if($edition->edition_image == null)
+                    <td><img src="{{asset('storage/upload/default.png')}}" style="max-width: 150px; height: auto; "class="image-fluid"></td>
+                    @else
                     <td><img src="{{asset('storage/upload/'. $edition->edition_image) }}" style="max-width: 150px; height: auto; "class="image-fluid"></td>
+                    @endif
                     <td style="width:300px;"><a href="/editions/{{$edition->slug}}">{{$edition->edition_year}}, {{$edition->edition_no}}, {{$edition->original_date}}</a></td>
                     <td style="width:100px;">{{$edition->edition_year}}</td>
                     <td style="width:100px;">{{$edition->edition_title}}</td>

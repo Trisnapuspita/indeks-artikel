@@ -12,6 +12,7 @@ use App\Models\Language;
 use App\Models\Format;
 use App\Models\Title;
 use App\Models\EditionTitle;
+use App\Models\ArticleEdition;
 use App\Exports\TitleExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
@@ -29,7 +30,8 @@ class TitleController extends Controller
     {
         $titles = Title::all();
         $editions = EditionTitle::all();
-        return view('titles.index', compact('titles', 'editions'));
+        $articles = ArticleEdition::all();
+        return view('titles.index', compact('titles', 'editions','articles'));
     }
     
 
@@ -76,7 +78,7 @@ class TitleController extends Controller
     }
 
     public function show($slug)
-    {
+    {   
         $title= Title::with('editions')->where('slug', $slug)->first();
         if(empty($title)){
             abort(404);

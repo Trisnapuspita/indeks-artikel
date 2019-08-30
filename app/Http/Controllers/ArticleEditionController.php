@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Session;
 use Auth;
+use App\Models\Status;
 use App\Models\EditionTitle;
 use App\Models\ArticleEdition;
 use App\Exports\ArticleExport;
@@ -33,8 +34,9 @@ class ArticleEditionController extends Controller
             'desc'=>$request->desc,
             'keyword'=>$request->keyword,
             'detail_img'=>$request->detail_img
-
         ]);
+
+        $articles->statuses()->attach($request->statuses);
         return redirect('/editions/'.$edition->slug)->with('msg', 'berhasil ditambahkan');
     }
 
@@ -86,8 +88,9 @@ class ArticleEditionController extends Controller
      */
     public function edit($id)
     {
+        $statuses = Status::all();
         $articles = ArticleEdition::findOrFail($id);
-        return view('articles.edit', compact('articles'));
+        return view('articles.edit', compact('articles', 'statuses'));
     }
 
     /**
@@ -117,6 +120,7 @@ class ArticleEditionController extends Controller
             'detail_img'=>$request->detail_img
         ]);
         
+        $articles->statuses()->sync($request->statuses);
         return redirect('/editions/'. $articles->edition_title->slug)->with('msg', 'kutipan berhasil diedit');
     }
 
@@ -126,6 +130,14 @@ class ArticleEditionController extends Controller
         $articles->delete();
 
         return redirect('/editions/'. $articles->edition_title->slug)->with('msg', 'kutipan berhasil di hapus');
+    }
+
+    public function verif($id) {
+        $article = ArticleEdition::find($id);
+        $article->update([
+            'verification'=> 1
+        ]);
+        return redirect('/editions/'. $article->edition_title->slug)->with('msg', 'Artikel berhasil di verifikasi');
     }
     
 

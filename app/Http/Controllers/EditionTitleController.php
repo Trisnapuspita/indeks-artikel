@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use Session;
 use Auth;
+use App\Models\Status;
 use App\Imports\EditionImport;
-use App\Exports\EditionExportView;
+use App\Exports\EditionExport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Title;
 use App\Models\EditionTitle;
@@ -52,15 +53,12 @@ class EditionTitleController extends Controller
 
     public function export_excel($id)
 	{
-        
-        $title = Title::findOrFail($id);
-		return Excel::download(new EditionExportView(), 'edition.xlsx');
+		return Excel::download(new EditionExport($id), 'edition.xlsx');
     }
 
     public function import_excel(Request $request, $id) 
 	{
-        Auth::user()->id;
-        
+
 		// validasi
 		$this->validate($request, [
 			'file' => 'required|mimes:csv,xls,xlsx'
@@ -78,7 +76,7 @@ class EditionTitleController extends Controller
 		$file->move('file_editions',$nama_file);
  
 		// import data
-		Excel::import(new EditionImport, public_path('/file_editions/'.$nama_file));
+		Excel::import(new EditionImport($id), public_path('/file_editions/'.$nama_file));
  
 		// notifikasi dengan session
 		Session::flash('sukses','Data Berhasil Diimport!');
@@ -90,7 +88,8 @@ class EditionTitleController extends Controller
     public function show($slug)
     {
         $editions= EditionTitle::with('articles')->where('slug', $slug)->first();
-        return view('editions.single', compact('editions'));
+        $statuses= Status::all();
+        return view('editions.single', compact('editions', 'statuses'));
     }
 
 

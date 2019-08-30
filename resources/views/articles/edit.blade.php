@@ -61,6 +61,19 @@ Indeks Artikel | Edit Artikel Sumber
                         value="{{old('desc') ? old('desc') :$articles->desc}}" required>
                     </div>
                 </div>
+                <div class="row was-validated">
+                        <legend class="col-form-label col-sm-3 pt-0">Status Ketersediaan*</legend>
+                        <div class="col-sm-8">
+                        @foreach ($statuses as $statuses)
+                            <div class="form-check form-check-inline custom-control-inline custom-radio">
+                            <label class="form-check-label" for="statuses" >
+                                <input class="form-check-input" type="radio" name="statuses[]" id="type_Select"  required 
+                                value='{{$statuses->id}}' @if($title->statuses()->get()->contains($statuses->id)) checked @endif>{{$statuses->title}}
+                                </label>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
                 (*) Wajib Diisi
                 
                 {{ csrf_field() }}
