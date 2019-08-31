@@ -30,7 +30,7 @@ Indeks Artikel | Master Kala Terbit
 			@foreach ($times as $time)
                 <tr class="GridItem">
                     <td style="width:20px;">{{$time->id}}</td>
-                    <td style="width:80px;"><a href="">{{$time->title}}</a></td>
+                    <td style="width:80px;">{{$time->title}}</td>
                     <td style="width:50px;">....</td>
 					<td style="width:50px;"> 
                     <div class="row" style="">

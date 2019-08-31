@@ -30,7 +30,7 @@ Indeks Artikel | Master Jenis
 			@foreach ($types as $type)
                 <tr class="GridItem">
                     <td style="width:20px;">{{$type->id}}</td>
-                    <td style="width:80px;"><a href="">{{$type->title}}</a></td>
+                    <td style="width:80px;">{{$type->title}}</td>
                     <td style="width:50px;">....</td>
 					<td style="width:20px;"> 
                     <div class="row" style="">

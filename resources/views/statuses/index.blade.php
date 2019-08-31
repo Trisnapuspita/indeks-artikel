@@ -30,7 +30,7 @@ Indeks Artikel | Master Status Ketersediaan
 			@foreach ($statuses as $status)
                 <tr class="GridItem">
                     <td style="width:20px;">{{$status->id}}</td>
-                    <td style="width:80px;"><a href="">{{$status->title}}</a></td>
+                    <td style="width:80px;">{{$status->title}}</td>
                     <td style="width:50px;">....</td>
 					<td style="width:50px;"> 
                     <div class="row" style="">

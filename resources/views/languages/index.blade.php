@@ -30,7 +30,7 @@ Indeks Artikel | Master Bahasa
 			@foreach ($languages as $language)
                 <tr class="GridItem">
                     <td style="width:20px;">{{$language->id}}</td>
-                    <td style="width:80px;"><a href="">{{$language->title}}</a></td>
+                    <td style="width:80px;">{{$language->title}}</td>
                     <td style="width:50px;">....</td>
 					<td style="width:50px;"> 
                     <div class="row" style="">
