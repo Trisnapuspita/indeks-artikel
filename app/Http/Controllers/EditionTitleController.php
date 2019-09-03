@@ -54,21 +54,11 @@ class EditionTitleController extends Controller
 
     public function export_excel($id)
 	{
-<<<<<<< HEAD
-
-        $title = Title::findOrFail($id);
-		return Excel::download(new EditionExportView(), 'edition.xlsx');
-=======
 		return Excel::download(new EditionExport($id), 'edition.xlsx');
->>>>>>> 1918c0f563e8d30ecfe80a0e7cd7665eb4486388
     }
 
     public function import_excel(Request $request, $id)
 	{
-<<<<<<< HEAD
-        Auth::user()->id;
-=======
->>>>>>> 1918c0f563e8d30ecfe80a0e7cd7665eb4486388
 
 		// validasi
 		$this->validate($request, [
@@ -87,13 +77,8 @@ class EditionTitleController extends Controller
 		$file->move('file_editions',$nama_file);
 
 		// import data
-<<<<<<< HEAD
-		Excel::import(new EditionImport, public_path('/file_editions/'.$nama_file));
-
-=======
 		Excel::import(new EditionImport($id), public_path('/file_editions/'.$nama_file));
- 
->>>>>>> 1918c0f563e8d30ecfe80a0e7cd7665eb4486388
+
 		// notifikasi dengan session
 		Session::flash('sukses','Data Berhasil Diimport!');
 

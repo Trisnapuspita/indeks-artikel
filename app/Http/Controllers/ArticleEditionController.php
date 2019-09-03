@@ -119,12 +119,8 @@ class ArticleEditionController extends Controller
             'keyword'=>$request->keyword,
             'detail_img'=>$request->detail_img
         ]);
-<<<<<<< HEAD
 
-=======
-        
         $articles->statuses()->sync($request->statuses);
->>>>>>> 1918c0f563e8d30ecfe80a0e7cd7665eb4486388
         return redirect('/editions/'. $articles->edition_title->slug)->with('msg', 'kutipan berhasil diedit');
     }
 
@@ -135,8 +131,6 @@ class ArticleEditionController extends Controller
 
         return redirect('/editions/'. $articles->edition_title->slug)->with('msg', 'kutipan berhasil di hapus');
     }
-<<<<<<< HEAD
-=======
 
     public function verif($id) {
         $article = ArticleEdition::find($id);
@@ -145,8 +139,7 @@ class ArticleEditionController extends Controller
         ]);
         return redirect('/editions/'. $article->edition_title->slug)->with('msg', 'Artikel berhasil di verifikasi');
     }
-    
->>>>>>> 1918c0f563e8d30ecfe80a0e7cd7665eb4486388
+
 
 
 

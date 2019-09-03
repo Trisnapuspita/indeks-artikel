@@ -177,14 +177,10 @@ Indeks Artikel | Edisi
             @php $i=1 @endphp
             @foreach ($title->editions as $edition)
                 <tr class="GridItem">
-<<<<<<< HEAD
-                    <td style="width:20px;text-align: center">{{$i++}}</td>
-=======
 					<td>{{ $i++ }}</td>
                     @if($edition->edition_image == null)
                     <td><img src="{{asset('storage/upload/default.png')}}" style="max-width: 150px; height: auto; "class="image-fluid"></td>
                     @else
->>>>>>> 1918c0f563e8d30ecfe80a0e7cd7665eb4486388
                     <td><img src="{{asset('storage/upload/'. $edition->edition_image) }}" style="max-width: 150px; height: auto; "class="image-fluid"></td>
                     @endif
                     <td style="width:300px;"><a href="/editions/{{$edition->slug}}">{{$edition->edition_year}}, {{$edition->edition_no}}, {{$edition->original_date}}</a></td>

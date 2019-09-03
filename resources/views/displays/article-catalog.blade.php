@@ -22,15 +22,15 @@
 
         <div class="mr-auto" style="padding-bottom:10px;">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="judul-sumber1.html">Etalase IA</a></li>
-                <li class="breadcrumb-item"><a href="judul-sumber1.html">Daftar Isi</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Edisi TH. 1, NO. 8, 24 April 1971.
+                <li class="breadcrumb-item"><a href="/displays/catalog/{{ $title->id }}">Etalase</a></li>
+                <li class="breadcrumb-item"><a href="/displays/catalog/{{ $title->id }}">Daftar Isi</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Edisi {{$edition->edition_year}}, {{$edition->edition_no}}, {{$edition->original_date}}
                 </li>
-                <li class="breadcrumb-item active" aria-current="page">Artikel Pendidikan.Indonesia Bahasa Asing. p: 28.
+                <li class="breadcrumb-item active" aria-current="page">Artikel {{ $article->article_title }}. p: {{ $article->pages }}
                 </li>
             </ol>
         </div>
-        <div class="row">     
+        <div class="row">
                 <div class="col-md-12">
                     <table class="table table-striped">
                         <tbody>

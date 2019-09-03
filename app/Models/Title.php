@@ -40,15 +40,5 @@ class Title extends Model
     {
         return $this->belongsToMany('App\Models\Format');
     }
-<<<<<<< HEAD
 
-    public function statuses()
-    {
-        return $this->belongsToMany('App\Models\Status');
-    }
-
-
-=======
-    
->>>>>>> 1918c0f563e8d30ecfe80a0e7cd7665eb4486388
 }
