@@ -30,8 +30,13 @@ Indeks Artikel | Master Format
             @php $i=1 @endphp
 			@foreach ($formats as $format)
                 <tr class="GridItem">
+<<<<<<< HEAD
                     <td style="width:20px; text-align: center">{{$i++}}</td>
                     <td style="width:80px;"><a href="">{{$format->title}}</a></td>
+=======
+                    <td style="width:20px;">{{$format->id}}</td>
+                    <td style="width:80px;">{{$format->title}}</td>
+>>>>>>> b380c3527b45bf36c92f3c7994f1bb9a0290ec26
                     <td style="width:50px;">....</td>
 					<td style="width:50px;">
                     <div class="row" style="">

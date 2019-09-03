@@ -26,7 +26,7 @@ Indeks Artikel | Buat Judul Sumber
                         @foreach ($types as $types)
                             <div class="form-check form-check-inline custom-control-inline custom-radio">
                             <label class="form-check-label" for="types" >
-                                <input class="form-check-input" type="radio" value='{{$types->id}}' name="types[]" id="type_Select"required>{{$types->title}}
+                                <input class="form-check-input" type="radio" value='{{$types->id}}' name="types[]" id="type_Select" >{{$types->title}}
                                 </label>
                             </div>
                         @endforeach
@@ -36,7 +36,7 @@ Indeks Artikel | Buat Judul Sumber
                 <div class="form-group row was-validated">
                     <label class="col-sm-3 col-form-label">Kala Terbit*</label>
                     <div class="col">
-                        <select class="form-control custom-select" name="times[]" id="time_Select" required>
+                        <select class="form-control custom-select" name="times[]" id="time_Select"  >
                             <option disabled selected hidden> Pilih Kala Terbit</option>
                             @foreach ($times as $times)
                                      <option value='{{$times->id}}'>{{$times->title}}</option>
@@ -48,7 +48,7 @@ Indeks Artikel | Buat Judul Sumber
                     <label for="inputEmail3" class="col-sm-3 col-form-label">Judul*</label>
                     <div class="col">
                         <input type="text" class="form-control" id="title" name="title"
-                         value="{{old('title')}}" placeholder="Tulis judul disini" required>
+                         value="{{old('title')}}" placeholder="Tulis judul disini"  >
                     </div>
                 </div>
                 <div class="form-group row">
@@ -67,7 +67,7 @@ Indeks Artikel | Buat Judul Sumber
                     <label for="inputEmail3" class="col-sm-3 col-form-label">Tahun Terbit Pertama*</label>
                     <div class="col-sm-4 col-form-label">
                         <input type="text" class="form-control" id="first_year" name="first_year"
-                         value="{{old('first_year')}}" placeholder="Tulis tahun terbit pertama disini" required>
+                         value="{{old('first_year')}}" placeholder="Tulis tahun terbit pertama disini"  >
                     </div>
                 </div>
                 <div class="form-group row">

@@ -30,12 +30,20 @@ Indeks Artikel | Master Jenis
             @php $i=1 @endphp
 			@foreach ($types as $type)
                 <tr class="GridItem">
+<<<<<<< HEAD
 
                     <td style="width:20px; text-align: center">{{ $i++ }}</td>
                     <td style="width:80px; text-align: center"><a href="">{{$type->title}}</a></td>
                     <td style="width:50px;text-align: center">....</td>
 					<td style="width:20px;text-align: center">
                     <div class="row" style="text-align: center">
+=======
+                    <td style="width:20px;">{{$type->id}}</td>
+                    <td style="width:80px;">{{$type->title}}</td>
+                    <td style="width:50px;">....</td>
+					<td style="width:20px;"> 
+                    <div class="row" style="">
+>>>>>>> b380c3527b45bf36c92f3c7994f1bb9a0290ec26
                         <div class="col-md-2">
                         <a href='/types/{{$type->id}}/edit'><button class="btn btn-primary">Sunting</button></a>
                         </div>
