@@ -85,7 +85,7 @@ Indeks Artikel | Edit Judul Sumber
                     <div class="col">
                         <select class="form-control" name="formats[]" id="format_Select">
 							@foreach ($formats as $formats)
-                            <option required value='{{$languages->id}}'@if($title->languages()->get()->contains($languages->id)) checked @endif>{{$languages->title}}</option>
+                            <option required value='{{$formats->id}}'@if($title->formats()->get()->contains($formats->id)) checked @endif>{{$formats->title}}</option>
 							@endforeach
                         </select>
                     </div>

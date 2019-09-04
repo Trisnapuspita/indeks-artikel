@@ -12,7 +12,7 @@ class ArticleExport implements FromCollection
     */
     public function collection()
     {
-        return ArticleEdition::select('user_id', 'edition_title_id', 'article_title', 'subject', 'writer', 
+        return ArticleEdition::select('article_title', 'subject', 'writer', 
         'pages', 'column', 'source', 'desc', 'keyword', 'detail_img')->get();
     }
 }

@@ -83,7 +83,12 @@ Indeks Artikel | Etalase
         <div class="section1">
             <!-- 286x180 -->
             <div class="card">
-                <img class="card-img-top" src="storage/upload/{{ $title->featured_img }}" alt="">
+                    @if($title->featured_img == null)
+                    <img class="card-img-top" src="{{asset('storage/upload/default.png')}}"></td>
+                    @else
+                    <img class="card-img-top" src="storage/upload/{{ $title->featured_img }}" alt="">
+                    @endif
+
                 <div class="card-body">
                     <a class="card-title1" href="/etalase/{{ $title->id }}">{{ $title->title }}</a>
                     <br>

@@ -14,7 +14,7 @@ class EditionExport implements FromCollection
 
     public function collection()
     {   
-        return EditionTitle::select('title_id', 'edition_year', 'edition_title', 'slug', 'volume', 'chapter',
+        return EditionTitle::select('edition_year', 'edition_title', 'volume', 'chapter',
         'edition_no', 'publish_date', 'publish_month', 'publish_year', 'original_date', 'call_number')->where('title_id',$this->id)->get();        
     }
 }

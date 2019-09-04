@@ -25,18 +25,16 @@ Indeks Artikel | Laporan Kinerja User
                             </td>
                             <td style="font-size: 20px;font-weight: bold; padding-left: 20px; padding-right: 20px">:
                             </td>
-                            <td colspan="2">
+                            <td>
                                 <select class="box">
                                     <option value="">Pilih Kriteria</option>
-                                    <option class="dropdown-item">Semua User</option>
-                                    <option class="dropdown-item">User Entry</option>
-                                    <option class="dropdown-item">User Verifikator</option>
-                                    <option class="dropdown-item">Jenis Artikel</option>
-                                    <option class="dropdown-item">Kala Terbit</option>
-                                    <option class="dropdown-item">Format</option>
-                                    <option class="dropdown-item">Bahasa</option>
-                                    <option class="dropdown-item">Status</option>
+                                    <option class="dropdown-item">Semua</option>
+                                    <option class="dropdown-item">Subyek</option>
+                                    <option class="dropdown-item">Pengarang</option>
+                                    <option class="dropdown-item">Judul</option>
+                                    <option class="dropdown-item">No. Panggil</option>
                                 </select>
+                                <input>
                             </td>
                         </tr>
                         <tr>
@@ -51,10 +49,7 @@ Indeks Artikel | Laporan Kinerja User
                             </td>
                             <td>
                                 <button class="btn btn-dark btn-sm"
-                                    style="color: white; font-size: 13px; font-weight:2px">Tampilkan
-                                    Frekuensi</button>
-                                <button class="btn btn-dark btn-sm"
-                                    style="color: white; font-size: 13px; font-weight:2px">Tampilkan Data</button>
+                                    style="color: white; font-size: 13px; font-weight:2px" data-toggle="modal" data-target="#myModal"> Tampilkan Data</button>
                             </td>
                         </tr>
                         <tr>
@@ -79,26 +74,9 @@ Indeks Artikel | Laporan Kinerja User
                                     <option value="12">Desember</option>
                                 </select>
                                 <select class="box">
-                                    <option value="2019">2019</option>
-                                    <option value="2018">2018</option>
-                                    <option value="2017">2017</option>
-                                    <option value="2016">2016</option>
-                                    <option value="2015">2015</option>
-                                    <option value="2014">2014</option>
-                                    <option value="2013">2013</option>
-                                    <option value="2012">2012</option>
-                                    <option value="2011">2011</option>
-                                    <option value="2010">2010</option>
-                                    <option value="2009">2009</option>
-                                    <option value="2008">2008</option>
-                                    <option value="2007">2007</option>
-                                    <option value="2006">2006</option>
-                                    <option value="2005">2005</option>
-                                    <option value="2004">2004</option>
-                                    <option value="2003">2003</option>
-                                    <option value="2002">2002</option>
-                                    <option value="2001">2001</option>
-                                    <option value="2000">2000</option>
+                                @for($year = 2000; $year< now()->year+1; $year++)
+												<option value="{{$year}}"  @if($year==now()->year) selected @endif>{{$year}}</option>
+												@endfor
                                 </select> s/d
                                 <select class="box">
                                     <option value="1">Januari</option>
@@ -115,34 +93,14 @@ Indeks Artikel | Laporan Kinerja User
                                     <option value="12">Desember</option>
                                 </select>
                                 <select class="box">
-                                    <option value="2019">2019</option>
-                                    <option value="2018">2018</option>
-                                    <option value="2017">2017</option>
-                                    <option value="2016">2016</option>
-                                    <option value="2015">2015</option>
-                                    <option value="2014">2014</option>
-                                    <option value="2013">2013</option>
-                                    <option value="2012">2012</option>
-                                    <option value="2011">2011</option>
-                                    <option value="2010">2010</option>
-                                    <option value="2009">2009</option>
-                                    <option value="2008">2008</option>
-                                    <option value="2007">2007</option>
-                                    <option value="2006">2006</option>
-                                    <option value="2005">2005</option>
-                                    <option value="2004">2004</option>
-                                    <option value="2003">2003</option>
-                                    <option value="2002">2002</option>
-                                    <option value="2001">2001</option>
-                                    <option value="2000">2000</option>
+                                    @for($year = 2000; $year< now()->year+1; $year++)
+                                        <option value="{{$year}}"  @if($year==now()->year) selected @endif>{{$year}}</option>
+                                    @endfor
                                 </select>
                             </td>
                             <td>
                                 <button class="btn btn-dark btn-sm"
-                                    style="color: white; font-size: 13px; font-weight:2px">Tampilkan
-                                    Frekuensi</button>
-                                <button class="btn btn-dark btn-sm"
-                                    style="color: white; font-size: 13px; font-weight:2px">Tampilkan Data</button>
+                                    style="color: white; font-size: 13px; font-weight:2px" ng-click="editUser('new')" data-toggle="modal" data-target="#myModal"> Tampilkan Data</button>
                             </td>
                         </tr>
                         <tr>
@@ -153,67 +111,85 @@ Indeks Artikel | Laporan Kinerja User
                             </td>
                             <td>
                                 <select class="box">
-                                    <option value="2019">2019</option>
-                                    <option value="2018">2018</option>
-                                    <option value="2017">2017</option>
-                                    <option value="2016">2016</option>
-                                    <option value="2015">2015</option>
-                                    <option value="2014">2014</option>
-                                    <option value="2013">2013</option>
-                                    <option value="2012">2012</option>
-                                    <option value="2011">2011</option>
-                                    <option value="2010">2010</option>
-                                    <option value="2009">2009</option>
-                                    <option value="2008">2008</option>
-                                    <option value="2007">2007</option>
-                                    <option value="2006">2006</option>
-                                    <option value="2005">2005</option>
-                                    <option value="2004">2004</option>
-                                    <option value="2003">2003</option>
-                                    <option value="2002">2002</option>
-                                    <option value="2001">2001</option>
-                                    <option value="2000">2000</option>
+                                @for($year = 2000; $year< now()->year+1; $year++)
+												<option value="{{$year}}"  @if($year==now()->year) selected @endif>{{$year}}</option>
+												@endfor
                                 </select> s/d
                                 <select class="box">
-                                    <option value="2019">2019</option>
-                                    <option value="2018">2018</option>
-                                    <option value="2017">2017</option>
-                                    <option value="2016">2016</option>
-                                    <option value="2015">2015</option>
-                                    <option value="2014">2014</option>
-                                    <option value="2013">2013</option>
-                                    <option value="2012">2012</option>
-                                    <option value="2011">2011</option>
-                                    <option value="2010">2010</option>
-                                    <option value="2009">2009</option>
-                                    <option value="2008">2008</option>
-                                    <option value="2007">2007</option>
-                                    <option value="2006">2006</option>
-                                    <option value="2005">2005</option>
-                                    <option value="2004">2004</option>
-                                    <option value="2003">2003</option>
-                                    <option value="2002">2002</option>
-                                    <option value="2001">2001</option>
-                                    <option value="2000">2000</option>
+                                @for($year = 2000; $year< now()->year+1; $year++)
+												<option value="{{$year}}"  @if($year==now()->year) selected @endif>{{$year}}</option>
+												@endfor
                                 </select>
                             </td>
                             <td>
                                 <button class="btn btn-dark btn-sm"
-                                    style="color: white; font-size: 13px; font-weight:2px">Tampilkan
-                                    Frekuensi</button>
-                                <button class="btn btn-dark btn-sm"
-                                    style="color: white; font-size: 13px; font-weight:2px">Tampilkan Data</button>
+                                    style="color: white; font-size: 13px; font-weight:2px" ng-click="editUser('new')" data-toggle="modal" data-target="#myModal"> Tampilkan Data</button>
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-        <div id="formcontent">
-            <div class="table-responsive">
-                <iframe src="" width="100%" height="580px" frameborder="2px">
-                </iframe>
+        
+        <!-- Modal -->
+        <div id="myModal" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h6 class="modal-title">Laporan Data Indeks Artikel Harian, Periode 2015 s/d 2016
+                        <br> Nama Karyawan : Vincentia Dyah </h6>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table" id="example">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Judul</th>
+                                <th>Pengarang</th>
+                                <th>Sumber</th>
+                                <th>Deskripsi Singkat</th>
+                                <th>Kata Kunci</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Matahari</td>
+                                <td>Puti</td>
+                                <td>Buku ini</td>
+                                <td>yaaaaa</td>
+                                <td>1... 2...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="divTools" class="ToolsTable" style="padding-bottom: 10px">
+            <table class="col-md-offset-2">
+                <tbody>
+                    <tr>
+                        <td>
+                            Export:
+                        </td>
+                        <td style="border-right-style: solid; border-right-width: 1px; border-right-color: #EBEBEB">
+                            &nbsp;</td>
+                        <td>
+                            <a href="/articles/export_excel"><img src="../../assets/Export_Excel.png"
+                                style="margin-top:10px;font-family:Arial;font-size:X-Small;height:40px;"></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
-    </main>
+    </div>
+</div>
+</main>
 @endsection

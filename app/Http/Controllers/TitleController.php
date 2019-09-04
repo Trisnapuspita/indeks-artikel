@@ -12,6 +12,7 @@ use App\Models\Format;
 use App\Models\Title;
 use App\Models\EditionTitle;
 use App\Models\ArticleEdition;
+use App\Imports\TitleImport;
 use App\Exports\TitleExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
@@ -58,8 +59,16 @@ class TitleController extends Controller
         //cek slug ngga kembar
         if(Title::where('slug', $slug)->first() != null)
             $slug = $slug . '-'.time();
-        $fileName = time(). '.png';
-        $request->file('featured_img')->storeAs('public/upload', $fileName);
+
+        $fileName= null;
+
+        if($request->featured_img != null) {
+            $fileName = $request->featured_img->getClientOriginalName(). '.png';
+            $request->file('featured_img')->storeAs('public/upload', $fileName);
+        }
+        // $fileName = time(). '.png';
+        // $request->file('featured_img')->storeAs('public/upload', $fileName);
+
         $title = Title::create([
             'user_id'=> Auth::user()->id,
             'title'=>$request->title,
@@ -79,10 +88,12 @@ class TitleController extends Controller
     public function show($slug)
     {
         $title= Title::with('editions')->where('slug', $slug)->first();
+        $articles = ArticleEdition::all();
         if(empty($title)){
             abort(404);
         }
-        return view('titles.single', compact('title'));
+
+        return view('titles.single', compact('title', 'articles'));
     }
 
     public function etalase_in()
@@ -250,9 +261,20 @@ class TitleController extends Controller
         $this->validate($request, [
             'featured_img' => 'mimes:jpeg,jpg,png|max:1000'
         ]);
-        $fileName = time(). '.png';
-        $request->file('featured_img')->storeAs('public/upload', $fileName);
+
+        $fileName= null;
         $title= Title::findOrFail($id);
+
+        if($request->featured_img != null) {
+            $fileName = $request->featured_img->getClientOriginalName(). '.png';
+            $request->file('featured_img')->storeAs('public/upload', $fileName);
+        } else {
+            $fileName = $title->featured_img;
+        }
+
+        // $fileName = time(). '.png';
+        // $request->file('featured_img')->storeAs('public/upload', $fileName);
+
         $title->update([
                     'title'=>$request->title,
                     'city'=>$request->city,
@@ -288,5 +310,33 @@ class TitleController extends Controller
     {
         return Excel::download(new TitleExport, 'judul.xlsx');
     }
+
+    public function import_excel(Request $request)
+	{
+
+		// validasi
+		$this->validate($request, [
+			'file' => 'required|mimes:csv,xls,xlsx'
+        ]);
+
+		// menangkap file excel
+		$file = $request->file('file');
+
+		// membuat nama file unik
+		$nama_file = rand().$file->getClientOriginalName();
+
+		// upload ke folder file_siswa di dalam folder public
+		$file->move('file_titles',$nama_file);
+
+		// import data
+		Excel::import(new TitleImport(), public_path('/file_titles/'.$nama_file));
+
+		// notifikasi dengan session
+		Session::flash('sukses','Data Berhasil Diimport!');
+
+		// alihkan halaman kembali
+		return redirect('/titles');
+    }
+
 
 }

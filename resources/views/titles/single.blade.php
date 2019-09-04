@@ -6,12 +6,31 @@ Indeks Artikel | Edisi
 
 @section('content')
 <main style="background: white; padding: 45px">
+
+
+        {{-- notifikasi form validasi --}}
+                @if ($errors->has('file'))
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $errors->first('file') }}</strong>
+                </span>
+                @endif
+
+                {{-- notifikasi sukses --}}
+                @if ($sukses = Session::get('sukses'))
+                <div class="alert alert-success alert-block">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    <strong>{{ $sukses }}</strong>
+                </div>
+                @endif
+
         <div class="mr-auto" style="padding-bottom:10px;">
             <ol class="breadcrumb">
+
                 <li class="breadcrumb-item"><a href="/home">Beranda</a></li>
                 <li class="breadcrumb-item"><a href="/titles">Sumber</a></li>
                 <li class="breadcrumb-item active" aria-current="page">{{ $title->title }}</li>
             </ol>
+
         </div>
 
         <div class="createnew" style="padding-bottom: 10px">
@@ -168,7 +187,6 @@ Indeks Artikel | Edisi
                     <th>Nomor</th>
                     <th>Tanggal</th>
                     <th>Nomor Panggil</th>
-                    <th>Judul Artikel</th>
                     <th>Jumlah Artikel</th>
                     <th>Action</th>
                 </tr>
@@ -191,15 +209,14 @@ Indeks Artikel | Edisi
                     <td style="width:100px;">{{$edition->edition_no}}</td>
                     <td style="width:150px;">{{$edition->original_date}}</td>
                     <td style="width:150px;">{{$edition->call_number}}</td>
-                    <td style="width:300px;">{{ $title->title }}</td>
-                    <td style="width:100px;">49</td>
+                    <td>{{$articles->where('edition_title_id',$edition->id)->count()}}<a href="/editions/{{$edition->slug}}"><button style="float: right"><strong>+</strong></button></a></td>
                     <td style="width:100px; text-align: center;">
                             <a href='/editions/{{$edition->id}}/edit'><button class="fas fa-edit" style="width:30px;height:30px"></button></a>
                             <br><br>
                             <form method="POST" action="/editions/{{$edition->id}}">
                                     {{ csrf_field() }}
                                     <input type="hidden" name="_method" value="DELETE">
-                                    <button class="fa fa-trash" style="width:30px;height:30px"></button>
+                                    <button class="fa fa-trash" style="width:30px;height:30px" onclick="return confirm('Apakah Anda yakin untuk menghapus?')"></button>
                                 </form>
                     </td>
                 </tr>

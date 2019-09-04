@@ -1,7 +1,7 @@
 @extends('layouts.mix')
 
 @section('title')
-Indeks Artikel | Article
+Indeks Artikel | Artikel
 @endsection
 
 @section('content')
@@ -28,6 +28,7 @@ Indeks Artikel | Article
                 <li class="breadcrumb-item"><a href="/titles">Sumber</a></li>
                 <li class="breadcrumb-item"><a href="/titles">{{ $title->title }}</a></li>
                 <li class="breadcrumb-item active" aria-current="page">fore</li>
+
             </ol>
         </div>
         <div class="createnew" style="padding-bottom: 10px">
@@ -66,9 +67,7 @@ Indeks Artikel | Article
             aria-controls="collapseExample">
             <h5
                 style="width: 100%;background: whitesmoke; height: 50px; padding-top:15px; padding-left: 15px; border-radius: 4px">
-                TEMPO :
-                Madjalah Berita
-                Mingguan<i class="fas fa-angle-down" style="padding-right: 20px; float: right"></i></h5>
+                Tambah Artikel<i class="fas fa-angle-down" style="padding-right: 20px; float: right"></i></h5>
         </a>
 
         <div id="collapseExample">
@@ -169,11 +168,12 @@ Indeks Artikel | Article
                     <th>Pengarang</th>
                     <th>Halaman</th>
                     <th>Kolom</th>
-                    <th>Sumber Online</th>
+                    <th>Sumber</th>
                     <th>Deskripsi Singkat</th>
                     <th>Kata Kunci</th>
                     <th>Keterangan Gambar</th>
-                    <th>Status</th>
+                    <th>Status Ketersediaan</th>
+                    <th>Status Verifikasi</th>
                     <th>Action</th>
                 </tr>
 			</thead>
@@ -191,7 +191,12 @@ Indeks Artikel | Article
                     <td>{{$article->desc}}</td>
                     <td>{{$article->keyword}}</td>
                     <td>{{$article->detail_img}}</td>
-                    <td>  </td>
+                    <td>@foreach ($article->statuses()->get() as $statuses) {{$statuses->title}} @endforeach</td>
+                    @if($article->verification==1)
+                    <td>Sudah Terverifikasi</td>
+                    @elseif($article->verification==0)
+                    <td>Belum Terverifikasi</td>
+                    @endif
                     <td style="center";>
                             <div class="col-md-2">
                                 <a href='/articles/{{$article->id}}/edit'><button class="fas fa-edit" title="Edit" style="width:35px;height:35px"></button></a>
@@ -201,12 +206,12 @@ Indeks Artikel | Article
                                 <form method="POST" action="/articles/{{$article->id}}">
                                         {{ csrf_field() }}
                                         <input type="hidden" name="_method" value="DELETE">
-                                        <button type="submit" class="fa fa-trash" style="width:35px;height:35px" title="Hapus"></button>
+                                        <button type="submit" class="fa fa-trash" style="width:35px;height:35px" title="Hapus" onclick="return confirm('Apakah Anda yakin untuk menghapus?')"></button>
                                 </form>
                             </div>
                             <br>
                             <div class="col-md-2">
-                                <a href='/articles/{{$article->id}}/verif'><button class="fa fa-check" title="Verifikasi" style="width:35px;height:35px"></button></a>
+                                <a href='/articles/{{$article->id}}/verif'><button class="fa fa-check" title="Verifikasi" style="width:35px;height:35px" onclick="return confirm('Apakah Anda yakin untuk melakukan verifikasi?')"></button></a>
                             </div>
                         </td>
                 </tr>

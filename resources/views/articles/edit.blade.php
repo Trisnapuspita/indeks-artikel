@@ -27,6 +27,13 @@ Indeks Artikel | Edit Artikel Sumber
                     </div>
                 </div>
                 <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-3 col-form-label">Subyek*</label>
+                    <div class="col-sm-4 col-form-label">
+                        <input type="text" class="form-control" id="subject" name="subject"
+                        value="{{old('subject') ? old('subject') :$articles->subject}}" required>
+                    </div>
+                </div>
+                <div class="form-group row">
                     <label for="inputEmail3" class="col-sm-3 col-form-label">Pengarang*</label>
                     <div class="col-sm-4 col-form-label">
                         <input type="text" class="form-control" id="writer" name="writer"
@@ -48,7 +55,7 @@ Indeks Artikel | Edit Artikel Sumber
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="inputEmail3" class="col-sm-3 col-form-label">Sumber Online*</label>
+                    <label for="inputEmail3" class="col-sm-3 col-form-label">Sumber*</label>
                     <div class="col-sm-4 col-form-label">
                         <input type="text" class="form-control" id="source" name="source"
                         value="{{old('source') ? old('source') :$articles->source}}" required>
@@ -61,6 +68,20 @@ Indeks Artikel | Edit Artikel Sumber
                         value="{{old('desc') ? old('desc') :$articles->desc}}" required>
                     </div>
                 </div>
+                <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-3 col-form-label">Kata Kunci*</label>
+                    <div class="col-sm-4 col-form-label">
+                        <input type="text" class="form-control" id="keyword" name="keyword"
+                        value="{{old('keyword') ? old('keyword') :$articles->keyword}}" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-3 col-form-label">Keterangan Gambar*</label>
+                    <div class="col-sm-4 col-form-label">
+                        <input type="text" class="form-control" id="detail_img" name="detail_img"
+                        value="{{old('detail_img') ? old('detail_img') :$articles->detail_img}}" required>
+                    </div>
+                </div>
                 <div class="row was-validated">
                         <legend class="col-form-label col-sm-3 pt-0">Status Ketersediaan*</legend>
                         <div class="col-sm-8">
@@ -68,7 +89,7 @@ Indeks Artikel | Edit Artikel Sumber
                             <div class="form-check form-check-inline custom-control-inline custom-radio">
                             <label class="form-check-label" for="statuses" >
                                 <input class="form-check-input" type="radio" name="statuses[]" id="type_Select"  required 
-                                value='{{$statuses->id}}' @if($title->statuses()->get()->contains($statuses->id)) checked @endif>{{$statuses->title}}
+                                value='{{$statuses->id}}' @if($articles->statuses()->get()->contains($statuses->id)) checked @endif>{{$statuses->title}}
                                 </label>
                             </div>
                         @endforeach

@@ -66,10 +66,10 @@ class ArticleEditionController extends Controller
 		$file->move('file_articles',$nama_file);
 
 		// import data
-		Excel::import(new ArticleImport, public_path('/file_articles/'.$nama_file));
+		Excel::import(new ArticleImport($id), public_path('/file_articles/'.$nama_file));
 
 		// notifikasi dengan session
-		Session::flash('sukses','Data Siswa Berhasil Diimport!');
+		Session::flash('sukses','Data Berhasil Diimport!');
 
 		// alihkan halaman kembali
 		return redirect('/editions/'.$edition->slug);

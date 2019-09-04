@@ -22,6 +22,7 @@
 
         <div class="mr-auto" style="padding-bottom:10px;">
             <ol class="breadcrumb">
+
                 @foreach($titles as $title)
                 @foreach($editions as $edition)
                 @if($edition->id == $article->edition_title_id)
