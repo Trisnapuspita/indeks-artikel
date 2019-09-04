@@ -14,30 +14,22 @@ class EditionImport implements ToModel
         $this->id = $id;
     }
 
-
-
-    /**
-    * @param array $row
-    *
-    * @return \Illuminate\Database\Eloquent\Model|null
-    */
     public function model(array $row)
     {
         return new EditionTitle([
             'user_id' => Auth::user()->id,
             'title_id' => $this->id,
-            'edition_year' => $row[1],
-            'edition_title' => $row[2],
-            'slug' => $row[3],
-            'volume' => $row[4],
-            'chapter' => $row[5],
-            'edition_no' => $row[6],
-            'publish_date' => $row[7],
-            'publish_month' => $row[8],
-            'publish_year' => $row[9],
-            'original_date' => $row[10],
-            'call_number' => $row[11],
-            'publish_date' => $row[12]
+            'edition_year' => $row[0],
+            'edition_title' => $row[1],
+            'slug' => $row[5],
+            'volume' => $row[2],
+            'chapter' => $row[3],
+            'edition_no' => $row[4],
+            'publish_date' => $row[5],
+            'publish_month' => $row[6],
+            'publish_year' => $row[7],
+            'original_date' => $row[8],
+            'call_number' => $row[9]
         ]);
     }
 }

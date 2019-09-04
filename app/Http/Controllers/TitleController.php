@@ -13,6 +13,7 @@ use App\Models\Format;
 use App\Models\Title;
 use App\Models\EditionTitle;
 use App\Models\ArticleEdition;
+use App\Imports\TitleImport;
 use App\Exports\TitleExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
@@ -56,8 +57,14 @@ class TitleController extends Controller
         if(Title::where('slug', $slug)->first() != null)
             $slug = $slug . '-'.time();
 
-        $fileName = time(). '.png';
-        $request->file('featured_img')->storeAs('public/upload', $fileName);
+        $fileName= null;
+
+        if($request->featured_img != null) {
+            $fileName = $request->featured_img->getClientOriginalName(). '.png';
+            $request->file('featured_img')->storeAs('public/upload', $fileName);
+        }
+        // $fileName = time(). '.png';
+        // $request->file('featured_img')->storeAs('public/upload', $fileName);
 
         $title = Title::create([
             'user_id'=> Auth::user()->id,
@@ -80,11 +87,12 @@ class TitleController extends Controller
     public function show($slug)
     {   
         $title= Title::with('editions')->where('slug', $slug)->first();
+        $articles = ArticleEdition::all();
         if(empty($title)){
             abort(404);
         }
 
-        return view('titles.single', compact('title'));
+        return view('titles.single', compact('title', 'articles'));
     }
 
     /**
@@ -117,10 +125,19 @@ class TitleController extends Controller
 
         ]);
 
-        $fileName = time(). '.png';
-        $request->file('featured_img')->storeAs('public/upload', $fileName);
-
+        $fileName= null;
         $title= Title::findOrFail($id);
+
+        if($request->featured_img != null) {
+            $fileName = $request->featured_img->getClientOriginalName(). '.png';
+            $request->file('featured_img')->storeAs('public/upload', $fileName);
+        } else {
+            $fileName = $title->featured_img;
+        }
+
+        // $fileName = time(). '.png';
+        // $request->file('featured_img')->storeAs('public/upload', $fileName);
+
         $title->update([
                     'title'=>$request->title,
                     'city'=>$request->city,
@@ -157,6 +174,175 @@ class TitleController extends Controller
     public function export_excel()
     {
         return Excel::download(new TitleExport, 'judul.xlsx');
+    }
+
+    public function import_excel(Request $request) 
+	{
+
+		// validasi
+		$this->validate($request, [
+			'file' => 'required|mimes:csv,xls,xlsx'
+        ]);
+ 
+		// menangkap file excel
+		$file = $request->file('file');
+ 
+		// membuat nama file unik
+		$nama_file = rand().$file->getClientOriginalName();
+ 
+		// upload ke folder file_siswa di dalam folder public
+		$file->move('file_titles',$nama_file);
+ 
+		// import data
+		Excel::import(new TitleImport(), public_path('/file_titles/'.$nama_file));
+ 
+		// notifikasi dengan session
+		Session::flash('sukses','Data Berhasil Diimport!');
+ 
+		// alihkan halaman kembali
+		return redirect('/titles');
+    }
+    
+    public function etalase()
+    {
+        $titles = Title::all();
+        return view('etalase', compact('titles'));
+    }
+
+    public function etalase_in()
+    {
+        $titles = Title::all();
+        return view('displays.etalase', compact('titles'));
+    }
+
+    public function etalase_show_in($id)
+    {
+        $title = Title::find($id);
+        $types = Type::all();
+        $times = Time::all();
+        $languages = Language::all();
+        $formats = Format::all();
+
+        if(empty($title)){
+            abort(404);
+        }
+
+        return view('displays.etalase-sumber', compact('title', 'types', 'times', 'languages', 'formats'));
+    }
+
+    public function catalog_show_in($id)
+    {
+        $title = Title::find($id);
+
+        if(empty($title)){
+            abort(404);
+        }
+
+        return view('displays.catalog-list', compact('title'));
+    }
+
+    public function articlelog_show_in($id)
+    {
+        $title = Title::find($id);
+        $article = ArticleEdition::find($id);
+        $edition = EditionTitle::find($id);
+        // dd($article);
+
+        if(empty($article)){
+            abort(404);
+        }
+
+        return view('displays.article-catalog')->with(compact('article', 'title', 'edition'));
+    }
+
+    public function hierarki_show_in($id)
+    {
+        $title = Title::find($id);
+
+        if(empty($title)){
+            abort(404);
+        }
+
+        return view('displays.hierarki-list')->with(compact('title'));
+    }
+
+    public function hierarkilog_show_in($id)
+    {
+        $title = Title::find($id);
+        $article = ArticleEdition::find($id);
+        $edition = EditionTitle::find($id);
+        // dd($article);
+
+        if(empty($article)){
+            abort(404);
+        }
+
+        return view('displays.hierarki-catalog')->with(compact('article', 'title', 'edition'));
+    }
+
+    public function etalase_show($id)
+    {
+        $title = Title::find($id);
+        $types = Type::all();
+        $times = Time::all();
+        $languages = Language::all();
+        $formats = Format::all();
+
+        if(empty($title)){
+            abort(404);
+        }
+
+        return view('etalase-sumber', compact('title', 'types', 'times', 'languages', 'formats'));
+    }
+
+    public function catalog_show($id)
+    {
+        $title = Title::find($id);
+
+        if(empty($title)){
+            abort(404);
+        }
+
+        return view('catalog-list', compact('title'));
+    }
+
+    public function articlelog_show($id)
+    {
+        $title = Title::find($id);
+        $article = ArticleEdition::find($id);
+        $edition = EditionTitle::find($id);
+        // dd($article);
+
+        if(empty($article)){
+            abort(404);
+        }
+
+        return view('article-catalog')->with(compact('article', 'title', 'edition'));
+    }
+
+    public function hierarki_show($id)
+    {
+        $title = Title::find($id);
+
+        if(empty($title)){
+            abort(404);
+        }
+
+        return view('hierarki-list')->with(compact('title'));
+    }
+
+    public function hierarkilog_show($id)
+    {
+        $title = Title::find($id);
+        $article = ArticleEdition::find($id);
+        $edition = EditionTitle::find($id);
+        // dd($article);
+
+        if(empty($article)){
+            abort(404);
+        }
+
+        return view('hierarki-catalog')->with(compact('article', 'title', 'edition'));
     }
     
 }

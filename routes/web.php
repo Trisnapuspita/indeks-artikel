@@ -8,6 +8,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::resource('formats', 'FormatController', ['except' => ['index', 'show']]);
     Route::resource('statuses', 'StatusController', ['except' => ['index', 'show']]);
     Route::resource('titles', 'TitleController', ['except' => ['index', 'show']]);
+    Route::post('/titles/import_excel', 'TitleController@import_excel');
     Route::get('/titles/export_excel', 'TitleController@export_excel');
     Route::post('/editions/{id}', 'EditionTitleController@store');
     Route::put('/editions/{id}', 'EditionTitleController@update');
@@ -23,14 +24,17 @@ Route::group(['middleware' => 'auth'], function() {
     Route::delete('/articles/{id}', 'ArticleEditionController@destroy');
     Route::get('/articles/export_excel', 'ArticleEditionController@export_excel');
     Route::post('/articles/import_excel/{id}', 'ArticleEditionController@import_excel');
+    Route::get('/reports','ReportController@index');
+    Route::get('/displays/etalase', 'TitleController@etalase_in');
+    Route::get('/displays/etalase/{id}', 'TitleController@etalase_show_in');
+    Route::get('/displays/catalog/{id}', 'TitleController@catalog_show_in');
+    Route::get('/displays/articlelog/{id}', 'TitleController@articlelog_show_in');
+    Route::get('/displays/hierarki/{id}', 'TitleController@hierarki_show_in');
+    Route::get('/displays/hierarkilog/{id}', 'TitleController@hierarkilog_show_in');
 });
 
 Route::get('/', function () {
     return view('welcome');
-});
-
-Route::get('/reports', function () {
-    return view('reports.index');
 });
 
 Auth::routes();
@@ -40,4 +44,10 @@ Route::resource('languages', 'LanguageController', ['only' => ['index', 'show']]
 Route::resource('formats', 'FormatController', ['only' => ['index', 'show']]);
 Route::resource('statuses', 'StatusController', ['only' => ['index', 'show']]);
 Route::resource('titles', 'TitleController', ['only' => ['index', 'show']]);
+Route::get('/etalase', 'TitleController@etalase');
+Route::get('/etalase/{id}', 'TitleController@etalase_show');
+Route::get('/catalog/{id}', 'TitleController@catalog_show');
+Route::get('/articlelog/{id}', 'TitleController@articlelog_show');
+Route::get('/hierarki/{id}', 'TitleController@hierarki_show');
+Route::get('/hierarkilog/{id}', 'TitleController@hierarkilog_show');
 Route::get('/home', 'HomeController@index')->name('home');

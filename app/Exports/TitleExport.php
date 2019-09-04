@@ -11,6 +11,6 @@ class TitleExport implements FromCollection
 {
     public function collection()
     {
-        return Title::select('id', 'title', 'city', 'publisher', 'year', 'first_year')->get();
+        return Title::select('title', 'city', 'publisher', 'year', 'first_year')->get();
     }
 }

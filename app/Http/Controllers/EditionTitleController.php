@@ -10,6 +10,7 @@ use App\Exports\EditionExport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Title;
 use App\Models\EditionTitle;
+use App\Models\ArticleEdition;
 use Illuminate\Http\Request;
 
 class EditionTitleController extends Controller
@@ -20,14 +21,18 @@ class EditionTitleController extends Controller
             'edition_title'=>'required|min:1'
         ]);
 
-        $slug = str_slug($request->edition_title, '_');
+        $slug = str_slug($request->publish_date, '_');
 
         //cek slug ngga kembar
         if(Title::where('slug', $slug)->first() != null)
             $slug = $slug . '-'.time();
 
-        $fileName = time(). '.png';
-        $request->file('edition_image')->storeAs('public/upload', $fileName);
+        $fileName= null;
+
+        if($request->edition_image != null) {
+            $fileName = $request->edition_image->getClientOriginalName(). '.png';
+            $request->file('edition_image')->storeAs('public/upload', $fileName);
+        }
 
         $title = Title::findOrFail($id);
 
@@ -89,7 +94,8 @@ class EditionTitleController extends Controller
     {
         $editions= EditionTitle::with('articles')->where('slug', $slug)->first();
         $statuses= Status::all();
-        return view('editions.single', compact('editions', 'statuses'));
+        $articles= ArticleEdition::all();
+        return view('editions.single', compact('editions', 'statuses', 'articles'));
     }
 
 
@@ -118,11 +124,16 @@ class EditionTitleController extends Controller
             'edition_title'=>'required|min:1'
 
         ]);
-
-        $fileName = time(). '.png';
-        $request->file('edition_image')->storeAs('public/upload', $fileName);
-
+        $fileName= null;
         $editions= EditionTitle::findOrFail($id);
+
+        if($request->edition_image != null) {
+            $fileName = $request->edition_image->getClientOriginalName(). '.png';
+            $request->file('edition_image')->storeAs('public/upload', $fileName);
+        } else {
+            $fileName = $editions->edition_image;
+        }
+
         $editions->update([
             'edition_year'=>$request->edition_year,
             'edition_title'=>$request->edition_title,

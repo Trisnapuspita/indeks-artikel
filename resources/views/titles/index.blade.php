@@ -1,7 +1,27 @@
 @extends('layouts.table')
 
+@section('title')
+Indeks Artikel | Judul Sumber
+@endsection
+
 @section('content')
 <main style="background: white; padding:45px">
+        
+        {{-- notifikasi form validasi --}}
+		@if ($errors->has('file'))
+		<span class="invalid-feedback" role="alert">
+			<strong>{{ $errors->first('file') }}</strong>
+		</span>
+		@endif
+ 
+		{{-- notifikasi sukses --}}
+		@if ($sukses = Session::get('sukses'))
+		<div class="alert alert-success alert-block">
+			<button type="button" class="close" data-dismiss="alert">×</button> 
+			<strong>{{ $sukses }}</strong>
+		</div>
+		@endif
+
         <div class="mr-auto" style="padding-bottom:10px;">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="beranda-user.html">Beranda</a></li>
@@ -10,9 +30,36 @@
         </div>
         <div class="createnew" style="padding-bottom: 10px">
             <a href="/titles/create"><button>Tambah Sumber</button></a>
-            <a href=""><button>Import</button></a>
-            <a href="/titles/export_excel"><button>Eksport</button></a>
+            <a data-toggle="modal" data-target="#importExcel"><button>Import</button></a>
         </div>
+
+        <!-- Import Excel -->
+		<div class="modal fade" id="importExcel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<form method="post" action="/titles/import_excel" enctype="multipart/form-data">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">Import Excel</h5>
+						</div>
+						<div class="modal-body">
+ 
+							{{ csrf_field() }}
+ 
+							<label>Pilih file excel</label>
+							<div class="form-group">
+								<input type="file" name="file" required="required">
+							</div>
+ 
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							<button type="submit" class="btn btn-primary">Import</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+
         <table id="example" class="table table-striped table-bordered table-responsive" style="width:100%">
            <thead>
                 <tr class="GridHeader">
@@ -33,9 +80,10 @@
                 </tr>
 			</head>
 			<tbody>
+            @php $i=1 @endphp
 			@foreach ($titles as $title)
                 <tr class="GridItem">
-                    <td>{{$title->id}}</td>
+                    <td>{{ $i++ }}</td>
                     @if($title->featured_img == null)
                     <td><img src="{{asset('storage/upload/default.png')}}" style="max-width: 100px; height: auto;" class="image-fluid"></td>
                     @else
@@ -51,14 +99,14 @@
                     <td>@foreach ($title->languages()->get() as $languages){{$languages->title}}@endforeach</td>
                     <td>@foreach ($title->formats()->get() as $formats){{$formats->title}}@endforeach</td>
                     <td>{{$editions->where('title_id',$title->id)->count()}}<a href="/titles/{{$title->slug}}"><button style="float: right"><strong>+</strong></button></a></td>
-                    <td style="text-align: center">{{$articles->whereIn('edition_title_id',$editions->where('title_id',$title->id)->pluck('id'))->count()}}<a href="/editions/"></a></td>
+                    <td style="text-align: center">{{$articles->whereIn('edition_title_id',$editions->where('title_id',$title->id)->pluck('id'))->count()}}</td>
                     <td style="text-align: center">
 						<a href="/titles/{{$title->id}}/edit"><button class="fas fa-edit" style="width:30px;height:30px"></button></a>
                         <br><br>
 						<a><form method="POST" action="/titles/{{$title->id}}">
                         {{ csrf_field() }}
 							<input type="hidden" name="_method" value="DELETE"><button type="submit" class="fa fa-trash"
-                            style="width:30px;height:30px"></button></form></a>
+                            style="width:30px;height:30px" onclick="return confirm('Apakah Anda yakin untuk menghapus?')"></button></form></a>
                     </td>
                 </tr>
 				 @endforeach
