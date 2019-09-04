@@ -30,15 +30,9 @@ Indeks Artikel | Master Bahasa
             @php $i=1 @endphp
 			@foreach ($languages as $language)
                 <tr class="GridItem">
-<<<<<<< HEAD
-
                     <td style="width:20px; text-align: center">{{$i++}}</td>
                     <td style="width:80px;"><a href="">{{$language->title}}</a></td>
-=======
-                    <td style="width:20px;">{{$language->id}}</td>
-                    <td style="width:80px;">{{$language->title}}</td>
->>>>>>> b380c3527b45bf36c92f3c7994f1bb9a0290ec26
-                    <td style="width:50px;">....</td>
+                    <td style="width:50px;">{{ $language->titles()->count() }}</td>
 					<td style="width:50px;">
                     <div class="row" style="">
                         <div class="col-md-2">

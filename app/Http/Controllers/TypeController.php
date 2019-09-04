@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Title;
 use Auth;
 use App\Models\User;
 use App\Models\Type;
@@ -16,8 +17,9 @@ class TypeController extends Controller
      */
     public function index()
     {
+        $titles = Title::all();
         $types = Type::all();
-        return view('types.index', compact('types'));
+        return view('types.index', compact('types', 'titles'));
     }
 
     /**

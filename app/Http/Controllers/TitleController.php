@@ -35,7 +35,9 @@ class TitleController extends Controller
     public function etalase()
     {
         $titles = Title::all();
-        return view('etalase', compact('titles'));
+        $editions = EditionTitle::all();
+        $articles = ArticleEdition::all();
+        return view('etalase', compact('titles', 'editions','articles'));
     }
 
 
@@ -75,7 +77,7 @@ class TitleController extends Controller
         return redirect('titles')->with('msg', 'berhasil ditambahkan');
     }
     public function show($slug)
-    {   
+    {
         $title= Title::with('editions')->where('slug', $slug)->first();
         if(empty($title)){
             abort(404);
@@ -86,7 +88,9 @@ class TitleController extends Controller
     public function etalase_in()
     {
         $titles = Title::all();
-        return view('displays.etalase', compact('titles'));
+        $editions = EditionTitle::all();
+        $articles = ArticleEdition::all();
+        return view('displays.etalase', compact('titles', 'editions','articles'));
     }
 
     public function etalase_show_in($id)
@@ -117,16 +121,16 @@ class TitleController extends Controller
 
     public function articlelog_show_in($id)
     {
-        $title = Title::find($id);
-        $article = ArticleEdition::find($id);
-        $edition = EditionTitle::find($id);
+        $article = ArticleEdition::find($id);//bener
+        $editions = EditionTitle::all();
+        $titles = Title::all();
         // dd($article);
 
         if(empty($article)){
             abort(404);
         }
 
-        return view('displays.article-catalog')->with(compact('article', 'title', 'edition'));
+        return view('displays.article-catalog')->with(compact('article', 'titles', 'editions'));
     }
 
     public function hierarki_show_in($id)
@@ -182,16 +186,16 @@ class TitleController extends Controller
 
     public function articlelog_show($id)
     {
-        $title = Title::find($id);
-        $article = ArticleEdition::find($id);
-        $edition = EditionTitle::find($id);
+        $article = ArticleEdition::find($id);//bener
+        $editions = EditionTitle::all();
+        $titles = Title::all();
         // dd($article);
 
         if(empty($article)){
             abort(404);
         }
 
-        return view('article-catalog')->with(compact('article', 'title', 'edition'));
+        return view('article-catalog')->with(compact('article', 'titles', 'editions'));
     }
 
     public function hierarki_show($id)

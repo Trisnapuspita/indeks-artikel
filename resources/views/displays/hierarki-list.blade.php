@@ -55,10 +55,9 @@
             </tr>
         </tbody>
     </table>
-    @foreach ($title->editions as $edition)
+
     <div class="accordion" id="accordionExample">
-
-
+            @foreach ($title->editions as $edition)
         <div class="card">
             <div class="card-header" id="headingOne" style="background: #e9ecef">
                 <h2 class="mb-0">
@@ -88,10 +87,9 @@
                 </div>
             </div>
         </div>
-
-
+        @endforeach
     </div>
-    @endforeach
+
 </body>
 
 </html>

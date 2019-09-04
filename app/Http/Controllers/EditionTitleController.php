@@ -13,13 +13,6 @@ use Illuminate\Http\Request;
 class EditionTitleController extends Controller
 {
 
-    // public function source_list()
-    // {
-    //     $titles = Title::all();
-    //     $editions = EditionTitle::all();
-    //     return view('catalog-list', compact('titles', 'editions'));
-    // }
-
     public function store(Request $request, $id)
     {
         $this->validate(request(), [

@@ -40,7 +40,7 @@ Indeks Artikel | Etalase
                             <br>
                             <br>
                             <br>
-                            <a href="/displays/etalase/{{ $title->id }}">(100 Artikel)</a>
+                            <a href="/displays/etalase/{{ $title->id }}">{{$articles->whereIn('edition_title_id',$editions->where('title_id',$title->id)->pluck('id'))->count()}} Artikel</a>
 
                         </div>
                     </div>

@@ -39,9 +39,11 @@
                     <td style="width:300px"><a>{{$edition->edition_year}}, {{$edition->edition_no}}, {{$edition->original_date}}</a>
                     </td>
                     <td style="width:100px;">
-                            @foreach ($edition->articles as $article)
+                        @foreach ($edition->articles as $article)
+                        @if($article->verification == 1)
                         <li style="display: block"><a href="/displays/articlelog/{{ $article->id }}">{{ $article->article_title }}. p: {{ $article->pages }}</a></li>
-                                @endforeach
+                        @endif
+                        @endforeach
                     </td>
 
                 </tr>

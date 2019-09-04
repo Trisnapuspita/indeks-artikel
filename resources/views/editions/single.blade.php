@@ -13,27 +13,27 @@ Indeks Artikel | Article
 			<strong>{{ $errors->first('file') }}</strong>
 		</span>
 		@endif
- 
+
 		{{-- notifikasi sukses --}}
 		@if ($sukses = Session::get('sukses'))
 		<div class="alert alert-success alert-block">
-			<button type="button" class="close" data-dismiss="alert">×</button> 
+			<button type="button" class="close" data-dismiss="alert">×</button>
 			<strong>{{ $sukses }}</strong>
 		</div>
 		@endif
 
         <div class="mr-auto" style="padding-bottom:10px;">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="beranda-user.html">Beranda</a></li>
-                <li class="breadcrumb-item"><a href="sumber.html">Sumber</a></li>
-                <li class="breadcrumb-item"><a href="sumber.html">Tempo : Madjalah Berita Mingguan</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Edisi 1</li>
+                <li class="breadcrumb-item"><a href="/home">Beranda</a></li>
+                <li class="breadcrumb-item"><a href="/titles">Sumber</a></li>
+                <li class="breadcrumb-item"><a href="/titles">{{ $title->title }}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">fore</li>
             </ol>
         </div>
         <div class="createnew" style="padding-bottom: 10px">
             <a data-toggle="modal" data-target="#importExcel"><button>Import</button></a>
         </div>
-        
+
 
         <!-- Import Excel -->
 		<div class="modal fade" id="importExcel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -44,14 +44,14 @@ Indeks Artikel | Article
 							<h5 class="modal-title" id="exampleModalLabel">Import Excel</h5>
 						</div>
 						<div class="modal-body">
- 
+
 							{{ csrf_field() }}
- 
+
 							<label>Pilih file excel</label>
 							<div class="form-group">
 								<input type="file" name="file" required="required">
 							</div>
- 
+
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

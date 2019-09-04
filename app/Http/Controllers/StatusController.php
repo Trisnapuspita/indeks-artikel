@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ArticleEdition;
+use App\Models\EditionTitle;
 use Auth;
 use App\Models\User;
 use App\Models\Status;
+use App\Models\Title;
 use Illuminate\Http\Request;
 
 class StatusController extends Controller
@@ -17,7 +20,10 @@ class StatusController extends Controller
     public function index()
     {
         $statuses = Status::all();
-        return view('statuses.index', compact('statuses'));
+        $titles = Title::all();
+        $editions = EditionTitle::all();
+        $articles = ArticleEdition::all();
+        return view('statuses.index', compact('statuses', 'titles', 'editions', 'articles'));
     }
 
     /**

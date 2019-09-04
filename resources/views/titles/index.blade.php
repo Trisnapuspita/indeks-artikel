@@ -4,7 +4,7 @@
 <main style="background: white; padding:45px">
         <div class="mr-auto" style="padding-bottom:10px;">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="beranda-user.html">Beranda</a></li>
+                <li class="breadcrumb-item"><a href="/home">Beranda</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Sumber</li>
             </ol>
         </div>
@@ -36,22 +36,6 @@
             @php $i=1 @endphp
 			@foreach ($titles as $title)
                 <tr class="GridItem">
-<<<<<<< HEAD
-                    <td style="width:20px; text-align: center">{{ $i++ }}</td>
-                    <td><img src="{{asset('storage/upload/'. $title->featured_img) }}" style="max-width: 150px; height: auto; "class="image-fluid"></td>
-                    <td style="width:300px; text-align: center"><a href="/titles/{{$title->slug}}">{{$title->title}}</a></td>
-                    <td style="width:150px; text-align: center">@foreach ($title->types()->get() as $types){{$types->title}}@endforeach</td>
-                    <td style="width:150px; text-align: center">@foreach ($title->times()->get() as $times){{$times->title}}@endforeach</td>
-                    <td style="width:150px; text-align: center">{{$title->city}}</td>
-                    <td style="width:150px;text-align: center">{{$title->publisher}}</td>
-                    <td style="width:150px; text-align: center">{{$title->year}}</td>
-                    <td style="width:150px; text-align: center">{{$title->first_year}}</td>
-                    <td style="width:100px; text-align: center">@foreach ($title->languages()->get() as $languages){{$languages->title}}@endforeach</td>
-                    <td style="width:100px; text-align: center">@foreach ($title->formats()->get() as $formats){{$formats->title}}@endforeach</td>
-                    <td style="width:100px; text-align: center">{{$editions->where('title_id',$title->id)->count()}}<a href="/editions/create"><button style="float: right"><strong>+</strong></button></a></td>
-                    <td style="width:100px; text-align: center">{{$articles->whereIn('edition_title_id',$editions->where('title_id',$title->id)->pluck('id'))->count()}}<a href="/articles/create"><button style="float: right"><strong>+</strong></button></a></td>
-                    <td style="width:100px;text-align: center">
-=======
                     <td>{{$title->id}}</td>
                     @if($title->featured_img == null)
                     <td><img src="{{asset('storage/upload/default.png')}}" style="max-width: 100px; height: auto;" class="image-fluid"></td>
@@ -67,10 +51,9 @@
                     <td>{{$title->first_year}}</td>
                     <td>@foreach ($title->languages()->get() as $languages){{$languages->title}}@endforeach</td>
                     <td>@foreach ($title->formats()->get() as $formats){{$formats->title}}@endforeach</td>
-                    <td>{{$editions->where('title_id',$title->id)->count()}}<a href="/titles/{{$title->slug}}"><button style="float: right"><strong>+</strong></button></a></td>
+                    <td>{{$title->editions()->count()}}<a href="/titles/{{$title->slug}}"><button style="float: right"><strong>+</strong></button></a></td>
                     <td style="text-align: center">{{$articles->whereIn('edition_title_id',$editions->where('title_id',$title->id)->pluck('id'))->count()}}<a href="/editions/"></a></td>
                     <td style="text-align: center">
->>>>>>> b380c3527b45bf36c92f3c7994f1bb9a0290ec26
 						<a href="/titles/{{$title->id}}/edit"><button class="fas fa-edit" style="width:30px;height:30px"></button></a>
                         <br><br>
 						<a><form method="POST" action="/titles/{{$title->id}}">

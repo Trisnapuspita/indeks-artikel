@@ -11,7 +11,7 @@ Indeks Artikel | Etalase
         <div class="mr-auto" style="padding-bottom:10px;">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/home">Beranda</a></li>
-                <li class="breadcrumb-item"><a href="/etalase">Etalase</a></li>
+                <li class="breadcrumb-item"><a href="/displays/etalase">Etalase</a></li>
                 <li class="breadcrumb-item active" aria-current="page">{{ $title->title }}</li>
             </ol>
         </div>

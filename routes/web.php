@@ -8,7 +8,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::resource('formats', 'FormatController', ['except' => ['index', 'show']]);
     Route::resource('statuses', 'StatusController', ['except' => ['index', 'show']]);
     Route::resource('titles', 'TitleController', ['except' => ['index', 'show']]);
-    Route::get('/titles/export_excel', 'TitleController@export_excel');
+    Route::get('/s/extitleport_excel', 'TitleController@export_excel');
     Route::post('/editions/{id}', 'EditionTitleController@store');
     Route::put('/editions/{id}', 'EditionTitleController@update');
     Route::get('/editions/{slug}', 'EditionTitleController@show');
@@ -29,12 +29,13 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/displays/articlelog/{id}', 'TitleController@articlelog_show_in');
     Route::get('/displays/hierarki/{id}', 'TitleController@hierarki_show_in');
     Route::get('/displays/hierarkilog/{id}', 'TitleController@hierarkilog_show_in');
+
 });
 
 Route::get('/', function () {
     return view('welcome');
 });
-
+Route::post('/',"HomeController@welcomePost");
 Route::get('/reports', function () {
     return view('reports.index');
 });
@@ -47,10 +48,11 @@ Route::resource('formats', 'FormatController', ['only' => ['index', 'show']]);
 Route::resource('statuses', 'StatusController', ['only' => ['index', 'show']]);
 Route::resource('titles', 'TitleController', ['only' => ['index', 'show']]);
 Route::get('/home', 'HomeController@index')->name('home');
+Route::post('/home', 'HomeController@indexPost')->name('homePost');
 Route::get('/etalase', 'TitleController@etalase');
 Route::get('/etalase/{id}', 'TitleController@etalase_show');
 Route::get('/catalog/{id}', 'TitleController@catalog_show');
 Route::get('/articlelog/{id}', 'TitleController@articlelog_show');
 Route::get('/hierarki/{id}', 'TitleController@hierarki_show');
 Route::get('/hierarkilog/{id}', 'TitleController@hierarkilog_show');
-//Route::get('/etalase','');
+

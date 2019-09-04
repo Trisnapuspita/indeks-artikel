@@ -101,13 +101,11 @@
                                     <div class="select-wrap">
                                         <span class="icon"><span class="icon-keyboard_arrow_down"></span></span>
                                         <select class="form-control rounded" name="" id="">
-                                            <option value="">--Semua Jenis--</option>
-                                            <option value="">Judul Sumber</option>
-                                            <option value="">Judul Edisi</option>
+                                            <option value="">--Sembarang--</option>
+                                            <option value="">Subjek</option>
                                             <option value="">Judul Artikel</option>
-                                            <option value="">Jenis</option>
-                                            <option value="">Penerbit</option>
-                                            <option value="">Tahun Terbit Pertama</option>
+                                            <option value="">Pengarang</option>
+                                            <option value="">Judul Surat Kabar/Majalah</option>
                                         </select>
                                     </div>
                                 </div>

@@ -30,15 +30,10 @@ Indeks Artikel | Master Status Ketersediaan
             @php $i=1 @endphp
 			@foreach ($statuses as $status)
                 <tr class="GridItem">
-<<<<<<< HEAD
-
                     <td style="width:20px; text-align: center">{{$i++}}</td>
                     <td style="width:80px;"><a href="">{{$status->title}}</a></td>
-=======
-                    <td style="width:20px;">{{$status->id}}</td>
-                    <td style="width:80px;">{{$status->title}}</td>
->>>>>>> b380c3527b45bf36c92f3c7994f1bb9a0290ec26
-                    <td style="width:50px;">....</td>
+                    {{--  <td style="text-align: center">{{  }}$articles->whereIn('edition_title_id',$editions->where('title_id',$title->id)->pluck('id'))->count()}}<a href="/editions/"></a></td>  --}}
+                    <td style="width:50px;">{{ $status->articles()->count() }}</td>
 					<td style="width:50px;">
                     <div class="row" style="">
                         <div class="col-md-2">
