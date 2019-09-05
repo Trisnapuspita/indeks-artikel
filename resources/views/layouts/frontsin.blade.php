@@ -9,7 +9,9 @@
     <title>Indeks Artikel</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="../../css/konten-menu.css">
     <link rel="stylesheet" href="../../css/style-admin.css">
+    <link rel="stylesheet" href="../../css/etalase.css">
     <link rel="stylesheet" href="../../css/grid.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.7/css/mdb.min.css" rel="stylesheet">
 </head>
@@ -49,7 +51,7 @@
                                         <a href="#" class="nav-link">Setting Master
                                             <i class="fa fa-chevron-down" style="font-size: .8em;"></i></a>
                                         <div class="dropdown-content">
-                                            <a href="/types" style="width: 100%">Master Jenis</a>
+                                            <a href="/types" style="width: 100%">Jenis</a>
                                             <a href="/times" style="width: 100%">Kala Terbit</a>
                                             <a href="/languages" style="width: 100%">Bahasa</a>
                                             <a href="/formats" style="width: 100%">Format</a>
@@ -61,7 +63,7 @@
                                     <a class="nav-link" href="/titles">Sumber</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/reports">Laporan Kinerja User</a>
+                                    <a class="nav-link" href="/reports">Laporan Kinerja Karyawan</a>
                                 </li>
                                 <li class="nav-item dropdown">
                                     <div class="dropdown">
@@ -87,26 +89,6 @@
             </header>
 
             @yield('content')
-
-
-
-    <footer>
-        <div class="container-fluid p-0">
-            <div class="row text-left">
-                <div class="col-md-7 col-sm-3">
-                    <h4 class="text-light">Tentang Kami</h4>
-                    <p class="text-muted">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vitae, enim maiores
-                        perspiciatis incidunt fuga laudantium fugit provident libero maxime natus accusantium soluta,
-                        quaerat velit voluptatibus animi reiciendis! Labore, omnis dicta.</p>
-                    <h4 class="text-light">Kontak</h4>
-                    <p class="text-muted">Jl. Salemba Raya No.28A Jakarta 10430
-                        <br>Email : <span>indeksartikel@perpusnas.go.id</span>
-                        <br>No. Telepon : <span>(021) 929 209 79</span></p>
-                </div>
-                <div class="col-md-5 col-sm-12">
-                    <div id="map-container" class="z-depth-1-half map-container mb-5" style="height: 400px"></div>
-                </div>
-    </footer>
 </body>
 
 </html>
@@ -120,25 +102,3 @@
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
 </script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.7/js/mdb.min.js"></script>
-<!--Google Maps-->
-<script src="https://maps.google.com/maps/api/js"></script>
-<script>
-    function regular_map() {
-        var var_location = new google.maps.LatLng(-6.198965157647501, 106.85228106148975);
-
-        var var_mapoptions = {
-            center: var_location,
-            zoom: 20
-        };
-
-        var var_map = new google.maps.Map(document.getElementById("map-container"),
-            var_mapoptions);
-
-        var var_marker = new google.maps.Marker({
-            position: var_location,
-            map: var_map,
-            title: "Perpunas salemba"
-        });
-    }
-    google.maps.event.addDomListener(window, 'load', regular_map);
-</script>

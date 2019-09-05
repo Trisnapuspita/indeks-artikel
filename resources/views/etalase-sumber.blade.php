@@ -69,7 +69,11 @@ Indeks Artikel | Etalase
                 <div class="row">
                     <div class="col-md-3">
                         <div class="containerImgCover">
-                            <img id="imgSampul" class="border" src="/storage/upload/{{ $title->featured_img }}"  style="max-width: 300px;">
+                        @if($title->featured_img == null)
+                        <img class="card-img-top" src="{{asset('storage/upload/default.png')}}">
+                        @else
+                        <img class="card-img-top" src="{{ asset('storage/upload/'.$title->featured_img) }}" alt="">
+                        @endif
                         </div>
                     </div>
                     <div class="col-md-9">

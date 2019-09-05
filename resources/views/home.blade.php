@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.appp')
 
 @section('title')
 Indeks Artikel | Beranda
@@ -22,8 +22,7 @@ Indeks Artikel | Beranda
                             {{ csrf_field() }}
                             <div class="row">
                                 <div class="col-lg-12 col-xl-6">
-                                    <input type="text" class="form-control rounded" name="param" id="param"
-                                        placeholder="What are you looking for?">
+                                    <input type="text" class="form-control rounded" name="param" id="param">
                                 </div>
                                 <div class="col-lg-12 col-xl-4">
                                     <div class="select-wrap">

@@ -25,19 +25,23 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/articles/export_excel', 'ArticleEditionController@export_excel');
     Route::post('/articles/import_excel/{id}', 'ArticleEditionController@import_excel');
     Route::get('/reports','ReportController@index');
+    Route::post('/reports/search','ReportController@search');
     Route::get('/displays/etalase', 'TitleController@etalase_in');
     Route::get('/displays/etalase/{id}', 'TitleController@etalase_show_in');
     Route::get('/displays/catalog/{id}', 'TitleController@catalog_show_in');
     Route::get('/displays/articlelog/{id}', 'TitleController@articlelog_show_in');
     Route::get('/displays/hierarki/{id}', 'TitleController@hierarki_show_in');
     Route::get('/displays/hierarkilog/{id}', 'TitleController@hierarkilog_show_in');
+    Route::get('/home', 'HomeController1@index')->name('home');
+    Route::post('/home', 'HomeController1@indexPost')->name('homePost');
+    
 });
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::post('/',"HomeController@welcomePost");
+Route::post('/',"HomeController1@indexPost");
 Route::get('/reports', function () {
     return view('reports.index');
 });
@@ -56,8 +60,8 @@ Route::get('/catalog/{id}', 'TitleController@catalog_show');
 Route::get('/articlelog/{id}', 'TitleController@articlelog_show');
 Route::get('/hierarki/{id}', 'TitleController@hierarki_show');
 Route::get('/hierarkilog/{id}', 'TitleController@hierarkilog_show');
-Route::get('/home', 'HomeController@index')->name('home');
-Route::post('/home', 'HomeController@indexPost')->name('homePost');
+Route::get('/welcome', 'HomeController@index')->name('home');
+Route::post('/welcome', 'HomeController@indexPost')->name('homePost');
 Route::get('/etalase', 'TitleController@etalase');
 Route::get('/etalase/{id}', 'TitleController@etalase_show');
 Route::get('/catalog/{id}', 'TitleController@catalog_show');

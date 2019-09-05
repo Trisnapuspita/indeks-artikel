@@ -1,4 +1,4 @@
-@extends('layouts.fronts')
+@extends('layouts.frontsin')
 
 @section('content')
 
@@ -31,7 +31,11 @@ Indeks Artikel | Etalase
                 <div class="section1">
                     <!-- 286x180 -->
                     <div class="card">
+                        @if($title->featured_img == null)
+                        <img class="card-img-top" src="{{asset('storage/upload/default.png')}}">
+                        @else
                         <img class="card-img-top" src="{{ asset('storage/upload/'.$title->featured_img) }}" alt="">
+                        @endif
                         <div class="card-body">
                             <a class="card-title1" href="/displays/etalase/{{ $title->id }}">{{ $title->title }}</a>
                             <br>
@@ -40,11 +44,8 @@ Indeks Artikel | Etalase
                             <br>
                             <br>
                             <br>
-<<<<<<< HEAD
                             <a href="/displays/etalase/{{ $title->id }}">{{$articles->whereIn('edition_title_id',$editions->where('title_id',$title->id)->pluck('id'))->count()}} Artikel</a>
-=======
-                            <a href="/displays/etalase/{{ $title->id }}">(100 Artikel)</a>
->>>>>>> 547544b5726c726c81ad7aef9f009abedee06fb2
+
 
                         </div>
                     </div>

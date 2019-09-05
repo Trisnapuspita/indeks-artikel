@@ -52,7 +52,7 @@
                                 <a href="#" class="nav-link">Setting Master
                                     <i class="fa fa-chevron-down" style="font-size: .8em;"></i></a>
                                 <div class="dropdown-content">
-                                    <a href="/types" style="width: 100%">Master Jenis</a>
+                                    <a href="/types" style="width: 100%">Jenis</a>
                                     <a href="/times" style="width: 100%">Kala Terbit</a>
                                     <a href="/languages" style="width: 100%">Bahasa</a>
                                     <a href="/formats" style="width: 100%">Format</a>
@@ -64,7 +64,7 @@
                             <a class="nav-link" href="/titles">Sumber</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/reports">Laporan Kinerja User</a>
+                            <a class="nav-link" href="/reports">Laporan Kinerja Karyawan</a>
                         </li>
                         <li class="nav-item dropdown">
                             <div class="dropdown">

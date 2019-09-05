@@ -26,8 +26,8 @@ Indeks Artikel | Artikel
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/home">Beranda</a></li>
                 <li class="breadcrumb-item"><a href="/titles">Sumber</a></li>
-                <li class="breadcrumb-item"><a href="/titles">{{ $title->title }}</a></li>
-                <li class="breadcrumb-item active" aria-current="page">fore</li>
+                <li class="breadcrumb-item"><a href="/titles">@</a></li>
+                <li class="breadcrumb-item active" aria-current="page"></li>
 
             </ol>
         </div>

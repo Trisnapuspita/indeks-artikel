@@ -9,14 +9,16 @@ Indeks Artikel | Laporan Kinerja User
         <div class="mr-auto" style="padding-bottom:10px;">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="beranda-user.html">Beranda</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Laporan Kinerja User</li>
+                <li class="breadcrumb-item active" aria-current="page">Laporan Kinerja Karyawan</li>
             </ol>
         </div>
         <div class="ButtonArea">
             <h3 style="text-align:center; font-weight:bold; font-family: var(--Rubik);padding-bottom: 10px">Laporan
-                Kinerja User</h3>
+                Kinerja Karyawan</h3>
             <div id="Div2"
                 style="background:transparent; padding:50px; border-top: 2px solid white;border-bottom: 2px solid white">
+            <form method="POST" action="/reports/search">
+                            {{ csrf_field() }}
                 <table>
                     <tbody>
                         <tr>
@@ -26,15 +28,15 @@ Indeks Artikel | Laporan Kinerja User
                             <td style="font-size: 20px;font-weight: bold; padding-left: 20px; padding-right: 20px">:
                             </td>
                             <td>
-                                <select class="box">
-                                    <option value="">Pilih Kriteria</option>
-                                    <option class="dropdown-item">Semua</option>
-                                    <option class="dropdown-item">Subyek</option>
-                                    <option class="dropdown-item">Pengarang</option>
-                                    <option class="dropdown-item">Judul</option>
-                                    <option class="dropdown-item">No. Panggil</option>
+                                <select class="box" name="column" id="column">
+                                    <option disabled selected hidden>Pilih Kriteria</option>
+                                    <option class="dropdown-item" value="all">Semua</option>
+                                    <option class="dropdown-item" value="subject">Subyek</option>
+                                    <option class="dropdown-item" value="writer">Pengarang</option>
+                                    <option class="dropdown-item" value="article_title">Judul Artikel</option>
+                                    <option class="dropdown-item" value="call_number">No. Panggil</option>
                                 </select>
-                                <input>
+                                <input name="param" id="param">
                             </td>
                         </tr>
                         <tr>
@@ -49,7 +51,7 @@ Indeks Artikel | Laporan Kinerja User
                             </td>
                             <td>
                                 <button class="btn btn-dark btn-sm"
-                                    style="color: white; font-size: 13px; font-weight:2px" data-toggle="modal" data-target="#myModal"> Tampilkan Data</button>
+                                    style="color: white; font-size: 13px; font-weight:2px" type="submit"> Tampilkan Data</button>
                             </td>
                         </tr>
                         <tr>
@@ -100,7 +102,7 @@ Indeks Artikel | Laporan Kinerja User
                             </td>
                             <td>
                                 <button class="btn btn-dark btn-sm"
-                                    style="color: white; font-size: 13px; font-weight:2px" ng-click="editUser('new')" data-toggle="modal" data-target="#myModal"> Tampilkan Data</button>
+                                    style="color: white; font-size: 13px; font-weight:2px" type="submit"> Tampilkan Data</button>
                             </td>
                         </tr>
                         <tr>
@@ -123,71 +125,67 @@ Indeks Artikel | Laporan Kinerja User
                             </td>
                             <td>
                                 <button class="btn btn-dark btn-sm"
-                                    style="color: white; font-size: 13px; font-weight:2px" ng-click="editUser('new')" data-toggle="modal" data-target="#myModal"> Tampilkan Data</button>
+                                    style="color: white; font-size: 13px; font-weight:2px" type="submit"> Tampilkan Data</button>
                             </td>
+                        </tr>
+                    </tbody>
+                </table>
+                </form>
+            </div>
+        </div>
+        <br>
+        <div>
+            <div>
+                <div class="headline" style="text-align: center;">
+                <h5 style="text-align:center; font-weight:bold; font-family: var(--Rubik);padding-bottom: 10px">
+                Laporan Data Indeks Artikel Harian, Periode 2015 s/d 2016</h5>
+                <h5 style="text-align:center; font-weight:bold; font-family: var(--Rubik);padding-bottom: 10px">
+                Trisna Hastuti Puspita Ningrum</h5>
+                </div>
+            <div>
+        <br>
+            <div class="table-responsive">
+                <table class="table" id="example">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Judul</th>
+                            <th>Pengarang</th>
+                            <th>Sumber</th>
+                            <th>Deskripsi Singkat</th>
+                            <th>Kata Kunci</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Matahari</td>
+                            <td>Puti</td>
+                            <td>Buku ini</td>
+                            <td>yaaaaa</td>
+                            <td>1... 2...</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-        
-        <!-- Modal -->
-        <div id="myModal" class="modal fade" role="dialog">
-            <div class="modal-dialog modal-lg">
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h6 class="modal-title">Laporan Data Indeks Artikel Harian, Periode 2015 s/d 2016
-                        <br> Nama Karyawan : Vincentia Dyah </h6>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
-                <div class="modal-body">
-                <div class="table-responsive">
-                    <table class="table" id="example">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Judul</th>
-                                <th>Pengarang</th>
-                                <th>Sumber</th>
-                                <th>Deskripsi Singkat</th>
-                                <th>Kata Kunci</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Matahari</td>
-                                <td>Puti</td>
-                                <td>Buku ini</td>
-                                <td>yaaaaa</td>
-                                <td>1... 2...</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div id="divTools" class="ToolsTable" style="padding-bottom: 10px">
-            <table class="col-md-offset-2">
-                <tbody>
-                    <tr>
-                        <td>
-                            Export:
-                        </td>
-                        <td style="border-right-style: solid; border-right-width: 1px; border-right-color: #EBEBEB">
-                            &nbsp;</td>
-                        <td>
-                            <a href="/articles/export_excel"><img src="../../assets/Export_Excel.png"
-                                style="margin-top:10px;font-family:Arial;font-size:X-Small;height:40px;"></a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-            </div>
+        <div id="divTools" class="ToolsTable" style="padding-bottom: 10px">
+        <table class="col-md-offset-2">
+            <tbody>
+                <tr>
+                    <td>
+                        Export:
+                    </td>
+                    <td style="border-right-style: solid; border-right-width: 1px; border-right-color: #EBEBEB">
+                        &nbsp;</td>
+                    <td>
+                        <a href="/articles/export_excel"><img src="../../assets/Export_Excel.png"
+                            style="margin-top:10px;font-family:Arial;font-size:X-Small;height:40px;"></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
         </div>
     </div>
 </div>
