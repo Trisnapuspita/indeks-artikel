@@ -28,7 +28,7 @@ Indeks Artikel | Laporan Kinerja User
                             <td style="font-size: 20px;font-weight: bold; padding-left: 20px; padding-right: 20px">:
                             </td>
                             <td>
-                                <select class="box" name="column" id="column">
+                                <select class="box" name="column" id="column" required>
                                     <option disabled selected hidden>Pilih Kriteria</option>
                                     <option class="dropdown-item" value="all">Semua</option>
                                     <option class="dropdown-item" value="subject">Subyek</option>
@@ -46,12 +46,13 @@ Indeks Artikel | Laporan Kinerja User
                             <td style="font-size: 20px;font-weight: bold; padding-left: 20px; padding-right: 20px">:
                             </td>
                             <td>
-                                <input class="box" type="date">
-                                s/d <input class="box" type="date">
+                                <input class="box" type="date" name="firstHarian" id="firstHarian">
+                                s/d <input class="box" type="date" name="lastHarian" id="lastHarian">
                             </td>
                             <td>
                                 <button class="btn btn-dark btn-sm"
-                                    style="color: white; font-size: 13px; font-weight:2px" type="submit"> Tampilkan Data</button>
+                                    style="color: white; font-size: 13px; font-weight:2px" type="submit"
+                                    onclick='this.form.action="/reports/searchByDay"'> Tampilkan Data</button>
                             </td>
                         </tr>
                         <tr>
@@ -61,7 +62,7 @@ Indeks Artikel | Laporan Kinerja User
                             <td style="font-size: 20px;font-weight: bold; padding-left: 20px; padding-right: 20px">:
                             </td>
                             <td>
-                                <select class="box">
+                                <select class="box" name="firstBulanan" id="firstBulanan">
                                     <option value="1">Januari</option>
                                     <option value="2">Februari</option>
                                     <option value="3">Maret</option>
@@ -75,12 +76,12 @@ Indeks Artikel | Laporan Kinerja User
                                     <option value="11">November</option>
                                     <option value="12">Desember</option>
                                 </select>
-                                <select class="box">
+                                <select class="box" name="firstTahunBulanan" id="firstTahunBulanan">
                                 @for($year = 2000; $year< now()->year+1; $year++)
 												<option value="{{$year}}"  @if($year==now()->year) selected @endif>{{$year}}</option>
 												@endfor
                                 </select> s/d
-                                <select class="box">
+                                <select class="box" name="lastBulanan" id="lastBulanan">
                                     <option value="1">Januari</option>
                                     <option value="2">Februari</option>
                                     <option value="3">Maret</option>
@@ -94,7 +95,7 @@ Indeks Artikel | Laporan Kinerja User
                                     <option value="11">November</option>
                                     <option value="12">Desember</option>
                                 </select>
-                                <select class="box">
+                                <select class="box" name="lastTahunBulanan" id="lastTahunBulanan">
                                     @for($year = 2000; $year< now()->year+1; $year++)
                                         <option value="{{$year}}"  @if($year==now()->year) selected @endif>{{$year}}</option>
                                     @endfor
@@ -102,7 +103,8 @@ Indeks Artikel | Laporan Kinerja User
                             </td>
                             <td>
                                 <button class="btn btn-dark btn-sm"
-                                    style="color: white; font-size: 13px; font-weight:2px" type="submit"> Tampilkan Data</button>
+                                    style="color: white; font-size: 13px; font-weight:2px" type="submit"
+                                    onclick='this.form.action="/reports/searchByMonth"'> Tampilkan Data</button>
                             </td>
                         </tr>
                         <tr>
@@ -112,12 +114,12 @@ Indeks Artikel | Laporan Kinerja User
                             <td style="font-size: 20px;font-weight: bold; padding-left: 20px; padding-right: 20px">:
                             </td>
                             <td>
-                                <select class="box">
+                                <select class="box" name="firstTahunan" id="firstTahunan">
                                 @for($year = 2000; $year< now()->year+1; $year++)
 												<option value="{{$year}}"  @if($year==now()->year) selected @endif>{{$year}}</option>
 												@endfor
                                 </select> s/d
-                                <select class="box">
+                                <select class="box" name="lastTahunan" id="lastTahunan">
                                 @for($year = 2000; $year< now()->year+1; $year++)
 												<option value="{{$year}}"  @if($year==now()->year) selected @endif>{{$year}}</option>
 												@endfor
@@ -125,7 +127,8 @@ Indeks Artikel | Laporan Kinerja User
                             </td>
                             <td>
                                 <button class="btn btn-dark btn-sm"
-                                    style="color: white; font-size: 13px; font-weight:2px" type="submit"> Tampilkan Data</button>
+                                    style="color: white; font-size: 13px; font-weight:2px" type="submit"
+                                    onclick='this.form.action="/reports/searchByYear"'> Tampilkan Data</button>
                             </td>
                         </tr>
                     </tbody>
@@ -157,14 +160,7 @@ Indeks Artikel | Laporan Kinerja User
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Matahari</td>
-                            <td>Puti</td>
-                            <td>Buku ini</td>
-                            <td>yaaaaa</td>
-                            <td>1... 2...</td>
-                        </tr>
+                   
                     </tbody>
                 </table>
             </div>

@@ -24,8 +24,10 @@ Route::group(['middleware' => 'auth'], function() {
     Route::delete('/articles/{id}', 'ArticleEditionController@destroy');
     Route::get('/articles/export_excel', 'ArticleEditionController@export_excel');
     Route::post('/articles/import_excel/{id}', 'ArticleEditionController@import_excel');
-    Route::get('/reports','ReportController@index');
-    Route::post('/reports/search','ReportController@search');
+    Route::get('/reports','ReportController@index')->name('reportsIndex');
+    Route::post('/reports/searchByDay','ReportController@searchByDay');
+    Route::post('/reports/searchByMonth','ReportController@searchByMonth');
+    Route::post('/reports/searchByYear','ReportController@searchByYear');
     Route::get('/displays/etalase', 'TitleController@etalase_in');
     Route::get('/displays/etalase/{id}', 'TitleController@etalase_show_in');
     Route::get('/displays/catalog/{id}', 'TitleController@catalog_show_in');
@@ -42,9 +44,6 @@ Route::get('/', function () {
 });
 
 Route::post('/',"HomeController1@indexPost");
-Route::get('/reports', function () {
-    return view('reports.index');
-});
 
 
 Auth::routes();

@@ -16,26 +16,106 @@ class ReportController extends Controller
 
     public function index()
     {
+        if(session()->get( 'data' ) !=null) {
+            $data = session()->get( 'data' );
+            return view('reports.index', compact('data'));       
+        }
+        
+
         return view('reports.index');
     }
 
-    public function search(Request $request) {
+    public function searchByDay(Request $request) {
         $param = $request->param;
         $column = $request->column;
-
+        $firstDay = $request->firstHarian;
+        $lastDay = $request->lastHarian;
+        $result;
         if($column != "all" and $column != "call_number") {
-            $article = ArticleEdition::where($column,'like','%'.$param.'%')->get();
+            $result = ArticleEdition::where($column,'like','%'.$param.'%')
+            ->whereDate('created_at', '>=', $firstDay)
+            ->whereDate('created_at', '<=',$lastDay)
+            ->get();
         }else if ($column == "call_number") {     
-            $call_number = EditionTitle::where($column,'like','%'.$param.'%')->get(); 
+            $result = EditionTitle::where($column,'like','%'.$param.'%')
+            ->whereDate('created_at', '>=', $firstDay)
+            ->whereDate('created_at', '<=',$lastDay)
+            ->get(); 
         }else {
-            $article = DB::select(DB::raw("SELECT * FROM `article_editions` WHERE
+            $result = DB::select(DB::raw("SELECT * FROM `article_editions` WHERE
+            (`article_title` LIKE '%".$param."%' OR 
+            `subject` LIKE '%".$param."%' OR        
+            `writer` LIKE '%".$param."%' OR         
+            `desc` LIKE '%".$param."%' OR           
+            `keyword` LIKE '%".$param."%') AND 
+            `created_at` >= '".$firstDay ."' AND 
+            `created_at` <= '". $lastDay ."'"));   
+        }
+        
+        return redirect()->route( 'reportsIndex' )->with( [ 'data' => $result ] );
+    }
+
+    public function searchByMonth(Request $request) {
+        $param = $request->param;
+        $column = $request->column;
+        $firstMonth = $request->firstBulanan;
+        $lastMonth = $request->lastBulanan;
+        $firstYear = $request->firstTahunBulanan;
+        $lastYear = $request->lastTahunBulanan;
+        $firstDate = $firstYear . "-" . $firstMonth . "-1";
+        $lastDate = $lastYear . "-" . $lastMonth . "-31";
+        $result;
+        if($column != "all" and $column != "call_number") {
+            $result = ArticleEdition::where($column,'like','%'.$param.'%')
+            ->whereDate('created_at', '>=', $firstDate)
+            ->whereDate('created_at', '<=',$lastDate)
+            ->get();
+        }else if ($column == "call_number") {     
+            $result = EditionTitle::where($column,'like','%'.$param.'%')
+            ->whereDate('created_at', '>=', $firstDate)
+            ->whereDate('created_at', '<=',$lastDate)
+            ->get(); 
+        }else {
+            $result = DB::select(DB::raw("SELECT * FROM `article_editions` WHERE
             `article_title` LIKE '%".$param."%' OR 
             `subject` LIKE '%".$param."%' OR        
             `writer` LIKE '%".$param."%' OR         
             `desc` LIKE '%".$param."%' OR           
-            `keyword` LIKE '%".$param."%'"));   
+            `keyword` LIKE '%".$param."%') AND 
+            `created_at` >= '".$firstDate ."' AND 
+            `created_at` <= '". $lastDate ."'"));   
         }
+        return redirect()->route( 'reportsIndex' )->with( [ 'data' => $result ] );
+    }
 
-        return redirect()->route( 'reports.index' )->with( [ 'id' => $id ] );
+    public function searchByYear(Request $request) {
+        $param = $request->param;
+        $column = $request->column;
+        $firstYear = $request->firstTahunan;
+        $lastYear = $request->lastTahunan;
+        $firstDate = $firstYear . "-01-01";
+        $lastDate = $lastYear . "-12-31";
+        $result;
+        if($column != "all" and $column != "call_number") {
+            $result = ArticleEdition::where($column,'like','%'.$param.'%')
+            ->whereDate('created_at', '>=', $firstDate)
+            ->whereDate('created_at', '<=',$lastDate)
+            ->get();
+        }else if ($column == "call_number") {     
+            $result = EditionTitle::where($column,'like','%'.$param.'%')
+            ->whereDate('created_at', '>=', $firstDate)
+            ->whereDate('created_at', '<=',$lastDate)
+            ->get(); 
+        }else {
+            $result = DB::select(DB::raw("SELECT * FROM `article_editions` WHERE
+            `article_title` LIKE '%".$param."%' OR 
+            `subject` LIKE '%".$param."%' OR        
+            `writer` LIKE '%".$param."%' OR         
+            `desc` LIKE '%".$param."%' OR           
+            `keyword` LIKE '%".$param."%') AND 
+            `created_at` >= '".$firstDate ."' AND 
+            `created_at` <= '". $lastDate ."'"));     
+        }
+        return redirect()->route( 'reportsIndex' )->with( [ 'data' => $result ] );
     }
 }
