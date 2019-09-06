@@ -141,9 +141,9 @@ Indeks Artikel | Laporan Kinerja User
             <div>
                 <div class="headline" style="text-align: center;">
                 <h5 style="text-align:center; font-weight:bold; font-family: var(--Rubik);padding-bottom: 10px">
-                Laporan Data Indeks Artikel Harian, Periode 2015 s/d 2016</h5>
+                Laporan Data Indeks Artikel</h5>
                 <h5 style="text-align:center; font-weight:bold; font-family: var(--Rubik);padding-bottom: 10px">
-                Trisna Hastuti Puspita Ningrum</h5>
+                {{$user->longname}}</h5>
                 </div>
             <div>
         <br>
@@ -160,8 +160,20 @@ Indeks Artikel | Laporan Kinerja User
                         </tr>
                     </thead>
                     <tbody>
-                   
-                    </tbody>
+                            @if($data != null)
+                            @php $i=1 @endphp
+                            @foreach ($data as $dat)
+                            <tr class="GridItem">
+                                <td>{{$i++}}</td>
+                                <td>{{$dat->article_title}}</td>
+                                <td>{{$dat->writer}}</td>
+                                <td>{{$dat->source}}</td>
+                                <td>{{$dat->desc}}</td>
+                                <td>{{$dat->keyword}}</td>
+                            </tr>
+                            @endforeach
+                            @endif
+                        </tbody>
                 </table>
             </div>
         </div>
