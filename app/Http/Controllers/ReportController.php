@@ -85,17 +85,17 @@ class ReportController extends Controller
             ->get(); 
         }else {
             $result = DB::select(DB::raw("SELECT * FROM `article_editions` WHERE
-            `article_title` LIKE '%".$param."%' OR 
+            (`article_title` LIKE '%".$param."%' OR 
             `subject` LIKE '%".$param."%' OR        
             `writer` LIKE '%".$param."%' OR         
             `desc` LIKE '%".$param."%' OR           
             `keyword` LIKE '%".$param."%') AND 
             `created_at` >= '".$firstDate ."' AND 
             `created_at` <= '". $lastDate ."' AND
-            `user_id` = '". $user->id. "'"));
+            `user_id` = '". $user->id. "'"));   
         }
-        dd($result);
-        return redirect()->route( 'reports.index' )->with( [ 'id' => $id ] );
+
+        return redirect()->route( 'reportsIndex' )->with( [ 'data' => $result ] );
     }
 
     public function searchByYear(Request $request) {
@@ -121,16 +121,16 @@ class ReportController extends Controller
             ->get(); 
         }else {
             $result = DB::select(DB::raw("SELECT * FROM `article_editions` WHERE
-            `article_title` LIKE '%".$param."%' OR 
+            (`article_title` LIKE '%".$param."%' OR 
             `subject` LIKE '%".$param."%' OR        
             `writer` LIKE '%".$param."%' OR         
             `desc` LIKE '%".$param."%' OR           
             `keyword` LIKE '%".$param."%') AND 
             `created_at` >= '".$firstDate ."' AND 
             `created_at` <= '". $lastDate ."' AND
-            `user_id` = '".$user->id."'"));       
+            `user_id` = '". $user->id. "'"));   
         }
 
-        return redirect()->route( 'reports.index' )->with( [ 'id' => $id ] );
+         return redirect()->route( 'reportsIndex' )->with( [ 'data' => $result ] );
     }
 }
