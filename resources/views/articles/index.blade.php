@@ -1,4 +1,4 @@
-@extends('layouts.mix')
+@extends('layouts.table')
 
 @section('title')
 Indeks Artikel | Artikel
@@ -26,12 +26,12 @@ Indeks Artikel | Artikel
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/home">Beranda</a></li>
                 <li class="breadcrumb-item"><a href="/titles">Sumber</a></li>
-                <li class="breadcrumb-item"><a href="/titles"></a></li>
-                <li class="breadcrumb-item active" aria-current="page"></li>
+                <li class="breadcrumb-item active" aria-current="page">Artikel</li>
 
             </ol>
         </div>
         <div class="createnew" style="padding-bottom: 10px">
+            <a href="/articles/create"><button>Tambah</button></a>
             <a data-toggle="modal" data-target="#importExcel"><button>Import</button></a>
         </div>
 
@@ -39,7 +39,7 @@ Indeks Artikel | Artikel
         <!-- Import Excel -->
 		<div class="modal fade" id="importExcel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog" role="document">
-				<form method="post" action="/articles/import_excel/{{$editions->id}}" enctype="multipart/form-data">
+				<form method="post" action="/articles/import_excel" enctype="multipart/form-data">
 					<div class="modal-content">
 						<div class="modal-header">
 							<h5 class="modal-title" id="exampleModalLabel">Import Excel</h5>
@@ -62,16 +62,6 @@ Indeks Artikel | Artikel
 				</form>
 			</div>
 		</div>
-
-        <a data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
-            aria-controls="collapseExample">
-            <h5
-                style="width: 100%;background: whitesmoke; height: 50px; padding-top:15px; padding-left: 15px; border-radius: 4px">
-                Tambah Artikel<i class="fas fa-angle-down" style="padding-right: 20px; float: right"></i></h5>
-        </a>
-
-        
-        <br><br><br>
         <table id="example" class="table table-striped table-bordered table-responsive" style="width:100%">
             <thead>
 
@@ -93,7 +83,7 @@ Indeks Artikel | Artikel
 			</thead>
 			<tbody>
             @php $i=1 @endphp
-            @foreach ($editions->articles as $article)
+            @foreach ($articles as $article)
                 <tr class="GridItem">
                     <td>{{$i++}}</td>
                     <td>{{$article->article_title}}</td>

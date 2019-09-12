@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Session;
 use Auth;
 use App\Models\User;
 use App\Models\Language;
@@ -114,8 +115,14 @@ class LanguageController extends Controller
     public function destroy($id)
     {
         $language= Language::findOrFail($id);
-        $language->delete();
+        try {
+            $language->delete();
+            Session::flash('success', 'Berhasil menghapus');
+        }catch(\Illuminate\Database\QueryException $e) {
+            
+            Session::flash('error', 'Gagal menghapus, karena jenis ini direferensikan oleh beberapa judul sumber');
+        }
 
-        return redirect('languages')->with('msg', 'kutipan berhasil di hapus');
+        return redirect('languages');
     }
 }

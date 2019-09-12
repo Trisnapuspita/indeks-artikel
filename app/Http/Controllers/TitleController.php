@@ -16,6 +16,7 @@ use App\Imports\TitleImport;
 use App\Exports\TitleExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
+
 class TitleController extends Controller
 {
 
@@ -50,6 +51,7 @@ class TitleController extends Controller
         $formats = Format::all();
         return view('titles.create', compact('types', 'times', 'languages', 'formats'));
     }
+    
     public function store(Request $request)
     {
         $this->validate(request(), [

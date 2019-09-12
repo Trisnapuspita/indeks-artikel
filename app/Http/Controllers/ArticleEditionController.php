@@ -14,6 +14,19 @@ use Illuminate\Http\Request;
 
 class ArticleEditionController extends Controller
 {
+    public function index()
+    {
+        $articles = ArticleEdition::all();
+        return view('articles.index', compact('articles'));
+    }
+
+    public function create()
+    {
+        $status = Status::all();
+        $edition = EditionTitle::all();
+        return view('articles.create', compact('status', 'edition'));
+    }
+
     public function store(Request $request, $id)
     {
         $this->validate(request(), [

@@ -25,11 +25,12 @@ Indeks Artikel | Judul Sumber
         <div class="mr-auto" style="padding-bottom:10px;">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/home">Beranda</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Sumber</li>
+                <li class="breadcrumb-item"><a href="/home">Sumber</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Judul</li>
             </ol>
         </div>
         <div class="createnew" style="padding-bottom: 10px">
-            <a href="/titles/create"><button>Tambah Sumber</button></a>
+            <a href="/titles/create"><button>Tambah</button></a>
             <a data-toggle="modal" data-target="#importExcel"><button>Import</button></a>
         </div>
 
@@ -99,7 +100,8 @@ Indeks Artikel | Judul Sumber
                     <td>@foreach ($title->languages()->get() as $languages){{$languages->title}}@endforeach</td>
                     <td>@foreach ($title->formats()->get() as $formats){{$formats->title}}@endforeach</td>
                     <td>{{$editions->where('title_id',$title->id)->count()}}<a href="/titles/{{$title->slug}}"><button style="float: right"><strong>+</strong></button></a></td>
-                    <td style="text-align: center">{{$articles->whereIn('edition_title_id',$editions->where('title_id',$title->id)->pluck('id'))->count()}}</td>
+                    <td style="text-align: center">{{$articles->whereIn('edition_title_id',$editions->where('title_id',$title->id)->pluck('id'))->count()}}
+                    <a href="/titles/{{$title->slug}}"><button style="float: right"><strong>+</strong></button></a></td>
                     <td style="text-align: center">
 						<a href="/titles/{{$title->id}}/edit"><button class="fas fa-edit" style="width:30px;height:30px"></button></a>
                         <br><br>

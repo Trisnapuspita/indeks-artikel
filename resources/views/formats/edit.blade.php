@@ -19,7 +19,7 @@ Indeks Artikel | Edit Master Kala Terbit
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="beranda-user.html">Beranda</a></li>
                 <li class="breadcrumb-item"><a href="sumber.html">Sumber</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Edit Master Kala Terbit</li>
+                <li class="breadcrumb-item active" aria-current="page">Edit Master Format</li>
             </ol>
         </div>
         <div class="container" style="background:white;-webkit-box-shadow: 0px 0px 17px -4px rgba(0,0,0,0.75);
@@ -27,7 +27,7 @@ Indeks Artikel | Edit Master Kala Terbit
         box-shadow: 0px 0px 17px -4px rgba(0,0,0,0.75);">
             <form class="form" method="POST" action="/formats/{{$format->id}}">
                 <h4 style="font-weight: bold; padding-bottom:10px; text-align:center;color: black">
-                    Edit Master Kala Terbit</h4>
+                    Edit Master Format</h4>
                     <div class="form-group row was-validated">
                         <label for="inputEmail3" class="col-sm-2 col-form-label">Nama*</label>
                             <div class="col-sm-10">
@@ -36,7 +36,7 @@ Indeks Artikel | Edit Master Kala Terbit
 
                             {{csrf_field()}}
                             <input type="hidden" name="_method" value="PUT">                        
-                        <button type="submit" class="btn btn-dark" style="text-align: center; width:100%; color:white; font-size: 17px; font-weight: 2px">
+                        <button type="submit" class="btn btn-dark" style="text-align: center; width:100%; color:white; font-size: 17px; font-weight: 2px" onclick="return confirm('Apakah Anda yakin untuk mengedit?')">
                         S i m p a n</button>
                     </div>
             </form>

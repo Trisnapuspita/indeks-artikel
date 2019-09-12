@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Session;
 use App\Models\ArticleEdition;
 use App\Models\EditionTitle;
 use Auth;
@@ -117,8 +118,14 @@ class StatusController extends Controller
     public function destroy($id)
     {
         $status= Status::findOrFail($id);
-        $status->delete();
+        try {
+            $status->delete();
+            Session::flash('success', 'Berhasil menghapus');
+        }catch(\Illuminate\Database\QueryException $e) {
+            
+            Session::flash('error', 'Gagal menghapus, karena jenis ini direferensikan oleh beberapa judul sumber');
+        }
 
-        return redirect('statuses')->with('msg', 'kutipan berhasil di hapus');
+        return redirect('statuses');
     }
 }

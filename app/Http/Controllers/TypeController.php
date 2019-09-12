@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Title;
 use Auth;
+use Session;
 use App\Models\User;
 use App\Models\Type;
 use Illuminate\Http\Request;
@@ -107,8 +108,14 @@ class TypeController extends Controller
     public function destroy($id)
     {
         $type= Type::findOrFail($id);
-        $type->delete();
+        try {
+            $type->delete();
+            Session::flash('success', 'Berhasil menghapus');
+        }catch(\Illuminate\Database\QueryException $e) {
+            
+            Session::flash('error', 'Gagal menghapus, karena jenis ini direferensikan oleh beberapa judul sumber');
+        }
 
-        return redirect('types')->with('msg', 'kutipan berhasil di hapus');
+        return redirect('types');
     }
 }

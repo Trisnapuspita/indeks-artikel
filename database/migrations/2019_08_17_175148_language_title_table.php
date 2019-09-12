@@ -18,7 +18,7 @@ class LanguageTitleTable extends Migration
             $table->unsignedBigInteger('title_id');
             $table->foreign('title_id')->references('id')->on('titles')->onDelete('cascade');
             $table->unsignedBigInteger('language_id');
-            $table->foreign('language_id')->references('id')->on('languages')->onDelete('cascade');
+            $table->foreign('language_id')->references('id')->on('languages')->onDelete('restrict');
             $table->timestamps();
         });
     }

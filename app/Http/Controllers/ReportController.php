@@ -6,6 +6,8 @@ use Auth;
 use App\Models\EditionTitle;
 use App\Models\ArticleEdition;
 use Illuminate\Http\Request;
+use App\Exports\ReportExport;
+use Maatwebsite\Excel\Facades\Excel;
 use DB;
 
 class ReportController extends Controller
@@ -132,5 +134,10 @@ class ReportController extends Controller
         }
 
          return redirect()->route( 'reportsIndex' )->with( [ 'data' => $result ] );
+    }
+
+    public function export_excel()
+    {
+        return Excel::download(new ReportExport(), 'report.xlsx');
     }
 }

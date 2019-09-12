@@ -10,6 +10,8 @@ Route::group(['middleware' => 'auth'], function() {
     Route::resource('titles', 'TitleController', ['except' => ['index', 'show']]);
     Route::post('/titles/import_excel', 'TitleController@import_excel');
     Route::get('/titles/export_excel', 'TitleController@export_excel');
+    Route::get('/editions', 'EditionTitleController@index');
+    Route::get('/editions/create', 'EditionTitleController@create');
     Route::post('/editions/{id}', 'EditionTitleController@store');
     Route::put('/editions/{id}', 'EditionTitleController@update');
     Route::get('/editions/{slug}', 'EditionTitleController@show');
@@ -17,6 +19,8 @@ Route::group(['middleware' => 'auth'], function() {
     Route::delete('/editions/{id}', 'EditionTitleController@destroy');
     Route::get('/editions/export_excel/{id}', 'EditionTitleController@export_excel');
     Route::post('/editions/import_excel/{id}', 'EditionTitleController@import_excel');
+    Route::get('/articles', 'ArticleEditionController@index');
+    Route::get('/articles/create', 'ArticleEditionController@create');
     Route::post('/articles/{id}', 'ArticleEditionController@store');
     Route::put('/articles/{id}', 'ArticleEditionController@update');
     Route::get('/articles/{id}/edit', 'ArticleEditionController@edit');
@@ -28,6 +32,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/reports/searchByDay','ReportController@searchByDay');
     Route::post('/reports/searchByMonth','ReportController@searchByMonth');
     Route::post('/reports/searchByYear','ReportController@searchByYear');
+    Route::get('/reports/export', 'ReportController@export_excel');
     Route::get('/displays/etalase', 'TitleController@etalase_in');
     Route::get('/displays/etalase/{id}', 'TitleController@etalase_show_in');
     Route::get('/displays/catalog/{id}', 'TitleController@catalog_show_in');

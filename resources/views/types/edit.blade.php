@@ -36,8 +36,8 @@ Indeks Artikel | Edit Master Jenis
 
                             {{csrf_field()}}
                             <input type="hidden" name="_method" value="PUT">                        
-                        <button type="submit" class="btn btn-dark" style="text-align: center; width:100%; color:white; font-size: 17px; font-weight: 2px">
-                        S i m p a n</button>
+                        <button type="submit" class="btn btn-dark" style="text-align: center; width:100%; color:white; font-size: 17px; font-weight: 2px"
+                        onclick="return confirm('Apakah Anda yakin untuk mengedit?')">S i m p a n</button>
                     </div>
             </form>
         </div>

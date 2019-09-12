@@ -6,6 +6,21 @@ Indeks Artikel | Master Format
 
 @section('content')
 <main style="background: white; padding:45px">
+        @if (Session::has('success'))
+
+        <div class="alert alert-success" role="alert">
+        <strong>Success:</strong>{{ Session::get('success')}}
+        </div>
+
+        @endif
+
+        @if (Session::has('error'))
+
+        <div class="alert alert-danger" role="alert">
+        <strong>Error:</strong>{{ Session::get('error')}}
+        </div>
+
+        @endif
         <div class="mr-auto" style="padding-bottom:10px;">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/home">Beranda</a></li>
@@ -15,7 +30,6 @@ Indeks Artikel | Master Format
         </div>
         <div class="createnew" style="padding-bottom: 10px">
             <a href="/formats/create"><button>Tambah Baru</button></a>
-            <button>Import</button>
         </div>
         <table id="example" class="table table-striped table-bordered" style="width:100%">
             <thead>
@@ -31,9 +45,9 @@ Indeks Artikel | Master Format
 			@foreach ($formats as $format)
                 <tr class="GridItem">
                     <td style="width:20px; text-align: center">{{$i++}}</td>
-                    <td style="width:80px;"><a href="">{{$format->title}}</a></td>
-                    <td style="width:50px;">{{ $format->titles()->count() }}</td>
-					<td style="width:50px;">
+                    <td style="width:80px; text-align: center">{{$format->title}}</td>
+                    <td style="width:50px; text-align: center">{{ $format->titles()->count() }}</td>
+					<td style="width:50px; text-align: center">
                     <div class="row" style="">
                         <div class="col-md-2">
                         <a href='/formats/{{$format->id}}/edit'><button class="btn btn-primary">Sunting</button></a>
@@ -45,7 +59,7 @@ Indeks Artikel | Master Format
                             <form method="POST" action="/formats/{{$format->id}}">
                                     {{ csrf_field() }}
                                     <input type="hidden" name="_method" value="DELETE">
-                                    <button type="submit" class="btn btn-danger">Hapus</button>
+                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin untuk menghapus?')">Hapus</button>
                                 </form>
                             </div>
                         </div>
@@ -54,24 +68,5 @@ Indeks Artikel | Master Format
 				@endforeach
             </tbody>
         </table>
-        <div id="divTools" class="ToolsTable" style="padding-bottom: 10px">
-            <table cellpadding="0" cellspacing="0">
-                <tbody>
-                    <tr>
-                        <td>
-                            Export:
-                        </td>
-                        <td style="border-right-style: solid; border-right-width: 1px; border-right-color: #EBEBEB">
-                            &nbsp;</td>
-                        <td>
-                            <input type="image" name="ctl00$ContentPlaceHolder1$Exporter1$btExportToExcel"
-                                id="ContentPlaceHolder1_Exporter1_btExportToExcel" title="Export To Excel"
-                                src="../../assets/Export_Excel.png"
-                                style="margin-top:10px;font-family:Arial;font-size:X-Small;height:40px;">
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
     </main>
 @endsection
