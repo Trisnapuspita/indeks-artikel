@@ -10,6 +10,7 @@ use App\Models\Time;
 use App\Models\Language;
 use App\Models\Format;
 use App\Models\Title;
+use App\Models\Status;
 use App\Models\EditionTitle;
 use App\Models\ArticleEdition;
 use App\Imports\TitleImport;
@@ -90,12 +91,17 @@ class TitleController extends Controller
     public function show($slug)
     {
         $title= Title::with('editions')->where('slug', $slug)->first();
+        $types = Type::all();
+        $times = Time::all();
+        $languages = Language::all();
+        $formats = Format::all();
+        $status = Status::all();
         $articles = ArticleEdition::all();
         if(empty($title)){
             abort(404);
         }
 
-        return view('titles.single', compact('title', 'articles'));
+        return view('titles.single', compact('types', 'times', 'languages', 'formats', 'title', 'status', 'edition', 'articles'));
     }
 
     public function etalase_in()

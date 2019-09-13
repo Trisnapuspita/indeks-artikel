@@ -34,6 +34,31 @@ Indeks Artikel | Judul Sumber
             <a data-toggle="modal" data-target="#importExcel"><button>Import</button></a>
         </div>
 
+        <div class="search" style="text-align: right">
+            <select class="box">
+                <option disabled selected hidden>Semua Jenis</option>
+                <option class="dropdown-item" href="#">Judul</option>
+                <option class="dropdown-item" href="#">Jenis</option>
+                <option class="dropdown-item" href="#">Kala Terbit</option>
+                <option class="dropdown-item" href="#">Tempat Terbit</option>
+                <option class="dropdown-item" href="#">Penerbit</option>
+                <option class="dropdown-item" href="#">Tahun Terbit</option>
+                <option class="dropdown-item" href="#">Tahun Terbit Pertama</option>
+                <option class="dropdown-item" href="#">Bahasa</option>
+                <option class="dropdown-item" href="#">Format</option>
+            </select>
+            <select class="box">
+                <option disabled selected hidden>Semua Waktu</option>
+                <option class="dropdown-item" href="#">Tepat</option>
+                <option class="dropdown-item" href="#">Dimulai Dengan</option>
+                <option class="dropdown-item" href="#">Diakhiri Dengan</option>
+                <option class="dropdown-item" href="#">Salah Satu Isi</option>
+            </select>
+            <input type="text" class="search-box" placeholder="Kata Kunci">
+            <button type="submit" class="searchButton"><img src="../assets/magnifying-glass-2x.png">
+            </button>
+        </div>
+
         <!-- Import Excel -->
 		<div class="modal fade" id="importExcel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog" role="document">
@@ -67,6 +92,7 @@ Indeks Artikel | Judul Sumber
                     <th>No.</th>
                     <th>Gambar</th>
                     <th>Judul Sumber</th>
+                    <th>Kode</th>
                     <th>Jenis</th>
                     <th>Kala Terbit</th>
                     <th>Tempat Terbit</th>
@@ -90,7 +116,8 @@ Indeks Artikel | Judul Sumber
                     @else
                     <td><img src="{{asset('storage/upload/'. $title->featured_img) }}" style="max-width: 100px; height: auto; "class="image-fluid"></td>
                     @endif
-                    <td><a href="/titles/{{$title->slug}}">{{$title->title}}</a></td>
+                    <td>{{$title->title}}</td>
+                    <td></td>
                     <td>@foreach ($title->types()->get() as $types){{$types->title}}@endforeach</td>
                     <td>@foreach ($title->times()->get() as $times){{$times->title}}@endforeach</td>
                     <td>{{$title->city}}</td>
@@ -101,7 +128,7 @@ Indeks Artikel | Judul Sumber
                     <td>@foreach ($title->formats()->get() as $formats){{$formats->title}}@endforeach</td>
                     <td>{{$editions->where('title_id',$title->id)->count()}}<a href="/titles/{{$title->slug}}"><button style="float: right"><strong>+</strong></button></a></td>
                     <td style="text-align: center">{{$articles->whereIn('edition_title_id',$editions->where('title_id',$title->id)->pluck('id'))->count()}}
-                    <a href="/titles/{{$title->slug}}"><button style="float: right"><strong>+</strong></button></a></td>
+                    <a href="/articles/create"><button style="float: right"><strong>+</strong></button></a></td>
                     <td style="text-align: center">
 						<a href="/titles/{{$title->id}}/edit"><button class="fas fa-edit" style="width:30px;height:30px"></button></a>
                         <br><br>

@@ -35,6 +35,30 @@ Indeks Artikel | Artikel
             <a data-toggle="modal" data-target="#importExcel"><button>Import</button></a>
         </div>
 
+        <div class="search" style="text-align: right">
+        <select class="box">
+                <option disabled selected hidden>Semua Jenis</option>
+                <option class="dropdown-item" href="#">Judul</option>
+                <option class="dropdown-item" href="#">Jenis</option>
+                <option class="dropdown-item" href="#">Kala Terbit</option>
+                <option class="dropdown-item" href="#">Tempat Terbit</option>
+                <option class="dropdown-item" href="#">Penerbit</option>
+                <option class="dropdown-item" href="#">Tahun Terbit</option>
+                <option class="dropdown-item" href="#">Tahun Terbit Pertama</option>
+                <option class="dropdown-item" href="#">Bahasa</option>
+                <option class="dropdown-item" href="#">Format</option>
+            </select>
+            <select class="box">
+                <option disabled selected hidden>Semua Waktu</option>
+                <option class="dropdown-item" href="#">Tepat</option>
+                <option class="dropdown-item" href="#">Dimulai Dengan</option>
+                <option class="dropdown-item" href="#">Diakhiri Dengan</option>
+                <option class="dropdown-item" href="#">Salah Satu Isi</option>
+            </select>
+            <input type="text" class="search-box" placeholder="Kata Kunci">
+            <button type="submit" class="searchButton"><img src="../assets/magnifying-glass-2x.png">
+            </button>
+        </div>
 
         <!-- Import Excel -->
 		<div class="modal fade" id="importExcel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -62,12 +86,13 @@ Indeks Artikel | Artikel
 				</form>
 			</div>
 		</div>
+        
         <table id="example" class="table table-striped table-bordered table-responsive" style="width:100%">
             <thead>
 
                 <tr class="GridHeader" style="text-align: center">
                     <th>No</th>
-                    <th>Judul</th>
+                    <th>Judul Artikel</th>
                     <th>Subyek</th>
                     <th>Pengarang</th>
                     <th>Halaman</th>
@@ -76,9 +101,11 @@ Indeks Artikel | Artikel
                     <th>Deskripsi Singkat</th>
                     <th>Kata Kunci</th>
                     <th>Keterangan Gambar</th>
+                    <th>No. Panggil</th>
                     <th>Status Ketersediaan</th>
-                    <th>Status Verifikasi</th>
-                    <th>Action</th>
+                    <th>Judul Sumber</th>
+                    <th>Edisi</th>
+                    <th> </th>
                 </tr>
 			</thead>
 			<tbody>
@@ -96,11 +123,9 @@ Indeks Artikel | Artikel
                     <td>{{$article->keyword}}</td>
                     <td>{{$article->detail_img}}</td>
                     <td>@foreach ($article->statuses()->get() as $statuses) {{$statuses->title}} @endforeach</td>
-                    @if($article->verification==1)
-                    <td>Sudah Terverifikasi</td>
-                    @elseif($article->verification==0)
-                    <td>Belum Terverifikasi</td>
-                    @endif
+                    <td></td>
+                    <td></td>
+                    <td></td>
                     <td style="center";>
                             <div class="col-md-2">
                                 <a href='/articles/{{$article->id}}/edit'><button class="fas fa-edit" title="Edit" style="width:35px;height:35px"></button></a>
@@ -112,10 +137,6 @@ Indeks Artikel | Artikel
                                         <input type="hidden" name="_method" value="DELETE">
                                         <button type="submit" class="fa fa-trash" style="width:35px;height:35px" title="Hapus" onclick="return confirm('Apakah Anda yakin untuk menghapus?')"></button>
                                 </form>
-                            </div>
-                            <br>
-                            <div class="col-md-2">
-                                <a href='/articles/{{$article->id}}/verif'><button class="fa fa-check" title="Verifikasi" style="width:35px;height:35px" onclick="return confirm('Apakah Anda yakin untuk melakukan verifikasi?')"></button></a>
                             </div>
                         </td>
                 </tr>

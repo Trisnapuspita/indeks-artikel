@@ -4,6 +4,11 @@ namespace App\Http\Controllers;
 
 use Session;
 use Auth;
+use App\Models\Type;
+use App\Models\Time;
+use App\Models\Language;
+use App\Models\Format;
+use App\Models\Title;
 use App\Models\Status;
 use App\Models\EditionTitle;
 use App\Models\ArticleEdition;
@@ -22,9 +27,14 @@ class ArticleEditionController extends Controller
 
     public function create()
     {
+        $types = Type::all();
+        $times = Time::all();
+        $languages = Language::all();
+        $formats = Format::all();
         $status = Status::all();
+        $title = Title::all();
         $edition = EditionTitle::all();
-        return view('articles.create', compact('status', 'edition'));
+        return view('articles.create', compact('types', 'times', 'languages', 'formats', 'title', 'status', 'edition'));
     }
 
     public function store(Request $request, $id)

@@ -1,4 +1,4 @@
-@extends('layouts.mix')
+@extends('layouts.form')
 
 @section('title')
 Indeks Artikel | Edisi
@@ -7,22 +7,6 @@ Indeks Artikel | Edisi
 @section('content')
 <main style="background: white; padding: 45px">
 
-
-        {{-- notifikasi form validasi --}}
-                @if ($errors->has('file'))
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $errors->first('file') }}</strong>
-                </span>
-                @endif
-
-                {{-- notifikasi sukses --}}
-                @if ($sukses = Session::get('sukses'))
-                <div class="alert alert-success alert-block">
-                    <button type="button" class="close" data-dismiss="alert">×</button>
-                    <strong>{{ $sukses }}</strong>
-                </div>
-                @endif
-
         <div class="mr-auto" style="padding-bottom:10px;">
             <ol class="breadcrumb">
 
@@ -30,50 +14,120 @@ Indeks Artikel | Edisi
                 <li class="breadcrumb-item"><a href="/titles">Sumber</a></li>
                 <li class="breadcrumb-item active" aria-current="page">{{ $title->title }}</li>
             </ol>
+        </div>
+        
+        <a data-toggle="collapse" href="#collapseExample1" role="button" aria-expanded="false"
+            aria-controls="collapseExample1">
+            <h5
+                style="width: 100%;background: whitesmoke; height: 50px; padding-top:15px; padding-left: 15px; border-radius: 4px">Judul Sumber<i class="fas fa-angle-down" style="padding-right: 20px; float: right"></i></h5>
+        </a>
+        <div id="collapseExample1">
+        <div class="container" style="background:white;-webkit-box-shadow: 0px 0px 17px -4px rgba(0,0,0,0.75);
+        -moz-box-shadow: 0px 0px 17px -4px rgba(0,0,0,0.75);
+        box-shadow: 0px 0px 17px -4px rgba(0,0,0,0.75);">
+            <form class="form" method="POST" action="/titles" enctype="multipart/form-data">
+                <fieldset class="form-group">
+                    <div class="row was-validated">
+                        <legend class="col-form-label col-sm-3 pt-0">Jenis*</legend>
+                        <div class="col-sm-8">
+                        @foreach ($types as $types)
+                            <div class="form-check form-check-inline custom-control-inline custom-radio">
+                            <label class="form-check-label" for="types" >
+                                <input class="form-check-input" type="radio" value='{{$types->id}}' name="types[]" id="type_Select" disabled>{{$types->title}}
+                                </label>
+                            </div>
+                        @endforeach
+                        </div>
+                    </div>
+                </fieldset>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Kala Terbit*</label>
+                    <div class="col">
+                        <select class="form-control custom-select" name="times[]" id="time_Select"  >
+                            <option disabled selected hidden> Pilih Kala Terbit</option>
+                            @foreach ($times as $times)
+                                     <option value='{{$times->id}}' disabled>{{$times->title}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-3 col-form-label">Judul*</label>
+                    <div class="col">
+                        <input type="text" class="form-control" id="title" name="title"
+                         value="{{old('title')}}" placeholder="Tulis judul disini" disabled>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Penerbitan*</label>
+                    <div class="col">
+                        <input type="text" class="form-control"  name="city" value="{{old('city')}}" placeholder="Kota Terbit" disabled>
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control"  name="publisher" value="{{old('publisher')}}" placeholder="Penerbit" disabled>
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control"   name="year" value="{{old('year')}}" placeholder="Tahun Terbit" disabled>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-3 col-form-label">Tahun Terbit Pertama*</label>
+                    <div class="col-sm-4 col-form-label">
+                        <input type="text" class="form-control" id="first_year" name="first_year"
+                         value="{{old('first_year')}}" placeholder="Tulis tahun terbit pertama disini" disabled>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Bahasa*</label>
+                    <div class="col">
+                        <select class="form-control" name="languages[]" id="language_Select">
+                            <option disabled selected hidden> Pilih Bahasa</option>
+							@foreach ($languages as $languages)
+								<option value='{{$languages->id}}' disabled>{{$languages->title}}</option>
+							@endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputPassword3" class="col-sm-3 col-form-label">Format*</label>
+                    <div class="col">
+                        <select class="form-control" name="formats[]" id="format_Select">
+                            <option disabled selected hidden> Pilih Format</option>
+							@foreach ($formats as $formats)
+								<option value='{{$formats->id}}' disabled>{{$formats->title}}</option>
+							@endforeach
+                        </select>
+                    </div>
+                </div>
 
+                <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Gambar</label>
+                <div class="col">
+                    <input type="file" class="form-control-file" type="file" name="featured_img" id="featured_img" disabled>
+					  @if ($errors->has('featured_img'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('featured_img') }}</strong>
+                    </span>
+                    @endif
+                    </div>
+                </div>
+                (*) Wajib Diisi
+            </form>
+            </div>
         </div>
 
-        <div class="createnew" style="padding-bottom: 10px">
-            <a data-toggle="modal" data-target="#importExcel"><button>Import</button></a>
-        </div>
+        <br>
 
-        <!-- Import Excel -->
-		<div class="modal fade" id="importExcel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<form method="post" action="/editions/import_excel/{{$title->id}}" enctype="multipart/form-data">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="exampleModalLabel">Import Excel</h5>
-						</div>
-						<div class="modal-body">
-
-							{{ csrf_field() }}
-
-							<label>Pilih file excel</label>
-							<div class="form-group">
-								<input type="file" name="file" required="required">
-							</div>
-
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-							<button type="submit" class="btn btn-primary">Import</button>
-						</div>
-					</div>
-				</form>
-			</div>
-		</div>
         <a data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
             aria-controls="collapseExample">
             <h5
                 style="width: 100%;background: whitesmoke; height: 50px; padding-top:15px; padding-left: 15px; border-radius: 4px">Tambah Edisi<i class="fas fa-angle-down" style="padding-right: 20px; float: right"></i></h5>
         </a>
         <div id="collapseExample">
-            <div class="container" style="background:whitesmoke;-webkit-box-shadow: 0px 0px 17px -4px rgba(0,0,0,0.75);
+        <div class="container" style="background:white;-webkit-box-shadow: 0px 0px 17px -4px rgba(0,0,0,0.75);
         -moz-box-shadow: 0px 0px 17px -4px rgba(0,0,0,0.75);
         box-shadow: 0px 0px 17px -4px rgba(0,0,0,0.75);">
                  <form class="form-horizontal" id="popup-validation" method="POST" action="/editions/{{$title->id}}" enctype="multipart/form-data">
-                    <h4 style="font-weight: bold; padding-bottom:10px; text-align:center;color: black">Data Edisi Sumber</h4>
                     <fieldset class="form-group">
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Keterangan Edisi</label>
@@ -173,72 +227,6 @@ Indeks Artikel | Edisi
                 </form>
             </div>
         </div>
-        <br><br><br>
-        <table id="example" class="table table-striped table-bordered table-responsive" style="width:100%">
-            <thead>
-                <tr class="GridHeader" style="text-align: center">
-					<td>No</td>
-                    <th>Gambar</th>
-                    <th>Keterangan Edisi</th>
-                    <th>Tahun</th>
-                    <th>Edisi</th>
-                    <th>Volume</th>
-                    <th>Jilid</th>
-                    <th>Nomor</th>
-                    <th>Tanggal</th>
-                    <th>Nomor Panggil</th>
-                    <th>Jumlah Artikel</th>
-                    <th>Action</th>
-                </tr>
-			</thead>
-			<tbody>
-            @php $i=1 @endphp
-            @foreach ($title->editions as $edition)
-                <tr class="GridItem">
-					<td>{{ $i++ }}</td>
-                    @if($edition->edition_image == null)
-                    <td><img src="{{asset('storage/upload/default.png')}}" style="max-width: 150px; height: auto; "class="image-fluid"></td>
-                    @else
-                    <td><img src="{{asset('storage/upload/'. $edition->edition_image) }}" style="max-width: 150px; height: auto; "class="image-fluid"></td>
-                    @endif
-                    <td style="width:300px;"><a href="/editions/{{$edition->slug}}">{{$edition->edition_year}}, {{$edition->edition_no}}, {{$edition->original_date}}</a></td>
-                    <td style="width:100px;">{{$edition->edition_year}}</td>
-                    <td style="width:100px;">{{$edition->edition_title}}</td>
-                    <td style="width:100px;">{{$edition->volume}}</td>
-                    <td style="width:100px;">{{$edition->chapter}}</td>
-                    <td style="width:100px;">{{$edition->edition_no}}</td>
-                    <td style="width:150px;">{{$edition->original_date}}</td>
-                    <td style="width:150px;">{{$edition->call_number}}</td>
-                    <td>{{$articles->where('edition_title_id',$edition->id)->count()}}<a href="/editions/{{$edition->slug}}"><button style="float: right"><strong>+</strong></button></a></td>
-                    <td style="width:100px; text-align: center;">
-                            <a href='/editions/{{$edition->id}}/edit'><button class="fas fa-edit" style="width:30px;height:30px"></button></a>
-                            <br><br>
-                            <form method="POST" action="/editions/{{$edition->id}}">
-                                    {{ csrf_field() }}
-                                    <input type="hidden" name="_method" value="DELETE">
-                                    <button class="fa fa-trash" style="width:30px;height:30px" onclick="return confirm('Apakah Anda yakin untuk menghapus?')"></button>
-                                </form>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-        <div id="divTools" class="ToolsTable" style="padding-bottom: 10px">
-            <table cellpadding="0" cellspacing="0">
-                <tbody>
-                    <tr>
-                        <td>
-                            Export:
-                        </td>
-                        <td style="border-right-style: solid; border-right-width: 1px; border-right-color: #EBEBEB">
-                            &nbsp;</td>
-                        <td>
-                            <a href="/editions/export_excel/{{$title->id}}"><img src="../../assets/Export_Excel.png"
-                                style="margin-top:10px;font-family:Arial;font-size:X-Small;height:40px;"></a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
         </div>
     </main>
 @endsection

@@ -17,7 +17,7 @@ Indeks Artikel | Edit Judul Sumber
         -moz-box-shadow: 0px 0px 17px -4px rgba(0,0,0,0.75);
         box-shadow: 0px 0px 17px -4px rgba(0,0,0,0.75);">
             <form class="form" method="POST" action="/titles/{{$title->id}}" enctype="multipart/form-data">
-                <h4 style="font-weight: bold; padding-bottom:10px; text-align:center;color: black">Buat
+                <h4 style="font-weight: bold; padding-bottom:10px; text-align:center;color: black">Edit
                     Judul Sumber</h4>
                 <fieldset class="form-group">
                     <div class="row was-validated">
@@ -109,12 +109,49 @@ Indeks Artikel | Edit Judul Sumber
                 {{ csrf_field() }}
                 
                 <div class="form-group" style="text-align: center;">
-                    <input type="submit"  class="btn btn-dark" name="submit" value="Edit" 
+                    <button type="submit"  class="btn btn-dark" name="submit"
                     style="text-align: center; width:100%; color:white; font-size: 17px; font-weight: 2px" onclick="return confirm('Apakah Anda yakin untuk mengedit?')">
+                    EDIT</button>
                                     {{ csrf_field() }}
                     <input type="hidden" name="_method" value="PUT">
                 </div>
             </form>
+        </div>
+
+        <br>
+
+        <a data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
+            aria-controls="collapseExample">
+            <h5
+                style="width: 100%;background: whitesmoke; height: 50px; padding-top:15px; padding-left: 15px; border-radius: 4px">Rincian<i class="fas fa-angle-down" style="padding-right: 20px; float: right"></i></h5>
+        </a>
+
+        <div id="collapseExample">
+        <div class="container" style="background:white;-webkit-box-shadow: 0px 0px 17px -4px rgba(0,0,0,0.75);
+        -moz-box-shadow: 0px 0px 17px -4px rgba(0,0,0,0.75);
+        box-shadow: 0px 0px 17px -4px rgba(0,0,0,0.75);">
+        <table id="example" class="table table-striped table-bordered">
+           <thead>
+                <tr class="GridHeader">
+                    <th>No.</th>
+                    <th>Dibuat Oleh</th>
+                    <th>Diedit Oleh</th>
+                    <th>Dibuat Pada</th>
+                    <th>Diedit Pada</th>
+                </tr>
+        </head>
+        <tbody>
+        @php $i=1 @endphp
+        <tr class="GridItem">
+                    <td>{{ $i++ }}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    </tr>
+            </tbody>
+        </table>
+            </div>
         </div>
     </main>
     @endsection

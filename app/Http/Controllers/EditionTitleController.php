@@ -3,13 +3,17 @@ namespace App\Http\Controllers;
 
 use Session;
 use Auth;
+use App\Models\Type;
+use App\Models\Time;
+use App\Models\Language;
+use App\Models\Format;
+use App\Models\Title;
 use App\Models\Status;
 use App\Imports\EditionImport;
 use App\Exports\EditionExport;
-use Maatwebsite\Excel\Facades\Excel;
-use App\Models\Title;
 use App\Models\EditionTitle;
 use App\Models\ArticleEdition;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 class EditionTitleController extends Controller
 {
@@ -23,8 +27,14 @@ class EditionTitleController extends Controller
 
     public function create()
     {
+        $types = Type::all();
+        $times = Time::all();
+        $languages = Language::all();
+        $formats = Format::all();
+        $status = Status::all();
         $title = Title::all();
-        return view('editions.create', compact('title'));
+        $edition = EditionTitle::all();
+        return view('editions.create', compact('types', 'times', 'languages', 'formats', 'title', 'status', 'edition'));
     }
 
     public function store(Request $request, $id)
@@ -64,7 +74,7 @@ class EditionTitleController extends Controller
             'call_number'=>$request->call_number,
             'edition_image'=> $fileName
         ]);
-        return redirect('/titles/'.$title->slug)->with('msg', 'berhasil ditambahkan');
+        return redirect('editions')->with('msg', 'berhasil ditambahkan');
     }
 
     public function export_excel($id)

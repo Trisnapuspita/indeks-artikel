@@ -7,7 +7,6 @@ Indeks Artikel | Edisi
 @section('content')
 <main style="background: white; padding: 45px">
 
-
         {{-- notifikasi form validasi --}}
                 @if ($errors->has('file'))
                 <span class="invalid-feedback" role="alert">
@@ -36,6 +35,31 @@ Indeks Artikel | Edisi
         <div class="createnew" style="padding-bottom: 10px">
             <a href="/editions/create"><button>Tambah</button></a>
             <a data-toggle="modal" data-target="#importExcel"><button>Import</button></a>
+        </div>
+
+        <div class="search" style="text-align: right">
+        <select class="box">
+                <option disabled selected hidden>Semua Jenis</option>
+                <option class="dropdown-item" href="#">Judul</option>
+                <option class="dropdown-item" href="#">Jenis</option>
+                <option class="dropdown-item" href="#">Kala Terbit</option>
+                <option class="dropdown-item" href="#">Tempat Terbit</option>
+                <option class="dropdown-item" href="#">Penerbit</option>
+                <option class="dropdown-item" href="#">Tahun Terbit</option>
+                <option class="dropdown-item" href="#">Tahun Terbit Pertama</option>
+                <option class="dropdown-item" href="#">Bahasa</option>
+                <option class="dropdown-item" href="#">Format</option>
+            </select>
+            <select class="box">
+                <option disabled selected hidden>Semua Waktu</option>
+                <option class="dropdown-item" href="#">Tepat</option>
+                <option class="dropdown-item" href="#">Dimulai Dengan</option>
+                <option class="dropdown-item" href="#">Diakhiri Dengan</option>
+                <option class="dropdown-item" href="#">Salah Satu Isi</option>
+            </select>
+            <input type="text" class="search-box" placeholder="Kata Kunci">
+            <button type="submit" class="searchButton"><img src="../assets/magnifying-glass-2x.png">
+            </button>
         </div>
 
         <!-- Import Excel -->
