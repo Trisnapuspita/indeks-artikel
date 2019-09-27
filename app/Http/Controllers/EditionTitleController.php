@@ -33,8 +33,8 @@ class EditionTitleController extends Controller
         $formats = Format::all();
         $status = Status::all();
         $title = Title::all();
-        $edition = EditionTitle::all();
-        return view('editions.create', compact('types', 'times', 'languages', 'formats', 'title', 'status', 'edition'));
+        $editions = EditionTitle::all();
+        return view('editions.create', compact('types', 'times', 'languages', 'formats', 'title', 'status', 'editions'));
     }
 
     public function store(Request $request, $id)
@@ -111,12 +111,17 @@ class EditionTitleController extends Controller
 		return redirect('/titles/'.$title->slug);
 	}
 
-    public function show($slug)
+    public function show($id)
     {
-        $editions= EditionTitle::with('articles')->where('slug', $slug)->first();
-        $statuses= Status::all();
-        $articles= ArticleEdition::all();
-        return view('editions.single', compact('editions', 'statuses', 'articles'));
+        $types = Type::all();
+        $times = Time::all();
+        $languages = Language::all();
+        $formats = Format::all();
+        $statuses = Status::all();
+        $title = Title::findOrFail($id);
+        $editions= EditionTitle::where('title_id',$id)->get();
+        $articles = ArticleEdition::all();
+        return view('editions.single', compact('types', 'times', 'languages', 'formats', 'title', 'statuses', 'editions', 'articles'));
     }
 
 

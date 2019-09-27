@@ -33,7 +33,7 @@ Indeks Artikel | Buat Judul Sumber
                         </div>
                     </div>
                 </fieldset>
-                <div class="form-group row was-validated">
+                <div class="form-group row">
                     <label class="col-sm-3 col-form-label">Kala Terbit*</label>
                     <div class="col">
                         <select class="form-control custom-select" name="times[]" id="time_Select"  >
@@ -49,6 +49,13 @@ Indeks Artikel | Buat Judul Sumber
                     <div class="col">
                         <input type="text" class="form-control" id="title" name="title"
                          value="{{old('title')}}" placeholder="Tulis judul disini"  >
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-3 col-form-label">Kode*</label>
+                    <div class="col">
+                        <input type="text" class="form-control" id="kode" name="kode"
+                         value="{{old('kode')}}" placeholder="Tulis kode disini"  >
                     </div>
                 </div>
                 <div class="form-group row">

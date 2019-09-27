@@ -31,25 +31,27 @@ Indeks Artikel | Artikel
             </ol>
         </div>
         <div class="createnew" style="padding-bottom: 10px">
-            <a href="/articles/create"><button>Tambah</button></a>
+            <!-- <a href="/articles/create"><button>Tambah</button></a> -->
             <a data-toggle="modal" data-target="#importExcel"><button>Import</button></a>
         </div>
 
         <div class="search" style="text-align: right">
         <select class="box">
-                <option disabled selected hidden>Semua Jenis</option>
-                <option class="dropdown-item" href="#">Judul</option>
-                <option class="dropdown-item" href="#">Jenis</option>
-                <option class="dropdown-item" href="#">Kala Terbit</option>
-                <option class="dropdown-item" href="#">Tempat Terbit</option>
-                <option class="dropdown-item" href="#">Penerbit</option>
-                <option class="dropdown-item" href="#">Tahun Terbit</option>
-                <option class="dropdown-item" href="#">Tahun Terbit Pertama</option>
-                <option class="dropdown-item" href="#">Bahasa</option>
-                <option class="dropdown-item" href="#">Format</option>
+                <option disabled selected hidden>Pilih</option>
+                <option class="dropdown-item" href="#">Judul Sumber</option>
+                <option class="dropdown-item" href="#">Edisi</option>
+                <option class="dropdown-item" href="#">Judul Artikel</option>
+                <option class="dropdown-item" href="#">Subyek</option>
+                <option class="dropdown-item" href="#">Pengarang</option>
+                <option class="dropdown-item" href="#">Halaman</option>
+                <option class="dropdown-item" href="#">Kolom</option>
+                <option class="dropdown-item" href="#">Deskripsi Singkat</option>
+                <option class="dropdown-item" href="#">Kata Kunci</option>
+                <option class="dropdown-item" href="#">Keterangan Gambar</option>
+                <option class="dropdown-item" href="#">Status Ketersediaan</option>
             </select>
             <select class="box">
-                <option disabled selected hidden>Semua Waktu</option>
+                <option disabled selected hidden>Pilih Rentang Waktu</option>
                 <option class="dropdown-item" href="#">Tepat</option>
                 <option class="dropdown-item" href="#">Dimulai Dengan</option>
                 <option class="dropdown-item" href="#">Diakhiri Dengan</option>
@@ -122,10 +124,10 @@ Indeks Artikel | Artikel
                     <td>{{$article->desc}}</td>
                     <td>{{$article->keyword}}</td>
                     <td>{{$article->detail_img}}</td>
-                    <td>@foreach ($article->statuses()->get() as $statuses) {{$statuses->title}} @endforeach</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>@foreach($article->edition_title()->get() as $edition_title) {{$edition_title->call_number}} @endforeach</td>
+                    <td>@foreach($article->statuses()->get() as $statuses) {{$statuses->title}} @endforeach</td>
+                    <td>@foreach ($article->edition_title->title()->get() as $title) {{$title->title}} @endforeach</td>
+                    <td>@foreach($article->edition_title()->get() as $edition_title) {{$edition_title->edition_title}} @endforeach</td>
                     <td style="center";>
                             <div class="col-md-2">
                                 <a href='/articles/{{$article->id}}/edit'><button class="fas fa-edit" title="Edit" style="width:35px;height:35px"></button></a>

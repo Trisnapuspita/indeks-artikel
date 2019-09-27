@@ -1,12 +1,16 @@
+
 <?php
 
 namespace App\Imports;
 
 use Auth;
+use App\Models\EditionTitle;
 use App\Models\ArticleEdition;
-use Maatwebsite\Excel\Concerns\ToModel;
+use Illuminate\Support\Collection;
+use Maatwebsite\Excel\Concerns\ToCollection;
 
-class ArticleImport implements ToModel
+
+class ArticleImport implements ToCollection
 {
     /**
     * @param array $row
@@ -19,20 +23,27 @@ class ArticleImport implements ToModel
         $this->id = $id;
     }
 
-    public function model(array $row)
+    public function collection(Collection $rows)
     {
-        return new ArticleEdition([
-            'user_id' => Auth::user()->id,
-            'edition_title_id' => $this->id,
-            'article_title' => $row[0],
-            'subject' => $row[1],
-            'writer' => $row[2],
-            'pages' => $row[3],
-            'column' => $row[4],
-            'source' => $row[5],
-            'desc' => $row[6],
-            'keyword'=> $row[7],
-            'detail_img' => $row[8]
-        ]);
+        foreach ($rows as $row) {
+            ArticleEdition::create([
+                'user_id' => Auth::user()->id,
+                'article_title' => $row['Judul Artikel'],
+                'keyword'=> $row['Kata Kunci'],
+                'subject' => $row['Subjek'],
+                'column' => $row['Kolom'],
+                'writer' => $row['Pengarang'],
+                'pages' => $row['Halaman'],
+                'source' => $row['Sumber']
+            ]);
+
+            EditionTitle::create([
+                'user_id' => Auth::user()->id,
+                'title_id' => $this->id,
+                'edition_year'=> $row['Edisi']
+            ]);
+        }
     }
+    
 }
+

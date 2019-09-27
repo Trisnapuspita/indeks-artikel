@@ -14,7 +14,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/editions/create', 'EditionTitleController@create');
     Route::post('/editions/{id}', 'EditionTitleController@store');
     Route::put('/editions/{id}', 'EditionTitleController@update');
-    Route::get('/editions/{slug}', 'EditionTitleController@show');
+    Route::get('/editions/{id}', 'EditionTitleController@show');
     Route::get('/editions/{id}/edit', 'EditionTitleController@edit');
     Route::delete('/editions/{id}', 'EditionTitleController@destroy');
     Route::get('/editions/export_excel/{id}', 'EditionTitleController@export_excel');

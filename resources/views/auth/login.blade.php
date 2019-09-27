@@ -8,10 +8,9 @@
     <title>Indeks Artikel - Login</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../../css/style-admin.css">
-    <link rel="stylesheet" href="../css/konten-login.css">
-    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="../../css/konten-login.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.7/css/mdb.min.css" rel="stylesheet">
 
 </head>
@@ -47,7 +46,8 @@
                             <a class="nav-link" href="/etalase">Etalase</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('login')}}">Login<span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="{{route('login')}}"><i class="fas fa-sign-in-alt"
+                                    style="padding-right:5px;color:whitesmokes;display: inline"></i>Login<span class="sr-only">(current)</span></a>
                         </li>
                         @else
                         <li class="nav-item dropdown">

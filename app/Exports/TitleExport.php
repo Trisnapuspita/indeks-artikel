@@ -10,7 +10,6 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 
 class TitleExport implements FromCollection, WithHeadings
 {
-    
 
     public function collection()
     {

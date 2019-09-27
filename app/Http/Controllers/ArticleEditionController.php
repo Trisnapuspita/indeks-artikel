@@ -21,8 +21,10 @@ class ArticleEditionController extends Controller
 {
     public function index()
     {
+        $title = Title::all();
+        $edition = EditionTitle::all();
         $articles = ArticleEdition::all();
-        return view('articles.index', compact('articles'));
+        return view('articles.index', compact('articles', 'edition', 'title'));
     }
 
     public function create()
@@ -40,14 +42,46 @@ class ArticleEditionController extends Controller
     public function store(Request $request, $id)
     {
         $this->validate(request(), [
-            'article_title'=>'required|min:1'
+            'article_title'=>'required|min:1',
+            'edition_title'=>'required|min:1'
         ]);
 
-        $edition = EditionTitle::findOrFail($id);
+
+        $slug = str_slug($request->publish_date, '_');
+
+        //cek slug ngga kembar
+        if(Title::where('slug', $slug)->first() != null)
+            $slug = $slug . '-'.time();
+
+        $fileName= null;
+
+        if($request->edition_image != null) {
+            $fileName = $request->edition_image->getClientOriginalName(). '.png';
+            $request->file('edition_image')->storeAs('public/upload', $fileName);
+        }
+
+        $title = Title::findOrFail($id);
+        $editions = EditionTitle::create([
+            'user_id'=> Auth::user()->id,
+            'edition_year'=>$request->edition_year,
+            'edition_title'=>$request->edition_title,
+            'slug'=>$slug,
+            'title_id' => $id,
+            'volume'=>$request->volume,
+            'chapter'=>$request->chapter,
+            'edition_no'=>$request->edition_no,
+            'year'=>$request->year,
+            'publish_date'=>$request->publish_date,
+            'publish_month'=>$request->publish_month,
+            'publish_year'=>$request->publish_year,
+            'original_date'=>$request->original_date,
+            'call_number'=>$request->call_number,
+            'edition_image'=> $fileName
+            ]);
 
         $articles = ArticleEdition::create([
             'user_id'=> Auth::user()->id,
-            'edition_title_id' => $id,
+            'edition_title_id' => $editions->id,
             'article_title'=>$request->article_title,
             'subject'=>$request->subject,
             'writer'=>$request->writer,
@@ -60,7 +94,7 @@ class ArticleEditionController extends Controller
         ]);
 
         $articles->statuses()->attach($request->statuses);
-        return redirect('/editions/'.$edition->slug)->with('msg', 'berhasil ditambahkan');
+        return redirect('/articles')->with('msg', 'berhasil ditambahkan');
     }
 
     public function export_excel()
@@ -144,7 +178,7 @@ class ArticleEditionController extends Controller
         ]);
 
         $articles->statuses()->sync($request->statuses);
-        return redirect('/editions/'. $articles->edition_title->slug)->with('msg', 'kutipan berhasil diedit');
+        return redirect('/articles')->with('msg', 'kutipan berhasil diedit');
     }
 
     public function destroy($id)
@@ -154,16 +188,5 @@ class ArticleEditionController extends Controller
 
         return redirect('/editions/'. $articles->edition_title->slug)->with('msg', 'kutipan berhasil di hapus');
     }
-
-    public function verif($id) {
-        $article = ArticleEdition::find($id);
-        $article->update([
-            'verification'=> 1
-        ]);
-        return redirect('/editions/'. $article->edition_title->slug)->with('msg', 'Artikel berhasil di verifikasi');
-    }
-
-
-
 
 }

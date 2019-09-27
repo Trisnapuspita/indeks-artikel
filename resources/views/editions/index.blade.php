@@ -39,16 +39,16 @@ Indeks Artikel | Edisi
 
         <div class="search" style="text-align: right">
         <select class="box">
-                <option disabled selected hidden>Semua Jenis</option>
-                <option class="dropdown-item" href="#">Judul</option>
-                <option class="dropdown-item" href="#">Jenis</option>
-                <option class="dropdown-item" href="#">Kala Terbit</option>
-                <option class="dropdown-item" href="#">Tempat Terbit</option>
-                <option class="dropdown-item" href="#">Penerbit</option>
-                <option class="dropdown-item" href="#">Tahun Terbit</option>
-                <option class="dropdown-item" href="#">Tahun Terbit Pertama</option>
-                <option class="dropdown-item" href="#">Bahasa</option>
-                <option class="dropdown-item" href="#">Format</option>
+                <option disabled selected hidden>Pilih</option>
+                <option class="dropdown-item" href="#">Keterangan Edisi</option>
+                <option class="dropdown-item" href="#">Tahun</option>
+                <option class="dropdown-item" href="#">Volume</option>
+                <option class="dropdown-item" href="#">Edisi</option>
+                <option class="dropdown-item" href="#">Jilid</option>
+                <option class="dropdown-item" href="#">Nomor</option>
+                <option class="dropdown-item" href="#">Tanggal</option>
+                <option class="dropdown-item" href="#">No. Panggil</option>
+                <option class="dropdown-item" href="#">Judul Sumber</option>
             </select>
             <select class="box">
                 <option disabled selected hidden>Semua Waktu</option>
@@ -124,7 +124,7 @@ Indeks Artikel | Edisi
                     <td style="width:100px;">{{$edition->edition_no}}</td>
                     <td style="width:150px;">{{$edition->original_date}}</td>
                     <td style="width:150px;">{{$edition->call_number}}</td>
-                    <td></td>
+                    <td style="width:150px;">@foreach ($edition->title()->get() as $title){{$title->title}}@endforeach</td>
                     <td>{{$articles->where('edition_title_id',$edition->id)->count()}}<a href="/editions/{{$edition->slug}}"><button style="float: right"><strong>+</strong></button></a></td>
                     <td style="width:100px; text-align: center;">
                             <a href='/editions/{{$edition->id}}/edit'><button class="fas fa-edit" style="width:30px;height:30px"></button></a>
@@ -139,7 +139,7 @@ Indeks Artikel | Edisi
                 @endforeach
             </tbody>
         </table>
-        <div id="divTools" class="ToolsTable" style="padding-bottom: 10px">
+        <!-- <div id="divTools" class="ToolsTable" style="padding-bottom: 10px">
             <table cellpadding="0" cellspacing="0">
                 <tbody>
                     <tr>
@@ -155,6 +155,6 @@ Indeks Artikel | Edisi
                     </tr>
                 </tbody>
             </table>
-        </div>
+        </div> -->
     </main>
 @endsection

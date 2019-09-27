@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Title extends Model
 {
     protected $fillable = [
-        'user_id', 'type_id', 'time_id', 'language_id', 'format_id',
+        'user_id', 'kode', 'type_id', 'time_id', 'language_id', 'format_id',
         'title', 'slug', 'city', 'publisher', 'year', 'first_year', 'featured_img',
     ];
 

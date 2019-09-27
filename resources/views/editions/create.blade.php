@@ -11,30 +11,29 @@ Indeks Artikel | Edisi
             <ol class="breadcrumb">
 
                 <li class="breadcrumb-item"><a href="/home">Beranda</a></li>
-                <li class="breadcrumb-item"><a href="#">Sumber</a></li>
-                <li class="breadcrumb-item"><a href="/editions">Edisi</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Tambah Edisi</li>
+                <li class="breadcrumb-item"><a href="/titles">Sumber</a></li>
+                <li class="breadcrumb-item"><a href="/titles">Artikel</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Tambah Artikel</li>
             </ol>
         </div>
 
-        <a data-toggle="collapse" href="#collapseExample1" role="button" aria-expanded="false"
-            aria-controls="collapseExample1">
-            <h5
-                style="width: 100%;background: whitesmoke; height: 50px; padding-top:15px; padding-left: 15px; border-radius: 4px">Judul Sumber<i class="fas fa-angle-down" style="padding-right: 20px; float: right"></i></h5>
-        </a>
         <div id="collapseExample1">
         <div class="container" style="background:white;-webkit-box-shadow: 0px 0px 17px -4px rgba(0,0,0,0.75);
         -moz-box-shadow: 0px 0px 17px -4px rgba(0,0,0,0.75);
         box-shadow: 0px 0px 17px -4px rgba(0,0,0,0.75);">
-            <form class="form" method="POST" action="/titles" enctype="multipart/form-data">
-                <fieldset class="form-group">
+            <form class="form">
+            <h4 style="font-weight: bold; padding-bottom:10px; text-align:center;color: black">Judul Sumber</h4>
+            <fieldset class="form-group">
+                    <div class="form-group" style="text-align:right">
+                                    <button type="button" data-toggle="modal" data-target="#myModal">Pilih Judul</button>
+                                </div>
                     <div class="row was-validated">
-                        <legend class="col-form-label col-sm-3 pt-0">Jenis*</legend>
+                        <legend class="col-form-label col-sm-2 pt-0">Jenis*</legend>
                         <div class="col-sm-8">
                         @foreach ($types as $types)
                             <div class="form-check form-check-inline custom-control-inline custom-radio">
                             <label class="form-check-label" for="types" >
-                                <input class="form-check-input" type="radio" value='{{$types->id}}' name="types[]" id="type_Select" >{{$types->title}}
+                                <input class="form-check-input" type="radio" name="types[]" id="type_Select">{{$types->title}}
                                 </label>
                             </div>
                         @endforeach
@@ -42,96 +41,86 @@ Indeks Artikel | Edisi
                     </div>
                 </fieldset>
                 <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">Kala Terbit*</label>
+                    <label class="col-sm-2 col-form-label">Kala Terbit*</label>
                     <div class="col">
-                        <select class="form-control custom-select" name="times[]" id="time_Select"  >
-                            <option disabled selected hidden> Pilih Kala Terbit</option>
+                        <select class="form-control custom-select" name="times[]" id="time_Select" required>
                             @foreach ($times as $times)
-                                     <option value='{{$times->id}}'>{{$times->title}}</option>
+                                <option disabled selected hidden>Pilih Kala Terbit</option>
+                                     <option required value='{{$times->id}}'>{{$times->title}}</option>
                             @endforeach
                         </select>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="inputEmail3" class="col-sm-3 col-form-label">Judul*</label>
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">Judul*</label>
                     <div class="col">
-                        <input type="text" class="form-control" id="title" name="title"
-                         value="{{old('title')}}" placeholder="Tulis judul disini"  >
+                        <input type="text" class="form-control" id="title" name="title">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">Penerbitan*</label>
+                    <label class="col-sm-2 col-form-label">Penerbitan*</label>
                     <div class="col">
-                        <input type="text" class="form-control"  name="city" value="{{old('city')}}" placeholder="Kota Terbit">
+                        <input type="text" class="form-control"  name="city">
                     </div>
                     <div class="col">
-                        <input type="text" class="form-control"  name="publisher" value="{{old('publisher')}}" placeholder="Penerbit">
+                        <input type="text" class="form-control"  name="publisher">
                     </div>
                     <div class="col">
-                        <input type="text" class="form-control"   name="year" value="{{old('year')}}" placeholder="Tahun Terbit">
+                        <input type="text" class="form-control"   name="year">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="inputEmail3" class="col-sm-3 col-form-label">Tahun Terbit Pertama*</label>
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">Tahun Terbit Pertama*</label>
                     <div class="col-sm-4 col-form-label">
-                        <input type="text" class="form-control" id="first_year" name="first_year"
-                         value="{{old('first_year')}}" placeholder="Tulis tahun terbit pertama disini"  >
+                        <input type="text" class="form-control" id="first_year" name="first_year">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">Bahasa*</label>
+                    <label class="col-sm-2 col-form-label">Bahasa*</label>
                     <div class="col">
                         <select class="form-control" name="languages[]" id="language_Select">
-                            <option disabled selected hidden> Pilih Bahasa</option>
 							@foreach ($languages as $languages)
-								<option value='{{$languages->id}}'>{{$languages->title}}</option>
+                            <option disabled selected hidden>Pilih Bahasa</option>
+                            <option required value='{{$languages->id}}'>{{$languages->title}}</option>
 							@endforeach
                         </select>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="inputPassword3" class="col-sm-3 col-form-label">Format*</label>
+                    <label for="inputPassword3" class="col-sm-2 col-form-label">Format*</label>
                     <div class="col">
                         <select class="form-control" name="formats[]" id="format_Select">
-                            <option disabled selected hidden> Pilih Format</option>
 							@foreach ($formats as $formats)
-								<option value='{{$formats->id}}'>{{$formats->title}}</option>
+                            <option disabled selected hidden>Pilih Format</option>
+                            <option required value='{{$formats->id}}'>{{$formats->title}}</option>
 							@endforeach
                         </select>
                     </div>
                 </div>
 
                 <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Gambar</label>
+                <label class="col-sm-2 col-form-label">Gambar</label>
                 <div class="col">
                     <input type="file" class="form-control-file" type="file" name="featured_img" id="featured_img">
-					  @if ($errors->has('featured_img'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('featured_img') }}</strong>
-                    </span>
-                    @endif
                     </div>
                 </div>
-                (*) Wajib Diisi
-
-                {{ csrf_field() }}
-            </form>
-            </div>
-        </div>
-
-        <br>
-        
-        <a data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
-            aria-controls="collapseExample">
-            <h5
-                style="width: 100%;background: whitesmoke; height: 50px; padding-top:15px; padding-left: 15px; border-radius: 4px">Edisi<i class="fas fa-angle-down" style="padding-right: 20px; float: right"></i></h5>
-        </a>
-        <div class="container" style="background:white;-webkit-box-shadow: 0px 0px 17px -4px rgba(0,0,0,0.75);
-        -moz-box-shadow: 0px 0px 17px -4px rgba(0,0,0,0.75);
-        box-shadow: 0px 0px 17px -4px rgba(0,0,0,0.75);">
-                 <form class="form-horizontal" id="popup-validation" method="POST" action="/editions" enctype="multipart/form-data">
-                    <fieldset class="form-group">
+                <br>
+                <br>
+                <h4 style="font-weight: bold; padding-bottom:10px; text-align:center;color: black">Edisi</h4>
+                <br>
+                <fieldset class="form-group">
+                    <!-- <div class="form-group row was-validated">
+                        <label class="col-sm-2 col-form-label">ID*</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" type="text" placeholder=""  name="id" value="{{old('id')}}" required>
+                            </div>
+                    </div> -->
                         <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Keterangan Edisi</label>
+                            <div class="col">
+                                <input class="form-control" type="text" placeholder="Tahun"
+								 name="edition_year" value="{{old('edition_year')}}">
+                            </div>
                             <label class="col-sm-2 col-form-label">Keterangan Edisi</label>
                             <div class="col">
                                 <input class="form-control" type="text" placeholder="Tahun"
@@ -216,6 +205,7 @@ Indeks Artikel | Edisi
 							@endif
                             </div>
                     </div>
+                    </fieldset>
 
                     {{ csrf_field() }}
 
@@ -229,5 +219,60 @@ Indeks Artikel | Edisi
                 </form>
             </div>
         </div>
+        <!-- Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+      <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Edisi</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+           <div class="table-responsive">
+           <table id="example" class="table table-striped table-bordered table-responsive" style="width:100%">
+            <thead>
+                <tr class="GridHeader" style="text-align: center" id="example">
+					<td>No</td>
+                    <th>Gambar</th>
+                    <th>Keterangan Edisi</th>
+                    <th>Tahun</th>
+                    <th>Edisi</th>
+                    <th>Volume</th>
+                    <th>Jilid</th>
+                    <th>Nomor</th>
+                    <th>Tanggal</th>
+                    <th>Nomor Panggil</th>
+                </tr>
+			</thead>
+			<tbody>
+            @php $i=1 @endphp
+            @foreach ($editions as $edition)
+                <tr class="GridItem">
+					<td>{{ $i++ }}</td>
+                    @if($edition->edition_image == null)
+                    <td><img src="{{asset('storage/upload/default.png')}}" style="max-width: 150px; height: auto; "class="image-fluid"></td>
+                    @else
+                    <td><img src="{{asset('storage/upload/'. $edition->edition_image) }}" style="max-width: 150px; height: auto; "class="image-fluid"></td>
+                    @endif
+                    <td style="width:300px;">{{$edition->edition_year}}, {{$edition->edition_no}}, {{$edition->original_date}}</td>
+                    <td style="width:100px;">{{$edition->edition_year}}</td>
+                    <td style="width:100px;">{{$edition->edition_title}}</td>
+                    <td style="width:100px;">{{$edition->volume}}</td>
+                    <td style="width:100px;">{{$edition->chapter}}</td>
+                    <td style="width:100px;">{{$edition->edition_no}}</td>
+                    <td style="width:150px;">{{$edition->original_date}}</td>
+                    <td style="width:150px;">{{$edition->call_number}}</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+    </div>
     </main>
 @endsection

@@ -75,6 +75,7 @@ class TitleController extends Controller
         $title = Title::create([
             'user_id'=> Auth::user()->id,
             'title'=>$request->title,
+            'kode' => $request->kode,
             'slug' => $slug,
             'city'=>$request->city,
             'publisher'=>$request->publisher,
@@ -285,6 +286,7 @@ class TitleController extends Controller
 
         $title->update([
                     'title'=>$request->title,
+                    'kode'=>$request->kode,
                     'city'=>$request->city,
                     'publisher'=>$request->publisher,
                     'year'=>$request->year,

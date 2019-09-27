@@ -117,7 +117,7 @@ Indeks Artikel | Judul Sumber
                     <td><img src="{{asset('storage/upload/'. $title->featured_img) }}" style="max-width: 100px; height: auto; "class="image-fluid"></td>
                     @endif
                     <td>{{$title->title}}</td>
-                    <td></td>
+                    <td>{{$title->kode}}</td>
                     <td>@foreach ($title->types()->get() as $types){{$types->title}}@endforeach</td>
                     <td>@foreach ($title->times()->get() as $times){{$times->title}}@endforeach</td>
                     <td>{{$title->city}}</td>
@@ -128,7 +128,7 @@ Indeks Artikel | Judul Sumber
                     <td>@foreach ($title->formats()->get() as $formats){{$formats->title}}@endforeach</td>
                     <td>{{$editions->where('title_id',$title->id)->count()}}<a href="/titles/{{$title->slug}}"><button style="float: right"><strong>+</strong></button></a></td>
                     <td style="text-align: center">{{$articles->whereIn('edition_title_id',$editions->where('title_id',$title->id)->pluck('id'))->count()}}
-                    <a href="/articles/create"><button style="float: right"><strong>+</strong></button></a></td>
+                    <a href="/editions/{{$title->id}}"><button style="float: right"><strong>+</strong></button></a></td>
                     <td style="text-align: center">
 						<a href="/titles/{{$title->id}}/edit"><button class="fas fa-edit" style="width:30px;height:30px"></button></a>
                         <br><br>

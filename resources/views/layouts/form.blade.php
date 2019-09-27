@@ -113,7 +113,13 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.7/js/mdb.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.js"></script>
 <script type="text/javascript">
-      $(document).ready(function() {
-        $('#example').DataTable();
-    } );
+       var table= $('#example').DataTable();
+    var tableBody = '#example tbody';
+    $(tableBody).on('click', 'tbody', function () {
+    var cursor = table.row($(this).parents('tbody'));//get the clicked row
+    var data = cursor.data();// this will give you the data in the current row.
+        $('form').find("input[name='Name'][type='text']").val(data[0]);
+        $('form').find("input[name='Bday'][type='text']").val(data[1]);
+        $('form').find("input[name='Age'][type='number']").val(data[2]);
+        } );
     </script>

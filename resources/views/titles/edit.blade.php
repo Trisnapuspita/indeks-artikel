@@ -52,6 +52,13 @@ Indeks Artikel | Edit Judul Sumber
                     </div>
                 </div>
                 <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-3 col-form-label">Kode*</label>
+                    <div class="col">
+                        <input type="text" class="form-control" id="kode" name="kode"
+                         value="{{old('kode') ? old('kode') :$title->kode}}" required>
+                    </div>
+                </div>
+                <div class="form-group row">
                     <label class="col-sm-3 col-form-label">Penerbitan*</label>
                     <div class="col">
                         <input type="text" class="form-control"  name="city" value="{{old('city') ? old('city') :$title->city}}">

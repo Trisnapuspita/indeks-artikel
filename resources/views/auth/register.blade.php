@@ -3,16 +3,16 @@
 
 <head>
     <meta charset="UTF-8">
+    <script src="https://kit.fontawesome.com/0543565c6e.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Indeks Artikel - Daftar</title>
+    <title>Indeks Artikel</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/konten-login.css">
     <link rel="stylesheet" href="../css/responsive.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.7/css/mdb.min.css" rel="stylesheet">
-
 </head>
 
 <body>
@@ -47,7 +47,8 @@
                             <a class="nav-link" href="/etalase">Etalase</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('login')}}">Login<span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="{{route('login')}}"><i class="fas fa-sign-in-alt"
+                                    style="padding-right:5px;color:whitesmokes;display: inline"></i>Login</a>
                         </li>
                         @else
                         <li class="nav-item dropdown">
