@@ -21,11 +21,12 @@ Indeks Artikel | Edisi
         <div class="container" style="background:white;-webkit-box-shadow: 0px 0px 17px -4px rgba(0,0,0,0.75);
         -moz-box-shadow: 0px 0px 17px -4px rgba(0,0,0,0.75);
         box-shadow: 0px 0px 17px -4px rgba(0,0,0,0.75);">
-            <form class="form">
+           <form class="form" method="POST" action="/editions" enctype="multipart/form-data">
             <h4 style="font-weight: bold; padding-bottom:10px; text-align:center;color: black">Judul Sumber</h4>
             <fieldset class="form-group">
                     <div class="form-group" style="text-align:right">
                                     <button type="button" data-toggle="modal" data-target="#myModal">Pilih Judul</button>
+                                    <input type="hidden" class="form-control" id="title_id" name="title_id">
                                 </div>
                     <div class="row was-validated">
                         <legend class="col-form-label col-sm-2 pt-0">Jenis*</legend>
@@ -33,7 +34,7 @@ Indeks Artikel | Edisi
                         @foreach ($types as $types)
                             <div class="form-check form-check-inline custom-control-inline custom-radio">
                             <label class="form-check-label" for="types" >
-                                <input class="form-check-input" type="radio" name="types[]" id="type_Select">{{$types->title}}
+                                <input class="form-check-input" type="radio" value='{{$types->id}}' name="types[]" id="type_Select" >{{$types->title}}
                                 </label>
                             </div>
                         @endforeach
@@ -58,15 +59,22 @@ Indeks Artikel | Edisi
                     </div>
                 </div>
                 <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">Kode*</label>
+                    <div class="col">
+                        <input type="text" class="form-control" id="kode" name="kode"
+                         value="{{old('kode')}}" placeholder="Tulis kode disini"  >
+                    </div>
+                </div>
+                <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Penerbitan*</label>
                     <div class="col">
-                        <input type="text" class="form-control"  name="city">
+                        <input type="text" class="form-control"  name="city" id="city">
                     </div>
                     <div class="col">
-                        <input type="text" class="form-control"  name="publisher">
+                        <input type="text" class="form-control"  name="publisher" id="publisher">
                     </div>
                     <div class="col">
-                        <input type="text" class="form-control"   name="year">
+                        <input type="text" class="form-control"   name="year" id="year">
                     </div>
                 </div>
                 <div class="form-group row">
@@ -109,18 +117,7 @@ Indeks Artikel | Edisi
                 <h4 style="font-weight: bold; padding-bottom:10px; text-align:center;color: black">Edisi</h4>
                 <br>
                 <fieldset class="form-group">
-                    <!-- <div class="form-group row was-validated">
-                        <label class="col-sm-2 col-form-label">ID*</label>
-                            <div class="col-sm-10">
-                                <input class="form-control" type="text" placeholder=""  name="id" value="{{old('id')}}" required>
-                            </div>
-                    </div> -->
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Keterangan Edisi</label>
-                            <div class="col">
-                                <input class="form-control" type="text" placeholder="Tahun"
-								 name="edition_year" value="{{old('edition_year')}}">
-                            </div>
                             <label class="col-sm-2 col-form-label">Keterangan Edisi</label>
                             <div class="col">
                                 <input class="form-control" type="text" placeholder="Tahun"
@@ -233,36 +230,42 @@ Indeks Artikel | Edisi
            <table id="example" class="table table-striped table-bordered table-responsive" style="width:100%">
             <thead>
                 <tr class="GridHeader" style="text-align: center" id="example">
-					<td>No</td>
+                    <th>No.</th>
+                    <th>ID</th>
                     <th>Gambar</th>
-                    <th>Keterangan Edisi</th>
-                    <th>Tahun</th>
-                    <th>Edisi</th>
-                    <th>Volume</th>
-                    <th>Jilid</th>
-                    <th>Nomor</th>
-                    <th>Tanggal</th>
-                    <th>Nomor Panggil</th>
+                    <th>Judul Sumber</th>
+                    <th>Kode</th>
+                    <th>Jenis</th>
+                    <th>Kala Terbit</th>
+                    <th>Tempat Terbit</th>
+                    <th>Penerbit</th>
+                    <th>Tahun Terbit</th>
+                    <th>Tahun Terbit Pertama</th>
+                    <th>Bahasa</th>
+                    <th>Format</th>
                 </tr>
 			</thead>
 			<tbody>
             @php $i=1 @endphp
-            @foreach ($editions as $edition)
+            @foreach ($titles as $title)
                 <tr class="GridItem">
-					<td>{{ $i++ }}</td>
-                    @if($edition->edition_image == null)
-                    <td><img src="{{asset('storage/upload/default.png')}}" style="max-width: 150px; height: auto; "class="image-fluid"></td>
+                    <td>{{ $i++ }}</td>
+                    <td>{{$title->id}}</td>
+                    @if($title->featured_img == null)
+                    <td><img src="{{asset('storage/upload/default.png')}}" style="max-width: 100px; height: auto;" class="image-fluid"></td>
                     @else
-                    <td><img src="{{asset('storage/upload/'. $edition->edition_image) }}" style="max-width: 150px; height: auto; "class="image-fluid"></td>
+                    <td><img src="{{asset('storage/upload/'. $title->featured_img) }}" style="max-width: 100px; height: auto; "class="image-fluid"></td>
                     @endif
-                    <td style="width:300px;">{{$edition->edition_year}}, {{$edition->edition_no}}, {{$edition->original_date}}</td>
-                    <td style="width:100px;">{{$edition->edition_year}}</td>
-                    <td style="width:100px;">{{$edition->edition_title}}</td>
-                    <td style="width:100px;">{{$edition->volume}}</td>
-                    <td style="width:100px;">{{$edition->chapter}}</td>
-                    <td style="width:100px;">{{$edition->edition_no}}</td>
-                    <td style="width:150px;">{{$edition->original_date}}</td>
-                    <td style="width:150px;">{{$edition->call_number}}</td>
+                    <td>{{$title->title}}</td>
+                    <td>{{$title->kode}}</td>
+                    <td>@foreach ($title->types()->get() as $types){{$types->title}}@endforeach</td>
+                    <td>@foreach ($title->times()->get() as $times){{$times->title}}@endforeach</td>
+                    <td>{{$title->city}}</td>
+                    <td>{{$title->publisher}}</td>
+                    <td>{{$title->year}}</td>
+                    <td>{{$title->first_year}}</td>
+                    <td>@foreach ($title->languages()->get() as $languages){{$languages->title}}@endforeach</td>
+                    <td>@foreach ($title->formats()->get() as $formats){{$formats->title}}@endforeach</td>
                 </tr>
                 @endforeach
             </tbody>
@@ -275,4 +278,60 @@ Indeks Artikel | Edisi
         </div>
     </div>
     </main>
+@endsection
+
+
+@section('scripts')
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        var table = $('#example').DataTable({
+            "columnDefs": [
+            {
+                "targets": [ 1 ],
+                "visible": false,
+                "searchable": false
+            }
+        ]
+        });
+        
+        $('#example tbody').on( 'click', 'tr', function () {
+            if ( $(this).hasClass('selected') ) {
+                console.log(table.row(this).data());
+                $('#myModal').modal('hide');
+                $('#title_id').val(table.row(this).data()[1]);
+                $('#title_id').addClass('disabled');
+                $('#title').val(table.row(this).data()[3]);
+                $('#title').addClass('disabled');
+                $('#kode').val(table.row(this).data()[4]);
+                $('#kode').addClass('disabled');
+                $('#types').val(table.row(this).data()[5]).change();
+                $('#types').addClass('disabled');
+                $('#times').val(table.row(this).data()[6]).change();
+                $('#times').addClass('disabled');
+                $('#city').val(table.row(this).data()[7]);
+                $('#city').addClass('disabled');
+                $('#publisher').val(table.row(this).data()[8]);
+                $('#publisher').addClass('disabled');
+                $('#year').val(table.row(this).data()[9]);
+                $('#year').addClass('disabled');
+                $('#first_year').val(table.row(this).data()[10]);
+                $('#first_year').addClass('disabled');
+                $('#languages').val(table.row(this).data()[11]).change();
+                $('#languages').addClass('disabled');
+                $('#formats').val(table.row(this).data()[12]);
+                $('#formats').addClass('disabled');
+            }
+            else {
+                table.$('tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+            }
+        } );
+ 
+        $('#button').click( function () {
+            table.row('.selected').remove().draw( false );
+        } );
+    } );
+</script>
+
 @endsection

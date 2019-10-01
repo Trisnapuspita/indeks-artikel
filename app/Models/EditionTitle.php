@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class EditionTitle extends Model
 {
     protected $fillable = [
-        'user_id', 'title_id', 'edition_year', 'edition_title', 'slug', 'volume', 'chapter', 'edition_no',
+        'user_id', 'title_id', 'edition_year', 'edition_title', 'slugs', 'volume', 'chapter', 'edition_no',
         'publish_date', 'publish_month', 'publish_year',
-        'original_date', 'call_number','edition_image',
+        'original_date', 'call_number','edition_image', 'updated_by'
     ];
 
     public function user()

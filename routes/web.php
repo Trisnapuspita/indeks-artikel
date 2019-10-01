@@ -8,9 +8,15 @@ Route::group(['middleware' => 'auth'], function() {
     Route::resource('formats', 'FormatController', ['except' => ['index', 'show']]);
     Route::resource('statuses', 'StatusController', ['except' => ['index', 'show']]);
     Route::resource('titles', 'TitleController', ['except' => ['index', 'show']]);
+    Route::get('titles/search', 'TitleController@search')->name('search');
     Route::post('/titles/import_excel', 'TitleController@import_excel');
     Route::get('/titles/export_excel', 'TitleController@export_excel');
+    Route::post('/titles/article/{id}', 'TitleController@store_article');
+    Route::get('/titles/article/{id}', 'TitleController@create_article');
     Route::get('/editions', 'EditionTitleController@index');
+    Route::post('/editions', 'EditionTitleController@store');
+    Route::post('/editions/create/{id}', 'EditionTitleController@store_article');
+    Route::get('/editions/create/{id}', 'EditionTitleController@create_article');
     Route::get('/editions/create', 'EditionTitleController@create');
     Route::post('/editions/{id}', 'EditionTitleController@store');
     Route::put('/editions/{id}', 'EditionTitleController@update');

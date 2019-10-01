@@ -8,7 +8,7 @@ class ArticleEdition extends Model
 {
     protected $fillable = [
         'user_id', 'edition_title_id', 'article_title', 'subject',
-         'writer', 'pages', 'column', 'source', 'desc', 'keyword', 'detail_img'
+         'writer', 'pages', 'column', 'source', 'desc', 'keyword', 'detail_img', 'updated_by'
     ];
 
     public function user()

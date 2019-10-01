@@ -17,6 +17,7 @@ use App\Imports\TitleImport;
 use App\Exports\TitleExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
+use DB;
 
 class TitleController extends Controller
 {
@@ -69,9 +70,7 @@ class TitleController extends Controller
             $fileName = $request->featured_img->getClientOriginalName(). '.png';
             $request->file('featured_img')->storeAs('public/upload', $fileName);
         }
-        // $fileName = time(). '.png';
-        // $request->file('featured_img')->storeAs('public/upload', $fileName);
-
+        
         $title = Title::create([
             'user_id'=> Auth::user()->id,
             'title'=>$request->title,
@@ -89,6 +88,80 @@ class TitleController extends Controller
         $title->formats()->attach($request->formats);
         return redirect('titles')->with('msg', 'berhasil ditambahkan');
     }
+
+    public function create_article($id)
+    {
+        $title = Title::findOrFail($id);
+        $types = Type::all();
+        $times = Time::all();
+        $languages = Language::all();
+        $formats = Format::all();
+        $statuses = Status::all();
+        $editions = EditionTitle::all();
+        return view('titles.add_article', compact('types', 'times', 'languages', 'formats', 'title', 'statuses', 'editions'));
+    }
+    
+    public function store_article(Request $request, $id)
+    {
+        $this->validate(request(), [
+            'article_title'=>'required|min:1',
+            'edition_title'=>'required|min:1'
+        ]);
+        $editions;
+
+        if ($request->edition_id==null) {
+            $slugs = str_slug($request->publish_date, '_');
+            //cek slugs ngga kembar
+            if (EditionTitle::where('slugs', $slugs)->first() != null) {
+                $slugs = $slugs . '-'.time();
+            }
+
+            $fileName= null;
+
+            if ($request->edition_image != null) {
+                $fileName = $request->edition_image->getClientOriginalName(). '.png';
+                $request->file('edition_image')->storeAs('public/upload', $fileName);
+            }
+
+            $title = Title::findOrFail($id);
+            $editions = EditionTitle::create([
+            'user_id'=> Auth::user()->id,
+            'edition_year'=>$request->edition_year,
+            'edition_title'=>$request->edition_title,
+            'slugs'=>$slugs,
+            'title_id' => $id,
+            'volume'=>$request->volume,
+            'chapter'=>$request->chapter,
+            'edition_no'=>$request->edition_no,
+            'year'=>$request->year,
+            'publish_date'=>$request->publish_date,
+            'publish_month'=>$request->publish_month,
+            'publish_year'=>$request->publish_year,
+            'original_date'=>$request->original_date,
+            'call_number'=>$request->call_number,
+            'edition_image'=> $fileName
+            ]);
+        } else {
+            $editions = EditionTitle::find($request->edition_id);
+        }
+            $articles = ArticleEdition::create([
+            'user_id'=> Auth::user()->id,
+            'edition_title_id' => $editions->id,
+            'article_title'=>$request->article_title,
+            'subject'=>$request->subject,
+            'writer'=>$request->writer,
+            'pages'=>$request->pages,
+            'column'=>$request->column,
+            'source'=>$request->source,
+            'desc'=>$request->desc,
+            'keyword'=>$request->keyword,
+            'detail_img'=>$request->detail_img
+        ]);
+            $articles->statuses()->attach($request->statuses);
+
+        return redirect('/titles')->with('msg', 'berhasil ditambahkan');
+    }
+
     public function show($slug)
     {
         $title= Title::with('editions')->where('slug', $slug)->first();
@@ -103,6 +176,32 @@ class TitleController extends Controller
         }
 
         return view('titles.single', compact('types', 'times', 'languages', 'formats', 'title', 'status', 'edition', 'articles'));
+    }
+
+    public function search(Request $request) {
+        $param = $request->param;
+        $column = $request->column;
+        $titles;
+
+        if($column == "type") {
+            $titles = Type::where('title','like','%'.$param.'%')->get();
+        }else if ($column == "time") {
+            $titles = Time::where('title','like','%'.$param.'%')->get();
+        }else if ($column == "language") {
+            $titles = Language::where('title','like','%'.$param.'%')->get();
+        }else if ($column == "format") {
+            $titles = Format::where('title','like','%'.$param.'%')->get();
+        }else {
+            $titles = DB::select(DB::raw("SELECT * FROM `titles` WHERE
+            `title` LIKE '%".$param."%' OR
+            `city` LIKE '%".$param."%' OR
+            `publisher` LIKE '%".$param."%' OR
+            `year` LIKE '%".$param."%' OR
+            `first_year` LIKE '%".$param."%'"));
+        }
+
+        return view('titles.index', compact('param', 'colomn', 'titles'));
+
     }
 
     public function etalase_in()
@@ -251,12 +350,13 @@ class TitleController extends Controller
      */
     public function edit($id)
     {
+        $user = Auth::user();
         $types = Type::all();
         $times = Time::all();
         $languages = Language::all();
         $formats = Format::all();
         $title = Title::findOrFail($id);
-        return view('titles.edit', compact('types', 'times', 'languages', 'formats', 'title'));
+        return view('titles.edit', compact('user', 'types', 'times', 'languages', 'formats', 'title'));
     }
     /**
      * Update the specified resource in storage.
@@ -285,6 +385,7 @@ class TitleController extends Controller
         // $request->file('featured_img')->storeAs('public/upload', $fileName);
 
         $title->update([
+                    'updated_by'=>Auth::user()->id,
                     'title'=>$request->title,
                     'kode'=>$request->kode,
                     'city'=>$request->city,

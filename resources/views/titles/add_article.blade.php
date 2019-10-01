@@ -1,7 +1,7 @@
 @extends('layouts.form')
 
 @section('title')
-Indeks Artikel | Edisi
+Indeks Artikel | Menambahkan Artikel
 @endsection
 
 @section('content')
@@ -21,7 +21,7 @@ Indeks Artikel | Edisi
         <div class="container" style="background:white;-webkit-box-shadow: 0px 0px 17px -4px rgba(0,0,0,0.75);
         -moz-box-shadow: 0px 0px 17px -4px rgba(0,0,0,0.75);
         box-shadow: 0px 0px 17px -4px rgba(0,0,0,0.75);">
-            <form class="form">
+           <form class="form" method="POST" action="/titles/article/{{$title->id}}" enctype="multipart/form-data">
             <h4 style="font-weight: bold; padding-bottom:10px; text-align:center;color: black">Judul Sumber</h4>
             <fieldset class="form-group">
                     <div class="row was-validated">
@@ -116,25 +116,26 @@ Indeks Artikel | Edisi
                             <input type="hidden" class="form-control" id="edition_id" name="edition_id">
                         </div>
                         <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Keterangan Edisi</label>
                             <div class="col">
                                 <input class="form-control" type="text" placeholder="Tahun"
-								 name="edition_year" value="{{old('edition_year')}}">
+								 name="edition_year" id="edition_year" value="{{old('edition_year')}}">
                             </div>
                             <div class="col">
                                 <input class="form-control" type="text" placeholder="Edisi"
-								name="edition_title" value="{{old('edition_title')}}">
+								name="edition_title" id="edition_title" value="{{old('edition_title')}}">
                             </div>
                             <div class="col">
                                 <input class="form-control" type="text" placeholder="Volume"
-								name="volume" value="{{old('volume')}}">
+								name="volume" id="volume" value="{{old('volume')}}">
                             </div>
                             <div class="col">
                                 <input class="form-control" type="text" placeholder="Jilid"
-								name="chapter" value="{{old('chapter')}}">
+								name="chapter" id="chapter" value="{{old('chapter')}}">
                             </div>
                             <div class="col">
                                 <input class="form-control" type="text" placeholder="No"
-								name="edition_no" value="{{old('edition_no')}}">
+								name="edition_no" id="edition_no" value="{{old('edition_no')}}">
                             </div>
                         </div>
 
@@ -144,12 +145,12 @@ Indeks Artikel | Edisi
                              <div class="col-lg-2">
                                             <label >Tanggal
                                                 <input class="form-control" type="text" tabindex="6"
-                                                name="publish_date" value="{{old('publish_date')}}" placeholder="Tanggal">
+                                                name="publish_date" id="publish_date" value="{{old('publish_date')}}" placeholder="Tanggal">
                                             </label>
                                     </div>
                                     <div class="col-lg-2">
                                             <label >Bulan
-                                            <select class="form-control custom-select"name="publish_month" id="publish_month_Select" required>
+                                            <select class="form-control custom-select" name="publish_month" id="publish_month_Select" required>
                                                 <option disabled selected hidden>Pilih Bulan</option>
                                                 <option value="1">Januari</option>
                                                 <option value="2">Februari</option>
@@ -170,7 +171,7 @@ Indeks Artikel | Edisi
                                     <div class="col-lg-2">
                                     <label >Tahun
                                                 <input class="form-control" type="text" tabindex="6"
-                                                name="publish_year" value="{{old('publish_year')}}" placeholder="Tahun">
+                                                name="publish_year" id="publish_year" value="{{old('publish_year')}}" placeholder="Tahun">
                                             </label>
                                     </div>
 							</div>
@@ -178,13 +179,13 @@ Indeks Artikel | Edisi
                     <div class="form-group row was-validated">
                         <label class="col-sm-2 col-form-label">Penulisan Tanggal Asli*</label>
                         <div class="col-sm-10">
-                            <input class="form-control" type="text" placeholder=""  name="original_date" value="{{old('original_date')}}" required>
+                            <input class="form-control" type="text" placeholder="" id="original_date"  name="original_date" value="{{old('original_date')}}" required>
                         </div>
                     </div>
                     <div class="form-group row was-validated">
                         <label class="col-sm-2 col-form-label" for="validationServer03">No. Panggil*</label>
                         <div class="col-sm-10">
-                            <input class="form-control is-invalid" type="text" placeholder="" name="call_number" value="{{old('call_number')}}"
+                            <input class="form-control is-invalid" type="text" placeholder="" name="call_number" id="call_number" value="{{old('call_number')}}"
                                 required>
                         </div>
                     </div>
@@ -304,6 +305,9 @@ Indeks Artikel | Edisi
                     <th>Jilid</th>
                     <th>Nomor</th>
                     <th>Tanggal</th>
+                    <th>Bulan</th>
+                    <th>Tahun</th>
+                    <th>Tanggal Asli</th>
                     <th>Nomor Panggil</th>
                 </tr>
 			</thead>
@@ -323,6 +327,9 @@ Indeks Artikel | Edisi
                     <td style="width:100px;">{{$edition->volume}}</td>
                     <td style="width:100px;">{{$edition->chapter}}</td>
                     <td style="width:100px;">{{$edition->edition_no}}</td>
+                    <td style="width:100px;">{{$edition->publish_month}}</td>
+                    <td style="width:100px;">{{$edition->publish_date}}</td>
+                    <td style="width:100px;">{{$edition->publish_year}}</td>
                     <td style="width:150px;">{{$edition->original_date}}</td>
                     <td style="width:150px;">{{$edition->call_number}}</td>
                 </tr>
@@ -341,12 +348,11 @@ Indeks Artikel | Edisi
 
 @section('scripts')
 <script type="text/javascript">
-
     $(document).ready(function() {
         var table = $('#example').DataTable({
             "columnDefs": [
             {
-                "targets": [ 1 ],
+                "targets": [ 1, 8, 9, 10 ],
                 "visible": false,
                 "searchable": false
             }
@@ -357,7 +363,7 @@ Indeks Artikel | Edisi
             if ( $(this).hasClass('selected') ) {
                 console.log(table.row(this).data());
                 $('#myModal').modal('hide');
-                $('#edition_id').val(table.row(this).data()[1]);
+                $('#edition_id').val(table.row(this).data()[0]);
                 $('#edition_id').addClass('disabled');
                 $('#edition_year').val(table.row(this).data()[3]);
                 $('#edition_year').addClass('disabled');
@@ -369,9 +375,15 @@ Indeks Artikel | Edisi
                 $('#chapter').addClass('disabled');
                 $('#edition_no').val(table.row(this).data()[7]);
                 $('#edition_no').addClass('disabled');
-                $('#original_date').val(table.row(this).data()[8]);
+                $('#publish_date').val(table.row(this).data()[8]);
+                $('#publish_date').addClass('disabled');
+                $('#publish_month').val(table.row(this).data()[9]);
+                $('#publish_month').addClass('disabled');
+                $('#publish_year').val(table.row(this).data()[10]);
+                $('#publish_year').addClass('disabled');
+                $('#original_date').val(table.row(this).data()[11]);
                 $('#original_date').addClass('disabled');
-                $('#call_number').val(table.row(this).data()[9]);
+                $('#call_number').val(table.row(this).data()[12]);
                 $('#call_number').addClass('disabled');
             }
             else {

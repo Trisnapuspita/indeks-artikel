@@ -125,40 +125,17 @@ Indeks Artikel | Edit Judul Sumber
             </form>
         </div>
 
-        <br>
-
-        <a data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
-            aria-controls="collapseExample">
-            <h5
-                style="width: 100%;background: whitesmoke; height: 50px; padding-top:15px; padding-left: 15px; border-radius: 4px">Rincian<i class="fas fa-angle-down" style="padding-right: 20px; float: right"></i></h5>
-        </a>
-
-        <div id="collapseExample">
         <div class="container" style="background:white;-webkit-box-shadow: 0px 0px 17px -4px rgba(0,0,0,0.75);
         -moz-box-shadow: 0px 0px 17px -4px rgba(0,0,0,0.75);
         box-shadow: 0px 0px 17px -4px rgba(0,0,0,0.75);">
-        <table id="example" class="table table-striped table-bordered">
-           <thead>
-                <tr class="GridHeader">
-                    <th>No.</th>
-                    <th>Dibuat Oleh</th>
-                    <th>Diedit Oleh</th>
-                    <th>Dibuat Pada</th>
-                    <th>Diedit Pada</th>
-                </tr>
-        </head>
-        <tbody>
-        @php $i=1 @endphp
-        <tr class="GridItem">
-                    <td>{{ $i++ }}</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    </tr>
-            </tbody>
-        </table>
-            </div>
+        <p>
+        Dibuat Oleh: <strong> @foreach ($title->user->where('id', $title->user_id)->get() as $user) {{$user->longname}} @endforeach </strong>  
+        <br>
+        Dibuat Pada: {{$title->created_at}} 
+        <br><br>
+        Disunting Oleh: <strong> @foreach ($title->user->where('id', $title->updated_by)->get() as $user) {{$user->longname}} @endforeach </strong> <br>
+        Disunting Pada: {{$title->updated_at}}
+        </p>
         </div>
     </main>
     @endsection

@@ -166,6 +166,7 @@ class ArticleEditionController extends Controller
 
         $articles= ArticleEdition::findOrFail($id);
         $articles->update([
+            'updated_by'=>Auth::user()->id,
             'article_title'=>$request->article_title,
             'subject'=>$request->subject,
             'writer'=>$request->writer,

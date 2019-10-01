@@ -34,34 +34,7 @@ Indeks Artikel | Artikel
             <!-- <a href="/articles/create"><button>Tambah</button></a> -->
             <a data-toggle="modal" data-target="#importExcel"><button>Import</button></a>
         </div>
-
-        <div class="search" style="text-align: right">
-        <select class="box">
-                <option disabled selected hidden>Pilih</option>
-                <option class="dropdown-item" href="#">Judul Sumber</option>
-                <option class="dropdown-item" href="#">Edisi</option>
-                <option class="dropdown-item" href="#">Judul Artikel</option>
-                <option class="dropdown-item" href="#">Subyek</option>
-                <option class="dropdown-item" href="#">Pengarang</option>
-                <option class="dropdown-item" href="#">Halaman</option>
-                <option class="dropdown-item" href="#">Kolom</option>
-                <option class="dropdown-item" href="#">Deskripsi Singkat</option>
-                <option class="dropdown-item" href="#">Kata Kunci</option>
-                <option class="dropdown-item" href="#">Keterangan Gambar</option>
-                <option class="dropdown-item" href="#">Status Ketersediaan</option>
-            </select>
-            <select class="box">
-                <option disabled selected hidden>Pilih Rentang Waktu</option>
-                <option class="dropdown-item" href="#">Tepat</option>
-                <option class="dropdown-item" href="#">Dimulai Dengan</option>
-                <option class="dropdown-item" href="#">Diakhiri Dengan</option>
-                <option class="dropdown-item" href="#">Salah Satu Isi</option>
-            </select>
-            <input type="text" class="search-box" placeholder="Kata Kunci">
-            <button type="submit" class="searchButton"><img src="../assets/magnifying-glass-2x.png">
-            </button>
-        </div>
-
+        
         <!-- Import Excel -->
 		<div class="modal fade" id="importExcel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog" role="document">
@@ -163,4 +136,31 @@ Indeks Artikel | Artikel
             </table>
         </div>
     </main>
+@endsection
+
+@section('scripts')
+<script>
+$(document).ready(function() {
+    // Setup - add a text input to each footer cell
+    $('#example thead tr').clone(true).appendTo( '#example thead' );
+    $('#example thead tr:eq(1) th').each( function (i) {
+        var title = $(this).text();
+        $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+ 
+        $( 'input', this ).on( 'keyup change', function () {
+            if ( table.column(i).search() !== this.value ) {
+                table
+                    .column(i)
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+    } );
+ 
+    var table = $('#example').DataTable( {
+        orderCellsTop: true,
+        fixedHeader: true
+    } );
+} );
+</script>
 @endsection

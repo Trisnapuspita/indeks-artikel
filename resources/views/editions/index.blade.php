@@ -37,31 +37,6 @@ Indeks Artikel | Edisi
             <a data-toggle="modal" data-target="#importExcel"><button>Import</button></a>
         </div>
 
-        <div class="search" style="text-align: right">
-        <select class="box">
-                <option disabled selected hidden>Pilih</option>
-                <option class="dropdown-item" href="#">Keterangan Edisi</option>
-                <option class="dropdown-item" href="#">Tahun</option>
-                <option class="dropdown-item" href="#">Volume</option>
-                <option class="dropdown-item" href="#">Edisi</option>
-                <option class="dropdown-item" href="#">Jilid</option>
-                <option class="dropdown-item" href="#">Nomor</option>
-                <option class="dropdown-item" href="#">Tanggal</option>
-                <option class="dropdown-item" href="#">No. Panggil</option>
-                <option class="dropdown-item" href="#">Judul Sumber</option>
-            </select>
-            <select class="box">
-                <option disabled selected hidden>Semua Waktu</option>
-                <option class="dropdown-item" href="#">Tepat</option>
-                <option class="dropdown-item" href="#">Dimulai Dengan</option>
-                <option class="dropdown-item" href="#">Diakhiri Dengan</option>
-                <option class="dropdown-item" href="#">Salah Satu Isi</option>
-            </select>
-            <input type="text" class="search-box" placeholder="Kata Kunci">
-            <button type="submit" class="searchButton"><img src="../assets/magnifying-glass-2x.png">
-            </button>
-        </div>
-
         <!-- Import Excel -->
 		<div class="modal fade" id="importExcel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog" role="document">
@@ -116,7 +91,7 @@ Indeks Artikel | Edisi
                     @else
                     <td><img src="{{asset('storage/upload/'. $edition->edition_image) }}" style="max-width: 150px; height: auto; "class="image-fluid"></td>
                     @endif
-                    <td style="width:300px;"><a href="/editions/{{$edition->slug}}">{{$edition->edition_year}}, {{$edition->edition_no}}, {{$edition->original_date}}</a></td>
+                    <td style="width:300px;">{{$edition->edition_year}}, {{$edition->edition_no}}, {{$edition->original_date}}</td>
                     <td style="width:100px;">{{$edition->edition_year}}</td>
                     <td style="width:100px;">{{$edition->edition_title}}</td>
                     <td style="width:100px;">{{$edition->volume}}</td>
@@ -125,7 +100,7 @@ Indeks Artikel | Edisi
                     <td style="width:150px;">{{$edition->original_date}}</td>
                     <td style="width:150px;">{{$edition->call_number}}</td>
                     <td style="width:150px;">@foreach ($edition->title()->get() as $title){{$title->title}}@endforeach</td>
-                    <td>{{$articles->where('edition_title_id',$edition->id)->count()}}<a href="/editions/{{$edition->slug}}"><button style="float: right"><strong>+</strong></button></a></td>
+                    <td>{{$articles->where('edition_title_id',$edition->id)->count()}}<a href="/editions/create/{{$edition->id}}"><button style="float: right"><strong>+</strong></button></a></td>
                     <td style="width:100px; text-align: center;">
                             <a href='/editions/{{$edition->id}}/edit'><button class="fas fa-edit" style="width:30px;height:30px"></button></a>
                             <br><br>
@@ -157,4 +132,31 @@ Indeks Artikel | Edisi
             </table>
         </div> -->
     </main>
+@endsection
+
+@section('scripts')
+<script>
+$(document).ready(function() {
+    // Setup - add a text input to each footer cell
+    $('#example thead tr').clone(true).appendTo( '#example thead' );
+    $('#example thead tr:eq(1) th').each( function (i) {
+        var title = $(this).text();
+        $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+ 
+        $( 'input', this ).on( 'keyup change', function () {
+            if ( table.column(i).search() !== this.value ) {
+                table
+                    .column(i)
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+    } );
+ 
+    var table = $('#example').DataTable( {
+        orderCellsTop: true,
+        fixedHeader: true
+    } );
+} );
+</script>
 @endsection

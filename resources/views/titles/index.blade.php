@@ -34,31 +34,6 @@ Indeks Artikel | Judul Sumber
             <a data-toggle="modal" data-target="#importExcel"><button>Import</button></a>
         </div>
 
-        <div class="search" style="text-align: right">
-            <select class="box">
-                <option disabled selected hidden>Semua Jenis</option>
-                <option class="dropdown-item" href="#">Judul</option>
-                <option class="dropdown-item" href="#">Jenis</option>
-                <option class="dropdown-item" href="#">Kala Terbit</option>
-                <option class="dropdown-item" href="#">Tempat Terbit</option>
-                <option class="dropdown-item" href="#">Penerbit</option>
-                <option class="dropdown-item" href="#">Tahun Terbit</option>
-                <option class="dropdown-item" href="#">Tahun Terbit Pertama</option>
-                <option class="dropdown-item" href="#">Bahasa</option>
-                <option class="dropdown-item" href="#">Format</option>
-            </select>
-            <select class="box">
-                <option disabled selected hidden>Semua Waktu</option>
-                <option class="dropdown-item" href="#">Tepat</option>
-                <option class="dropdown-item" href="#">Dimulai Dengan</option>
-                <option class="dropdown-item" href="#">Diakhiri Dengan</option>
-                <option class="dropdown-item" href="#">Salah Satu Isi</option>
-            </select>
-            <input type="text" class="search-box" placeholder="Kata Kunci">
-            <button type="submit" class="searchButton"><img src="../assets/magnifying-glass-2x.png">
-            </button>
-        </div>
-
         <!-- Import Excel -->
 		<div class="modal fade" id="importExcel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog" role="document">
@@ -86,11 +61,11 @@ Indeks Artikel | Judul Sumber
 			</div>
 		</div>
 
-        <table id="example" class="table table-striped table-bordered table-responsive" style="width:100%">
+        <table id="example" name="example" class="table table-striped table-bordered table-responsive" style="width:100%">
            <thead>
                 <tr class="GridHeader">
-                    <th>No.</th>
-                    <th>Gambar</th>
+                    <td>No.</td>
+                    <td>Gambar</td>
                     <th>Judul Sumber</th>
                     <th>Kode</th>
                     <th>Jenis</th>
@@ -101,9 +76,9 @@ Indeks Artikel | Judul Sumber
                     <th>Tahun Terbit Pertama</th>
                     <th>Bahasa</th>
                     <th>Format</th>
-                    <th>Jumlah Edisi</th>
-                    <th>Jumlah Artikel</th>
-                    <th>Action</th>
+                    <td>Jumlah Edisi</td>
+                    <td>Jumlah Artikel</td>
+                    <td>Action</td>
                 </tr>
 			</head>
 			<tbody>
@@ -128,7 +103,7 @@ Indeks Artikel | Judul Sumber
                     <td>@foreach ($title->formats()->get() as $formats){{$formats->title}}@endforeach</td>
                     <td>{{$editions->where('title_id',$title->id)->count()}}<a href="/titles/{{$title->slug}}"><button style="float: right"><strong>+</strong></button></a></td>
                     <td style="text-align: center">{{$articles->whereIn('edition_title_id',$editions->where('title_id',$title->id)->pluck('id'))->count()}}
-                    <a href="/editions/{{$title->id}}"><button style="float: right"><strong>+</strong></button></a></td>
+                    <a href="/titles/article/{{$title->id}}"><button style="float: right"><strong>+</strong></button></a></td>
                     <td style="text-align: center">
 						<a href="/titles/{{$title->id}}/edit"><button class="fas fa-edit" style="width:30px;height:30px"></button></a>
                         <br><br>
@@ -159,4 +134,32 @@ Indeks Artikel | Judul Sumber
             </table>
         </div>
     </main>
+@endsection
+
+@section('scripts')
+<script src="https://cdn.datatables.net/fixedcolumns/3.2.6/js/dataTables.fixedColumns.min.js"></script>
+<script>
+$(document).ready(function() {
+    // Setup - add a text input to each footer cell
+    $('#example thead tr').clone(true).appendTo( '#example thead' );
+    $('#example thead tr:eq(1) th').each( function (i) {
+        var title = $(this).text();
+        $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+ 
+        $( 'input', this ).on( 'keyup change', function () {
+            if ( table.column(i).search() !== this.value ) {
+                table
+                    .column(i)
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+    } );
+ 
+    var table = $('#example').DataTable( {
+        orderCellsTop: true,
+        fixedHeader: true
+    } );
+} );
+</script>
 @endsection
