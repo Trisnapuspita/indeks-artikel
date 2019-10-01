@@ -102,7 +102,7 @@ class TitleController extends Controller
     }
     
     public function store_article(Request $request, $id)
-    {
+    { dd($request);
         $this->validate(request(), [
             'article_title'=>'required|min:1',
             'edition_title'=>'required|min:1'
@@ -356,7 +356,7 @@ class TitleController extends Controller
         $languages = Language::all();
         $formats = Format::all();
         $title = Title::findOrFail($id);
-        return view('titles.edit', compact('user', 'types', 'times', 'languages', 'formats', 'title'));
+        return view('titles.edit', compact('user','types', 'times', 'languages', 'formats', 'title'));
     }
     /**
      * Update the specified resource in storage.

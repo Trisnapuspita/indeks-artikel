@@ -27,7 +27,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/editions/import_excel/{id}', 'EditionTitleController@import_excel');
     Route::get('/articles', 'ArticleEditionController@index');
     Route::get('/articles/create', 'ArticleEditionController@create');
-    Route::post('/articles/{id}', 'ArticleEditionController@store');
+    Route::post('/articles', 'ArticleEditionController@new_store');
     Route::put('/articles/{id}', 'ArticleEditionController@update');
     Route::get('/articles/{id}/edit', 'ArticleEditionController@edit');
     Route::get('/articles/{id}/verif', 'ArticleEditionController@verif');

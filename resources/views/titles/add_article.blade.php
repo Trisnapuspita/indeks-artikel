@@ -363,7 +363,7 @@ Indeks Artikel | Menambahkan Artikel
             if ( $(this).hasClass('selected') ) {
                 console.log(table.row(this).data());
                 $('#myModal').modal('hide');
-                $('#edition_id').val(table.row(this).data()[0]);
+                $('#edition_id').val(table.row(this).data()[1]);
                 $('#edition_id').addClass('disabled');
                 $('#edition_year').val(table.row(this).data()[3]);
                 $('#edition_year').addClass('disabled');

@@ -31,7 +31,7 @@ Indeks Artikel | Artikel
             </ol>
         </div>
         <div class="createnew" style="padding-bottom: 10px">
-            <!-- <a href="/articles/create"><button>Tambah</button></a> -->
+            <a href="/articles/create"><button>Tambah</button></a>
             <a data-toggle="modal" data-target="#importExcel"><button>Import</button></a>
         </div>
         
@@ -66,7 +66,7 @@ Indeks Artikel | Artikel
             <thead>
 
                 <tr class="GridHeader" style="text-align: center">
-                    <th>No</th>
+                    <td>No</td>
                     <th>Judul Artikel</th>
                     <th>Subyek</th>
                     <th>Pengarang</th>
