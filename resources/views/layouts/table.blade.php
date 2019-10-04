@@ -19,8 +19,6 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.0/js/buttons.flash.min.js">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.0/js/buttons.html5.min.js">
-    
-
 </head>
 
 <body>

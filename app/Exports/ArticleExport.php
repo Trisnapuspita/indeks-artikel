@@ -8,8 +8,9 @@ use App\Models\ArticleEdition;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use Maatwebsite\Excel\Concerns\WithMapping;
 
-class ArticleExport implements FromCollection, WithHeadings, ShouldAutoSize
+class ArticleExport implements FromCollection, WithHeadings, ShouldAutoSize, WithMapping
 {
     /**
     * @return \Illuminate\Support\Collection
@@ -17,12 +18,25 @@ class ArticleExport implements FromCollection, WithHeadings, ShouldAutoSize
 
     public function collection()
     {
-        $article = ArticleEdition::with(['edition_title'])->get();
+        return ArticleEdition::with(['edition_title'])->get();
+    }
 
-        return $article->select('article_title', 'keyword', 'subject', 'column', 'writer', 
-        'pages', 'source', 'edition_year', 'edition_no', 'original_date')->get();
+    public function map($article): array
+    {
+        return 
+        [
+            $article->article_title,
+            $article->keyword,
+            $article->subject,
+            $article->column,
+            $article->writer,
+            $article->pages,
+            $article->source,
+            $article->edition_year,
+            $article->edition_no,
+            $article->original_date
+        ];
 
-        dd($article);
     }
 
     public function headings(): array

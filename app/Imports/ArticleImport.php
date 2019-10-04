@@ -25,6 +25,19 @@ class ArticleImport implements ToCollection
     public function collection(Collection $rows)
     {
         foreach ($rows as $row) {
+           
+            Title::create([
+                'user_id' => Auth::user()->id,
+                'title_id' => $this->id,
+                'edition_year'=> $row['Edisi']
+            ]);
+
+            EditionTitle::create([
+                'user_id' => Auth::user()->id,
+                'title_id' => $this->id,
+                'edition_year'=> $row['Edisi']
+            ]);
+
             ArticleEdition::create([
                 'user_id' => Auth::user()->id,
                 'article_title' => $row['Judul Artikel'],
@@ -36,11 +49,6 @@ class ArticleImport implements ToCollection
                 'source' => $row['Sumber']
             ]);
 
-            EditionTitle::create([
-                'user_id' => Auth::user()->id,
-                'title_id' => $this->id,
-                'edition_year'=> $row['Edisi']
-            ]);
         }
     }
     
