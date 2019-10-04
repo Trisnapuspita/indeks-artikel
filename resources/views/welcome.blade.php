@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="../../css/konten-menu.css">
     <link rel="stylesheet" href="../../css/style-admin.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.7/css/mdb.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="../../img/pnri-logo-76.png">
 
 </head>
 

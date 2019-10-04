@@ -80,7 +80,7 @@ Indeks Artikel | Artikel
                     <th>Status Ketersediaan</th>
                     <th>Judul Sumber</th>
                     <th>Edisi</th>
-                    <th> </th>
+                    <td></td>
                 </tr>
 			</thead>
 			<tbody>

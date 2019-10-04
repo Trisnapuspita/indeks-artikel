@@ -67,7 +67,7 @@ Indeks Artikel | Edisi
             <thead>
                 <tr class="GridHeader" style="text-align: center">
 					<td>No</td>
-                    <th>Gambar</th>
+                    <td>Gambar</td>
                     <th>Keterangan Edisi</th>
                     <th>Tahun</th>
                     <th>Edisi</th>
@@ -76,9 +76,9 @@ Indeks Artikel | Edisi
                     <th>Nomor</th>
                     <th>Tanggal</th>
                     <th>Nomor Panggil</th>
-                    <th>Judul Sumber</th>
-                    <th>Jumlah Artikel</th>
-                    <th>Action</th>
+                    <td>Judul Sumber</td>
+                    <td>Jumlah Artikel</td>
+                    <td></td>
                 </tr>
 			</thead>
 			<tbody>

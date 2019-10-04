@@ -11,9 +11,16 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="../../css/style-admin.css">
     <link rel="stylesheet" href="../../css/grid.css">
+    <link rel="shortcut icon" href="../../img/pnri-logo-76.png">
     <!-- datatable css -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.0/js/dataTables.buttons.min.js">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.0/js/buttons.flash.min.js">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.0/js/buttons.html5.min.js">
+    
+
 </head>
 
 <body>

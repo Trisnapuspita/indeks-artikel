@@ -78,7 +78,7 @@ Indeks Artikel | Judul Sumber
                     <th>Format</th>
                     <td>Jumlah Edisi</td>
                     <td>Jumlah Artikel</td>
-                    <td>Action</td>
+                    <td></td>
                 </tr>
 			</head>
 			<tbody>
