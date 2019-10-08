@@ -100,7 +100,7 @@ Indeks Artikel | Artikel
                     <td>@foreach($article->edition_title()->get() as $edition_title) {{$edition_title->call_number}} @endforeach</td>
                     <td>@foreach($article->statuses()->get() as $statuses) {{$statuses->title}} @endforeach</td>
                     <td>@foreach ($article->edition_title->title()->get() as $title) {{$title->title}} @endforeach</td>
-                    <td>@foreach($article->edition_title()->get() as $edition_title) {{$edition_title->edition_title}} @endforeach</td>
+                    <td>@foreach($article->edition_title()->get() as $edition_title) {{$edition_title->edition_year}},{{$edition_title->edition_year}},{{$edition_title->edition_no}},{{$edition_title->original_date}}  @endforeach</td>
                     <td style="center";>
                             <div class="col-md-2">
                                 <a href='/articles/{{$article->id}}/edit'><button class="fas fa-edit" title="Edit" style="width:35px;height:35px"></button></a>

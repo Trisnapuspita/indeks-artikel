@@ -197,16 +197,13 @@ class ArticleEditionController extends Controller
 		return Excel::download(new ArticleExport, 'article.xlsx');
     }
 
-    public function import_excel(Request $request, $id)
+    public function import_excel(Request $request)
 	{
-
-
 		// validasi
 		$this->validate($request, [
 			'file' => 'required|mimes:csv,xls,xlsx'
         ]);
 
-        $edition = EditionTitle::findOrFail($id);
 
 		// menangkap file excel
 		$file = $request->file('file');
@@ -218,19 +215,15 @@ class ArticleEditionController extends Controller
 		$file->move('file_articles',$nama_file);
 
 		// import data
-		Excel::import(new ArticleImport($id), public_path('/file_articles/'.$nama_file));
+		Excel::import(new ArticleImport(), public_path('/file_articles/'.$nama_file));
 
 		// notifikasi dengan session
 		Session::flash('sukses','Data Berhasil Diimport!');
 
 		// alihkan halaman kembali
-		return redirect('/editions/'.$edition->slug);
+		return redirect('/articles');
 	}
 
-    public function show($id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.

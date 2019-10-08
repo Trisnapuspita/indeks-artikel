@@ -33,7 +33,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/articles/{id}/verif', 'ArticleEditionController@verif');
     Route::delete('/articles/{id}', 'ArticleEditionController@destroy');
     Route::get('/articles/export_excel', 'ArticleEditionController@export_excel');
-    Route::post('/articles/import_excel/{id}', 'ArticleEditionController@import_excel');
+    Route::post('/articles/import_excel', 'ArticleEditionController@import_excel');
     Route::get('/reports','ReportController@index')->name('reportsIndex');
     Route::post('/reports/searchByDay','ReportController@searchByDay');
     Route::post('/reports/searchByMonth','ReportController@searchByMonth');

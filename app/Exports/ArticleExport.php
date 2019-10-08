@@ -18,25 +18,26 @@ class ArticleExport implements FromCollection, WithHeadings, ShouldAutoSize, Wit
 
     public function collection()
     {
-        return ArticleEdition::with(['edition_title'])->get();
+        return ArticleEdition::all();
+
     }
 
     public function map($article): array
     {
         return 
         [
-            $article->article_title,
-            $article->keyword,
-            $article->subject,
-            $article->column,
-            $article->writer,
-            $article->pages,
-            $article->source,
-            $article->edition_year,
-            $article->edition_no,
-            $article->original_date
+                $article->article_title,
+                $article->keyword,
+                $article->subject,
+                $article->column,
+                $article->writer,
+                $article->pages,
+                $article->source,
+                $article->edition_title->edition_year,
+                $article->edition_title->edition_no,
+                $article->edition_title->original_date,
+                $article->edition_title->title->title,
         ];
-
     }
 
     public function headings(): array
@@ -52,6 +53,7 @@ class ArticleExport implements FromCollection, WithHeadings, ShouldAutoSize, Wit
             'Tahun Edisi',
             'No Edisi',
             'Tahun Terbit Asli',
+            'Judul Sumber'
         ];
     }
 }
