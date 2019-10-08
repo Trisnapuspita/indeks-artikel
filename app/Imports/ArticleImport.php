@@ -23,7 +23,8 @@ class ArticleImport implements ToCollection, WithHeadingRow
     {
         foreach ($rows as $row) {
 
-            if(Title::all->where('kode', kode)->count() > 0){
+            if (Title::all->where('kode', kode)->count() > 0){
+                $title = Title::all->where('kode', kode)->get();
             } else {
                 $title = Title::create([
                     'user_id' => Auth::user()->id,
@@ -33,7 +34,8 @@ class ArticleImport implements ToCollection, WithHeadingRow
             ]);
             }
 
-            if(Title::all->where('kode_edition', kode_edition)->count() > 0){
+            if (EditionTitle::all->where('edition_code', edition_code)->count() > 0){
+                $edition = EditionTitle::all->where('edition_code', edition_code)->get();
             } else {
                 $edition = EditionTitle::create([
                 'user_id' => Auth::user()->id,
@@ -41,7 +43,7 @@ class ArticleImport implements ToCollection, WithHeadingRow
                 'edition_year'=> $row['tahun_edisi'],
                 'edition_no'=> $row['no_edisi'],
                 'original_date'=> $row['tahun_terbit_asli'],
-                'kode_edition' => $row['kode_edisi']
+                'code_edition' => $row['kode_edisi']
             ]);
             }
 

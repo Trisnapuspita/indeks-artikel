@@ -14,7 +14,7 @@ class UpdateEditionTable extends Migration
     public function up()
     {
         Schema::table('edition_titles', function (Blueprint $table) {
-            $table->string('edition_code')->after('edition_image');
+            $table->string('edition_code')->after('title_id');
         });
     }
 
@@ -25,6 +25,8 @@ class UpdateEditionTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('edition_titles', function (Blueprint $table) {
+            $table->string('edition_code')->after('title_id');
+        });
     }
 }

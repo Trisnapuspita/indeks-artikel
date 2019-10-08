@@ -8,7 +8,7 @@ class EditionTitle extends Model
 {
     protected $fillable = [
         'user_id', 'title_id', 'edition_year', 'edition_title', 'slugs', 'volume', 'chapter', 'edition_no',
-        'publish_date', 'publish_month', 'publish_year',
+        'publish_date', 'publish_month', 'publish_year', 'edition_code',
         'original_date', 'call_number','edition_image', 'updated_by'
     ];
 

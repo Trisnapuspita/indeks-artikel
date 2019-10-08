@@ -36,24 +36,28 @@ class ArticleExport implements FromCollection, WithHeadings, ShouldAutoSize, Wit
                 $article->edition_title->edition_year,
                 $article->edition_title->edition_no,
                 $article->edition_title->original_date,
+                $article->edition_title->edition_code,
                 $article->edition_title->title->title,
+                $article->edition_title->title->kode,
         ];
     }
 
     public function headings(): array
     {
         return [
-            'Judul',
-            'Kata Kunci',
-            'Subjek',
-            'Kolom',
-            'Pengarang',
-            'Halaman',
-            'Sumber',
-            'Tahun Edisi',
-            'No Edisi',
-            'Tahun Terbit Asli',
-            'Judul Sumber'
+            'judul',
+            'kata_kunci',
+            'subjek',
+            'kolom',
+            'pengarang',
+            'halaman',
+            'sumber',
+            'tahun_edisi',
+            'no_edisi',
+            'tahun_terbit_asli',
+            'kode_edisi',
+            'judul_sumber',
+            'kode'
         ];
     }
 }
