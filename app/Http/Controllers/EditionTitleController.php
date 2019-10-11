@@ -204,7 +204,12 @@ class EditionTitleController extends Controller
     public function edit($id)
     {
         $editions = EditionTitle::findOrFail($id);
-        return view('editions.edit', compact('editions'));
+        $types = Type::all();
+        $times = Time::all();
+        $languages = Language::all();
+        $formats = Format::all();
+        
+        return view('editions.edit', compact('editions', 'types', 'times', 'languages', 'formats'));
     }
     /**
      * Update the specified resource in storage.

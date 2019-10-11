@@ -10,12 +10,113 @@ Indeks Artikel | Edit Edisi
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="beranda-user.html">Beranda</a></li>
                 <li class="breadcrumb-item"><a href="sumber.html">Sumber</a></li>
-                <li class="breadcrumb-item"><a href="sumber.html">Tempo : Madjalah Berita Mingguan</a></li>
+                <li class="breadcrumb-item"><a href="sumber.html">{{$editions->edition_title}}</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Edit</li>
             </ol>
         </div>
-        <div id="collapseExample">
-            <div class="container" style="background:whitesmoke;-webkit-box-shadow: 0px 0px 17px -4px rgba(0,0,0,0.75);
+
+        <div class="container" style="background:white;-webkit-box-shadow: 0px 0px 17px -4px rgba(0,0,0,0.75);
+        -moz-box-shadow: 0px 0px 17px -4px rgba(0,0,0,0.75);
+        box-shadow: 0px 0px 17px -4px rgba(0,0,0,0.75);">
+            <form class="form">
+                <h4 style="font-weight: bold; padding-bottom:10px; text-align:center;color: black">Judul Sumber</h4>
+                <fieldset class="form-group">
+                    <div class="row was-validated">
+                        <legend class="col-form-label col-sm-3 pt-0">Jenis*</legend>
+                        <div class="col-sm-8">
+                        @foreach ($types as $types)
+                            <div class="form-check form-check-inline custom-control-inline custom-radio">
+                            <label class="form-check-label" for="types" >
+                                <input class="form-check-input" type="radio" name="types[]" id="type_Select"  disabled 
+                                value='{{$editions->title->types}}'>{{$types->title}}
+                                </label>
+                            </div>
+                        @endforeach
+                        </div>
+                    </div>
+                </fieldset>
+                <div class="form-group row was-validated">
+                    <label class="col-sm-3 col-form-label">Kala Terbit*</label>
+                    <div class="col">
+                        <select class="form-control custom-select" name="times[]" id="time_Select" disabled>
+                            @foreach ($times as $times)
+                                     <option value='{{$times->id}}'>{{$times->title}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-3 col-form-label">Judul*</label>
+                    <div class="col">
+                        <input type="text" class="form-control" id="title" name="title"
+                         value="{{$editions->title->title}}" disabled>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-3 col-form-label">Kode*</label>
+                    <div class="col">
+                        <input type="text" class="form-control" id="kode" name="kode"
+                         value="{{$editions->title->kode}}" disabled>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Penerbitan*</label>
+                    <div class="col">
+                        <input type="text" class="form-control"  name="city" value="{{$editions->title->city}}" disabled>
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control"  name="publisher" value="{{$editions->title->publisher}}" disabled>
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control"   name="year" value="$editions->title->year}}" disabled>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-3 col-form-label">Tahun Terbit Pertama*</label>
+                    <div class="col-sm-4 col-form-label">
+                        <input type="text" class="form-control" id="first_year" name="first_year"
+                        value="{{$editions->title->first_year}}" disabled>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Bahasa*</label>
+                    <div class="col">
+                        <select class="form-control" name="languages[]" id="language_Select" disabled>
+							@foreach ($languages as $languages)
+                            <option value='{{$languages->id}}'>{{$languages->title}}</option>
+							@endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputPassword3" class="col-sm-3 col-form-label">Format*</label>
+                    <div class="col">
+                        <select class="form-control" name="formats[]" id="format_Select" disabled>
+							@foreach ($formats as $formats)
+                            <option  value='{{$formats->id}}'>{{$formats->title}}</option>
+							@endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Gambar</label>
+                <div class="col">
+                    <img src="/storage/upload/{{$editions->title->featured_img}}" style="max-width: 150px; height: auto; "class="image-fluid"> 
+                    <br>
+                    <input type="file" class="form-control-file" type="file" name="featured_img" id="featured_img" disabled>
+					  @if ($errors->has('featured_img'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('featured_img') }}</strong>
+                    </span>
+                    @endif
+                    </div>
+                </div>
+            </form>
+        </div>
+        </div>
+
+        <br>
+        <div class="container" style="background:whitesmoke;-webkit-box-shadow: 0px 0px 17px -4px rgba(0,0,0,0.75);
         -moz-box-shadow: 0px 0px 17px -4px rgba(0,0,0,0.75);
         box-shadow: 0px 0px 17px -4px rgba(0,0,0,0.75);">
                  <form class="form-horizontal" id="popup-validation" method="POST" action="/editions/{{$editions->id}}" enctype="multipart/form-data">
@@ -122,7 +223,6 @@ Indeks Artikel | Edit Edisi
                 </form>
             </div>
         </div>
-    </div>
 
     <br>
         <div class="container" style="background:white;-webkit-box-shadow: 0px 0px 17px -4px rgba(0,0,0,0.75);

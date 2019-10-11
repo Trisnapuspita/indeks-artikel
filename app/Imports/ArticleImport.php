@@ -22,9 +22,11 @@ class ArticleImport implements ToCollection, WithHeadingRow
     public function collection(Collection $rows)
     {
         foreach ($rows as $row) {
-
-            if (Title::all->where('kode', kode)->count() > 0){
-                $title = Title::all->where('kode', kode)->get();
+            $title;
+            $edition;
+            if (Title::where('kode',  $row['kode'])->count() > 0){
+                $title = Title::where('kode',  $row['kode'])->get();
+                $title = $title[0];
             } else {
                 $title = Title::create([
                     'user_id' => Auth::user()->id,
@@ -33,9 +35,10 @@ class ArticleImport implements ToCollection, WithHeadingRow
                     'kode' => $row['kode']
             ]);
             }
-
-            if (EditionTitle::all->where('edition_code', edition_code)->count() > 0){
-                $edition = EditionTitle::all->where('edition_code', edition_code)->get();
+            
+            if (EditionTitle::where('edition_code', $row['kode_edisi'])->count() > 0){
+                $edition = EditionTitle::where('edition_code', $row['kode_edisi'])->get();
+                $edition = $edition[0];
             } else {
                 $edition = EditionTitle::create([
                 'user_id' => Auth::user()->id,
@@ -43,7 +46,7 @@ class ArticleImport implements ToCollection, WithHeadingRow
                 'edition_year'=> $row['tahun_edisi'],
                 'edition_no'=> $row['no_edisi'],
                 'original_date'=> $row['tahun_terbit_asli'],
-                'code_edition' => $row['kode_edisi']
+                'edition_code' => $row['kode_edisi']
             ]);
             }
 

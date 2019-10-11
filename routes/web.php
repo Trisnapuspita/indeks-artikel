@@ -15,6 +15,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/titles/article/{id}', 'TitleController@create_article');
     Route::get('/editions', 'EditionTitleController@index');
     Route::post('/editions', 'EditionTitleController@store');
+    Route::post('/editions/create_edition/{id}', 'TitleController@store_edition');
     Route::post('/editions/create/{id}', 'EditionTitleController@store_article');
     Route::get('/editions/create/{id}', 'EditionTitleController@create_article');
     Route::get('/editions/create', 'EditionTitleController@create');

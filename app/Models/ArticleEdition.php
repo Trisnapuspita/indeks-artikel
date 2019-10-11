@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ArticleEdition extends Model
 {
     protected $fillable = [
-        'user_id', 'edition_title_id', 'article_title', 'subject',
+        'id', 'user_id', 'edition_title_id', 'article_title', 'subject',
          'writer', 'pages', 'column', 'source', 'desc', 'keyword', 'detail_img', 'updated_by'
     ];
 

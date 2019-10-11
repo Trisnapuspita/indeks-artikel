@@ -102,7 +102,7 @@ class TitleController extends Controller
     }
     
     public function store_article(Request $request, $id)
-    { dd($request);
+    {
         $this->validate(request(), [
             'article_title'=>'required|min:1',
             'edition_title'=>'required|min:1'
@@ -162,9 +162,9 @@ class TitleController extends Controller
         return redirect('/titles')->with('msg', 'berhasil ditambahkan');
     }
 
-    public function show($slug)
+    public function show($id)
     {
-        $title= Title::with('editions')->where('slug', $slug)->first();
+        $title= Title::find($id);
         $types = Type::all();
         $times = Time::all();
         $languages = Language::all();
@@ -176,6 +176,46 @@ class TitleController extends Controller
         }
 
         return view('titles.single', compact('types', 'times', 'languages', 'formats', 'title', 'status', 'edition', 'articles'));
+    }
+
+    public function store_edition(Request $request, $id)
+    {
+        $this->validate(request(), [
+            'edition_title'=>'required|min:1'
+        ]);
+        $slugs = str_slug($request->publish_date, '_');
+        //cek slug ngga kembar
+        if(EditionTitle::where('slugs', $slugs)->first() != null)
+            $slugs = $slugs . '-'.time();
+
+        $file= null;
+
+        if($request->edition_image != null) {
+            $file = $request->edition_image->getClientOriginalName(). '.png';
+            $request->file('edition_image')->storeAs('public/upload', $file);
+        }
+
+        $title = Title::findorFail($id);
+        $editions = EditionTitle::create([
+            'user_id'=> Auth::user()->id,
+            'edition_year'=>$request->edition_year,
+            'edition_title'=>$request->edition_title,
+            'slugs'=>$slugs,
+            'edition_code' => $request->edition_code,
+            'title_id' => $title->id,
+            'volume'=>$request->volume,
+            'chapter'=>$request->chapter,
+            'edition_no'=>$request->edition_no,
+            'year'=>$request->year,
+            'publish_date'=>$request->publish_date,
+            'publish_month'=>$request->publish_month,
+            'publish_year'=>$request->publish_year,
+            'original_date'=>$request->original_date,
+            'call_number'=>$request->call_number,
+            'edition_image'=> $file
+        ]);
+        
+        return redirect('editions')->with('msg', 'berhasil ditambahkan');
     }
 
     public function search(Request $request) {
