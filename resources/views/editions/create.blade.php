@@ -52,18 +52,21 @@ Indeks Artikel | Edisi
                         </select>
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="form-group row was-validated">
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Judul*</label>
                     <div class="col">
-                        <input type="text" class="form-control" id="title" name="title">
+                        <input type="text" class="form-control" id="title" name="title" required>
                     </div>
                 </div>
-                <div class="form-group row">
-                    <label for="inputEmail3" class="col-sm-2 col-form-label">Kode*</label>
-                    <div class="col">
-                        <input type="text" class="form-control" id="kode" name="kode"
-                         value="{{old('kode')}}" placeholder="Tulis kode disini"  >
-                    </div>
+                <div class="form-group row was-validated">
+                    <label class="col-sm-2 col-form-label">Kode*</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control {{ $errors->get('kode') ? 'has-error' : '' }}" id="kode" name="kode" required
+                         value="{{old('kode')}}">
+                         @foreach($errors->get('kode') as $error)
+                            <span class="help-block">{{ $error }}</span>
+                        @endforeach
+                </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Penerbitan*</label>
@@ -78,8 +81,8 @@ Indeks Artikel | Edisi
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="inputEmail3" class="col-sm-2 col-form-label">Tahun Terbit Pertama*</label>
-                    <div class="col-sm-4 col-form-label">
+                    <label class="col-sm-2 col-form-label">Tahun Terbit Pertama*</label>
+                    <div class="col-sm-10 col-form-label">
                         <input type="text" class="form-control" id="first_year" name="first_year">
                     </div>
                 </div>
@@ -120,23 +123,28 @@ Indeks Artikel | Edisi
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Keterangan Edisi</label>
                             <div class="col">
-                                <input class="form-control" type="text" placeholder="Tahun"
+                            <label>Tahun</label>
+                                <input class="form-control" type="text"
 								 name="edition_year" value="{{old('edition_year')}}">
                             </div>
                             <div class="col">
-                                <input class="form-control" type="text" placeholder="Edisi"
+                                <label>Edisi</label>
+                                <input class="form-control" type="text"
 								name="edition_title" value="{{old('edition_title')}}">
                             </div>
                             <div class="col">
-                                <input class="form-control" type="text" placeholder="Volume"
+                            <label>Volume</label>
+                                <input class="form-control" type="text"
 								name="volume" value="{{old('volume')}}">
                             </div>
                             <div class="col">
-                                <input class="form-control" type="text" placeholder="Jilid"
+                            <label>Jilid</label>
+                                <input class="form-control" type="text"
 								name="chapter" value="{{old('chapter')}}">
                             </div>
                             <div class="col">
-                                <input class="form-control" type="text" placeholder="No"
+                            <label>Nomor</label>
+                                <input class="form-control" type="text"
 								name="edition_no" value="{{old('edition_no')}}">
                             </div>
                         </div>
@@ -145,9 +153,9 @@ Indeks Artikel | Edisi
                             <label class="col-sm-2 col-form-label" for="validationServer03">Tanggal Terbit
                                 Edisi*</label>
                              <div class="col-lg-2">
-                                            <label >Tanggal
+                                            <label>Tanggal
                                                 <input class="form-control" type="text" tabindex="6"
-                                                name="publish_date" value="{{old('publish_date')}}" placeholder="Tanggal">
+                                                name="publish_date" value="{{old('publish_date')}}">
                                             </label>
                                     </div>
                                     <div class="col-lg-2">
@@ -173,22 +181,31 @@ Indeks Artikel | Edisi
                                     <div class="col-lg-2">
                                     <label >Tahun
                                                 <input class="form-control" type="text" tabindex="6"
-                                                name="publish_year" value="{{old('publish_year')}}" placeholder="Tahun">
+                                                name="publish_year" value="{{old('publish_year')}}">
                                             </label>
                                     </div>
 							</div>
                     </fieldset>
                     <div class="form-group row was-validated">
+                    <label class="col-sm-2 col-form-label">Kode*</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control {{ $errors->get('edition_code') ? 'has-error' : '' }}" id="edition_code" name="edition_code" required
+                         value="{{old('edition_code')}}">
+                         @foreach($errors->get('edition_code') as $error)
+                            <span class="help-block">{{ $error }}</span>
+                        @endforeach
+                    </div>
+                    </div>
+                    <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Penulisan Tanggal Asli*</label>
                         <div class="col-sm-10">
                             <input class="form-control" type="text" placeholder=""  name="original_date" value="{{old('original_date')}}" required>
                         </div>
                     </div>
-                    <div class="form-group row was-validated">
-                        <label class="col-sm-2 col-form-label" for="validationServer03">No. Panggil*</label>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label" for="validationServer03">No. Panggil</label>
                         <div class="col-sm-10">
-                            <input class="form-control is-invalid" type="text" placeholder="" name="call_number" value="{{old('call_number')}}"
-                                required>
+                            <input class="form-control is-invalid" type="text" placeholder="" name="call_number" value="{{old('call_number')}}">
                         </div>
                     </div>
                     <div class="form-group row was-validated">

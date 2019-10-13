@@ -22,8 +22,10 @@ class ArticleImport implements ToCollection, WithHeadingRow
     public function collection(Collection $rows)
     {
         foreach ($rows as $row) {
+            
             $title;
             $edition;
+
             if (Title::where('kode',  $row['kode'])->count() > 0){
                 $title = Title::where('kode',  $row['kode'])->get();
                 $title = $title[0];

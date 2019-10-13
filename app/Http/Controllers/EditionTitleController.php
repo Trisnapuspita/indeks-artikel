@@ -43,7 +43,9 @@ class EditionTitleController extends Controller
     {
         $this->validate(request(), [
             'edition_title'=>'required|min:1',
-            'featured_img' => 'mimes:jpeg,jpg,png|max:1000'
+            'featured_img' => 'mimes:jpeg,jpg,png|max:1000',
+            'kode'=> 'required|unique:titles,kode',
+            'edition_code'=> 'required|unique:edition_titles,edition_code',
         ]);
         $title;
         if($request->title_id==null) {
@@ -94,6 +96,7 @@ class EditionTitleController extends Controller
             'user_id'=> Auth::user()->id,
             'edition_year'=>$request->edition_year,
             'edition_title'=>$request->edition_title,
+            'edition_code'=>$request->edition_code,
             'slugs'=>$slugs,
             'title_id' => $title->id,
             'volume'=>$request->volume,

@@ -61,8 +61,11 @@ Indeks Artikel | Tambah
                 <div class="form-group row">
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Kode*</label>
                     <div class="col">
-                        <input type="text" class="form-control" id="kode" name="kode"
-                         value="{{old('kode')}}" placeholder="Tulis kode disini"  >
+                        <input type="text" class="form-control {{ $errors->get('kode') ? 'has-error' : '' }}" id="kode" name="kode"
+                         value="{{old('kode')}}">
+                         @foreach($errors->get('kode') as $error)
+                            <span class="help-block">{{ $error }}</span>
+                        @endforeach
                     </div>
                 </div>
                 <div class="form-group row">
@@ -180,6 +183,16 @@ Indeks Artikel | Tambah
                                     </div>
 							</div>
                     </fieldset>
+                    <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">Kode*</label>
+                    <div class="col">
+                        <input type="text" class="form-control {{ $errors->get('edition_code') ? 'has-error' : '' }}" id="edition_code" name="edition_code"
+                         value="{{old('edition_code')}}">
+                         @foreach($errors->get('edition_code') as $error)
+                            <span class="help-block">{{ $error }}</span>
+                        @endforeach
+                    </div>
+                </div>
                     <div class="form-group row was-validated">
                         <label class="col-sm-2 col-form-label">Penulisan Tanggal Asli*</label>
                         <div class="col-sm-10">

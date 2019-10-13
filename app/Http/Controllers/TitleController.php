@@ -57,7 +57,8 @@ class TitleController extends Controller
     public function store(Request $request)
     {
         $this->validate(request(), [
-            'featured_img' => 'mimes:jpeg,jpg,png|max:1000'
+            'featured_img' => 'mimes:jpeg,jpg,png|max:1000',
+            'kode'=> 'required|unique:titles,kode',
         ]);
         $slug = str_slug($request->title, '_');
         //cek slug ngga kembar

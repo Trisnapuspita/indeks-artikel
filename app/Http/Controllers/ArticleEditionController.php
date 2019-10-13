@@ -235,7 +235,13 @@ class ArticleEditionController extends Controller
     {
         $statuses = Status::all();
         $articles = ArticleEdition::findOrFail($id);
-        return view('articles.edit', compact('articles', 'statuses'));
+        $types = Type::all();
+        $times = Time::all();
+        $languages = Language::all();
+        $formats = Format::all();
+        $titles = Title::all();
+        $editions = EditionTitle::all();
+        return view('articles.edit', compact('articles', 'types', 'times', 'languages', 'formats', 'titles', 'statuses', 'editions'));
     }
 
     /**

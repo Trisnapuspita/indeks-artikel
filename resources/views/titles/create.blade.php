@@ -54,8 +54,11 @@ Indeks Artikel | Buat Judul Sumber
                 <div class="form-group row">
                     <label for="inputEmail3" class="col-sm-3 col-form-label">Kode*</label>
                     <div class="col">
-                        <input type="text" class="form-control" id="kode" name="kode"
+                        <input type="text" class="form-control {{ $errors->get('kode') ? 'has-error' : '' }}" id="kode" name="kode"
                          value="{{old('kode')}}" placeholder="Tulis kode disini"  >
+                         @foreach($errors->get('kode') as $error)
+                            <span class="help-block">{{ $error }}</span>
+                        @endforeach
                     </div>
                 </div>
                 <div class="form-group row">
