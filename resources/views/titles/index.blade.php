@@ -7,6 +7,12 @@ Indeks Artikel | Judul Sumber
 @section('content')
 <main style="background: white; padding:45px">
 
+        @if (session('msg'))
+                <div class="alert alert-success">
+                    <p> {{session('msg')}} </p>
+                </div>
+            @endif
+
         {{-- notifikasi form validasi --}}
 		@if ($errors->has('file'))
 		<span class="invalid-feedback" role="alert">
@@ -37,7 +43,7 @@ Indeks Artikel | Judul Sumber
         <!-- Import Excel -->
 		<div class="modal fade" id="importExcel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog" role="document">
-				<form method="post" action="/titles/import_excel" enctype="multipart/form-data">
+				<form method="post" action="/articles/import_excel" enctype="multipart/form-data">
 					<div class="modal-content">
 						<div class="modal-header">
 							<h5 class="modal-title" id="exampleModalLabel">Import Excel</h5>
@@ -126,7 +132,7 @@ Indeks Artikel | Judul Sumber
                         <td style="border-right-style: solid; border-right-width: 1px; border-right-color: #EBEBEB">
                             &nbsp;</td>
                         <td>
-                            <a href="/titles/export_excel"><img src="../../assets/Export_Excel.png"
+                            <a href="/articles/export_excel"><img src="../../assets/Export_Excel.png"
                                 style="margin-top:10px;font-family:Arial;font-size:X-Small;height:40px;"></a>
                         </td>
                     </tr>

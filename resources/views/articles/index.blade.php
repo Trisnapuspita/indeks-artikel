@@ -7,6 +7,12 @@ Indeks Artikel | Artikel
 @section('content')
 <main style="background: white; padding: 45px">
 
+        @if (session('msg'))
+                <div class="alert alert-success">
+                    <p> {{session('msg')}} </p>
+                </div>
+            @endif
+            
         {{-- notifikasi form validasi --}}
 		@if ($errors->has('file'))
 		<span class="invalid-feedback" role="alert">

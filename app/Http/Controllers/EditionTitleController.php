@@ -111,7 +111,7 @@ class EditionTitleController extends Controller
             'edition_image'=> $file
         ]);
         
-        return redirect('editions')->with('msg', 'berhasil ditambahkan');
+        return redirect('editions')->with('msg', 'Data berhasil ditambahkan');
     }
 
     public function create_article($id)
@@ -147,42 +147,8 @@ class EditionTitleController extends Controller
         ]);
             $articles->statuses()->attach($request->statuses);
 
-        return redirect('/articles')->with('msg', 'berhasil ditambahkan');
+        return redirect('/articles')->with('msg', 'Data berhasil ditambahkan');
     }
-
-    public function export_excel($id)
-	{
-		return Excel::download(new EditionExport($id), 'edition.xlsx');
-    }
-
-    public function import_excel(Request $request, $id)
-	{
-
-		// validasi
-		$this->validate($request, [
-			'file' => 'required|mimes:csv,xls,xlsx'
-        ]);
-
-        $title = Title::findOrFail($id);
-
-		// menangkap file excel
-		$file = $request->file('file');
-
-		// membuat nama file unik
-		$nama_file = rand().$file->getClientOriginalName();
-
-		// upload ke folder file_siswa di dalam folder public
-		$file->move('file_editions',$nama_file);
-
-		// import data
-		Excel::import(new EditionImport($id), public_path('/file_editions/'.$nama_file));
-
-		// notifikasi dengan session
-		Session::flash('sukses','Data Berhasil Diimport!');
-
-		// alihkan halaman kembali
-		return redirect('/titles/'.$title->slug);
-	}
 
     public function show($id)
     {
@@ -252,13 +218,13 @@ class EditionTitleController extends Controller
             'edition_image'=> $fileName
         ]);
 
-        return redirect('/editions')->with('msg', 'kutipan berhasil diedit');
+        return redirect('/editions')->with('msg', 'Edisi berhasil diedit');
     }
     public function destroy($id)
     {
         $editions= EditionTitle::findOrFail($id);
         $editions->delete();
-        return redirect('/editions')->with('msg', 'kutipan berhasil di hapus');
+        return redirect('/editions')->with('msg', 'Edisi berhasil di hapus');
     }
 
 }

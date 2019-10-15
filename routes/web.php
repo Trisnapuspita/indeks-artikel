@@ -2,15 +2,13 @@
 
 Route::group(['middleware' => 'auth'], function() {
 
-    Route::resource('types', 'TypeController', ['except' => ['index', 'show']]);
-    Route::resource('times', 'TimeController', ['except' => ['index', 'show']]);
-    Route::resource('languages', 'LanguageController', ['except' => ['index', 'show']]);
-    Route::resource('formats', 'FormatController', ['except' => ['index', 'show']]);
-    Route::resource('statuses', 'StatusController', ['except' => ['index', 'show']]);
-    Route::resource('titles', 'TitleController', ['except' => ['index', 'show']]);
+    Route::resource('types', 'TypeController');
+    Route::resource('times', 'TimeController');
+    Route::resource('languages', 'LanguageController');
+    Route::resource('formats', 'FormatController');
+    Route::resource('statuses', 'StatusController');
+    Route::resource('titles', 'TitleController');
     Route::get('titles/search', 'TitleController@search')->name('search');
-    Route::post('/titles/import_excel', 'TitleController@import_excel');
-    Route::get('/titles/export_excel', 'TitleController@export_excel');
     Route::post('/titles/article/{id}', 'TitleController@store_article');
     Route::get('/titles/article/{id}', 'TitleController@create_article');
     Route::get('/editions', 'EditionTitleController@index');
@@ -24,8 +22,6 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/editions/{id}', 'EditionTitleController@show');
     Route::get('/editions/{id}/edit', 'EditionTitleController@edit');
     Route::delete('/editions/{id}', 'EditionTitleController@destroy');
-    Route::get('/editions/export_excel/{id}', 'EditionTitleController@export_excel');
-    Route::post('/editions/import_excel/{id}', 'EditionTitleController@import_excel');
     Route::get('/articles', 'ArticleEditionController@index');
     Route::get('/articles/create', 'ArticleEditionController@create');
     Route::post('/articles', 'ArticleEditionController@new_store');
@@ -59,12 +55,6 @@ Route::post('/',"HomeController1@indexPost");
 
 
 Auth::routes();
-Route::resource('types', 'TypeController', ['only' => ['index', 'show']]);
-Route::resource('times', 'TimeController', ['only' => ['index', 'show']]);
-Route::resource('languages', 'LanguageController', ['only' => ['index', 'show']]);
-Route::resource('formats', 'FormatController', ['only' => ['index', 'show']]);
-Route::resource('statuses', 'StatusController', ['only' => ['index', 'show']]);
-Route::resource('titles', 'TitleController', ['only' => ['index', 'show']]);
 Route::get('/etalase', 'TitleController@etalase');
 Route::get('/etalase/{id}', 'TitleController@etalase_show');
 Route::get('/catalog/{id}', 'TitleController@catalog_show');

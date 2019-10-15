@@ -87,7 +87,7 @@ class TitleController extends Controller
         $title->times()->attach($request->times);
         $title->languages()->attach($request->languages);
         $title->formats()->attach($request->formats);
-        return redirect('titles')->with('msg', 'berhasil ditambahkan');
+        return redirect('titles')->with('msg', 'Data berhasil ditambahkan');
     }
 
     public function create_article($id)
@@ -160,7 +160,7 @@ class TitleController extends Controller
         ]);
             $articles->statuses()->attach($request->statuses);
 
-        return redirect('/titles')->with('msg', 'berhasil ditambahkan');
+        return redirect('/titles')->with('msg', 'Data berhasil ditambahkan');
     }
 
     public function show($id)
@@ -216,7 +216,7 @@ class TitleController extends Controller
             'edition_image'=> $file
         ]);
         
-        return redirect('editions')->with('msg', 'berhasil ditambahkan');
+        return redirect('editions')->with('msg', 'Data berhasil ditambahkan');
     }
 
     public function search(Request $request) {
@@ -432,6 +432,7 @@ class TitleController extends Controller
                     'city'=>$request->city,
                     'publisher'=>$request->publisher,
                     'year'=>$request->year,
+                    'first_year'=>$request->first_year,
                     'featured_img'=> $fileName
                 ]);
 
@@ -439,7 +440,7 @@ class TitleController extends Controller
         $title->times()->sync($request->times);
         $title->languages()->sync($request->languages);
         $title->formats()->sync($request->formats);
-        return redirect('titles')->with('msg', 'kutipan berhasil diedit');
+        return redirect('titles')->with('msg', 'Data berhasil diedit');
     }
     /**
      * Remove the specified resource from storage.
@@ -455,39 +456,7 @@ class TitleController extends Controller
         $formats = Format::all();
         $title= Title::findOrFail($id);
         $title->delete();
-        return redirect('titles')->with('msg', 'kutipan berhasil di hapus');
-    }
-
-    public function export_excel()
-    {
-        return Excel::download(new TitleExport, 'judul.xlsx');
-    }
-
-    public function import_excel(Request $request)
-	{
-
-		// validasi
-		$this->validate($request, [
-			'file' => 'required|mimes:csv,xls,xlsx'
-        ]);
-
-		// menangkap file excel
-		$file = $request->file('file');
-
-		// membuat nama file unik
-		$nama_file = rand().$file->getClientOriginalName();
-
-		// upload ke folder file_siswa di dalam folder public
-		$file->move('file_titles',$nama_file);
-
-		// import data
-		Excel::import(new TitleImport(), public_path('/file_titles/'.$nama_file));
-
-		// notifikasi dengan session
-		Session::flash('sukses','Data Berhasil Diimport!');
-
-		// alihkan halaman kembali
-		return redirect('/titles');
+        return redirect('titles')->with('msg', 'Data berhasil di hapus');
     }
 
 

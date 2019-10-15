@@ -94,7 +94,7 @@ class ArticleEditionController extends Controller
         ]);
 
         $articles->statuses()->attach($request->statuses);
-        return redirect('/articles')->with('msg', 'berhasil ditambahkan');
+        return redirect('/articles')->with('msg', 'Data berhasil ditambahkan');
     }
 
     public function new_store(Request $request)
@@ -189,7 +189,7 @@ class ArticleEditionController extends Controller
         ]);
             $articles->statuses()->attach($request->statuses);
 
-        return redirect('/articles')->with('msg', 'berhasil ditambahkan');
+        return redirect('/articles')->with('msg', 'Data berhasil ditambahkan');
     }
 
     public function export_excel()
@@ -273,7 +273,7 @@ class ArticleEditionController extends Controller
         ]);
 
         $articles->statuses()->sync($request->statuses);
-        return redirect('/articles')->with('msg', 'kutipan berhasil diedit');
+        return redirect('/articles')->with('msg', 'Artikel berhasil diedit');
     }
 
     public function destroy($id)
@@ -281,7 +281,7 @@ class ArticleEditionController extends Controller
         $articles= ArticleEdition::findOrFail($id);
         $articles->delete();
 
-        return redirect('/editions/'. $articles->edition_title->slug)->with('msg', 'kutipan berhasil di hapus');
+        return redirect('/articles')->with('msg', 'Artikel berhasil di hapus');
     }
 
 }
