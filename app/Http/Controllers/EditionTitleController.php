@@ -18,9 +18,17 @@ class EditionTitleController extends Controller
     {
         if(request()->ajax())
         {
-            $query = EditionTitle::all();
+            // $query = EditionTitle::all();
+            $query = EditionTitle::with('title')->get();
+
             return datatables()->of($query)
                     ->addIndexColumn()
+                    ->addColumn('add_article',function($edition_titles){
+                        return '<a class="btn btn-xs btn-primary" href="editions/create/'.$edition_titles->id.'">+</a>';
+                      })
+                    ->addColumn('mergeColumn', function($edition_titles){
+                        return ' '.$edition_titles->edition_year.','.$edition_titles->edition_no.','.$edition_titles->original_date;
+                    })
                     ->addColumn('edit',function($edition_titles){
                         return '<a class="btn btn-xs btn-primary" href="editions/'.$edition_titles->id.'/edit">Sunting</a>';
                       })
@@ -28,7 +36,7 @@ class EditionTitleController extends Controller
                         $button= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm">Hapus</button>';
                         return $button;
                     })
-                    ->rawColumns(['edit', 'delete'])
+                    ->rawColumns(['edit', 'delete', 'mergeColumn', 'add_article'])
                     ->make(true);
         }
         return view('editions.index');

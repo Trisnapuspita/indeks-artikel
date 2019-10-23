@@ -69,12 +69,12 @@ Indeks Artikel | Edisi
 				</form>
 			</div>
 		</div>
-        <table id="example" class="table table-striped table-bordered" style="width:100%">
+        <table id="example" class="table table-striped table-bordered">
             <thead>
                 <tr class="GridHeader" style="text-align: center">
 					<td>No</td>
                     <td>Gambar</td>
-                    {{-- <th>Keterangan Edisi</th> --}}
+                    <th>Keterangan Edisi</th>
                     <th>Kode</th>
                     <th>Tahun</th>
                     <th>Edisi</th>
@@ -83,8 +83,9 @@ Indeks Artikel | Edisi
                     <th>Nomor</th>
                     <th>Tanggal</th>
                     <th>Nomor Panggil</th>
-                    {{-- <td>Judul Sumber</td>
-                    <td>Jumlah Artikel</td> --}}
+                    <td>Judul Sumber</td>
+                    <td>Jumlah Artikel</td>
+                    <th></th>
                     <th></th>
                     <th></th>
                 </tr>
@@ -121,44 +122,24 @@ Indeks Artikel | Edisi
                         <input type="text" class = "form-control filter-input" placeholder="Cari Nomor Panggil...." data-column="9">
                     </td>
                     <td>
+                        <input type="text" class = "form-control filter-input" placeholder="Cari Judul Sumber...." data-column="10">
+                    </td>
+                    <td>
+                        <input type="text" class = "form-control filter-input" placeholder="Cari ...." hidden>
+                    </td>
+                    <td>
+                        <input type="text" class = "form-control filter-input" placeholder="Cari ...." hidden>
+                    </td>
+                    <td>
+                        <input type="text" class = "form-control filter-input" placeholder="Cari ...." hidden>
+                    </td>
+                    <td>
                         <input type="text" class = "form-control filter-input" placeholder="Cari ...." hidden>
                     </td>
                     <td>
                         <input type="text" class = "form-control filter-input" placeholder="Cari ...." hidden>
                     </td>
                 </tfoot>
-			{{-- <tbody>
-            @php $i=1 @endphp
-            @foreach ($editions as $edition)
-                <tr class="GridItem">
-					<td>{{ $i++ }}</td>
-                    @if($edition->edition_image == null)
-                    <td><img src="{{asset('storage/upload/default.png')}}" style="max-width: 150px; height: auto; "class="image-fluid"></td>
-                    @else
-                    <td><img src="{{asset('storage/upload/'. $edition->edition_image) }}" style="max-width: 150px; height: auto; "class="image-fluid"></td>
-                    @endif
-                    <td style="width:300px;">{{$edition->edition_year}}, {{$edition->edition_no}}, {{$edition->original_date}}</td>
-                    <td style="width:100px;">{{$edition->edition_year}}</td>
-                    <td style="width:100px;">{{$edition->edition_title}}</td>
-                    <td style="width:100px;">{{$edition->volume}}</td>
-                    <td style="width:100px;">{{$edition->chapter}}</td>
-                    <td style="width:100px;">{{$edition->edition_no}}</td>
-                    <td style="width:150px;">{{$edition->original_date}}</td>
-                    <td style="width:150px;">{{$edition->call_number}}</td>
-                    <td style="width:150px;">@foreach ($edition->title()->get() as $title){{$title->title}}@endforeach</td>
-                    <td>{{$articles->where('edition_title_id',$edition->id)->count()}}<a href="/editions/create/{{$edition->id}}"><button style="float: right"><strong>+</strong></button></a></td>
-                    <td style="width:100px; text-align: center;">
-                            <a href='/editions/{{$edition->id}}/edit'><button class="fas fa-edit" style="width:30px;height:30px"></button></a>
-                            <br><br>
-                            <form method="POST" action="/editions/{{$edition->id}}">
-                                    {{ csrf_field() }}
-                                    <input type="hidden" name="_method" value="DELETE">
-                                    <button class="fa fa-trash" style="width:30px;height:30px" onclick="return confirm('Apakah Anda yakin untuk menghapus?')"></button>
-                                </form>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody> --}}
         </table>
         <div id="divTools" class="ToolsTable" style="padding-bottom: 10px">
             <table cellpadding="0" cellspacing="0">
@@ -200,36 +181,12 @@ Indeks Artikel | Edisi
 @endsection
 
 @section('scripts')
-{{-- <script>
-$(document).ready(function() {
-    // Setup - add a text input to each footer cell
-    $('#example thead tr').clone(true).appendTo( '#example thead' );
-    $('#example thead tr:eq(1) th').each( function (i) {
-        var title = $(this).text();
-        $(this).html( '<input type="text" placeholder="Cari '+title+'" />' );
-
-        $( 'input', this ).on( 'keyup change', function () {
-            if ( table.column(i).search() !== this.value ) {
-                table
-                    .column(i)
-                    .search( this.value )
-                    .draw();
-            }
-        } );
-    } );
-
-    var table = $('#example').DataTable( {
-        orderCellsTop: true,
-        fixedHeader: true
-    } );
-} );
-</script> --}}
 <script>
 $(document).ready(function(){
     var table = $('#example').DataTable({
     processing: true,
     serverSide: true,
-    "responsive": true,
+    responsive: true,
     ajax:{
     url: "{{ route('editions.index') }}"
     },
@@ -246,6 +203,10 @@ $(document).ready(function(){
     {
         return "<img src=\"/storage/upload/" + data + "\" height=\"auto\" width=\"100\" />";
     }
+    },
+    {
+    data: 'mergeColumn',
+    name: 'mergeColumn'
     },
     {
     data: 'edition_code',
@@ -278,6 +239,19 @@ $(document).ready(function(){
     {
     data:'call_number',
     name:'call_number'
+    },
+    {
+    data: 'title.title',
+    name: 'title.title'
+    },
+    {
+    data:'edition_no',
+    name:'edition_no'
+    },
+    {
+    data: 'add_article',
+    name: 'add_article',
+    orderable: false
     },
     {
     data: 'edit',

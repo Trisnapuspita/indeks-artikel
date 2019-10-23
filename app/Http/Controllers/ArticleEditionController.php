@@ -21,11 +21,44 @@ class ArticleEditionController extends Controller
 {
     public function index()
     {
-        $title = Title::all();
-        $edition = EditionTitle::all();
-        $articles = ArticleEdition::all();
-        return view('articles.index', compact('articles', 'edition', 'title'));
+        if(request()->ajax())
+        {
+            // $query = EditionTitle::all();
+            $query = ArticleEdition::with('edition_title')->get();
+
+            return datatables()->of($query)
+                    ->addIndexColumn()
+                    ->addColumn('titles', function ($article_editions) {
+                        return $article_editions->edition_title->title->title;
+                    })
+                    ->addColumn('editions', function($article_editions){
+                        return ' '.$article_editions->edition_title->edition_year.','.$article_editions->edition_title->edition_no.','.$article_editions->edition_title->original_date;
+                    })
+                    ->addColumn('edit',function($article_editions){
+                        return '<a class="btn btn-xs btn-primary" href="articles/'.$article_editions->id.'/edit">Sunting</a>';
+                      })
+                    ->addColumn('delete', function($data){
+                        $button= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm">Hapus</button>';
+                        return $button;
+                    })
+                    ->addColumn('status', function ($edition_titles) {
+                        return $edition_titles->statuses->map(function ($status) {
+                            return str_limit($status->title, 30, '...');
+                        })->implode('<br>');
+                    })
+                    ->rawColumns(['edit', 'delete', 'editions', 'titles', 'status'])
+                    ->make(true);
+        }
+        return view('articles.index');
     }
+
+    // public function index()
+    // {
+    //     $title = Title::all();
+    //     $edition = EditionTitle::all();
+    //     $articles = ArticleEdition::all();
+    //     return view('articles.index', compact('articles', 'edition', 'title'));
+    // }
 
     public function create()
     {
@@ -98,7 +131,7 @@ class ArticleEditionController extends Controller
     }
 
     public function new_store(Request $request)
-    { 
+    {
         $this->validate(request(), [
             'article_title'=>'required|min:1',
             'edition_title'=>'required|min:1',
@@ -111,14 +144,14 @@ class ArticleEditionController extends Controller
             //cek slug ngga kembar
             if(Title::where('slug', $slug)->first() != null)
                 $slug = $slug . '-'.time();
-    
+
             $fileName= null;
-    
+
             if($request->featured_img != null) {
                 $fileName = $request->featured_img->getClientOriginalName(). '.png';
                 $request->file('featured_img')->storeAs('public/upload', $fileName);
             }
-    
+
             $title = Title::create([
                 'user_id'=> Auth::user()->id,
                 'title'=>$request->title,
@@ -136,8 +169,8 @@ class ArticleEditionController extends Controller
             $title->formats()->attach($request->formats);
         } else {
             $title = Title::find($request->title_id);
-        } 
-        
+        }
+
         $editions;
 
         if ($request->edition_id==null) {

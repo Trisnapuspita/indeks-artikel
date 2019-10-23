@@ -22,13 +22,13 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/editions/{id}', 'EditionTitleController@show');
     Route::get('/editions/{id}/edit', 'EditionTitleController@edit');
     Route::get('/editions/delete/{id}', 'EditionTitleController@destroy');
-    Route::get('/articles', 'ArticleEditionController@index');
+    Route::get('/articles', 'ArticleEditionController@index')->name('articles.index');
     Route::get('/articles/create', 'ArticleEditionController@create');
     Route::post('/articles', 'ArticleEditionController@new_store');
     Route::put('/articles/{id}', 'ArticleEditionController@update');
     Route::get('/articles/{id}/edit', 'ArticleEditionController@edit');
     Route::get('/articles/{id}/verif', 'ArticleEditionController@verif');
-    Route::delete('/articles/{id}', 'ArticleEditionController@destroy');
+    Route::get('/articles/delete/{id}', 'ArticleEditionController@destroy');
     Route::get('/articles/export_excel', 'ArticleEditionController@export_excel');
     Route::post('/articles/import_excel', 'ArticleEditionController@import_excel');
     Route::get('/reports','ReportController@index')->name('reportsIndex');

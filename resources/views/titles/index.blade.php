@@ -75,17 +75,17 @@ Indeks Artikel | Judul Sumber
                     <th>Judul Sumber</th>
                     <th>Kode</th>
                     <th>Jenis</th>
-                    {{-- <th>Kala Terbit</th> --}}
+                    <th>Kala Terbit</th>
                     <th>Tempat Terbit</th>
                     <th>Penerbit</th>
                     <th>Tahun Terbit</th>
                     <th>Tahun Terbit Pertama</th>
-                    {{-- <th>Bahasa</th>
-                    <th>Format</th> --}}
-                    {{-- <th>Jumlah Edisi</th>
+                    <th>Bahasa</th>
+                    <th>Format</th>
+                    <th>Jumlah Edisi</th>
                     <th></th>
                     <th>Jumlah Artikel</th>
-                    <th></th> --}}
+                    <th></th>
                     <th></th>
                     <th></th>
                 </tr>
@@ -107,16 +107,37 @@ Indeks Artikel | Judul Sumber
                     <input type="text" class = "form-control filter-input" placeholder="Cari Jenis...." data-column="4">
                 </td>
                 <td>
-                    <input type="text" class = "form-control filter-input" placeholder="Cari Tempat Terbit...." data-column="5">
+                        <input type="text" class = "form-control filter-input" placeholder="Cari Kala Terbit...." data-column="5">
+                    </td>
+                <td>
+                    <input type="text" class = "form-control filter-input" placeholder="Cari Tempat Terbit...." data-column="6">
                 </td>
                 <td>
-                        <input type="text" class = "form-control filter-input" placeholder="Penerbit...." data-column="6">
+                    <input type="text" class = "form-control filter-input" placeholder="Cari Penerbit...." data-column="7">
                 </td>
                 <td>
-                    <input type="text" class = "form-control filter-input" placeholder="Cari Tahun Terbit...." data-column="7">
+                    <input type="text" class = "form-control filter-input" placeholder="Cari Tahun Terbit...." data-column="8">
                 </td>
                 <td>
-                    <input type="text" class = "form-control filter-input" placeholder="Cari Tahun Terbit Pertama...." data-column="8">
+                    <input type="text" class = "form-control filter-input" placeholder="Cari Tahun Terbit Pertama...." data-column="9">
+                </td>
+                <td>
+                    <input type="text" class = "form-control filter-input" placeholder="Cari Bahasa...." data-column="10">
+                </td>
+                <td>
+                    <input type="text" class = "form-control filter-input" placeholder="Cari Format...." data-column="11">
+                </td>
+                <td>
+                    <input type="text" class = "form-control filter-input" placeholder="Cari ...." hidden>
+                </td>
+                <td>
+                    <input type="text" class = "form-control filter-input" placeholder="Cari ...." hidden>
+                </td>
+                <td>
+                    <input type="text" class = "form-control filter-input" placeholder="Cari ...." hidden>
+                </td>
+                <td>
+                    <input type="text" class = "form-control filter-input" placeholder="Cari ...." hidden>
                 </td>
                 <td>
                     <input type="text" class = "form-control filter-input" placeholder="Cari ...." hidden>
@@ -125,40 +146,6 @@ Indeks Artikel | Judul Sumber
                     <input type="text" class = "form-control filter-input" placeholder="Cari ...." hidden>
                 </td>
             </tfoot>
-			{{-- <tbody>
-            @php $i=1 @endphp
-			@foreach ($titles as $title)
-                <tr class="GridItem">
-                    <td>{{ $i++ }}</td>
-                    @if($title->featured_img == null)
-                    <td><img src="{{asset('storage/upload/default.png')}}" style="max-width: 100px; height: auto;" class="image-fluid"></td>
-                    @else
-                    <td><img src="{{asset('storage/upload/'. $title->featured_img) }}" style="max-width: 100px; height: auto; "class="image-fluid"></td>
-                    @endif
-                    <td>{{$title->title}}</td>
-                    <td>{{$title->kode}}</td>
-                    <td>@foreach ($title->types()->get() as $types){{$types->title}}@endforeach</td>
-                    <td>@foreach ($title->times()->get() as $times){{$times->title}}@endforeach</td>
-                    <td>{{$title->city}}</td>
-                    <td>{{$title->publisher}}</td>
-                    <td>{{$title->year}}</td>
-                    <td>{{$title->first_year}}</td>
-                    <td>@foreach ($title->languages()->get() as $languages){{$languages->title}}@endforeach</td>
-                    <td>@foreach ($title->formats()->get() as $formats){{$formats->title}}@endforeach</td>
-                    <td>{{$editions->where('title_id',$title->id)->count()}}<a href="/titles/{{$title->id}}"><button style="float: right"><strong>+</strong></button></a></td>
-                    <td style="text-align: center">{{$articles->whereIn('edition_title_id',$editions->where('title_id',$title->id)->pluck('id'))->count()}}
-                    <a href="/titles/article/{{$title->id}}"><button style="float: right"><strong>+</strong></button></a></td>
-                    <td style="text-align: center">
-						<a href="/titles/{{$title->id}}/edit"><button class="fas fa-edit" style="width:30px;height:30px"></button></a>
-                        <br><br>
-						<a><form method="POST" action="/titles/{{$title->id}}">
-                        {{ csrf_field() }}
-							<input type="hidden" name="_method" value="DELETE"><button type="submit" class="fa fa-trash"
-                            style="width:30px;height:30px" onclick="return confirm('Apakah Anda yakin untuk menghapus?')"></button></form></a>
-                    </td>
-                </tr>
-				 @endforeach
-            </tbody> --}}
         </table>
         <div id="divTools" class="ToolsTable" style="padding-bottom: 10px">
             <table cellpadding="0" cellspacing="0">
@@ -200,31 +187,6 @@ Indeks Artikel | Judul Sumber
 @endsection
 
 @section('scripts')
-{{-- <script src="https://cdn.datatables.net/fixedcolumns/3.2.6/js/dataTables.fixedColumns.min.js"></script>
-<script>
-$(document).ready(function() {
-    // Setup - add a text input to each footer cell
-    $('#example thead tr').clone(true).appendTo( '#example thead' );
-    $('#example thead tr:eq(1) th').each( function (i) {
-        var title = $(this).text();
-        $(this).html( '<input type="text" placeholder="Cari '+title+'" />' );
-
-        $( 'input', this ).on( 'keyup change', function () {
-            if ( table.column(i).search() !== this.value ) {
-                table
-                    .column(i)
-                    .search( this.value )
-                    .draw();
-            }
-        } );
-    } );
-
-    var table = $('#example').DataTable( {
-        orderCellsTop: true,
-        fixedHeader: true
-    } );
-} );
-</script> --}}
 <script>
   $(document).ready(function(){
         var table = $('#titles_table').DataTable({
@@ -258,7 +220,11 @@ $(document).ready(function() {
         },
         {
         data:'types',
-        name:'types'
+        name:'types.title'
+        },
+        {
+        data:'times',
+        name:'times.title'
         },
         {
         data:'city',
@@ -275,6 +241,30 @@ $(document).ready(function() {
         {
         data:'first_year',
         name:'first_year'
+        },
+        {
+        data:'languages',
+        name:'languages.title'
+        },
+        {
+        data:'formats',
+        name:'formats.title'
+        },
+        {
+        data: 'timess',
+        name: 'times.id'
+        },
+        {
+        data:'add_edition',
+        name:'add_edition'
+        },
+        {
+        data:'languagess',
+        name:'languages.id'
+        },
+        {
+        data:'add_article',
+        name:'add_article'
         },
         {
         data: 'action',

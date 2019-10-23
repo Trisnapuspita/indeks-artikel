@@ -22,17 +22,53 @@ class TitleController extends Controller
             $query = Title::all();
             return datatables()->of($query)
                     ->addIndexColumn()
-                    ->addColumn('types', function($query) {
-                        return $query->types;
+                    // ->addColumn('types', function($titles) {
+                    //     return $titles->types;
+                    // })
+                    ->addColumn('types', function (Title $titles) {
+                        return $titles->types->map(function ($type) {
+                            return str_limit($type->title, 30, '...');
+                        })->implode('<br>');
+                    })
+                    ->addColumn('times', function (Title $titles) {
+                        return $titles->times->map(function ($time) {
+                            return str_limit($time->title, 30, '...');
+                        })->implode('<br>');
+                    })
+                    ->addColumn('languages', function (Title $titles) {
+                        return $titles->languages->map(function ($language) {
+                            return str_limit($language->title, 30, '...');
+                        })->implode('<br>');
+                    })
+                    ->addColumn('formats', function (Title $titles) {
+                        return $titles->formats->map(function ($format) {
+                            return str_limit($format->title, 30, '...');
+                        })->implode('<br>');
+                    })
+                    ->addColumn('languagess', function (Title $titles) {
+                        return $titles->languages->map(function ($language) {
+                            return str_limit($language->id, 30, '...');
+                        })->implode('<br>');
+                    })
+                    ->addColumn('timess', function (Title $titles) {
+                        return $titles->times->map(function ($time) {
+                            return str_limit($time->id, 30, '...');
+                        })->implode('<br>');
                     })
                     ->addColumn('action',function($titles){
                         return '<a class="btn btn-xs btn-primary" href="titles/'.$titles->id.'/edit">Sunting</a>';
                       })
+                    ->addColumn('add_edition',function($titles){
+                    return '<a class="btn btn-xs btn-primary" href="titles/'.$titles->id.'">+</a>';
+                    })
+                    ->addColumn('add_article',function($titles){
+                    return '<a class="btn btn-xs btn-primary" href="titles/article/'.$titles->id.'">+</a>';
+                    })
                     ->addColumn('delete', function($data){
                         $button= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm">Hapus</button>';
                         return $button;
                     })
-                    ->rawColumns(['types', 'action', 'delete'])
+                    ->rawColumns(['types', 'action', 'delete', 'add_edition', 'add_article', 'languagess', 'timess'])
                     ->make(true);
         }
         return view('titles.index');
