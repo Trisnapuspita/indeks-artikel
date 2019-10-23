@@ -1,17 +1,17 @@
 <?php
 
 Route::group(['middleware' => 'auth'], function() {
-
     Route::resource('types', 'TypeController');
     Route::resource('times', 'TimeController');
     Route::resource('languages', 'LanguageController');
     Route::resource('formats', 'FormatController');
     Route::resource('statuses', 'StatusController');
     Route::resource('titles', 'TitleController');
+    Route::get('titles/delete/{id}', 'TitleController@destroy');
     Route::get('titles/search', 'TitleController@search')->name('search');
     Route::post('/titles/article/{id}', 'TitleController@store_article');
     Route::get('/titles/article/{id}', 'TitleController@create_article');
-    Route::get('/editions', 'EditionTitleController@index');
+    Route::get('/editions', 'EditionTitleController@index')->name('editions.index');
     Route::post('/editions', 'EditionTitleController@store');
     Route::post('/editions/create_edition/{id}', 'TitleController@store_edition');
     Route::post('/editions/create/{id}', 'EditionTitleController@store_article');
@@ -21,7 +21,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::put('/editions/{id}', 'EditionTitleController@update');
     Route::get('/editions/{id}', 'EditionTitleController@show');
     Route::get('/editions/{id}/edit', 'EditionTitleController@edit');
-    Route::delete('/editions/{id}', 'EditionTitleController@destroy');
+    Route::get('/editions/delete/{id}', 'EditionTitleController@destroy');
     Route::get('/articles', 'ArticleEditionController@index');
     Route::get('/articles/create', 'ArticleEditionController@create');
     Route::post('/articles', 'ArticleEditionController@new_store');
@@ -44,7 +44,9 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/displays/hierarkilog/{id}', 'TitleController@hierarkilog_show_in');
     Route::get('/home', 'HomeController1@index')->name('home');
     Route::post('/home', 'HomeController1@indexPost')->name('homePost');
-    
+    Route::resource('ajax-crud', 'AjaxCrudController');
+    Route::post('ajax-crud/update', 'AjaxCrudController@update')->name('ajax-crud.update');
+    Route::get('ajax-crud/destroy/{id}', 'AjaxCrudController@destroy');
 });
 
 Route::get('/', function () {

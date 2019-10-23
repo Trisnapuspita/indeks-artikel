@@ -55,8 +55,14 @@
                                 </div>
                             </div>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/titles">Sumber</a>
+                        <li class="nav-item dropdown">
+                            <div class="dropdown">
+                                <a href="#" class="nav-link">Sumber
+                                    <i class="fa fa-chevron-down" style="font-size: .8em;"></i></a>
+                                <div class="dropdown-content">
+                                    <a href="/titles" style="width: 100%">Judul</a>
+                                    <a href="/editions" style="width: 100%">Edisi</a>
+                                    <a href="/articles" style="width: 100%">Artikel</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/reports">Laporan Kinerja User</a>

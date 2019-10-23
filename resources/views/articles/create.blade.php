@@ -429,56 +429,6 @@ Indeks Artikel | Tambah
 
 @section('scripts')
 <script type="text/javascript">
-    $(document).ready(function() {
-        var table = $('#example').DataTable({
-            "columnDefs": [
-            {
-                "targets": [ 1, 8, 9, 10 ],
-                "visible": false,
-                "searchable": false
-            }
-        ]
-        });
-        
-        $('#example tbody').on( 'click', 'tr', function () {
-            if ( $(this).hasClass('selected') ) {
-                console.log(table.row(this).data());
-                $('#myModal').modal('hide');
-                $('#edition_id').val(table.row(this).data()[1]);
-                $('#edition_id').addClass('disabled');
-                $('#edition_year').val(table.row(this).data()[3]);
-                $('#edition_year').addClass('disabled');
-                $('#edition_title').val(table.row(this).data()[4]);
-                $('#edition_title').addClass('disabled');
-                $('#volume').val(table.row(this).data()[5]);
-                $('#volume').addClass('disabled');
-                $('#chapter').val(table.row(this).data()[6]);
-                $('#chapter').addClass('disabled');
-                $('#edition_no').val(table.row(this).data()[7]);
-                $('#edition_no').addClass('disabled');
-                $('#publish_date').val(table.row(this).data()[8]);
-                $('#publish_date').addClass('disabled');
-                $('#publish_month').val(table.row(this).data()[9]);
-                $('#publish_month').addClass('disabled');
-                $('#publish_year').val(table.row(this).data()[10]);
-                $('#publish_year').addClass('disabled');
-                $('#original_date').val(table.row(this).data()[11]);
-                $('#original_date').addClass('disabled');
-                $('#call_number').val(table.row(this).data()[12]);
-                $('#call_number').addClass('disabled');
-            }
-            else {
-                table.$('tr.selected').removeClass('selected');
-                $(this).addClass('selected');
-            }
-        } );
- 
-        $('#button').click( function () {
-            table.row('.selected').remove().draw( false );
-        } );
-    } );
-</script>
-<script type="text/javascript">
 $(document).ready(function() {
     var table = $('#examples').DataTable({
         "columnDefs": [
@@ -489,7 +439,6 @@ $(document).ready(function() {
         }
     ]
     });
-    
     $('#examples tbody').on( 'click', 'tr', function () {
         if ( $(this).hasClass('selected') ) {
             console.log(table.row(this).data());
@@ -527,6 +476,56 @@ $(document).ready(function() {
         table.row('.selected').remove().draw( false );
     } );
 } );
+</script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        var table = $('#example').DataTable({
+            "columnDefs": [
+            {
+                "targets": [ 1, 8, 9, 10 ],
+                "visible": false,
+                "searchable": false
+            }
+        ]
+        });
+
+        $('#example tbody').on( 'click', 'tr', function () {
+            if ( $(this).hasClass('selected') ) {
+                console.log(table.row(this).data());
+                $('#myModal').modal('hide');
+                $('#edition_id').val(table.row(this).data()[1]);
+                $('#edition_id').addClass('disabled');
+                $('#edition_year').val(table.row(this).data()[3]);
+                $('#edition_year').addClass('disabled');
+                $('#edition_title').val(table.row(this).data()[4]);
+                $('#edition_title').addClass('disabled');
+                $('#volume').val(table.row(this).data()[5]);
+                $('#volume').addClass('disabled');
+                $('#chapter').val(table.row(this).data()[6]);
+                $('#chapter').addClass('disabled');
+                $('#edition_no').val(table.row(this).data()[7]);
+                $('#edition_no').addClass('disabled');
+                $('#publish_date').val(table.row(this).data()[8]);
+                $('#publish_date').addClass('disabled');
+                $('#publish_month').val(table.row(this).data()[9]);
+                $('#publish_month').addClass('disabled');
+                $('#publish_year').val(table.row(this).data()[10]);
+                $('#publish_year').addClass('disabled');
+                $('#original_date').val(table.row(this).data()[11]);
+                $('#original_date').addClass('disabled');
+                $('#call_number').val(table.row(this).data()[12]);
+                $('#call_number').addClass('disabled');
+            }
+            else {
+                table.$('tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+            }
+        } );
+
+        $('#button').click( function () {
+            table.row('.selected').remove().draw( false );
+        } );
+    } );
 </script>
 
 @endsection

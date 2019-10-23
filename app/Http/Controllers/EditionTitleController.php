@@ -1,7 +1,6 @@
 <?php
 namespace App\Http\Controllers;
 
-use Session;
 use Auth;
 use App\Models\Type;
 use App\Models\Time;
@@ -9,23 +8,38 @@ use App\Models\Language;
 use App\Models\Format;
 use App\Models\Title;
 use App\Models\Status;
-use App\Imports\EditionImport;
-use App\Exports\EditionExport;
 use App\Models\EditionTitle;
 use App\Models\ArticleEdition;
-use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
-use DB;
 
 class EditionTitleController extends Controller
 {
-
     public function index()
     {
-        $editions = EditionTitle::all();
-        $articles = ArticleEdition::all();
-        return view('editions.index', compact('titles', 'editions','articles'));
+        if(request()->ajax())
+        {
+            $query = EditionTitle::all();
+            return datatables()->of($query)
+                    ->addIndexColumn()
+                    ->addColumn('edit',function($edition_titles){
+                        return '<a class="btn btn-xs btn-primary" href="editions/'.$edition_titles->id.'/edit">Sunting</a>';
+                      })
+                    ->addColumn('delete', function($data){
+                        $button= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm">Hapus</button>';
+                        return $button;
+                    })
+                    ->rawColumns(['edit', 'delete'])
+                    ->make(true);
+        }
+        return view('editions.index');
     }
+
+    // public function index()
+    // {
+    //     $editions = EditionTitle::all();
+    //     $articles = ArticleEdition::all();
+    //     return view('editions.index', compact('titles', 'editions','articles'));
+    // }
 
     public function create()
     {
@@ -53,14 +67,14 @@ class EditionTitleController extends Controller
             //cek slug ngga kembar
             if(Title::where('slug', $slug)->first() != null)
                 $slug = $slug . '-'.time();
-    
+
             $fileName= null;
-    
+
             if($request->featured_img != null) {
                 $fileName = $request->featured_img->getClientOriginalName(). '.png';
                 $request->file('featured_img')->storeAs('public/upload', $fileName);
             }
-    
+
             $title = Title::create([
                 'user_id'=> Auth::user()->id,
                 'title'=>$request->title,
@@ -91,7 +105,7 @@ class EditionTitleController extends Controller
             $file = $request->edition_image->getClientOriginalName(). '.png';
             $request->file('edition_image')->storeAs('public/upload', $file);
         }
-        
+
         $editions = EditionTitle::create([
             'user_id'=> Auth::user()->id,
             'edition_year'=>$request->edition_year,
@@ -110,7 +124,7 @@ class EditionTitleController extends Controller
             'call_number'=>$request->call_number,
             'edition_image'=> $file
         ]);
-        
+
         return redirect('editions')->with('msg', 'Data berhasil ditambahkan');
     }
 
@@ -177,7 +191,7 @@ class EditionTitleController extends Controller
         $times = Time::all();
         $languages = Language::all();
         $formats = Format::all();
-        
+
         return view('editions.edit', compact('editions', 'types', 'times', 'languages', 'formats'));
     }
     /**
@@ -190,7 +204,8 @@ class EditionTitleController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'edition_title'=>'required|min:1'
+            'edition_title'=>'required|min:1',
+            'edition_image' => 'mimes:jpeg,jpg,png|max:1000'
 
         ]);
         $fileName= null;
@@ -222,8 +237,8 @@ class EditionTitleController extends Controller
     }
     public function destroy($id)
     {
-        $editions= EditionTitle::findOrFail($id);
-        $editions->delete();
+        $data= EditionTitle::findOrFail($id);
+        $data->delete();
         return redirect('/editions')->with('msg', 'Edisi berhasil di hapus');
     }
 

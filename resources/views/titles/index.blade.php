@@ -67,27 +67,65 @@ Indeks Artikel | Judul Sumber
 			</div>
 		</div>
 
-        <table id="example" name="example" class="table table-striped table-bordered table-responsive" style="width:100%">
+        <table id="titles_table" name="titles_table" class="table table-striped table-bordered" style="width:100%">
            <thead>
                 <tr class="GridHeader">
-                    <td>No.</td>
-                    <td>Gambar</td>
+                    <th>No.</th>
+                    <th>Gambar</th>
                     <th>Judul Sumber</th>
                     <th>Kode</th>
                     <th>Jenis</th>
-                    <th>Kala Terbit</th>
+                    {{-- <th>Kala Terbit</th> --}}
                     <th>Tempat Terbit</th>
                     <th>Penerbit</th>
                     <th>Tahun Terbit</th>
                     <th>Tahun Terbit Pertama</th>
-                    <th>Bahasa</th>
-                    <th>Format</th>
-                    <td>Jumlah Edisi</td>
-                    <td>Jumlah Artikel</td>
-                    <td></td>
+                    {{-- <th>Bahasa</th>
+                    <th>Format</th> --}}
+                    {{-- <th>Jumlah Edisi</th>
+                    <th></th>
+                    <th>Jumlah Artikel</th>
+                    <th></th> --}}
+                    <th></th>
+                    <th></th>
                 </tr>
-			</head>
-			<tbody>
+            </thead>
+            <tfoot>
+                <td>
+                        <input type="text" class = "form-control filter-input" placeholder="Cari ...." data-column="0" hidden>
+                    </td>
+                <td>
+                        <input type="text" class = "form-control filter-input" placeholder="Cari ...." data-column="1" hidden>
+                    </td>
+                <td>
+                    <input type="text" class = "form-control filter-input" placeholder="Cari Judul...." data-column="2">
+                </td>
+                <td>
+                        <input type="text" class = "form-control filter-input" placeholder="Cari Kode...." data-column="3">
+                </td>
+                <td>
+                    <input type="text" class = "form-control filter-input" placeholder="Cari Jenis...." data-column="4">
+                </td>
+                <td>
+                    <input type="text" class = "form-control filter-input" placeholder="Cari Tempat Terbit...." data-column="5">
+                </td>
+                <td>
+                        <input type="text" class = "form-control filter-input" placeholder="Penerbit...." data-column="6">
+                </td>
+                <td>
+                    <input type="text" class = "form-control filter-input" placeholder="Cari Tahun Terbit...." data-column="7">
+                </td>
+                <td>
+                    <input type="text" class = "form-control filter-input" placeholder="Cari Tahun Terbit Pertama...." data-column="8">
+                </td>
+                <td>
+                    <input type="text" class = "form-control filter-input" placeholder="Cari ...." hidden>
+                </td>
+                <td>
+                    <input type="text" class = "form-control filter-input" placeholder="Cari ...." hidden>
+                </td>
+            </tfoot>
+			{{-- <tbody>
             @php $i=1 @endphp
 			@foreach ($titles as $title)
                 <tr class="GridItem">
@@ -120,7 +158,7 @@ Indeks Artikel | Judul Sumber
                     </td>
                 </tr>
 				 @endforeach
-            </tbody>
+            </tbody> --}}
         </table>
         <div id="divTools" class="ToolsTable" style="padding-bottom: 10px">
             <table cellpadding="0" cellspacing="0">
@@ -139,11 +177,30 @@ Indeks Artikel | Judul Sumber
                 </tbody>
             </table>
         </div>
+
+        <div id="confirmModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">Konfirmasi</h3>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <h5 style="center">Apakah Anda yakin ingin menghapus?</h5>
+                    </div>
+                    <div class="modal-footer">
+                     <button type="button" name="ok_button" id="ok_button" class="btn btn-danger">Ya</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Tidak</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </main>
 @endsection
 
 @section('scripts')
-<script src="https://cdn.datatables.net/fixedcolumns/3.2.6/js/dataTables.fixedColumns.min.js"></script>
+{{-- <script src="https://cdn.datatables.net/fixedcolumns/3.2.6/js/dataTables.fixedColumns.min.js"></script>
 <script>
 $(document).ready(function() {
     // Setup - add a text input to each footer cell
@@ -151,7 +208,7 @@ $(document).ready(function() {
     $('#example thead tr:eq(1) th').each( function (i) {
         var title = $(this).text();
         $(this).html( '<input type="text" placeholder="Cari '+title+'" />' );
- 
+
         $( 'input', this ).on( 'keyup change', function () {
             if ( table.column(i).search() !== this.value ) {
                 table
@@ -161,11 +218,106 @@ $(document).ready(function() {
             }
         } );
     } );
- 
+
     var table = $('#example').DataTable( {
         orderCellsTop: true,
         fixedHeader: true
     } );
 } );
-</script>
+</script> --}}
+<script>
+  $(document).ready(function(){
+        var table = $('#titles_table').DataTable({
+        processing: true,
+        serverSide: true,
+        "responsive": true,
+        ajax:{
+        url: "{{ route('titles.index') }}"
+        },
+        columns:[
+        {
+        data:'DT_RowIndex',
+        name:'DT_RowIndex',
+        searchable: false
+        },
+        {
+        data: 'featured_img',
+        name: 'featured_img',
+        render: function(data, type, full, meta)
+        {
+            return "<img src=\"/storage/upload/" + data + "\" height=\"auto\" width=\"100\" />";
+        }
+        },
+        {
+        data: 'title',
+        name: 'title'
+        },
+        {
+        data: 'kode',
+        name: 'kode'
+        },
+        {
+        data:'types',
+        name:'types'
+        },
+        {
+        data:'city',
+        name:'city'
+        },
+        {
+        data: 'publisher',
+        name: 'publisher'
+        },
+        {
+        data: 'year',
+        name: 'year'
+        },
+        {
+        data:'first_year',
+        name:'first_year'
+        },
+        {
+        data: 'action',
+        name: 'action',
+        orderable: false
+        },
+        {
+        data: 'delete',
+        name: 'delete',
+        orderable: false
+        }
+        ]
+        });
+
+        $('.filter-input').keyup(function() {
+            table.column( $(this).data('column') )
+            .search( $(this).val())
+            .draw();
+        });
+
+        var title_id;
+
+        $(document).on('click', '.delete', function(){
+        title_id = $(this).attr('id');
+        $('#confirmModal').modal('show');
+        });
+
+        $('#ok_button').click(function(){
+        $.ajax({
+        url:"titles/delete/"+title_id,
+        beforeSend:function(){
+            $('#ok_button').text('Deleting...');
+        },
+        success:function(data)
+        {
+            setTimeout(function(){
+            $('#confirmModal').modal('hide');
+            $('#titles_table').DataTable().ajax.reload();
+            }, 2000);
+        }
+        })
+        });
+    });
+    </script>
 @endsection
+

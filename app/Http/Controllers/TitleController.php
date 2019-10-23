@@ -1,10 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
-
-use Session;
 use Auth;
-use App\Models\User;
 use App\Models\Type;
 use App\Models\Time;
 use App\Models\Language;
@@ -13,28 +10,48 @@ use App\Models\Title;
 use App\Models\Status;
 use App\Models\EditionTitle;
 use App\Models\ArticleEdition;
-use App\Imports\TitleImport;
-use App\Exports\TitleExport;
-use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 use DB;
 
 class TitleController extends Controller
 {
-
+    public function index()
+    {
+        if(request()->ajax())
+        {
+            $query = Title::all();
+            return datatables()->of($query)
+                    ->addIndexColumn()
+                    ->addColumn('types', function($query) {
+                        return $query->types;
+                    })
+                    ->addColumn('action',function($titles){
+                        return '<a class="btn btn-xs btn-primary" href="titles/'.$titles->id.'/edit">Sunting</a>';
+                      })
+                    ->addColumn('delete', function($data){
+                        $button= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm">Hapus</button>';
+                        return $button;
+                    })
+                    ->rawColumns(['types', 'action', 'delete'])
+                    ->make(true);
+        }
+        return view('titles.index');
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
 
-    public function index()
-    {
-        $titles = Title::all();
-        $editions = EditionTitle::all();
-        $articles = ArticleEdition::all();
-        return view('titles.index', compact('titles', 'editions','articles'));
-    }
+    // public function index()
+    // {
+    //     $titles = Title::all();
+    //     $editions = EditionTitle::all();
+    //     $articles = ArticleEdition::all();
+    //     return view('titles.index', compact('titles', 'editions','articles'));
+    // }
+
+
 
     public function etalase()
     {
@@ -53,7 +70,7 @@ class TitleController extends Controller
         $formats = Format::all();
         return view('titles.create', compact('types', 'times', 'languages', 'formats'));
     }
-    
+
     public function store(Request $request)
     {
         $this->validate(request(), [
@@ -71,7 +88,7 @@ class TitleController extends Controller
             $fileName = $request->featured_img->getClientOriginalName(). '.png';
             $request->file('featured_img')->storeAs('public/upload', $fileName);
         }
-        
+
         $title = Title::create([
             'user_id'=> Auth::user()->id,
             'title'=>$request->title,
@@ -101,7 +118,7 @@ class TitleController extends Controller
         $editions = EditionTitle::all();
         return view('titles.add_article', compact('types', 'times', 'languages', 'formats', 'title', 'statuses', 'editions'));
     }
-    
+
     public function store_article(Request $request, $id)
     {
         $this->validate(request(), [
@@ -215,7 +232,7 @@ class TitleController extends Controller
             'call_number'=>$request->call_number,
             'edition_image'=> $file
         ]);
-        
+
         return redirect('editions')->with('msg', 'Data berhasil ditambahkan');
     }
 
@@ -450,14 +467,11 @@ class TitleController extends Controller
      */
     public function destroy($id)
     {
-        $types = Type::all();
-        $times = Time::all();
-        $languages = Language::all();
-        $formats = Format::all();
-        $title= Title::findOrFail($id);
-        $title->delete();
+        $data= Title::findOrFail($id);
+        $data->delete();
         return redirect('titles')->with('msg', 'Data berhasil di hapus');
     }
+
 
 
 }
