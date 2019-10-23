@@ -42,13 +42,6 @@ class EditionTitleController extends Controller
         return view('editions.index');
     }
 
-    // public function index()
-    // {
-    //     $editions = EditionTitle::all();
-    //     $articles = ArticleEdition::all();
-    //     return view('editions.index', compact('titles', 'editions','articles'));
-    // }
-
     public function create()
     {
         $types = Type::all();

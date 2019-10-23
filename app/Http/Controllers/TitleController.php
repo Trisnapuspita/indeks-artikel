@@ -73,21 +73,6 @@ class TitleController extends Controller
         }
         return view('titles.index');
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-
-    // public function index()
-    // {
-    //     $titles = Title::all();
-    //     $editions = EditionTitle::all();
-    //     $articles = ArticleEdition::all();
-    //     return view('titles.index', compact('titles', 'editions','articles'));
-    // }
-
-
 
     public function etalase()
     {

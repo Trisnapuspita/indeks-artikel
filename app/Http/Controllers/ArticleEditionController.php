@@ -23,7 +23,6 @@ class ArticleEditionController extends Controller
     {
         if(request()->ajax())
         {
-            // $query = EditionTitle::all();
             $query = ArticleEdition::with('edition_title')->get();
 
             return datatables()->of($query)
@@ -51,14 +50,6 @@ class ArticleEditionController extends Controller
         }
         return view('articles.index');
     }
-
-    // public function index()
-    // {
-    //     $title = Title::all();
-    //     $edition = EditionTitle::all();
-    //     $articles = ArticleEdition::all();
-    //     return view('articles.index', compact('articles', 'edition', 'title'));
-    // }
 
     public function create()
     {
