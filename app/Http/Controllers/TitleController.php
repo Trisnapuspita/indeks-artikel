@@ -56,7 +56,7 @@ class TitleController extends Controller
                         return '<a class="btn btn-xs btn-primary" href="titles/'.$titles->id.'/edit">Sunting</a>';
                       })
                     ->addColumn('delete', function($data){
-                        $button= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm">Hapus</button>';
+                        $button= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-xs">Hapus</button>';
                         return $button;
                     })
                     ->rawColumns(['types', 'action', 'delete', 'edition', 'article'])

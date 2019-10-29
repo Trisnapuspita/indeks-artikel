@@ -23,11 +23,8 @@ class EditionTitleController extends Controller
 
             return datatables()->of($query)
                     ->addIndexColumn()
-                    ->addColumn('add_article',function($edition_titles){
-                        return '<a class="btn btn-xs btn-primary" href="editions/create/'.$edition_titles->id.'">+</a>';
-                      })
                     ->addColumn('article', function ($edition_titles) {
-                    return $edition_titles->articles->count();
+                    return $edition_titles->articles->count().' '.' '.'<a class="btn btn-xs btn-primary" href="editions/create/'.$edition_titles->id.'">+</a>';
                     })
                     ->addColumn('mergeColumn', function($edition_titles){
                         return ' '.$edition_titles->edition_year.','.$edition_titles->edition_no.','.$edition_titles->original_date;
@@ -36,10 +33,10 @@ class EditionTitleController extends Controller
                         return '<a class="btn btn-xs btn-primary" href="editions/'.$edition_titles->id.'/edit">Sunting</a>';
                       })
                     ->addColumn('delete', function($data){
-                        $button= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm">Hapus</button>';
+                        $button= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-xs">Hapus</button>';
                         return $button;
                     })
-                    ->rawColumns(['edit', 'delete', 'mergeColumn', 'add_article', 'article'])
+                    ->rawColumns(['edit', 'delete', 'mergeColumn', 'article'])
                     ->make(true);
         }
         return view('editions.index');

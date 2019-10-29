@@ -37,7 +37,7 @@ class ArticleEditionController extends Controller
                         return '<a class="btn btn-xs btn-primary" href="articles/'.$article_editions->id.'/edit">Sunting</a>';
                       })
                     ->addColumn('delete', function($data){
-                        $button= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm">Hapus</button>';
+                        $button= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-xs">Hapus</button>';
                         return $button;
                     })
                     ->addColumn('status', function ($article_editions) {

@@ -87,7 +87,6 @@ Indeks Artikel | Edisi
                     <td>Jumlah Artikel</td>
                     <th></th>
                     <th></th>
-                    <th></th>
                 </tr>
             </thead>
             <tfoot>
@@ -123,9 +122,6 @@ Indeks Artikel | Edisi
                     </td>
                     <td>
                         <input type="text" class = "form-control filter-input" placeholder="Cari Judul Sumber...." data-column="10">
-                    </td>
-                    <td>
-                        <input type="text" class = "form-control filter-input" placeholder="Cari ...." hidden>
                     </td>
                     <td>
                         <input type="text" class = "form-control filter-input" placeholder="Cari ...." hidden>
@@ -253,11 +249,6 @@ $(document).ready(function(){
     {
     data:'article',
     name:'article'
-    },
-    {
-    data: 'add_article',
-    name: 'add_article',
-    orderable: false
     },
     {
     data: 'edit',
