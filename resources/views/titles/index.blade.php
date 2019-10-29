@@ -7,6 +7,22 @@ Indeks Artikel | Judul Sumber
 @section('content')
 <main style="background: white; padding:45px">
 
+        @if (Session::has('success'))
+
+        <div class="alert alert-success" role="alert">
+        <strong>Success:</strong>{{ Session::get('success')}}
+        </div>
+
+        @endif
+
+        @if (Session::has('error'))
+
+        <div class="alert alert-danger" role="alert">
+        <strong>Error:</strong>{{ Session::get('error')}}
+        </div>
+
+        @endif
+
         @if (session('msg'))
                 <div class="alert alert-success">
                     <p> {{session('msg')}} </p>
@@ -67,7 +83,7 @@ Indeks Artikel | Judul Sumber
 			</div>
 		</div>
 
-        <table id="titles_table" name="titles_table" class="table table-striped table-bordered" style="width:100%">
+        <table id="titles_table" name="titles_table" class="table table-striped table-bordered table-responsive" style="width:100%">
            <thead>
                 <tr class="GridHeader">
                     <th>No.</th>
@@ -83,9 +99,7 @@ Indeks Artikel | Judul Sumber
                     <th>Bahasa</th>
                     <th>Format</th>
                     <th>Jumlah Edisi</th>
-                    <th></th>
                     <th>Jumlah Artikel</th>
-                    <th></th>
                     <th></th>
                     <th></th>
                 </tr>
@@ -126,12 +140,6 @@ Indeks Artikel | Judul Sumber
                 </td>
                 <td>
                     <input type="text" class = "form-control filter-input" placeholder="Cari Format...." data-column="11">
-                </td>
-                <td>
-                    <input type="text" class = "form-control filter-input" placeholder="Cari ...." hidden>
-                </td>
-                <td>
-                    <input type="text" class = "form-control filter-input" placeholder="Cari ...." hidden>
                 </td>
                 <td>
                     <input type="text" class = "form-control filter-input" placeholder="Cari ...." hidden>
@@ -207,7 +215,13 @@ Indeks Artikel | Judul Sumber
         name: 'featured_img',
         render: function(data, type, full, meta)
         {
-            return "<img src=\"/storage/upload/" + data + "\" height=\"auto\" width=\"100\" />";
+            if (data == null) {
+                return "<img src=\"/storage/upload/default.png" + "\" height=\"auto\" width=\"100\" />";
+            }
+            else
+            {
+                return "<img src=\"/storage/upload/" + data + "\" height=\"auto\" width=\"100\" />";
+            }
         }
         },
         {
@@ -220,11 +234,11 @@ Indeks Artikel | Judul Sumber
         },
         {
         data:'types',
-        name:'types.title'
+        name:'types'
         },
         {
         data:'times',
-        name:'times.title'
+        name:'times'
         },
         {
         data:'city',
@@ -244,27 +258,19 @@ Indeks Artikel | Judul Sumber
         },
         {
         data:'languages',
-        name:'languages.title'
+        name:'languages'
         },
         {
         data:'formats',
-        name:'formats.title'
+        name:'formats'
         },
         {
-        data: 'timess',
-        name: 'times.id'
+        data: 'edition',
+        name: 'edition'
         },
         {
-        data:'add_edition',
-        name:'add_edition'
-        },
-        {
-        data:'languagess',
-        name:'languages.id'
-        },
-        {
-        data:'add_article',
-        name:'add_article'
+        data:'article',
+        name:'article'
         },
         {
         data: 'action',

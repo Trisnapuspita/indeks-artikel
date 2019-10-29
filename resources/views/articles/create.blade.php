@@ -199,11 +199,10 @@ Indeks Artikel | Tambah
                             <input class="form-control" type="text" placeholder="" id="original_date"  name="original_date" value="{{old('original_date')}}" required>
                         </div>
                     </div>
-                    <div class="form-group row was-validated">
-                        <label class="col-sm-2 col-form-label" for="validationServer03">No. Panggil*</label>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label" for="validationServer03">No. Panggil</label>
                         <div class="col-sm-10">
-                            <input class="form-control is-invalid" type="text" placeholder="" name="call_number" id="call_number" value="{{old('call_number')}}"
-                                required>
+                            <input class="form-control" type="text" placeholder="" name="call_number" id="call_number" value="{{old('call_number')}}">
                         </div>
                     </div>
                     <div class="form-group row was-validated">
@@ -299,68 +298,6 @@ Indeks Artikel | Tambah
                 </form>
             </div>
         </div>
-        <!-- Modal -->
-    <div id="myModal" class="modal fade" role="dialog">
-      <div class="modal-dialog modal-lg">
-        <!-- Modal content-->
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title">Edisi</h4>
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-          </div>
-          <div class="modal-body">
-           <div class="table-responsive">
-           <table id="example" class="table table-striped table-bordered table-responsive" style="width:100%">
-            <thead>
-                <tr class="GridHeader" style="text-align: center" id="example">
-					<td>No</td>
-                    <td>ID</td>
-                    <th>Gambar</th>
-                    <th>Tahun</th>
-                    <th>Edisi</th>
-                    <th>Volume</th>
-                    <th>Jilid</th>
-                    <th>Nomor</th>
-                    <th>Tanggal</th>
-                    <th>Bulan</th>
-                    <th>Tahun</th>
-                    <th>Tanggal Asli</th>
-                    <th>Nomor Panggil</th>
-                </tr>
-			</thead>
-			<tbody>
-            @php $i=1 @endphp
-            @foreach ($editions as $edition)
-                <tr class="GridItem">
-					<td>{{ $i++ }}</td>
-                    <td>{{$edition->id}}</td>
-                    @if($edition->edition_image == null)
-                    <td><img src="{{asset('storage/upload/default.png')}}" style="max-width: 150px; height: auto; "class="image-fluid"></td>
-                    @else
-                    <td><img src="{{asset('storage/upload/'. $edition->edition_image) }}" style="max-width: 150px; height: auto; "class="image-fluid"></td>
-                    @endif
-                    <td style="width:100px;">{{$edition->edition_year}}</td>
-                    <td style="width:100px;">{{$edition->edition_title}}</td>
-                    <td style="width:100px;">{{$edition->volume}}</td>
-                    <td style="width:100px;">{{$edition->chapter}}</td>
-                    <td style="width:100px;">{{$edition->edition_no}}</td>
-                    <td style="width:100px;">{{$edition->publish_month}}</td>
-                    <td style="width:100px;">{{$edition->publish_date}}</td>
-                    <td style="width:100px;">{{$edition->publish_year}}</td>
-                    <td style="width:150px;">{{$edition->original_date}}</td>
-                    <td style="width:150px;">{{$edition->call_number}}</td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          </div>
-        </div>
-        </div>
-    </div>
 
     <!-- Modal -->
     <div id="myModal1" class="modal fade" role="dialog">
@@ -424,6 +361,71 @@ Indeks Artikel | Tambah
           </div>
           </div>
     </div>
+
+     <!-- Modal -->
+     <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Edisi</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+             <div class="table-responsive">
+             <table id="example" class="table table-striped table-bordered table-responsive" style="width:100%">
+              <thead>
+                  <tr class="GridHeader" style="text-align: center" id="example">
+                      <th>No</th>
+                      <th>ID</th>
+                      <th>Gambar</th>
+                      <th>Kode</th>
+                      <th>Tahun</th>
+                      <th>Edisi</th>
+                      <th>Volume</th>
+                      <th>Jilid</th>
+                      <th>Nomor</th>
+                      <th>Tanggal</th>
+                      <th>Bulan</th>
+                      <th>Tahun</th>
+                      <th>Tanggal Asli</th>
+                      <th>Nomor Panggil</th>
+                  </tr>
+              </thead>
+              <tbody>
+              @php $i=1 @endphp
+              @foreach ($editions as $edition)
+                  <tr class="GridItem">
+                      <td>{{ $i++ }}</td>
+                      <td>{{$edition->id}}</td>
+                      @if($edition->edition_image == null)
+                      <td><img src="{{asset('storage/upload/default.png')}}" style="max-width: 150px; height: auto; "class="image-fluid"></td>
+                      @else
+                      <td><img src="{{asset('storage/upload/'. $edition->edition_image) }}" style="max-width: 150px; height: auto; "class="image-fluid"></td>
+                      @endif
+                      <td style="width:100px;">{{$edition->edition_code}}</td>
+                      <td style="width:100px;">{{$edition->edition_year}}</td>
+                      <td style="width:100px;">{{$edition->edition_title}}</td>
+                      <td style="width:100px;">{{$edition->volume}}</td>
+                      <td style="width:100px;">{{$edition->chapter}}</td>
+                      <td style="width:100px;">{{$edition->edition_no}}</td>
+                      <td style="width:100px;">{{$edition->publish_month}}</td>
+                      <td style="width:100px;">{{$edition->publish_date}}</td>
+                      <td style="width:100px;">{{$edition->publish_year}}</td>
+                      <td style="width:150px;">{{$edition->original_date}}</td>
+                      <td style="width:150px;">{{$edition->call_number}}</td>
+                  </tr>
+                  @endforeach
+              </tbody>
+          </table>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+          </div>
+      </div>
     </main>
 @endsection
 
@@ -444,27 +446,27 @@ $(document).ready(function() {
             console.log(table.row(this).data());
             $('#myModal1').modal('hide');
             $('#title_id').val(table.row(this).data()[1]);
-            $('#title_id').addClass('disabled');
+            $('#title_id').addClass('disabled').attr("disabled", 'disabled');
             $('#title').val(table.row(this).data()[3]);
-            $('#title').addClass('disabled');
+            $('#title').addClass('disabled').attr("disabled", 'disabled');
             $('#kode').val(table.row(this).data()[4]);
-            $('#kode').addClass('disabled');
+            $('#kode').addClass('disabled').attr("disabled", 'disabled');
             $('#types').val(table.row(this).data()[5]).change();
-            $('#types').addClass('disabled');
+            $('#types').addClass('disabled').attr("disabled", 'disabled');
             $('#times').val(table.row(this).data()[6]).change();
-            $('#times').addClass('disabled');
+            $('#times').addClass('disabled').attr("disabled", 'disabled');
             $('#city').val(table.row(this).data()[7]);
-            $('#city').addClass('disabled');
+            $('#city').addClass('disabled').attr("disabled", 'disabled');
             $('#publisher').val(table.row(this).data()[8]);
-            $('#publisher').addClass('disabled');
+            $('#publisher').addClass('disabled').attr("disabled", 'disabled');
             $('#year').val(table.row(this).data()[9]);
-            $('#year').addClass('disabled');
+            $('#year').addClass('disabled').attr("disabled", 'disabled');
             $('#first_year').val(table.row(this).data()[10]);
-            $('#first_year').addClass('disabled');
+            $('#first_year').addClass('disabled').attr("disabled", 'disabled');
             $('#languages').val(table.row(this).data()[11]).change();
-            $('#languages').addClass('disabled');
+            $('#languages').addClass('disabled').attr("disabled", 'disabled');
             $('#formats').val(table.row(this).data()[12]);
-            $('#formats').addClass('disabled');
+            $('#formats').addClass('disabled').attr("disabled", 'disabled');
         }
         else {
             table.$('tr.selected').removeClass('selected');
@@ -494,27 +496,29 @@ $(document).ready(function() {
                 console.log(table.row(this).data());
                 $('#myModal').modal('hide');
                 $('#edition_id').val(table.row(this).data()[1]);
-                $('#edition_id').addClass('disabled');
-                $('#edition_year').val(table.row(this).data()[3]);
-                $('#edition_year').addClass('disabled');
-                $('#edition_title').val(table.row(this).data()[4]);
-                $('#edition_title').addClass('disabled');
-                $('#volume').val(table.row(this).data()[5]);
-                $('#volume').addClass('disabled');
-                $('#chapter').val(table.row(this).data()[6]);
-                $('#chapter').addClass('disabled');
-                $('#edition_no').val(table.row(this).data()[7]);
-                $('#edition_no').addClass('disabled');
-                $('#publish_date').val(table.row(this).data()[8]);
-                $('#publish_date').addClass('disabled');
-                $('#publish_month').val(table.row(this).data()[9]);
-                $('#publish_month').addClass('disabled');
-                $('#publish_year').val(table.row(this).data()[10]);
-                $('#publish_year').addClass('disabled');
-                $('#original_date').val(table.row(this).data()[11]);
-                $('#original_date').addClass('disabled');
-                $('#call_number').val(table.row(this).data()[12]);
-                $('#call_number').addClass('disabled');
+                $('#edition_id').addClass('disabled').attr("disabled", 'disabled');
+                $('#edition_code').val(table.row(this).data()[3]);
+                $('#edition_code').addClass('disabled').attr("disabled", 'disabled');
+                $('#edition_year').val(table.row(this).data()[4]);
+                $('#edition_year').addClass('disabled').attr("disabled", 'disabled');
+                $('#edition_title').val(table.row(this).data()[5]);
+                $('#edition_title').addClass('disabled').attr("disabled", 'disabled');
+                $('#volume').val(table.row(this).data()[6]);
+                $('#volume').addClass('disabled').attr("disabled", 'disabled');
+                $('#chapter').val(table.row(this).data()[7]);
+                $('#chapter').addClass('disabled').attr("disabled", 'disabled');
+                $('#edition_no').val(table.row(this).data()[8]);
+                $('#edition_no').addClass('disabled').attr("disabled", 'disabled');
+                $('#publish_date').val(table.row(this).data()[9]);
+                $('#publish_date').addClass('disabled').attr("disabled", 'disabled');
+                $('#publish_month').val(table.row(this).data()[10]);
+                $('#publish_month').addClass('disabled').attr("disabled", 'disabled');
+                $('#publish_year').val(table.row(this).data()[11]);
+                $('#publish_year').addClass('disabled').attr("disabled", 'disabled');
+                $('#original_date').val(table.row(this).data()[12]);
+                $('#original_date').addClass('disabled').attr("disabled", 'disabled');
+                $('#call_number').val(table.row(this).data()[13]);
+                $('#call_number').addClass('disabled').attr("disabled", 'disabled');
             }
             else {
                 table.$('tr.selected').removeClass('selected');

@@ -40,8 +40,8 @@ class ArticleEditionController extends Controller
                         $button= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm">Hapus</button>';
                         return $button;
                     })
-                    ->addColumn('status', function ($edition_titles) {
-                        return $edition_titles->statuses->map(function ($status) {
+                    ->addColumn('status', function ($article_editions) {
+                        return $article_editions->statuses->map(function ($status) {
                             return str_limit($status->title, 30, '...');
                         })->implode('<br>');
                     })
@@ -179,21 +179,22 @@ class ArticleEditionController extends Controller
             }
 
             $editions = EditionTitle::create([
-            'user_id'=> Auth::user()->id,
-            'edition_year'=>$request->edition_year,
-            'edition_title'=>$request->edition_title,
-            'slugs'=>$slugs,
-            'title_id' => $title->id,
-            'volume'=>$request->volume,
-            'chapter'=>$request->chapter,
-            'edition_no'=>$request->edition_no,
-            'year'=>$request->year,
-            'publish_date'=>$request->publish_date,
-            'publish_month'=>$request->publish_month,
-            'publish_year'=>$request->publish_year,
-            'original_date'=>$request->original_date,
-            'call_number'=>$request->call_number,
-            'edition_image'=> $fileName
+                'user_id'=> Auth::user()->id,
+                'edition_year'=>$request->edition_year,
+                'edition_title'=>$request->edition_title,
+                'edition_code'=>$request->edition_code,
+                'slugs'=>$slugs,
+                'title_id' => $title->id,
+                'volume'=>$request->volume,
+                'chapter'=>$request->chapter,
+                'edition_no'=>$request->edition_no,
+                'year'=>$request->year,
+                'publish_date'=>$request->publish_date,
+                'publish_month'=>$request->publish_month,
+                'publish_year'=>$request->publish_year,
+                'original_date'=>$request->original_date,
+                'call_number'=>$request->call_number,
+                'edition_image'=> $fileName
             ]);
         } else {
             $editions = EditionTitle::find($request->edition_id);

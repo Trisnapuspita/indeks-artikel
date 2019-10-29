@@ -25,7 +25,7 @@ Indeks Artikel | Menambahkan Artikel
             <h4 style="font-weight: bold; padding-bottom:10px; text-align:center;color: black">Judul Sumber</h4>
             <fieldset class="form-group">
                     <div class="row was-validated">
-                        <legend class="col-form-label col-sm-3 pt-0">Jenis*</legend>
+                        <legend class="col-form-label col-sm-2 pt-0">Jenis*</legend>
                         <div class="col-sm-8">
                         @foreach ($types as $types)
                             <div class="form-check form-check-inline custom-control-inline custom-radio">
@@ -39,7 +39,7 @@ Indeks Artikel | Menambahkan Artikel
                     </div>
                 </fieldset>
                 <div class="form-group row was-validated">
-                    <label class="col-sm-3 col-form-label">Kala Terbit*</label>
+                    <label class="col-sm-2 col-form-label">Kala Terbit*</label>
                     <div class="col">
                         <select class="form-control custom-select" name="times[]" id="time_Select" required disabled >
                             @foreach ($times as $times)
@@ -49,14 +49,14 @@ Indeks Artikel | Menambahkan Artikel
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="inputEmail3" class="col-sm-3 col-form-label">Judul*</label>
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">Judul*</label>
                     <div class="col">
                         <input type="text" class="form-control" id="title" name="title"
                          value="{{old('title') ? old('title') :$title->title}}" required disabled>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">Penerbitan*</label>
+                    <label class="col-sm-2 col-form-label">Penerbitan*</label>
                     <div class="col">
                         <input disabled type="text" class="form-control"  name="city" value="{{old('city') ? old('city') :$title->city}}">
                     </div>
@@ -68,14 +68,14 @@ Indeks Artikel | Menambahkan Artikel
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="inputEmail3" class="col-sm-3 col-form-label">Tahun Terbit Pertama*</label>
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">Tahun Terbit Pertama*</label>
                     <div class="col-sm-4 col-form-label">
                         <input disabled type="text" class="form-control" id="first_year" name="first_year"
                         value="{{old('first_year') ? old('first_year') :$title->first_year}}"  placeholder="Tulis tahun terbit pertama disini" required>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">Bahasa*</label>
+                    <label class="col-sm-2 col-form-label">Bahasa*</label>
                     <div class="col">
                         <select class="form-control" name="languages[]" id="language_Select" disabled>
 							@foreach ($languages as $languages)
@@ -85,7 +85,7 @@ Indeks Artikel | Menambahkan Artikel
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="inputPassword3" class="col-sm-3 col-form-label">Format*</label>
+                    <label for="inputPassword3" class="col-sm-2 col-form-label">Format*</label>
                     <div class="col">
                         <select class="form-control" name="formats[]" id="format_Select" disabled>
 							@foreach ($formats as $formats)
@@ -96,9 +96,9 @@ Indeks Artikel | Menambahkan Artikel
                 </div>
 
                 <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Gambar</label>
+                <label class="col-sm-2 col-form-label">Gambar</label>
                 <div class="col">
-                    <img src="/storage/upload/{{$title->featured_img}}" style="max-width: 150px; height: auto; "class="image-fluid"> 
+                    <img src="/storage/upload/{{$title->featured_img}}" style="max-width: 150px; height: auto; "class="image-fluid">
                     <br>
                     <input type="file" class="form-control-file" type="file" name="featured_img" id="featured_img" disabled>
 					  @if ($errors->has('featured_img'))
@@ -177,16 +177,21 @@ Indeks Artikel | Menambahkan Artikel
 							</div>
                     </fieldset>
                     <div class="form-group row was-validated">
+                        <label class="col-sm-2 col-form-label">Kode*</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" type="text" placeholder="" id="edition_code"  name="edition_code" value="{{old('edition_code')}}" required>
+                        </div>
+                    </div>
+                    <div class="form-group row was-validated">
                         <label class="col-sm-2 col-form-label">Penulisan Tanggal Asli*</label>
                         <div class="col-sm-10">
                             <input class="form-control" type="text" placeholder="" id="original_date"  name="original_date" value="{{old('original_date')}}" required>
                         </div>
                     </div>
-                    <div class="form-group row was-validated">
+                    <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="validationServer03">No. Panggil*</label>
                         <div class="col-sm-10">
-                            <input class="form-control is-invalid" type="text" placeholder="" name="call_number" id="call_number" value="{{old('call_number')}}"
-                                required>
+                            <input class="form-control is-invalid" type="text" placeholder="" name="call_number" id="call_number" value="{{old('call_number')}}">
                         </div>
                     </div>
                     <div class="form-group row was-validated">
@@ -307,10 +312,55 @@ Indeks Artikel | Menambahkan Artikel
                     <th>Tanggal</th>
                     <th>Bulan</th>
                     <th>Tahun</th>
+                    <th>Kode</th>
                     <th>Tanggal Asli</th>
                     <th>Nomor Panggil</th>
                 </tr>
-			</thead>
+            </thead>
+            {{-- <tfoot>
+                <td>
+                        <input type="text" class = "form-control filter-input" placeholder="Cari ...." data-column="0" hidden>
+                    </td>
+                <td>
+                        <input type="text" class = "form-control filter-input" placeholder="Cari ...." data-column="1" hidden>
+                    </td>
+                <td>
+                    <input type="text" class = "form-control filter-input" placeholder="Cari ...." data-column="2" hidden>
+                </td>
+                <td>
+                        <input type="text" class = "form-control filter-input" placeholder="Cari Tahun...." data-column="3">
+                </td>
+                <td>
+                    <input type="text" class = "form-control filter-input" placeholder="Cari Edisi...." data-column="4">
+                </td>
+                <td>
+                    <input type="text" class = "form-control filter-input" placeholder="Cari Volume...." data-column="5">
+                </td>
+                <td>
+                        <input type="text" class = "form-control filter-input" placeholder="Cari Jilid...." data-column="6">
+                </td>
+                <td>
+                    <input type="text" class = "form-control filter-input" placeholder="Cari Nomor...." data-column="7">
+                </td>
+                <td>
+                    <input type="text" class = "form-control filter-input" placeholder="Cari Tanggal...." data-column="8" disabled>
+                </td>
+                <td>
+                    <input type="text" class = "form-control filter-input" placeholder="Cari Tanggal...." data-column="9" disabled>
+                </td>
+                <td>
+                    <input type="text" class = "form-control filter-input" placeholder="Cari Tanggal...." data-column="10" disabled>
+                </td>
+                <td>
+                    <input type="text" class = "form-control filter-input" placeholder="Cari Kode...." data-column="11">
+                </td>
+                <td>
+                    <input type="text" class = "form-control filter-input" placeholder="Cari Tanggal Aslo...." data-column="12">
+                </td>
+                <td>
+                    <input type="text" class = "form-control filter-input" placeholder="Cari Nomor Panggil...." data-column="13">
+                </td>
+            </tfoot> --}}
 			<tbody>
             @php $i=1 @endphp
             @foreach ($editions as $edition)
@@ -330,6 +380,7 @@ Indeks Artikel | Menambahkan Artikel
                     <td style="width:100px;">{{$edition->publish_month}}</td>
                     <td style="width:100px;">{{$edition->publish_date}}</td>
                     <td style="width:100px;">{{$edition->publish_year}}</td>
+                    <td style="width:100px;">{{$edition->edition_code}}</td>
                     <td style="width:150px;">{{$edition->original_date}}</td>
                     <td style="width:150px;">{{$edition->call_number}}</td>
                 </tr>
@@ -347,18 +398,105 @@ Indeks Artikel | Menambahkan Artikel
 @endsection
 
 @section('scripts')
+{{-- <script>
+    $(document).ready(function(){
+        var table = $('#example').DataTable({
+        processing: true,
+        serverSide: true,
+        responsive: true,
+        ajax:{
+        url: "{{ route('editions.index') }}"
+        },
+        columns:[
+        {
+        data:'DT_RowIndex',
+        name:'DT_RowIndex',
+        searchable: false
+        },
+        {
+        data: 'id',
+        name: 'id'
+        },
+        {
+        data: 'edition_image',
+        name: 'edition_image',
+        render: function(data, type, full, meta)
+        {
+            if (data == null) {
+                    return "<img src=\"/storage/upload/default.png" + "\" height=\"auto\" width=\"100\" />";
+                }
+                else
+                {
+                    return "<img src=\"/storage/upload/" + data + "\" height=\"auto\" width=\"100\" />";
+                }
+        }
+        },
+        {
+        data: 'mergeColumn',
+        name: 'mergeColumn'
+        },
+        {
+        data: 'edition_code',
+        name: 'edition_code'
+        },
+        {
+        data: 'edition_year',
+        name: 'edition_year'
+        },
+        {
+        data: 'edition_title',
+        name: 'edition_title'
+        },
+        {
+        data:'volume',
+        name:'volume'
+        },
+        {
+        data:'chapter',
+        name:'chapter'
+        },
+        {
+        data: 'edition_no',
+        name: 'edition_no'
+        },
+        {
+        data: 'original_date',
+        name: 'original_date'
+        },
+        {
+        data:'call_number',
+        name:'call_number'
+        },
+        {
+        data: 'title.title',
+        name: 'title.title'
+        },
+        {
+        data:'article',
+        name:'article'
+        }
+        ]
+        });
+
+        $('.filter-input').keyup(function() {
+            table.column( $(this).data('column') )
+            .search( $(this).val())
+            .draw();
+        });
+    });
+    </script> --}}
 <script type="text/javascript">
     $(document).ready(function() {
         var table = $('#example').DataTable({
             "columnDefs": [
             {
-                "targets": [ 1, 8, 9, 10 ],
+                "targets": [ 1, 9, 10, 11 ],
                 "visible": false,
                 "searchable": false
             }
         ]
         });
-        
+
         $('#example tbody').on( 'click', 'tr', function () {
             if ( $(this).hasClass('selected') ) {
                 console.log(table.row(this).data());
@@ -375,15 +513,17 @@ Indeks Artikel | Menambahkan Artikel
                 $('#chapter').addClass('disabled');
                 $('#edition_no').val(table.row(this).data()[7]);
                 $('#edition_no').addClass('disabled');
-                $('#publish_date').val(table.row(this).data()[8]);
+                $('#edition_code').val(table.row(this).data()[8]);
+                $('#edition_code').addClass('disabled');
+                $('#publish_date').val(table.row(this).data()[9]);
                 $('#publish_date').addClass('disabled');
-                $('#publish_month').val(table.row(this).data()[9]);
+                $('#publish_month').val(table.row(this).data()[10]);
                 $('#publish_month').addClass('disabled');
-                $('#publish_year').val(table.row(this).data()[10]);
+                $('#publish_year').val(table.row(this).data()[11]);
                 $('#publish_year').addClass('disabled');
-                $('#original_date').val(table.row(this).data()[11]);
+                $('#original_date').val(table.row(this).data()[12]);
                 $('#original_date').addClass('disabled');
-                $('#call_number').val(table.row(this).data()[12]);
+                $('#call_number').val(table.row(this).data()[13]);
                 $('#call_number').addClass('disabled');
             }
             else {
@@ -391,11 +531,10 @@ Indeks Artikel | Menambahkan Artikel
                 $(this).addClass('selected');
             }
         } );
- 
+
         $('#button').click( function () {
             table.row('.selected').remove().draw( false );
         } );
     } );
 </script>
-
 @endsection

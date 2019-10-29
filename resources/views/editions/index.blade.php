@@ -69,7 +69,7 @@ Indeks Artikel | Edisi
 				</form>
 			</div>
 		</div>
-        <table id="example" class="table table-striped table-bordered">
+        <table id="example" class="table table-striped table-bordered table-responsive" style="width:100%">
             <thead>
                 <tr class="GridHeader" style="text-align: center">
 					<td>No</td>
@@ -201,7 +201,13 @@ $(document).ready(function(){
     name: 'edition_image',
     render: function(data, type, full, meta)
     {
-        return "<img src=\"/storage/upload/" + data + "\" height=\"auto\" width=\"100\" />";
+        if (data == null) {
+                return "<img src=\"/storage/upload/default.png" + "\" height=\"auto\" width=\"100\" />";
+            }
+            else
+            {
+                return "<img src=\"/storage/upload/" + data + "\" height=\"auto\" width=\"100\" />";
+            }
     }
     },
     {
@@ -245,8 +251,8 @@ $(document).ready(function(){
     name: 'title.title'
     },
     {
-    data:'edition_no',
-    name:'edition_no'
+    data:'article',
+    name:'article'
     },
     {
     data: 'add_article',

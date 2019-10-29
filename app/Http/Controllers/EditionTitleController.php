@@ -26,6 +26,9 @@ class EditionTitleController extends Controller
                     ->addColumn('add_article',function($edition_titles){
                         return '<a class="btn btn-xs btn-primary" href="editions/create/'.$edition_titles->id.'">+</a>';
                       })
+                    ->addColumn('article', function ($edition_titles) {
+                    return $edition_titles->articles->count();
+                    })
                     ->addColumn('mergeColumn', function($edition_titles){
                         return ' '.$edition_titles->edition_year.','.$edition_titles->edition_no.','.$edition_titles->original_date;
                     })
@@ -36,7 +39,7 @@ class EditionTitleController extends Controller
                         $button= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm">Hapus</button>';
                         return $button;
                     })
-                    ->rawColumns(['edit', 'delete', 'mergeColumn', 'add_article'])
+                    ->rawColumns(['edit', 'delete', 'mergeColumn', 'add_article', 'article'])
                     ->make(true);
         }
         return view('editions.index');
@@ -59,9 +62,10 @@ class EditionTitleController extends Controller
         $this->validate(request(), [
             'edition_title'=>'required|min:1',
             'featured_img' => 'mimes:jpeg,jpg,png|max:1000',
-            'kode'=> 'required|unique:titles,kode',
-            'edition_code'=> 'required|unique:edition_titles,edition_code',
+            // 'kode'=> 'required|unique:kode',
+            // 'edition_code'=> 'required|unique:edition_code',
         ]);
+
         $title;
         if($request->title_id==null) {
             $slug = str_slug($request->title, '_');
@@ -96,34 +100,35 @@ class EditionTitleController extends Controller
         }
 
         $slugs = str_slug($request->publish_date, '_');
+            //cek slugs ngga kembar
+            if (EditionTitle::where('slugs', $slugs)->first() != null) {
+                $slugs = $slugs . '-'.time();
+            }
 
-        if(EditionTitle::where('slugs', $slugs)->first() != null)
-            $slugs = $slugs . '-'.time();
+            $fileName= null;
 
-        $file= null;
+            if ($request->edition_image != null) {
+                $fileName = $request->edition_image->getClientOriginalName(). '.png';
+                $request->file('edition_image')->storeAs('public/upload', $fileName);
+            }
 
-        if($request->edition_image != null) {
-            $file = $request->edition_image->getClientOriginalName(). '.png';
-            $request->file('edition_image')->storeAs('public/upload', $file);
-        }
-
-        $editions = EditionTitle::create([
-            'user_id'=> Auth::user()->id,
-            'edition_year'=>$request->edition_year,
-            'edition_title'=>$request->edition_title,
-            'edition_code'=>$request->edition_code,
-            'slugs'=>$slugs,
-            'title_id' => $title->id,
-            'volume'=>$request->volume,
-            'chapter'=>$request->chapter,
-            'edition_no'=>$request->edition_no,
-            'year'=>$request->year,
-            'publish_date'=>$request->publish_date,
-            'publish_month'=>$request->publish_month,
-            'publish_year'=>$request->publish_year,
-            'original_date'=>$request->original_date,
-            'call_number'=>$request->call_number,
-            'edition_image'=> $file
+            EditionTitle::create([
+                'user_id'=> Auth::user()->id,
+                'edition_year'=>$request->edition_year,
+                'edition_title'=>$request->edition_title,
+                'edition_code'=>$request->edition_code,
+                'slugs'=>$slugs,
+                'title_id' => $title->id,
+                'volume'=>$request->volume,
+                'chapter'=>$request->chapter,
+                'edition_no'=>$request->edition_no,
+                'year'=>$request->year,
+                'publish_date'=>$request->publish_date,
+                'publish_month'=>$request->publish_month,
+                'publish_year'=>$request->publish_year,
+                'original_date'=>$request->original_date,
+                'call_number'=>$request->call_number,
+                'edition_image'=> $fileName
         ]);
 
         return redirect('editions')->with('msg', 'Data berhasil ditambahkan');
@@ -236,11 +241,18 @@ class EditionTitleController extends Controller
 
         return redirect('/editions')->with('msg', 'Edisi berhasil diedit');
     }
+
     public function destroy($id)
     {
-        $data= EditionTitle::findOrFail($id);
-        $data->delete();
-        return redirect('/editions')->with('msg', 'Edisi berhasil di hapus');
-    }
 
+        $data= EditionTitle::findOrFail($id);
+        try {
+            $data->delete();
+            Session::flash('success', 'Berhasil menghapus');
+        }catch(\Illuminate\Database\QueryException $e) {
+            Session::flash('error', 'Gagal menghapus, karena judul ini direferensikan oleh beberapa edisi');
+        }
+
+        return redirect('editions');
+    }
 }

@@ -58,15 +58,15 @@ Indeks Artikel | Edisi
                         <input type="text" class="form-control" id="title" name="title" required>
                     </div>
                 </div>
-                <div class="form-group row was-validated">
-                    <label class="col-sm-2 col-form-label">Kode*</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control {{ $errors->get('kode') ? 'has-error' : '' }}" id="kode" name="kode" required
+                <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">Kode*</label>
+                    <div class="col">
+                        <input type="text" class="form-control {{ $errors->get('kode') ? 'has-error' : '' }}" id="kode" name="kode"
                          value="{{old('kode')}}">
                          @foreach($errors->get('kode') as $error)
                             <span class="help-block">{{ $error }}</span>
                         @endforeach
-                </div>
+                    </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Penerbitan*</label>
@@ -311,7 +311,7 @@ Indeks Artikel | Edisi
             }
         ]
         });
-        
+
         $('#example tbody').on( 'click', 'tr', function () {
             if ( $(this).hasClass('selected') ) {
                 console.log(table.row(this).data());
@@ -344,7 +344,7 @@ Indeks Artikel | Edisi
                 $(this).addClass('selected');
             }
         } );
- 
+
         $('#button').click( function () {
             table.row('.selected').remove().draw( false );
         } );
