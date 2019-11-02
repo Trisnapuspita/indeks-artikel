@@ -16,6 +16,7 @@ use App\Exports\ArticleExport;
 use App\Imports\ArticleImport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ArticleEditionController extends Controller
 {
@@ -123,14 +124,13 @@ class ArticleEditionController extends Controller
 
     public function new_store(Request $request)
     {
-        $this->validate(request(), [
-            'article_title'=>'required|min:1',
-            'edition_title'=>'required|min:1',
-            'featured_img' => 'mimes:jpeg,jpg,png|max:1000'
-        ]);
-
         $title;
         if($request->title_id==null) {
+            $this->validate(request(), [
+                'featured_img' => 'mimes:jpeg,jpg,png|max:1000',
+                'kode'=> 'required|unique:titles'
+            ], ['kode.unique'=> 'Kode sudah digunakan']);
+
             $slug = str_slug($request->title, '_');
             //cek slug ngga kembar
             if(Title::where('slug', $slug)->first() != null)
@@ -165,6 +165,12 @@ class ArticleEditionController extends Controller
         $editions;
 
         if ($request->edition_id==null) {
+
+            $this->validate(request(), [
+                'edition_image' => 'mimes:jpeg,jpg,png|max:1000',
+                'edition_code'=> 'required|unique:edition_titles'
+            ], ['edition_code.unique'=> 'Kode sudah digunakan']);
+
             $slugs = str_slug($request->publish_date, '_');
             //cek slugs ngga kembar
             if (EditionTitle::where('slugs', $slugs)->first() != null) {
@@ -307,6 +313,35 @@ class ArticleEditionController extends Controller
         $articles->delete();
 
         return redirect('/articles')->with('msg', 'Artikel berhasil di hapus');
+    }
+
+    public function download()
+    {
+        $path = storage_path('template');
+        return response()->download($path);
+    }
+
+    public function getEdition()
+    {
+        $title_id = request('title_id');
+        $query = EditionTitle::where('title_id',$title_id);
+
+        return datatables()->of($query)
+                ->addIndexColumn()
+                    ->rawColumns(['edit', 'delete', 'editions', 'titles', 'status'])
+                    ->make(true);
+    }
+
+    public function getSumber()
+    {
+        $id = request('id');
+        return Title::find($id);
+    }
+
+    public function getEdisi()
+    {
+        $id_edisi = request('id');
+        return EditionTitle::find($id_edisi);
     }
 
 }

@@ -7,6 +7,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::resource('formats', 'FormatController');
     Route::resource('statuses', 'StatusController');
     Route::resource('titles', 'TitleController');
+    Route::get('download', 'ArticleEditionController@download');
     Route::get('titles/delete/{id}', 'TitleController@destroy');
     Route::get('titles/search', 'TitleController@search')->name('search');
     Route::post('/titles/article/{id}', 'TitleController@store_article');
@@ -24,6 +25,9 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/editions/delete/{id}', 'EditionTitleController@destroy');
     Route::get('/articles', 'ArticleEditionController@index')->name('articles.index');
     Route::get('/articles/create', 'ArticleEditionController@create');
+    Route::get('/articles/getEdition', 'ArticleEditionController@getEdition');
+    Route::get('/articles/getEdisi', 'ArticleEditionController@getEdisi');
+    Route::get('/articles/getSumber', 'ArticleEditionController@getSumber');
     Route::post('/articles', 'ArticleEditionController@new_store');
     Route::put('/articles/{id}', 'ArticleEditionController@update');
     Route::get('/articles/{id}/edit', 'ArticleEditionController@edit');

@@ -23,21 +23,15 @@ Indeks Artikel | Menambahkan Artikel
         box-shadow: 0px 0px 17px -4px rgba(0,0,0,0.75);">
            <form class="form" method="POST" action="/titles/article/{{$title->id}}" enctype="multipart/form-data">
             <h4 style="font-weight: bold; padding-bottom:10px; text-align:center;color: black">Judul Sumber</h4>
-            <fieldset class="form-group">
-                    <div class="row was-validated">
-                        <legend class="col-form-label col-sm-2 pt-0">Jenis*</legend>
-                        <div class="col-sm-8">
-                        @foreach ($types as $types)
-                            <div class="form-check form-check-inline custom-control-inline custom-radio">
-                            <label class="form-check-label" for="types" >
-                                <input class="form-check-input" type="radio" name="types[]" id="type_Select"  required disabled
-                                value='{{$types->id}}' @if($title->types()->get()->contains($types->id)) checked @endif>{{$types->title}}
-                                </label>
-                            </div>
-                        @endforeach
-                        </div>
+            <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">Jenis*</label>
+                    <div class="col">
+                            @foreach ($title->types as $types)
+                        <input type="text" class="form-control" id="types" name="types"
+                         value="{{$types->title}}" placeholder="Tulis judul disini" disabled>
+                         @endforeach
                     </div>
-                </fieldset>
+                </div>
                 <div class="form-group row was-validated">
                     <label class="col-sm-2 col-form-label">Kala Terbit*</label>
                     <div class="col">
@@ -99,13 +93,6 @@ Indeks Artikel | Menambahkan Artikel
                 <label class="col-sm-2 col-form-label">Gambar</label>
                 <div class="col">
                     <img src="/storage/upload/{{$title->featured_img}}" style="max-width: 150px; height: auto; "class="image-fluid">
-                    <br>
-                    <input type="file" class="form-control-file" type="file" name="featured_img" id="featured_img" disabled>
-					  @if ($errors->has('featured_img'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('featured_img') }}</strong>
-                    </span>
-                    @endif
                     </div>
                 </div>
                 <br>
@@ -118,22 +105,27 @@ Indeks Artikel | Menambahkan Artikel
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Keterangan Edisi</label>
                             <div class="col">
+                                <label>Tahun</label>
                                 <input class="form-control" type="text" placeholder="Tahun"
 								 name="edition_year" id="edition_year" value="{{old('edition_year')}}">
                             </div>
                             <div class="col">
+                                <label>Edisi</label>
                                 <input class="form-control" type="text" placeholder="Edisi"
 								name="edition_title" id="edition_title" value="{{old('edition_title')}}">
                             </div>
                             <div class="col">
+                                <label>Volume</label>
                                 <input class="form-control" type="text" placeholder="Volume"
 								name="volume" id="volume" value="{{old('volume')}}">
                             </div>
                             <div class="col">
+                                <label>Jilid</label>
                                 <input class="form-control" type="text" placeholder="Jilid"
 								name="chapter" id="chapter" value="{{old('chapter')}}">
                             </div>
                             <div class="col">
+                                <label>Nomor</label>
                                 <input class="form-control" type="text" placeholder="No"
 								name="edition_no" id="edition_no" value="{{old('edition_no')}}">
                             </div>
@@ -176,12 +168,16 @@ Indeks Artikel | Menambahkan Artikel
                                     </div>
 							</div>
                     </fieldset>
-                    <div class="form-group row was-validated">
+                    <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Kode*</label>
                         <div class="col-sm-10">
-                            <input class="form-control" type="text" placeholder="" id="edition_code"  name="edition_code" value="{{old('edition_code')}}" required>
+                            <input type="text" class="form-control {{ $errors->get('edition_code') ? 'has-error' : '' }}" id="edition_code" name="edition_code" required
+                             value="{{old('edition_code')}}" placeholder="Tulis kode disini">
+                             @foreach($errors->get('edition_code') as $error)
+                                <span class="help-block">{{ $error }}</span>
+                            @endforeach
                         </div>
-                    </div>
+                        </div>
                     <div class="form-group row was-validated">
                         <label class="col-sm-2 col-form-label">Penulisan Tanggal Asli*</label>
                         <div class="col-sm-10">
@@ -317,50 +313,6 @@ Indeks Artikel | Menambahkan Artikel
                     <th>Nomor Panggil</th>
                 </tr>
             </thead>
-            {{-- <tfoot>
-                <td>
-                        <input type="text" class = "form-control filter-input" placeholder="Cari ...." data-column="0" hidden>
-                    </td>
-                <td>
-                        <input type="text" class = "form-control filter-input" placeholder="Cari ...." data-column="1" hidden>
-                    </td>
-                <td>
-                    <input type="text" class = "form-control filter-input" placeholder="Cari ...." data-column="2" hidden>
-                </td>
-                <td>
-                        <input type="text" class = "form-control filter-input" placeholder="Cari Tahun...." data-column="3">
-                </td>
-                <td>
-                    <input type="text" class = "form-control filter-input" placeholder="Cari Edisi...." data-column="4">
-                </td>
-                <td>
-                    <input type="text" class = "form-control filter-input" placeholder="Cari Volume...." data-column="5">
-                </td>
-                <td>
-                        <input type="text" class = "form-control filter-input" placeholder="Cari Jilid...." data-column="6">
-                </td>
-                <td>
-                    <input type="text" class = "form-control filter-input" placeholder="Cari Nomor...." data-column="7">
-                </td>
-                <td>
-                    <input type="text" class = "form-control filter-input" placeholder="Cari Tanggal...." data-column="8" disabled>
-                </td>
-                <td>
-                    <input type="text" class = "form-control filter-input" placeholder="Cari Tanggal...." data-column="9" disabled>
-                </td>
-                <td>
-                    <input type="text" class = "form-control filter-input" placeholder="Cari Tanggal...." data-column="10" disabled>
-                </td>
-                <td>
-                    <input type="text" class = "form-control filter-input" placeholder="Cari Kode...." data-column="11">
-                </td>
-                <td>
-                    <input type="text" class = "form-control filter-input" placeholder="Cari Tanggal Aslo...." data-column="12">
-                </td>
-                <td>
-                    <input type="text" class = "form-control filter-input" placeholder="Cari Nomor Panggil...." data-column="13">
-                </td>
-            </tfoot> --}}
 			<tbody>
             @php $i=1 @endphp
             @foreach ($editions as $edition)
@@ -502,7 +454,6 @@ Indeks Artikel | Menambahkan Artikel
                 console.log(table.row(this).data());
                 $('#myModal').modal('hide');
                 $('#edition_id').val(table.row(this).data()[1]);
-                $('#edition_id').addClass('disabled');
                 $('#edition_year').val(table.row(this).data()[3]);
                 $('#edition_year').addClass('disabled');
                 $('#edition_title').val(table.row(this).data()[4]);

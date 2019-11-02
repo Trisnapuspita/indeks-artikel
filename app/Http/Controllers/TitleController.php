@@ -80,8 +80,9 @@ class TitleController extends Controller
     {
         $this->validate(request(), [
             'featured_img' => 'mimes:jpeg,jpg,png|max:1000',
-            'kode'=> 'required|unique:titles,kode',
-        ]);
+            'kode'=> 'required|unique:titles'
+        ], ['kode.unique'=> 'Kode sudah digunakan']);
+
         $slug = str_slug($request->title, '_');
         //cek slug ngga kembar
         if(Title::where('slug', $slug)->first() != null)
@@ -151,6 +152,12 @@ class TitleController extends Controller
         $editions;
 
         if ($request->edition_id==null) {
+
+            $this->validate(request(), [
+                'edition_image' => 'mimes:jpeg,jpg,png|max:1000',
+                'edition_code'=> 'required|unique:edition_titles'
+            ], ['edition_code.unique'=> 'Kode sudah digunakan']);
+
             $slugs = str_slug($request->publish_date, '_');
             if (EditionTitle::where('slugs', $slugs)->first() != null) {
                 $slugs = $slugs . '-'.time();
@@ -174,6 +181,7 @@ class TitleController extends Controller
             'chapter'=>$request->chapter,
             'edition_no'=>$request->edition_no,
             'year'=>$request->year,
+            'edition_code'=>$request->edition_code,
             'publish_date'=>$request->publish_date,
             'publish_month'=>$request->publish_month,
             'publish_year'=>$request->publish_year,
@@ -199,7 +207,7 @@ class TitleController extends Controller
         ]);
             $articles->statuses()->attach($request->statuses);
 
-        return redirect('/titles')->with('msg', 'Data berhasil ditambahkan');
+        return redirect('/articles')->with('msg', 'Data berhasil ditambahkan');
     }
 
     public function show($id)
@@ -220,9 +228,11 @@ class TitleController extends Controller
 
     public function store_edition(Request $request, $id)
     {
-        $this->validate(request(), [
-            'edition_title'=>'required|min:1'
-        ]);
+         $this->validate(request(), [
+                'edition_image' => 'mimes:jpeg,jpg,png|max:1000',
+                'edition_code'=> 'required|unique:edition_titles'
+            ], ['edition_code.unique'=> 'Kode sudah digunakan']);
+
         $slugs = str_slug($request->publish_date, '_');
         //cek slug ngga kembar
         if(EditionTitle::where('slugs', $slugs)->first() != null)

@@ -54,6 +54,7 @@ Indeks Artikel | Judul Sumber
         <div class="createnew" style="padding-bottom: 10px">
             <a href="/titles/create"><button>Tambah</button></a>
             <a data-toggle="modal" data-target="#importExcel"><button>Import</button></a>
+            <a href="/download"><button>Template Import</button></a>
         </div>
 
         <!-- Import Excel -->
