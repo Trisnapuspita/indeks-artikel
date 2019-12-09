@@ -22,74 +22,43 @@
 <body>
     <table id="Filtering" style="width: 100%">
         <tbody>
-            <tr>
-                <td style="width: 400px;">
-                    <h5 style="font-weight: bold; color: black;">{{ $title->title }}</h5>
-                </td>
-                <td style="text-align: right; padding: 10px;">
-                    <table style="float: right">
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <select class="search box" name="ctl00$ContentPlaceHolder1$ddlKriteria"
-                                        id="ContentPlaceHolder1_ddlKriteria" style="width:180px;">
-                                        <option selected="selected" value="1">Semua Kategori</option>
-                                        <option value="2">Tahun</option>
-                                        <option value="3">Judul Edisi</option>
-                                        <option value="4">Judul Artikel</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <input class="search search-box" name="ctl00$ContentPlaceHolder1$txtKataKunci"
-                                        type="text" id="ContentPlaceHolder1_txtKataKunci" style="width:150px;">
-                                </td>
-                                <td>
-                                    <button type="submit" class="searchButton"><img
-                                            src="../assets/magnifying-glass-2x.png">
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </td>
-            </tr>
+          <tr>
+            <td style="width: 400px;">
+              <h5 style="font-weight: bold; color: black;">{{ $title->title }}</h5>
+            </td>
+          </tr>
         </tbody>
-    </table>
-    @foreach ($title->editions as $edition)
+      </table>
+    @foreach ($title->editions->groupBy('publish_year') as $year)
     <div class="accordion" id="accordionExample">
-
-
         <div class="card">
-            <div class="card-header" id="headingOne" style="background: #e9ecef">
-                <h2 class="mb-0">
-                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne"
-                        aria-expanded="true" aria-controls="collapseOne">
-                        {{ $edition->publish_year }}
-                    </button>
-                </h2>
-            </div>
-
-            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-                <div class="card-body">Edisi <a class="btn-link" data-toggle="collapse" href="#CollapseExample"
-                        role="button" aria-expanded="false" aria-controls="CollapseExample">{{$edition->edition_year}}, {{$edition->edition_no}}, {{$edition->original_date}}</a>
-                    <div class="row">
-                        <div class="col">
-                            <div class="collapse" id="CollapseExample">
-                                <div class="card card-body">Artikel
-                                    @foreach ($edition->articles as $article)
-                                    <li><a href="/hierarkilog/{{ $article->id }}">{{ $article->article_title }}, p: {{ $article->pages }}</a></li>
-                                    @endforeach
-                                </div>
-
-                            </div>
-
-                        </div>
+          <div class="card-header">
+            <a href="" class="card-headingOne" id="headingOne" data-toggle="collapse" data-target="{{'#collapseOne' . $year->first()->publish_year}}" aria-expanded="false" aria-controls="collapseOne">
+               + {{ $year->first()->publish_year }}
+            </a>
+          </div>
+          @foreach($year as $edition)
+          <div id="{{'collapseOne' . $year->first()->publish_year}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+            <div class="kotak">
+              <div><a class="btn-link" data-toggle="collapse" href="{{'#multiCollapseExample1' . $edition->id}}" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">
+                   <strong> + {{$edition->edition_year}}, {{$edition->edition_no}}, {{$edition->original_date}} </strong>
+                   </a>
+                <div class="row">
+                  <div class="col">
+                    <div class="collapse multi-collapse" id="{{'multiCollapseExample1'.$edition->id}}">
+                      <div style="padding-left:20px">
+                        @foreach ($edition->articles as $article)
+                        <li><a href="/hierarkilog/{{ $article->id }}">{{ $article->article_title }}, p: {{ $article->pages }}</a></li>
+                        @endforeach
+                      </div>
+                      </div>
                     </div>
+                  </div>
                 </div>
             </div>
+           </div>
+           @endforeach
         </div>
-
-
     </div>
     @endforeach
 </body>

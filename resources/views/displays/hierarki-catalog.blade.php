@@ -22,10 +22,18 @@
 
         <div class="mr-auto" style="padding-bottom:10px;">
             <ol class="breadcrumb">
+                @foreach($titles as $title)
+                @foreach($editions as $edition)
+                @if($edition->id == $article->edition_title_id)
+                @if($title->id == $edition->title_id)
                 <li class="breadcrumb-item"><a href="/displays/hierarki/{{ $title->id }}">Etalase</a></li>
                 <li class="breadcrumb-item"><a href="/displays/hierarki/{{ $title->id }}">Hirarki Indeks</a></li>
                 <li class="breadcrumb-item"><a href="/displays/hierarki/{{ $title->id }}">Edisi {{$edition->edition_year}}, {{$edition->edition_no}}, {{$edition->original_date}}</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Artikel {{ $article->article_title }}. p: {{ $article->pages }}</li>
+                @endif
+                @endif
+                @endforeach
+                @endforeach
             </ol>
         </div>
         <div class="row">
@@ -37,6 +45,14 @@
                                 <td>:</td>
                                 <td><span style="font-weight:bold;">{{ $article->article_title }}</span>
                                 </td>
+                            </tr>
+                            <tr>
+                                <td style="width:200px">Status Kegunaan</td>
+                                <td>:</td>
+                                @foreach ($article->statuses()->get() as $stat)
+                                <td><span style="font-weight:bold;">{{ $stat->title }}</span>
+                                </td>
+                                @endforeach
                             </tr>
                             <tr>
                                 <td style="width:200px">Pengarang</td>

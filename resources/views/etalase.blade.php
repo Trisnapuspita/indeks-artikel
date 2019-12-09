@@ -7,48 +7,48 @@ Indeks Artikel | Etalase
 @endsection
 
 <main style="height: 100%; padding:45px">
-        <div class="mr-auto" style="padding-bottom:10px;">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/home">Beranda</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Etalase</li>
-            </ol>
-        </div>
         <div class="search">
-            <select class="box">
-                <option value="">Semua Jenis</option>
-                <option class="dropdown-item" href="#">Judul Edisi</option>
-                <option class="dropdown-item" href="#">Judul Artikel</option>
-                <option class="dropdown-item" href="#">Jenis</option>
-                <option class="dropdown-item" href="#">Penerbit</option>
-                <option class="dropdown-item" href="#">Judul Artikel</option>
-            </select>
-            <input type="text" class="search-box" placeholder="Kata Kunci">
-            <button type="submit" class="searchButton"><img src="../../assets/magnifying-glass-2x.png">
-            </button>
+                <form method="get" action="/etalase">
+                <input type="text" class="search-box" placeholder="Search" name="search" id="search">
+                <button type="submit" class="searchButton"><img src="../../assets/magnifying-glass-2x.png">
+                </button>
+                </form>
+
         </div>
         <div class="etalase-grid">
-                @foreach ($titles as $title)
+            @foreach ($titles as $title)
                 <div class="section1">
-                    <!-- 286x180 -->
-                    <div class="card">
-                        @if($title->featured_img == null)
-                        <img class="card-img-top" src="{{asset('storage/upload/default.png')}}">
-                        @else
-                        <img class="card-img-top" src="{{ asset('storage/upload/'.$title->featured_img) }}" alt="">
-                        @endif
-                        <div class="card-body">
-                            <a class="card-title1" href="/displays/etalase/{{ $title->id }}">{{ $title->title }}</a>
-                            <br>
-                            <a class="card-text" href="/displays/etalase/{{ $title->id }}">{{ $title->first_year }}</a>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <a href="/displays/etalase/{{ $title->id }}">{{$articles->whereIn('edition_title_id',$editions->where('title_id',$title->id)->pluck('id'))->count()}} Artikel</a>
-                        </div>
-                    </div>
+                  <div class="card_">
+                    <a href="/etalase/{{ $title->id }}" target="_self">
+                    @if($title->featured_img == null)
+                    <img class="card-img-top" src="{{asset('storage/upload/default.png')}}" style="height:300px">
+                    @else
+                    <img class="card-img-top" src="{{ asset('storage/upload/'.$title->featured_img) }}" style="height:300px" alt="">
+                    @endif
+                      <h5 style="font-size:15px; margin-top: 10px" class="content-title mx-auto text-uppercase">{{ $title->title }}</h5>
+                      <small class="col-lg-6">{{$editions->where('title_id',$title->id)->count()}} Edisi </small>
+                      <small class="col-lg-6">{{$articles->whereIn('edition_title_id',$editions->where('title_id',$title->id)->pluck('id'))->count()}} Artikel</small>
+                    </a>
+                  </div>
                 </div>
                 @endforeach
-        </div>
+              </div>
+              <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+
+                    {{ $res->links() }}
+                    {{-- {{$titles->links()}} --}}
+
+                  {{--  <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1">Previous</a>
+                  </li>
+                  <li class="page-item"><a class="page-link" href="#">1</a></li>
+                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item">
+                    <a class="page-link" href="#">Next</a>
+                  </li>  --}}
+                </ul>
+              </nav>
 </main>
 @endsection

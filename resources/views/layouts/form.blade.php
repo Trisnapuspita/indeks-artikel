@@ -30,7 +30,7 @@
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"><img src="../../assets/menu-2x.png"></span>
+                    <span class="navbar-toggler-icon"><img src="../../assets/menu-bar.png"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <div class="mr-auto"></div>

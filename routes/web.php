@@ -40,39 +40,26 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/reports/searchByMonth','ReportController@searchByMonth');
     Route::post('/reports/searchByYear','ReportController@searchByYear');
     Route::get('/reports/export', 'ReportController@export_excel');
-    Route::get('/displays/etalase', 'TitleController@etalase_in');
-    Route::get('/displays/etalase/{id}', 'TitleController@etalase_show_in');
-    Route::get('/displays/catalog/{id}', 'TitleController@catalog_show_in');
-    Route::get('/displays/articlelog/{id}', 'TitleController@articlelog_show_in');
-    Route::get('/displays/hierarki/{id}', 'TitleController@hierarki_show_in');
-    Route::get('/displays/hierarkilog/{id}', 'TitleController@hierarkilog_show_in');
-    Route::get('/home', 'HomeController1@index')->name('home');
-    Route::post('/home', 'HomeController1@indexPost')->name('homePost');
+	Route::get('/displays/etalase', 'EtalaseController@etalase_in');
+    Route::get('/displays/etalase/{id}', 'EtalaseController@etalase_show_in');
+    Route::get('/displays/catalog/{id}', 'EtalaseController@catalog_show_in');
+    Route::get('/displays/articlelog/{id}', 'EtalaseController@articlelog_show_in');
+    Route::get('/displays/hierarki/{id}', 'EtalaseController@hierarki_show_in');
+    Route::get('/displays/hierarkilog/{id}', 'EtalaseController@hierarkilog_show_in');
+    Route::get('/displays/datas/{id}', 'HomeController@article_in');
     Route::resource('ajax-crud', 'AjaxCrudController');
     Route::post('ajax-crud/update', 'AjaxCrudController@update')->name('ajax-crud.update');
     Route::get('ajax-crud/destroy/{id}', 'AjaxCrudController@destroy');
 });
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::post('/',"HomeController1@indexPost");
-
-
 Auth::routes();
-Route::get('/etalase', 'TitleController@etalase');
-Route::get('/etalase/{id}', 'TitleController@etalase_show');
-Route::get('/catalog/{id}', 'TitleController@catalog_show');
-Route::get('/articlelog/{id}', 'TitleController@articlelog_show');
-Route::get('/hierarki/{id}', 'TitleController@hierarki_show');
-Route::get('/hierarkilog/{id}', 'TitleController@hierarkilog_show');
-Route::get('/welcome', 'HomeController@index')->name('home');
-Route::post('/welcome', 'HomeController@indexPost')->name('homePost');
-Route::get('/etalase', 'TitleController@etalase');
-Route::get('/etalase/{id}', 'TitleController@etalase_show');
-Route::get('/catalog/{id}', 'TitleController@catalog_show');
-Route::get('/articlelog/{id}', 'TitleController@articlelog_show');
-Route::get('/hierarki/{id}', 'TitleController@hierarki_show');
-Route::get('/hierarkilog/{id}', 'TitleController@hierarkilog_show');
-
+Route::get('/home', 'HomeController@index')->name('home');
+Route::post('/home/search', 'HomeController@indexPost');
+Route::get('/etalase', 'EtalaseController@etalase');
+Route::get('/etalase/{id}', 'EtalaseController@etalase_show');
+Route::get('/catalog/{id}', 'EtalaseController@catalog_show');
+Route::get('/articlelog/{id}', 'EtalaseController@articlelog_show');
+Route::get('/hierarki/{id}', 'EtalaseController@hierarki_show');
+Route::get('/hierarkilog/{id}', 'EtalaseController@hierarkilog_show');
+Route::get('/', 'WelcomeController@index')->name('welcomeHome');
+Route::post('/search','WelcomeController@indexWelcome');
+Route::get('/datas/{id}', 'WelcomeController@article_in');

@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <script src="https://kit.fontawesome.com/0543565c6e.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" shrink-to-fit="no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -30,7 +31,7 @@
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"><img src="../../assets/menu-2x.png"></span>
+                    <span class="navbar-toggler-icon"><img src="../../assets/menu-bar.png"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <div class="mr-auto"></div>

@@ -1,96 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.welcome')
 
-<head>
-    <script src="https://kit.fontawesome.com/0543565c6e.js"></script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Indeks Artikel</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="../../css/konten-menu.css">
-    <link rel="stylesheet" href="../../css/style-admin.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.7/css/mdb.min.css" rel="stylesheet">
-    <link rel="shortcut icon" href="../../img/pnri-logo-76.png">
+@section('title')
+Indeks Artikel | Beranda
+@endsection
 
-</head>
-
-<body>
-
-    <header>
-        <!-- NAV BAR -->
-        <div class="container-fluid p=0 align-content-center">
-		 @if (Route::has('login'))
-            <nav class="navbar navbar-expand-lg">
-                <a class="navbar-brand" href="index.html">
-                    <img src="../../assets/logo-perpunas.png" width="33" height="30" class="d-inline-block align-top"
-                        alt="">Indeks
-                    Artikel
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"><img src="../../assets/menu-2x.png"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <div class="mr-auto"></div>
-                    <ul class="navbar-nav">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="/">Beranda <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/etalase">Etalase</a>
-                        </li>
-						@auth
-						 <li class="nav-item dropdown">
-                            <div class="dropdown">
-                                <a href="#" class="nav-link">Setting Master
-                                    <i class="fa fa-chevron-down" style="font-size: .8em;"></i></a>
-                                <div class="dropdown-content">
-                                    <a href="/types" style="width: 100%">Master Jenis</a>
-                                    <a href="/times" style="width: 100%">Kala Terbit</a>
-                                    <a href="/languages" style="width: 100%">Bahasa</a>
-                                    <a href="/formats" style="width: 100%">Format</a>
-                                    <a href="/statuses" style="width: 100%">Status Ketersediaan</a>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <div class="dropdown">
-                                <a href="#" class="nav-link">Sumber
-                                    <i class="fa fa-chevron-down" style="font-size: .8em;"></i></a>
-                                <div class="dropdown-content">
-                                    <a href="/titles" style="width: 100%">Judul</a>
-                                    <a href="/editions" style="width: 100%">Edisi</a>
-                                    <a href="/articles" style="width: 100%">Artikel</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/reports">Laporan Kinerja User</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <div class="dropdown">
-                                <a href="#" class="nav-link">
-                                    <i class="fa fa-user"></i>
-                                    {{ Auth::user()->name }}
-                                    <i class="fa fa-chevron-down" style="font-size: .8em;"></i></a>
-                                <div class="dropdown-content">
-                                    <a href="{{ route('logout') }}" onclick="event.preventDefault();
-                                    document.getElementById('logout-form').submit();" style="width: 100%">Logout</a>
-                                </div>
-                            </div>
-                        </li>
-						@else
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login')}}"}}><i class="fas fa-sign-in-alt"
-                                    style="padding-right:5px;color:whitesmokes;display: inline"></i>Login</a>
-                        </li>
-                        @endauth
-                    </ul>
-                </div>
-			@endif
-            </nav>
-        </div>
-    </header>
+@section('content')
 
     <main class="imgBeranda">
         <div class="container text-center" style="padding-top: 15%;">
@@ -99,21 +13,22 @@
                     <h6>Perpustakaan Nasional Republik Indonesia</h6>
                     <h1>INDEKS ARTIKEL</h1>
                     <div class="form-search-wrap mb-3">
-                        <form method="post">
+                        <form method="post" action="/search">
+                            {{ csrf_field() }}
                             <div class="row">
                                 <div class="col-lg-12 col-xl-6">
-                                    <input type="text" class="form-control rounded"
-                                        placeholder="What are you looking for?">
+                                    <input type="text" class="form-control rounded" name="param" id="param"
+                                        placeholder="Kata Kunci">
                                 </div>
                                 <div class="col-lg-12 col-xl-4">
                                     <div class="select-wrap">
                                         <span class="icon"><span class="icon-keyboard_arrow_down"></span></span>
-                                        <select class="form-control rounded" name="" id="">
-                                            <option value="">--Sembarang--</option>
-                                            <option value="">Subjek</option>
-                                            <option value="">Judul Artikel</option>
-                                            <option value="">Pengarang</option>
-                                            <option value="">Judul Surat Kabar/Majalah</option>
+                                        <select class="form-control rounded" name="column" id="column">
+                                            <option value="all">Sembarang</option>
+                                            <option value="subject">Subjek</option>
+                                            <option value="article_title">Judul Artikel</option>
+                                            <option value="writer">Pengarang</option>
+                                            <option value="title">Nama Surat Kabar/Majalah</option>
                                         </select>
                                     </div>
                                 </div>
@@ -126,59 +41,126 @@
                 </div>
             </div>
         </div>
+
     </main>
+    @if($datas != null)
+    <div class="container ">
+        <h2>Hasil Pencarian</h2>
+        <p>Menampilkan semua hasil pencarian dengan kata kunci "{{ $param }}"</p>
 
-<!-- Footer -->
-<footer>
-        <div class="container-fluid p-0">
-            <div class="row text-left">
-                <div class="col-md-7 col-sm-3">
-                    <h4 class="text-light">Tentang Kami</h4>
-                    <p class="text-muted">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vitae, enim maiores
-                        perspiciatis incidunt fuga laudantium fugit provident libero maxime natus accusantium soluta,
-                        quaerat velit voluptatibus animi reiciendis! Labore, omnis dicta.</p>
-                    <h4 class="text-light">Kontak</h4>
-                    <p class="text-muted">Jl. Medan Merdeka Selatan No.11, RT.11/RW.2, Gambir, Kec. Senen, Kota Jakarta
-                        Pusat, Daerah Khusus Ibukota Jakarta 10110
-                        <br> No. Telepon : <span>081214555428</span></p>
+        <div class="padding"></div>
+
+        <div class="row">
+            <div class="col-md-6 text-right">
+                <div class="btn-group" style="display: none">
+                    <button type="button" class="btn btn-primary active"><i class="fa fa-list"></i></button>
+                    <button type="button" class="btn btn-primary"><i class="fa fa-th"></i></button>
                 </div>
-                <div class="col-md-5 col-sm-12">
-                    <div id="map-container" class="z-depth-1-half map-container mb-5" style="height: 400px"></div>
-                </div>
-    </footer>
+            </div>
+        </div>
 
-</body>
+        <div class="table-responsive">
+            <table class="table table-hover" id="result_area">
+                <tbody>
+                    @foreach ($datas as $data)
+{{-- {{dd($data->edition_title->)}} --}}
+                    @if($data['article_title'] != null)
 
-</html>
+                    <tr onclick="window.location='/datas/{{ $data['article_id'] }}'">
+                        <td>
+                        @if($data['featured_img']==null)
+                        <img src="{{asset('storage/upload/default.png')}}" class="border" onmouseover="this.style.cursor='pointer';" style="width:50px;height:50px">
+                        @else
+                        <img src="{{ asset('storage/upload/'.$data['featured_img']) }}" class="border" onmouseover="this.style.cursor='pointer';" style="width:50px;height:50px">
+                        @endif
+                        </td>
+                        <td class="product"><strong>{{ $data['subject'] }}</strong><br>
+                            <br>
+                            {{ $data['writer'] }}
 
-<!-- SCRIPT -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
-</script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
-</script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.7/js/mdb.min.js"></script>
-<!--Google Maps-->
-<script src="https://maps.google.com/maps/api/js"></script>
-<script>
-    function regular_map() {
-        var var_location = new google.maps.LatLng(-6.198965157647501, 106.85228106148975);
+                            <br>
+                            <br>
+                            <strong>{{ $data['article_title'] }}. {{ $data['title'] }}. - {{$data['edition_year']}},
+                                {{$data['edition_no']}}, {{$data['original_date']}}.
+                                - {{ $data['publisher'] }}, {{ $data['first_year'] }}. p:
+                                {{ $data['pages'] }}</strong><br>
 
-        var var_mapoptions = {
-            center: var_location,
-            zoom: 20
-        };
+                            <br>
 
-        var var_map = new google.maps.Map(document.getElementById("map-container"),
-            var_mapoptions);
 
-        var var_marker = new google.maps.Marker({
-            position: var_location,
-            map: var_map,
-            title: "Perpunas salemba"
-        });
-    }
-    google.maps.event.addDomListener(window, 'load', regular_map);
-</script>
+                            {{ $data['desc'] }}
+
+                            <br>
+                            <br>
+                            @foreach ($types as $type)
+                            @if($type->titles()->get()->where('id',$data['title_id'])->count() > 0)
+                            {{ $type->title }}
+                            @endif
+                            @endforeach
+
+
+                            -
+                            @foreach ($times as $time)
+                            @if($time->titles()->get()->where('id',$data['title_id'])->count() > 0)
+                            {{ $time->title }}
+                            @endif
+                            @endforeach
+                            -
+                            @foreach ($languages as $language)
+                            @if($language->titles()->get()->where('id',$data['title_id'])->count() > 0)
+                            {{ $language->title }}
+                            @endif
+                            @endforeach
+
+
+                            -
+                            @foreach ($formats as $format)
+                            @if($format->titles()->get()->where('id',$data['title_id'])->count() > 0)
+                            {{ $format->title }}
+                            @endif
+                            @endforeach
+
+
+                            -
+                            {{ $data['call_number'] }}
+
+                            <br>
+                            <br>
+
+                            dibuat oleh:
+                            @foreach ($user->where('id', $data['user_id']) as $u)
+                            {{ $u->longname }}
+                            @endforeach
+
+
+                        </td>
+
+                    </tr>
+                    @endif
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+
+                {{-- {{$countBuilds->links()}} --}}
+
+                {{-- {{ $searches->links() }} --}}
+
+                {{--  <li class="page-item disabled">
+                            <a class="page-link" href="#" tabindex="-1">Previous</a>
+                          </li>
+                          <li class="page-item"><a class="page-link" href="#">1</a></li>
+                          <li class="page-item"><a class="page-link" href="#">2</a></li>
+                          <li class="page-item"><a class="page-link" href="#">3</a></li>
+                          <li class="page-item">
+                            <a class="page-link" href="#">Next</a>
+                          </li>  --}}
+            </ul>
+        </nav>
+    </div>
+    @endif
+    </main>
+    @endsection
+

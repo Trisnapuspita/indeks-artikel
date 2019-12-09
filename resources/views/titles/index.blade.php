@@ -54,7 +54,6 @@ Indeks Artikel | Judul Sumber
         <div class="createnew" style="padding-bottom: 10px">
             <a href="/titles/create"><button>Tambah</button></a>
             <a data-toggle="modal" data-target="#importExcel"><button>Import</button></a>
-            <a href="/download"><button>Template Import</button></a>
         </div>
 
         <!-- Import Excel -->
@@ -302,9 +301,9 @@ Indeks Artikel | Judul Sumber
         $('#ok_button').click(function(){
         $.ajax({
         url:"titles/delete/"+title_id,
-        beforeSend:function(){
-            $('#ok_button').text('Deleting...');
-        },
+        // beforeSend:function(){
+        //     $('#ok_button').text('Deleting...');
+        // },
         success:function(data)
         {
             setTimeout(function(){
