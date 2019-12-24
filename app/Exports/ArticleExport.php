@@ -2,8 +2,6 @@
 
 namespace App\Exports;
 
-use App\Models\Title;
-use App\Models\EditionArticle;
 use App\Models\ArticleEdition;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -24,7 +22,7 @@ class ArticleExport implements FromCollection, WithHeadings, ShouldAutoSize, Wit
 
     public function map($article): array
     {
-        return 
+        return
         [
                 $article->article_title,
                 $article->keyword,

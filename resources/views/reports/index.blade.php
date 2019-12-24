@@ -36,7 +36,7 @@ Indeks Artikel | Laporan Kinerja User
                                     <option class="dropdown-item" value="article_title">Judul Artikel</option>
                                     {{-- <option class="dropdown-item" value="call_number">No. Panggil</option> --}}
                                 </select>
-                                <input name="param" id="param">
+                                <input name="param" id="param" required>
                             </td>
                         </tr>
                         <tr>

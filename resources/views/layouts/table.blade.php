@@ -28,7 +28,7 @@
 		 @if (Route::has('login'))
             <nav class="navbar navbar-expand-lg">
                 <a class="navbar-brand" href="index.html">
-                    <img src="../../assets/logo-perpunas.png" width="33" height="30" class="d-inline-block align-top"
+                    <img src="../../img/pnri-logo-76.png" width="33" height="30" class="d-inline-block align-top"
                         alt="">Indeks
                     Artikel
                 </a>

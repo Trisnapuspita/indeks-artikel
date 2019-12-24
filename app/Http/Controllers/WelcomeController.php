@@ -200,8 +200,6 @@ class WelcomeController extends Controller
             `article_editions`.`user_id` LIKE '%".$param."%' OR
             `article_edition_status`.`status_id` LIKE '%".$param."%'"));
 
-
-            // dd($result);
         }
         return redirect () -> route ('welcomeHome')->with(['datas' => $result, 'param' => $param]);
     }

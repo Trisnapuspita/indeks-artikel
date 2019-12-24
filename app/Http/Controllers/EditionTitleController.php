@@ -31,7 +31,7 @@ class EditionTitleController extends Controller
                     })
                     ->addColumn('edit',function($edition_titles){
                         return '<a class="btn btn-xs btn-primary" href="editions/'.$edition_titles->id.'/edit">Sunting</a>';
-                      })
+                        })
                     ->addColumn('delete', function($data){
                         $button= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-xs">Hapus</button>';
                         return $button;
@@ -197,13 +197,7 @@ class EditionTitleController extends Controller
 
         return view('editions.edit', compact('editions', 'types', 'times', 'languages', 'formats'));
     }
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function update(Request $request, $id)
     {
         $this->validate($request, [

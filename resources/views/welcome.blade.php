@@ -7,9 +7,10 @@ Indeks Artikel | Beranda
 @section('content')
 
     <main class="imgBeranda">
-        <div class="container text-center" style="padding-top: 15%;">
+        <div class="container text-center" style="padding-top: 90px;">
             <div class="row">
                 <div class="col-lg-12 col-md-7">
+                <img src="../../img/logo-perpunas.png" width="153" height="150" class="d-inline-block align-top" alt="">
                     <h6>Perpustakaan Nasional Republik Indonesia</h6>
                     <h1>INDEKS ARTIKEL</h1>
                     <div class="form-search-wrap mb-3">

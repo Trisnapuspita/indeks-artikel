@@ -65,8 +65,6 @@ class TitleController extends Controller
         return view('titles.index');
     }
 
-
-
     public function create()
     {
         $types = Type::all();
@@ -122,24 +120,6 @@ class TitleController extends Controller
         $formats = Format::all();
         $statuses = Status::all();
         $editions = EditionTitle::where('title_id', $id)->get();
-
-        // if(request()->ajax())
-        // {
-        //     // $query = EditionTitle::all();
-        //     $query = EditionTitle::where('title_id', $id)->get();
-
-        //     return datatables()->of($query)
-        //             ->addIndexColumn()
-        //             ->addColumn('article', function ($edition_titles) {
-        //             return $edition_titles->articles->count();
-        //             })
-        //             ->addColumn('mergeColumn', function($edition_titles){
-        //                 return ' '.$edition_titles->edition_year.','.$edition_titles->edition_no.','.$edition_titles->original_date;
-        //             })
-        //             ->rawColumns(['mergeColumn', 'article'])
-        //             ->make(true);
-        // }
-
         return view('titles.add_article', compact('types', 'times', 'languages', 'formats', 'title', 'statuses', 'editions'));
     }
 
@@ -310,13 +290,7 @@ class TitleController extends Controller
         $title = Title::findOrFail($id);
         return view('titles.edit', compact('user','types', 'times', 'languages', 'formats', 'title'));
     }
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, $id)
     {
         $this->validate($request, [
@@ -332,9 +306,6 @@ class TitleController extends Controller
         } else {
             $fileName = $title->featured_img;
         }
-
-        // $fileName = time(). '.png';
-        // $request->file('featured_img')->storeAs('public/upload', $fileName);
 
         $title->update([
                     'updated_by'=>Auth::user()->id,
