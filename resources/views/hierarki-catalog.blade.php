@@ -26,7 +26,6 @@
                 @foreach($editions as $edition)
                 @if($edition->id == $article->edition_title_id)
                 @if($title->id == $edition->title_id)
-                <li class="breadcrumb-item"><a href="/hierarki/{{ $title->id }}">Etalase</a></li>
                 <li class="breadcrumb-item"><a href="/hierarki/{{ $title->id }}">Hierarki Indeks</a></li>
                 <li class="breadcrumb-item"><a href="/hierarki/{{ $title->id }}">Edisi {{$edition->edition_year}}, {{$edition->edition_no}}, {{$edition->original_date}}</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Artikel {{ $article->article_title }}. p: {{ $article->pages }}

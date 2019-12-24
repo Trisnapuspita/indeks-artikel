@@ -18,7 +18,7 @@ Indeks Artikel | Buat Master Jenis
         <div class="mr-auto" style="padding-bottom:10px; padding-right: 50px; padding-left: 50px">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="beranda-user.html">Beranda</a></li>
-                <li class="breadcrumb-item"><a href="sumber.html">Sumber</a></li>
+                <li class="breadcrumb-item"><a href="sumber.html">Setting Master</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Tambah Master Jenis</li>
             </ol>
         </div>
@@ -26,7 +26,7 @@ Indeks Artikel | Buat Master Jenis
         -moz-box-shadow: 0px 0px 17px -4px rgba(0,0,0,0.75);
         box-shadow: 0px 0px 17px -4px rgba(0,0,0,0.75);">
             <form class="form" method="POST" action="/types">
-                <h4 style="font-weight: bold; padding-bottom:10px; text-align:center;color: black">Data Master</h4>
+                <h4 style="font-weight: bold; padding-bottom:10px; text-align:center;color: black">Buat Master Jenis</h4>
                 </fieldset>
                 <div class="form-group row">
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Nama</label>

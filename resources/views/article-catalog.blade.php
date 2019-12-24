@@ -29,7 +29,6 @@
                 @if($edition->id == $article->edition_title_id)
                 @if($title->id == $edition->title_id)
 
-                <li class="breadcrumb-item"><a href="/catalog/{{ $title->id }}">Etalase</a></li>
                 <li class="breadcrumb-item"><a href="/catalog/{{ $title->id }}">Daftar Isi</a></li>
                 <li class="breadcrumb-item active" aria-current="page">{{$edition->edition_year}}, {{$edition->edition_no}}, {{$edition->original_date}}
                 </li>

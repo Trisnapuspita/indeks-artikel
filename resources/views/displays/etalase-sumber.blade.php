@@ -6,7 +6,6 @@ Indeks Artikel | Etalase
 @section('content')
 
 
-
 <main style="height: 100%;padding: 45px">
 
         <div class="mr-auto" style="padding-bottom:10px;">

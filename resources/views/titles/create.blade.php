@@ -1,7 +1,7 @@
 @extends('layouts.form')
 
 @section('title')
-Indeks Artikel | Buat Judul Sumber
+Indeks Artikel | Tambah Judul Sumber
 @endsection
 
 @section('content')
@@ -10,6 +10,7 @@ Indeks Artikel | Buat Judul Sumber
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="beranda-user.html">Beranda</a></li>
                 <li class="breadcrumb-item"><a href="sumber.html">Sumber</a></li>
+                <li class="breadcrumb-item"><a href="sumber.html">Judul</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Buat Judul Sumber</li>
             </ol>
         </div>
@@ -17,8 +18,7 @@ Indeks Artikel | Buat Judul Sumber
         -moz-box-shadow: 0px 0px 17px -4px rgba(0,0,0,0.75);
         box-shadow: 0px 0px 17px -4px rgba(0,0,0,0.75);">
             <form class="form" method="POST" action="/titles" enctype="multipart/form-data">
-                <h4 style="font-weight: bold; padding-bottom:10px; text-align:center;color: black">Buat
-                    Judul Sumber</h4>
+                <h4 style="font-weight: bold; padding-bottom:10px; text-align:center;color: black">Judul Sumber</h4>
                 <fieldset class="form-group">
                     <div class="row was-validated">
                         <legend class="col-form-label col-sm-3 pt-0">Jenis*</legend>
@@ -76,7 +76,7 @@ Indeks Artikel | Buat Judul Sumber
                 <div class="form-group row">
                     <label for="inputEmail3" class="col-sm-3 col-form-label">Tahun Terbit Pertama*</label>
                     <div class="col-sm-4 col-form-label">
-                        <input type="text" class="form-control" id="first_year" name="first_year"
+                        <input type="number" class="form-control" id="first_year" name="first_year"
                          value="{{old('first_year')}}" placeholder="Tulis tahun terbit pertama disini"  >
                     </div>
                 </div>

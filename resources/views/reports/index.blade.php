@@ -29,14 +29,14 @@ Indeks Artikel | Laporan Kinerja User
                             </td>
                             <td>
                                 <select class="box" name="column" id="column" required>
-                                    <option disabled selected hidden>Pilih Kriteria</option>
-                                    {{-- <option class="dropdown-item" value="all">Semua</option> --}}
+                                    <!-- <option disabled selected hidden>Pilih Kriteria</option> -->
+                                    <!-- {{-- <option class="dropdown-item" value="all">Semua</option> --}} -->
+                                    <option class="dropdown-item" value="article_title">Judul Artikel</option>
                                     <option class="dropdown-item" value="subject">Subyek</option>
                                     <option class="dropdown-item" value="writer">Pengarang</option>
-                                    <option class="dropdown-item" value="article_title">Judul Artikel</option>
-                                    {{-- <option class="dropdown-item" value="call_number">No. Panggil</option> --}}
+                                    <!-- {{-- <option class="dropdown-item" value="call_number">No. Panggil</option> --}} -->
                                 </select>
-                                <input name="param" id="param" required>
+                                <input name="param" id="param">
                             </td>
                         </tr>
                         <tr>

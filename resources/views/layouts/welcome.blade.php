@@ -24,13 +24,13 @@
             @if (Route::has('login'))
             <nav class="navbar navbar-expand-lg">
                 <a class="navbar-brand" href="/">
-                    <img src="../../img/logo-perpunas.png" width="33" height="30" class="d-inline-block align-top"
+                    <img src="{{asset('/img/logo-perpunas.png')}}" width="33" height="30" class="d-inline-block align-top"
                         alt="">Indeks
                     Artikel
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"><img src="../../assets/menu-2x.png"></span>
+                    <span class="navbar-toggler-icon"><img src="../../img/menu-bar.png"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <div class="mr-auto"></div>
@@ -45,7 +45,7 @@
                         <li class="nav-item dropdown">
                             <div class="dropdown">
                                 <a href="#" class="nav-link">Setting Master
-                                    <i class="fa fa-chevron-down" style="font-size: .8em;"></i></a>
+                                    <i class="fas fa-sort-down" style="font-size: .8em;"></i></a>
                                 <div class="dropdown-content">
                                     <a href="/types" style="width: 100%">Master Jenis</a>
                                     <a href="/times" style="width: 100%">Kala Terbit</a>
@@ -55,8 +55,14 @@
                                 </div>
                             </div>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/titles">Sumber</a>
+                        <li class="nav-item dropdown">
+                            <div class="dropdown">
+                                <a href="#" class="nav-link">Sumber
+                                    <i class="fas fa-sort-down" style="font-size: .8em;"></i></a>
+                                <div class="dropdown-content">
+                                    <a href="/titles" style="width: 100%">Judul</a>
+                                    <a href="/editions" style="width: 100%">Edisi</a>
+                                    <a href="/articles" style="width: 100%">Artikel</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/reports">Laporan Kinerja User</a>
@@ -66,7 +72,7 @@
                                 <a href="#" class="nav-link">
                                     <i class="fa fa-user"></i>
                                     {{ Auth::user()->name }}
-                                    <i class="fa fa-chevron-down" style="font-size: .8em;"></i></a>
+                                    <i class="fas fa-sort-down" style="font-size: .8em;"></i></a>
                                 <div class="dropdown-content">
                                     <a href="{{ route('logout') }}" onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();" style="width: 100%">Logout</a>
@@ -92,15 +98,13 @@
     <footer>
         <div class="container-fluid p-0">
             <div class="row text-left">
-                <div class="col-md-7 col-sm-3">
-                    <h4 class="text-light">Tentang Kami</h4>
-                    <p class="text-muted">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vitae, enim maiores
-                        perspiciatis incidunt fuga laudantium fugit provident libero maxime natus accusantium soluta,
-                        quaerat velit voluptatibus animi reiciendis! Labore, omnis dicta.</p>
+                <div class="col-md-7 col-md-3">
                     <h4 class="text-light">Kontak</h4>
-                    <p class="text-muted">Jl. Medan Merdeka Selatan No.11, RT.11/RW.2, Gambir, Kec. Senen, Kota Jakarta
-                        Pusat, Daerah Khusus Ibukota Jakarta 10110
-                        <br> No. Telepon : <span>081214555428</span></p>
+                    <p class="text-muted">Sub Direktorat Bibliografi, 
+                    <br>Direktorat Deposit Bahan Pustaka
+                    <br>Perpustakaan Nasional RI
+                    <br>Jalan Salemba Raya No. 28a Gedung A lantai 2
+                        <br> Email : <span><a href = "mailto: kin@perpusnas.go.id">kin@perpusnas.go.id</a></span></p>
                 </div>
                 <div class="col-md-5 col-sm-12">
                     <div id="map-container" class="z-depth-1-half map-container mb-5" style="height: 400px"></div>
@@ -109,6 +113,7 @@
 
 </body>
 
+<a href="javascript:" id="return-to-top"><i class="fas fa-arrow-up"></i></a>
 </html>
 
 <!-- SCRIPT -->
@@ -142,4 +147,19 @@
         }
         google.maps.event.addDomListener(window, 'load', regular_map);
 
+    </script>
+    <script type="text/javascript">
+    // ===== Scroll to Top ====
+    $(window).scroll(function() {
+        if ($(this).scrollTop() >= 50) { // If page is scrolled more than 50px
+        $('#return-to-top').fadeIn(200); // Fade in the arrow
+        } else {
+        $('#return-to-top').fadeOut(200); // Else fade out the arrow
+        }
+    });
+    $('#return-to-top').click(function() { // When arrow is clicked
+        $('body,html').animate({
+        scrollTop: 0 // Scroll to top of body
+        }, 500);
+    });
     </script>

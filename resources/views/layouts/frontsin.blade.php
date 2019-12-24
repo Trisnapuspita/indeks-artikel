@@ -98,7 +98,7 @@
 
             @yield('content')
 </body>
-
+<a href="javascript:" id="return-to-top"><i class="fas fa-arrow-up"></i></a>
 </html>
 
 <!-- SCRIPT -->

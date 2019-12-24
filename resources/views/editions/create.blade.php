@@ -1,7 +1,7 @@
 @extends('layouts.form')
 
 @section('title')
-Indeks Artikel | Edisi
+Indeks Artikel | Buat Edisi
 @endsection
 
 @section('content')
@@ -12,8 +12,8 @@ Indeks Artikel | Edisi
 
                 <li class="breadcrumb-item"><a href="/home">Beranda</a></li>
                 <li class="breadcrumb-item"><a href="/titles">Sumber</a></li>
-                <li class="breadcrumb-item"><a href="/titles">Artikel</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Tambah Artikel</li>
+                <li class="breadcrumb-item"><a href="/editions">Edisi</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Buat Edisi</li>
             </ol>
         </div>
 

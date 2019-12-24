@@ -9,7 +9,7 @@
     <title>Indeks Artikel</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <link rel="stylesheet" href="../../css/style-admin.css">
+    <link rel="stylesheet" href="../../css/style-admin.css">
     <link rel="stylesheet" href="../../css/grid.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.7/css/mdb.min.css" rel="stylesheet">
     <style>
@@ -33,12 +33,12 @@
     <div class="accordion" id="accordionExample">
         <div class="card">
             <div class="card-header">
-                    <a href="" class="card-headingOne" id="headingOne" data-toggle="collapse" data-target="{{'#collapseOne' . $year->first()->publish_year}}" aria-expanded="false" aria-controls="collapseOne">
-                           <strong> +  {{ $year->first()->publish_year }} </strong>
-                         </a>
-                       </div>
+              <a href="" class="card-headingOne" id="headingOne" data-toggle="collapse" data-target="{{'#collapseOne' . $year->first()->publish_year}}" aria-expanded="false" aria-controls="collapseOne">
+                  <strong> +  {{ $year->first()->publish_year }} </strong>
+              </a>
+            </div>
                        @foreach($year as $edition)
-                       <div id="{{'collapseOne' . $year->first()->publish_year}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                       <div id="{{'collapseOne' . $year->first()->publish_year}}" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                          <div class="kotak">
                            <div><a class="btn-link" data-toggle="collapse" href="{{'#multiCollapseExample1' . $edition->id}}" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">
                                  + {{$edition->edition_year}}, {{$edition->edition_no}}, {{$edition->original_date}}

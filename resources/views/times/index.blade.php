@@ -35,7 +35,7 @@ Indeks Artikel | Master Kala Terbit
             <thead>
                 <tr class="GridHeader">
                     <th>No.</th>
-                    <th>Nama Jenis</th>
+                    <th>Nama Kala Terbit</th>
                     <th>Jumlah Judul Sumber</th>
                     <th>Action</th>
                 </tr>

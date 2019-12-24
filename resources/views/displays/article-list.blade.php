@@ -14,7 +14,6 @@ Indeks Artikel | Perincian Artikel
             @foreach($editions as $edition)
             @if($edition->id == $article->edition_title_id)
             @if($title->id == $edition->title_id)
-            <li class="breadcrumb-item"><a href="/displays/catalog/{{ $title->id }}">Etalase</a></li>
             <li class="breadcrumb-item"><a href="/displays/catalog/{{ $title->id }}">Daftar Isi</a></li>
             <li class="breadcrumb-item active" aria-current="page">Edisi {{$edition->edition_year}}, {{$edition->edition_no}}, {{$edition->original_date}}
             </li>

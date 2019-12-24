@@ -152,7 +152,7 @@ Indeks Artikel | Artikel
                         <td style="border-right-style: solid; border-right-width: 1px; border-right-color: #EBEBEB">
                             &nbsp;</td>
                         <td>
-                            <a href="/articles/export_excel"><img src="../../assets/Export_Excel.png"
+                            <a href="/articles/export_excel"><img src="../../img/Export_Excel.png"
                                 style="margin-top:10px;font-family:Arial;font-size:X-Small;height:40px;"></a>
                         </td>
                     </tr>

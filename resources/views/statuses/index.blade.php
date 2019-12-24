@@ -35,7 +35,7 @@ Indeks Artikel | Master Status Ketersediaan
             <thead>
                 <tr class="GridHeader">
                     <th>No.</th>
-                    <th>Nama Jenis</th>
+                    <th>Nama Status</th>
                     <th>Jumlah Judul Sumber</th>
                     <th>Action</th>
                 </tr>

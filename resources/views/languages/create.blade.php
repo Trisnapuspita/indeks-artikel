@@ -28,10 +28,10 @@ Indeks Artikel | Buat Master Bahasa
             <form class="form" method="POST" action="/languages">
                 <h4 style="font-weight: bold; padding-bottom:10px; text-align:center;color: black">
                     Buat Master Bahasa</h4>
-                    <div class="form-group row was-validated">
-                        <label for="inputEmail3" class="col-sm-2 col-form-label">Nama*</label>
+                    <div class="form-group row">
+                        <label for="inputEmail3" class="col-sm-2 col-form-label">Nama</label>
                             <div class="col-sm-10">
-                                <input type="text" name="title" class="form-control" value="{{old('title')}}" placeholder="tulis nama disini" required>
+                                <input type="text" name="title" class="form-control" value="{{old('title')}}" placeholder="tulis nama disini">
                             </div>
                     </div>
 

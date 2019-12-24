@@ -37,7 +37,7 @@ Indeks Artikel | Master Bahasa
             <thead>
                 <tr class="GridHeader">
                     <th>No.</th>
-                    <th>Nama Jenis</th>
+                    <th>Nama Bahasa</th>
                     <th>Jumlah Judul Sumber</th>
                     <th>Action</th>
                 </tr>

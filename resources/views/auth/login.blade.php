@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <script src="https://kit.fontawesome.com/0543565c6e.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -76,9 +77,9 @@
         <!-- CONTENT -->
         <div class="container text-center">
             <div class="row">
-                <div class="col-md-4 col-sm-4 col-xs-12">
+                <div class="col-lg col-md">
                 </div>
-                <div class="col-md-4 col-sm-4 col-xs-12">
+                <div class="col-lg-4 col-md-5">
                     <h1 class="text-center signin">{{ __('Login') }}</h1>
                     <form method="POST" class="form-container" action="{{ route('login') }}">
                     @csrf
@@ -127,29 +128,27 @@
                         <span>Tidak memiliki akun?</span><a href="{{ route('register') }}">  Daftar </a>
                     </form>
                 </div>
-                <div class="col-md-4 col-sm-4 col-xs-12">
+                <div class="col-lg col-md">
                 </div>
             </div>
         </div>
     </main>
 
     <!-- Footer -->
-    <footer>
+    <footer style="height:auto">
         <div class="container-fluid p-0">
             <div class="row text-left">
-                <div class="col-md-7 col-sm-3">
-                    <h4 class="text-light">Tentang Kami</h4>
-                    <p class="text-muted">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vitae, enim maiores
-                        perspiciatis incidunt fuga laudantium fugit provident libero maxime natus accusantium soluta,
-                        quaerat velit voluptatibus animi reiciendis! Labore, omnis dicta.</p>
+                <div class="col-md col-sm">
                     <h4 class="text-light">Kontak</h4>
-                    <p class="text-muted">Jl. Medan Merdeka Selatan No.11, RT.11/RW.2, Gambir, Kec. Senen, Kota Jakarta
-                        Pusat, Daerah Khusus Ibukota Jakarta 10110
-                        <br> No. Telepon : <span>081214555428</span></p>
+                    <p class="text-muted">Sub Direktorat Bibliografi, 
+                    <br>Direktorat Deposit Bahan Pustaka
+                    <br>Perpustakaan Nasional RI
+                    <br>Jalan Salemba Raya No. 28a Gedung A lantai 2
+                        <br> Email : <span><a href = "mailto: kin@perpusnas.go.id">kin@perpusnas.go.id</a></span></p>
                 </div>
                 <div class="col-md-5 col-sm-12">
                     <div id="map-container" class="z-depth-1-half map-container mb-5" style="height: 400px"></div>
-                </div>s
+                </div>
     </footer>
 </body>
 

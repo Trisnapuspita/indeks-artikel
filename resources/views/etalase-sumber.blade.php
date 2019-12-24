@@ -22,19 +22,13 @@
             @if (Route::has('login'))
             <nav class="navbar navbar-expand-lg">
                 <a class="navbar-brand" href="/">
-                    <img src="../../assets/logo-perpunas.png" width="33" height="30" class="d-inline-block align-top"
+                    <img src="../../img/logo-perpunas.png" width="33" height="30" class="d-inline-block align-top"
                         alt="">Indeks
                     Artikel
                 </a>
-                <div class="mr-auto">
-                    <ol class="breadcrumb">
-                      <li class="breadcrumb-item"><a href="index.html">Beranda</a></li>
-                      <li class="breadcrumb-item active" aria-current="page">Etalase IA</li>
-                    </ol>
-                  </div>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"><img src="../../assets/menu-2x.png"></span>
+                    <span class="navbar-toggler-icon"><img src="../../img/menu-bar.png"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <div class="mr-auto"></div>
@@ -55,7 +49,7 @@
                         <li class="nav-item dropdown">
                             <div class="dropdown">
                                 <a href="#" class="nav-link">Setting Master
-                                    <i class="fas fa-sort-down" style="font-size: 22px;display: inline"></i></a>
+                                    <i class="fa fa-chevron-down"  style="font-size: .8em;"></i></a>
                                 <div class="dropdown-content">
                                     <a href="/types" style="width: 100%">Jenis</a>
                                     <a href="/times" style="width: 100%">Kala Terbit</a>
@@ -65,8 +59,14 @@
                                 </div>
                             </div>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/titles">Sumber</a>
+                        <li class="nav-item dropdown">
+                            <div class="dropdown">
+                                <a href="#" class="nav-link">Sumber
+                                    <i class="fa fa-chevron-down" style="font-size: .8em;"></i></a>
+                                <div class="dropdown-content">
+                                    <a href="/titles" style="width: 100%">Judul</a>
+                                    <a href="/editions" style="width: 100%">Edisi</a>
+                                    <a href="/articles" style="width: 100%">Artikel</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/reports">Laporan Kinerja Karyawan</a>
@@ -101,7 +101,7 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/">Beranda</a></li>
                     <li class="breadcrumb-item"><a href="/etalase">Etalase</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{ $title->title }}</li>
+            <li class="breadcrumb-item active" aria-current="page">Tempo</li>
                 </ol>
             </div>
             <div class="row">
@@ -192,14 +192,12 @@
         <div class="container-fluid p-0">
             <div class="row text-left">
                 <div class="col-md-7 col-sm-3">
-                    <h4 class="text-light">Tentang Kami</h4>
-                    <p class="text-muted">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vitae, enim maiores
-                        perspiciatis incidunt fuga laudantium fugit provident libero maxime natus accusantium soluta,
-                        quaerat velit voluptatibus animi reiciendis! Labore, omnis dicta.</p>
-                    <h4 class="text-light">Kontak</h4>
-                    <p class="text-muted">Jl. Salemba Raya No.28A Jakarta 10430
-                        <br>Email : <span>indeksartikel@perpusnas.go.id</span>
-                        <br>No. Telepon : <span>(021) 929 209 79</span></p>
+                <h4 class="text-light">Kontak</h4>
+                <p class="text-muted">Sub Direktorat Bibliografi, 
+                    <br>Direktorat Deposit Bahan Pustaka
+                    <br>Perpustakaan Nasional RI
+                    <br>Jalan Salemba Raya No. 28a Gedung A lantai 2
+                        <br> Email : <span><a href = "mailto: kin@perpusnas.go.id">kin@perpusnas.go.id</a></span></p>
                 </div>
                 <div class="col-md-5 col-sm-12">
                     <div id="map-container" class="z-depth-1-half map-container mb-5" style="height: 400px"></div>
@@ -207,6 +205,7 @@
     </footer>
 </body>
 
+<a href="javascript:" id="return-to-top"><i class="fas fa-arrow-up"></i></a>
 </html>
 
 <!-- SCRIPT -->
@@ -240,3 +239,18 @@
     }
     google.maps.event.addDomListener(window, 'load', regular_map);
 </script>
+ <script type="text/javascript">
+        // ===== Scroll to Top ====
+        $(window).scroll(function() {
+          if ($(this).scrollTop() >= 50) { // If page is scrolled more than 50px
+            $('#return-to-top').fadeIn(200); // Fade in the arrow
+          } else {
+            $('#return-to-top').fadeOut(200); // Else fade out the arrow
+          }
+        });
+        $('#return-to-top').click(function() { // When arrow is clicked
+          $('body,html').animate({
+            scrollTop: 0 // Scroll to top of body
+          }, 500);
+        });
+      </script>

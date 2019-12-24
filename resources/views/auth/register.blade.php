@@ -28,13 +28,12 @@
                 <div class="mr-auto">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/">Beranda</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Login</li>
                         <li class="breadcrumb-item active" aria-current="page">Register</li>
                     </ol>
                 </div>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"><img src="../img/menu-2x.png"></span>
+                    <span class="navbar-toggler-icon"><img src="../img/menu-bar.png"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                 @guest
@@ -74,18 +73,18 @@
     </header>
 
 
-    <main>
-        <div class="container text-center">
+    <main style="height: auto">
+    <div class="container text-center">
             <div class="row">
-                <div class="col-md-4 col-sm-4 col-xs-12">
+                <div class="col-lg col-md">
                 </div>
-                <div class="col-md-4 col-sm-4 col-xs-12">
+                <div class="col-lg-4 col-md-5">
                     <h1 class="text-center signin">{{ __('Register') }}</h1>
                     <form method="POST" class="form-container" ACTION="{{ route('register') }}">
                     @csrf
                         <div class="form-group">
                             <label for="name">Username</label>
-                            <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name"
+                            <input style="text-align:center;"id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name"
                             value="{{ old('name')}}" required autocomplete="name" autofocus placeholder="Masukkan Username">
 
                                 @error('name')
@@ -96,8 +95,8 @@
                         </div>
                         <div class="form-group">
                             <label for="longname">Nama Lengkap</label>
-                            <input id="longname" type="text" class="form-control @error('longname') is-invalid @enderror" name="longname" value="{{ old('longname') }}" required autocomplete="longname" autofocus
-                            placeholder="Enter Full Name">
+                            <input style="text-align:center;"id="longname" type="text" class="form-control @error('longname') is-invalid @enderror" name="longname" value="{{ old('longname') }}" required autocomplete="longname" autofocus
+                            placeholder="Masukan Nama Lengkap">
                                     @error('longname')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -106,8 +105,8 @@
                         </div>
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email"
-                            placeholder="Masukkan email">
+                            <input style="text-align:center;"id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email"
+                            placeholder="Masukkan Alamat Email">
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -116,7 +115,7 @@
                         </div>
                         <div class="form-group">
                             <label for="password">Password</label>
-                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password"
+                            <input style="text-align:center;"id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password"
                                     placeholder="Masukkan Password">
 
                                 @error('password')
@@ -128,36 +127,34 @@
 
                         <div class="form-group">
                             <label for="password-confirm">Konfirmasi Password</label>
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password"
+                                <input style="text-align:center;"id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password"
                                     placeholder="Masukkan Password Lagi">
                         </div>
 
-                        <button type="submit" class="btn btn-primary"><strong>
-                                    {{ __('Register') }}
+                        <button type="submit" class="btn btn-login"><strong>
+                                    {{ __('Daftar') }}
                                 </strong></button>
                         <br><br>
                         <span>Sudah mendaftar? </span><a href="{{route('login')}}">Login</a>
                     </form>
                 </div>
-                <div class="col-md-4 col-sm-4 col-xs-12">
+                <div class="col-lg col-md">
                 </div>
             </div>
         </div>
     </main>
 
     <!-- Footer -->
-    <footer>
+    <footer style="height:auto">
         <div class="container-fluid p-0">
             <div class="row text-left">
-                <div class="col-md-7 col-sm-3">
-                    <h4 class="text-light">Tentang Kami</h4>
-                    <p class="text-muted">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vitae, enim maiores
-                        perspiciatis incidunt fuga laudantium fugit provident libero maxime natus accusantium soluta,
-                        quaerat velit voluptatibus animi reiciendis! Labore, omnis dicta.</p>
+                <div class="col-md col-sm">
                     <h4 class="text-light">Kontak</h4>
-                    <p class="text-muted">Jl. Medan Merdeka Selatan No.11, RT.11/RW.2, Gambir, Kec. Senen, Kota Jakarta
-                        Pusat, Daerah Khusus Ibukota Jakarta 10110
-                        <br> No. Telepon : <span>081214555428</span></p>
+                    <p class="text-muted">Sub Direktorat Bibliografi, 
+                    <br>Direktorat Deposit Bahan Pustaka
+                    <br>Perpustakaan Nasional RI
+                    <br>Jalan Salemba Raya No. 28a Gedung A lantai 2
+                        <br> Email : <span><a href = "mailto: kin@perpusnas.go.id">kin@perpusnas.go.id</a></span></p>
                 </div>
                 <div class="col-md-5 col-sm-12">
                     <div id="map-container" class="z-depth-1-half map-container mb-5" style="height: 400px"></div>

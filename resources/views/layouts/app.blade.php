@@ -102,15 +102,13 @@
 <footer>
         <div class="container-fluid p-0">
             <div class="row text-left">
-                <div class="col-md-7 col-sm-3">
-                    <h4 class="text-light">Tentang Kami</h4>
-                    <p class="text-muted">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vitae, enim maiores
-                        perspiciatis incidunt fuga laudantium fugit provident libero maxime natus accusantium soluta,
-                        quaerat velit voluptatibus animi reiciendis! Labore, omnis dicta.</p>
+                <div class="col-md-7 col-md-3">
                     <h4 class="text-light">Kontak</h4>
-                    <p class="text-muted">Jl. Medan Merdeka Selatan No.11, RT.11/RW.2, Gambir, Kec. Senen, Kota Jakarta
-                        Pusat, Daerah Khusus Ibukota Jakarta 10110
-                        <br> No. Telepon : <span>081214555428</span></p>
+                    <p class="text-muted">Sub Direktorat Bibliografi, 
+                    <br>Direktorat Deposit Bahan Pustaka
+                    <br>Perpustakaan Nasional RI
+                    <br>Jalan Salemba Raya No. 28a Gedung A lantai 2
+                        <br> Email : <span><a href = "mailto: kin@perpusnas.go.id">kin@perpusnas.go.id</a></span></p>
                 </div>
                 <div class="col-md-5 col-sm-12">
                     <div id="map-container" class="z-depth-1-half map-container mb-5" style="height: 400px"></div>

@@ -55,7 +55,6 @@ Indeks Artikel | Judul Sumber
             <a href="/titles/create"><button>Tambah</button></a>
             <a data-toggle="modal" data-target="#importExcel"><button>Import</button></a>
         </div>
-
         <!-- Import Excel -->
 		<div class="modal fade" id="importExcel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog" role="document">
@@ -165,7 +164,7 @@ Indeks Artikel | Judul Sumber
                         <td style="border-right-style: solid; border-right-width: 1px; border-right-color: #EBEBEB">
                             &nbsp;</td>
                         <td>
-                            <a href="/articles/export_excel"><img src="../../assets/Export_Excel.png"
+                            <a href="/articles/export_excel"><img src="../../img/Export_Excel.png"
                                 style="margin-top:10px;font-family:Arial;font-size:X-Small;height:40px;"></a>
                         </td>
                     </tr>
