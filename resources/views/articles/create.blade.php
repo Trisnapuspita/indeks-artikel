@@ -55,35 +55,45 @@ Indeks Artikel | Tambah
                 <div class="form-group row">
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Judul*</label>
                     <div class="col">
-                        <input type="text" class="form-control" id="title" name="title">
+                        <input type="text" class="form-control" id="title" name="title" placeholder="Tulis judul disini">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Kode*</label>
                     <div class="col">
-                        <input type="text" class="form-control {{ $errors->get('kode') ? 'has-error' : '' }}" id="kode" name="kode"
+                        <input type="text" class="form-control {{ $errors->get('kode') ? 'has-error' : '' }}" id="kode" name="kode" maxlength="5" placeholder="Tulis kode disini"
                          value="{{old('kode')}}">
                          @foreach($errors->get('kode') as $error)
                             <span class="help-block">{{ $error }}</span>
                         @endforeach
                     </div>
                 </div>
+                <div class="form-group row" hidden>
+                        <label for="inputEmail3" class="col-sm-2 col-form-label">Kode*</label>
+                        <div class="col">
+                            <input type="text" class="form-control {{ $errors->get('kode') ? 'has-error' : '' }}" id="kode" name="kode" maxlength="5" placeholder="Tulis kode disini"
+                             value="{{old('kode')}}" disabled>
+                             @foreach($errors->get('kode') as $error)
+                                <span class="help-block">{{ $error }}</span>
+                            @endforeach
+                        </div>
+                    </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Penerbitan*</label>
                     <div class="col">
-                        <input type="text" class="form-control"  name="city" id="city">
+                        <input type="text" class="form-control"  name="city" id="city" placeholder="Kota">
                     </div>
                     <div class="col">
-                        <input type="text" class="form-control"  name="publisher" id="publisher">
+                        <input type="text" class="form-control"  name="publisher" id="publisher" placeholder="Penerbit">
                     </div>
                     <div class="col">
-                        <input type="text" class="form-control"   name="year" id="year">
+                        <input type="text" class="form-control" placeholder="Tahun"  name="year" id="year">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Tahun Terbit Pertama*</label>
                     <div class="col-sm-4 col-form-label">
-                        <input type="text" class="form-control" id="first_year" name="first_year">
+                        <input type="text" class="form-control" id="first_year" name="first_year" placeholder="Tulis tahun terbit pertama disini">
                     </div>
                 </div>
                 <div class="form-group row">
@@ -186,24 +196,23 @@ Indeks Artikel | Tambah
                     <div class="form-group row">
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Kode*</label>
                     <div class="col">
-                        <input type="text" class="form-control {{ $errors->get('edition_code') ? 'has-error' : '' }}" id="edition_code" name="edition_code"
+                        <input type="text" class="form-control {{ $errors->get('edition_code') ? 'has-error' : '' }}" id="edition_code" name="edition_code" maxlength="5" placeholder="Tulis kode disini"
                          value="{{old('edition_code')}}">
                          @foreach($errors->get('edition_code') as $error)
                             <span class="help-block">{{ $error }}</span>
                         @endforeach
                     </div>
                 </div>
-                    <div class="form-group row was-validated">
+                    <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Penulisan Tanggal Asli*</label>
                         <div class="col-sm-10">
-                            <input class="form-control" type="text" placeholder="" id="original_date"  name="original_date" value="{{old('original_date')}}" required>
+                            <input class="form-control" type="text" placeholder="Tulis tanggal asli disini" id="original_date"  name="original_date" value="{{old('original_date')}}" required>
                         </div>
                     </div>
-                    <div class="form-group row was-validated">
-                        <label class="col-sm-2 col-form-label" for="validationServer03">No. Panggil*</label>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label" for="validationServer03">No. Panggil</label>
                         <div class="col-sm-10">
-                            <input class="form-control is-invalid" type="text" placeholder="" name="call_number" id="call_number" value="{{old('call_number')}}"
-                                required>
+                            <input class="form-control" type="text" placeholder="Tulis nomor panggil disini" name="call_number" id="call_number" value="{{old('call_number')}}">
                         </div>
                     </div>
                     <div class="form-group row was-validated">
@@ -299,68 +308,6 @@ Indeks Artikel | Tambah
                 </form>
             </div>
         </div>
-        <!-- Modal -->
-    <div id="myModal" class="modal fade" role="dialog">
-      <div class="modal-dialog modal-lg">
-        <!-- Modal content-->
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title">Edisi</h4>
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-          </div>
-          <div class="modal-body">
-           <div class="table-responsive">
-           <table id="example" class="table table-striped table-bordered table-responsive" style="width:100%">
-            <thead>
-                <tr class="GridHeader" style="text-align: center" id="example">
-					<td>No</td>
-                    <td>ID</td>
-                    <th>Gambar</th>
-                    <th>Tahun</th>
-                    <th>Edisi</th>
-                    <th>Volume</th>
-                    <th>Jilid</th>
-                    <th>Nomor</th>
-                    <th>Tanggal</th>
-                    <th>Bulan</th>
-                    <th>Tahun</th>
-                    <th>Tanggal Asli</th>
-                    <th>Nomor Panggil</th>
-                </tr>
-			</thead>
-			<tbody>
-            @php $i=1 @endphp
-            @foreach ($editions as $edition)
-                <tr class="GridItem">
-					<td>{{ $i++ }}</td>
-                    <td>{{$edition->id}}</td>
-                    @if($edition->edition_image == null)
-                    <td><img src="{{asset('storage/upload/default.png')}}" style="max-width: 150px; height: auto; "class="image-fluid"></td>
-                    @else
-                    <td><img src="{{asset('storage/upload/'. $edition->edition_image) }}" style="max-width: 150px; height: auto; "class="image-fluid"></td>
-                    @endif
-                    <td style="width:100px;">{{$edition->edition_year}}</td>
-                    <td style="width:100px;">{{$edition->edition_title}}</td>
-                    <td style="width:100px;">{{$edition->volume}}</td>
-                    <td style="width:100px;">{{$edition->chapter}}</td>
-                    <td style="width:100px;">{{$edition->edition_no}}</td>
-                    <td style="width:100px;">{{$edition->publish_month}}</td>
-                    <td style="width:100px;">{{$edition->publish_date}}</td>
-                    <td style="width:100px;">{{$edition->publish_year}}</td>
-                    <td style="width:150px;">{{$edition->original_date}}</td>
-                    <td style="width:150px;">{{$edition->call_number}}</td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          </div>
-        </div>
-        </div>
-    </div>
 
     <!-- Modal -->
     <div id="myModal1" class="modal fade" role="dialog">
@@ -424,62 +371,54 @@ Indeks Artikel | Tambah
           </div>
           </div>
     </div>
+
+     <!-- Modal -->
+     <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Edisi</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+             <div class="table-responsive">
+             <table id="tblEdisi" class="table table-striped table-bordered table-responsive" style="width:100%">
+              <thead>
+                  <tr class="GridHeader" style="text-align: center" id="example">
+                      <th>No</th>
+                      <th>ID</th>
+                      <th>Gambar</th>
+                      <th>Kode</th>
+                      <th>Tahun</th>
+                      <th>Edisi</th>
+                      <th>Volume</th>
+                      <th>Jilid</th>
+                      <th>Nomor</th>
+                      <th>Tanggal</th>
+                      <th>Bulan</th>
+                      <th>Tahun</th>
+                      <th>Tanggal Asli</th>
+                      <th>Nomor Panggil</th>
+                  </tr>
+              </thead>
+          </table>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+          </div>
+      </div>
     </main>
 @endsection
 
 @section('scripts')
 <script type="text/javascript">
-    $(document).ready(function() {
-        var table = $('#example').DataTable({
-            "columnDefs": [
-            {
-                "targets": [ 1, 8, 9, 10 ],
-                "visible": false,
-                "searchable": false
-            }
-        ]
-        });
-        
-        $('#example tbody').on( 'click', 'tr', function () {
-            if ( $(this).hasClass('selected') ) {
-                console.log(table.row(this).data());
-                $('#myModal').modal('hide');
-                $('#edition_id').val(table.row(this).data()[1]);
-                $('#edition_id').addClass('disabled');
-                $('#edition_year').val(table.row(this).data()[3]);
-                $('#edition_year').addClass('disabled');
-                $('#edition_title').val(table.row(this).data()[4]);
-                $('#edition_title').addClass('disabled');
-                $('#volume').val(table.row(this).data()[5]);
-                $('#volume').addClass('disabled');
-                $('#chapter').val(table.row(this).data()[6]);
-                $('#chapter').addClass('disabled');
-                $('#edition_no').val(table.row(this).data()[7]);
-                $('#edition_no').addClass('disabled');
-                $('#publish_date').val(table.row(this).data()[8]);
-                $('#publish_date').addClass('disabled');
-                $('#publish_month').val(table.row(this).data()[9]);
-                $('#publish_month').addClass('disabled');
-                $('#publish_year').val(table.row(this).data()[10]);
-                $('#publish_year').addClass('disabled');
-                $('#original_date').val(table.row(this).data()[11]);
-                $('#original_date').addClass('disabled');
-                $('#call_number').val(table.row(this).data()[12]);
-                $('#call_number').addClass('disabled');
-            }
-            else {
-                table.$('tr.selected').removeClass('selected');
-                $(this).addClass('selected');
-            }
-        } );
- 
-        $('#button').click( function () {
-            table.row('.selected').remove().draw( false );
-        } );
-    } );
-</script>
-<script type="text/javascript">
+
 $(document).ready(function() {
+    var vtable ;
     var table = $('#examples').DataTable({
         "columnDefs": [
         {
@@ -489,33 +428,12 @@ $(document).ready(function() {
         }
     ]
     });
-    
     $('#examples tbody').on( 'click', 'tr', function () {
         if ( $(this).hasClass('selected') ) {
             console.log(table.row(this).data());
-            $('#myModal1').modal('hide');
-            $('#title_id').val(table.row(this).data()[1]);
-            $('#title_id').addClass('disabled');
-            $('#title').val(table.row(this).data()[3]);
-            $('#title').addClass('disabled');
-            $('#kode').val(table.row(this).data()[4]);
-            $('#kode').addClass('disabled');
-            $('#types').val(table.row(this).data()[5]).change();
-            $('#types').addClass('disabled');
-            $('#times').val(table.row(this).data()[6]).change();
-            $('#times').addClass('disabled');
-            $('#city').val(table.row(this).data()[7]);
-            $('#city').addClass('disabled');
-            $('#publisher').val(table.row(this).data()[8]);
-            $('#publisher').addClass('disabled');
-            $('#year').val(table.row(this).data()[9]);
-            $('#year').addClass('disabled');
-            $('#first_year').val(table.row(this).data()[10]);
-            $('#first_year').addClass('disabled');
-            $('#languages').val(table.row(this).data()[11]).change();
-            $('#languages').addClass('disabled');
-            $('#formats').val(table.row(this).data()[12]);
-            $('#formats').addClass('disabled');
+
+            title(table.row(this).data()[1]);
+            edisi( table.row(this).data()[1]);
         }
         else {
             table.$('tr.selected').removeClass('selected');
@@ -526,6 +444,144 @@ $(document).ready(function() {
     $('#button').click( function () {
         table.row('.selected').remove().draw( false );
     } );
+
+
+title = function(id_sumber){
+$.ajax({
+    url : '/articles/getSumber?id='+id_sumber,
+    success : function(data){
+        console.log(data);
+        $('#title_id').val(data.id);
+            $('#title').val(data.title);
+            $('#title').addClass('disabled');
+            $('#kode').val(data.kode);
+            $('#kode').addClass('disabled');
+            // $('#types').val(table.row(this).data()[5]).change();
+            // $('#types').addClass('disabled');
+            // $('#times').val(table.row(this).data()[6]).change();
+            // $('#times').addClass('disabled');
+            $('#city').val(data.city);
+            $('#city').addClass('disabled');
+            $('#publisher').val(data.publisher);
+            $('#publisher').addClass('disabled');
+            $('#year').val(data.year);
+            $('#year').addClass('disabled');
+            $('#first_year').val(data.first_year);
+            $('#first_year').addClass('disabled');
+            // $('#languages').val(table.row(this).data()[11]).change();
+            // $('#languages').addClass('disabled');
+            // $('#formats').val(table.row(this).data()[12]);
+            // $('#formats').addClass('disabled');
+    }
+})
+    $('#myModal1').modal('hide');
+
+}
+edisi = function(id_sumber){
+if(vtable!=null){
+vtable.destroy();
+}
+vtable = $('#tblEdisi').DataTable({
+    columnDefs: [
+        {
+            "targets": [ 1 ],
+            "visible": false,
+            "searchable": false
+        }
+    ],
+processing: true,
+serverSide: true,
+"responsive": true,
+ajax:{
+url: "/articles/getEdition?title_id="+id_sumber
+},
+columns:[
+    {name:'DT_RowIndex',data:'DT_RowIndex', orderable:false, searchable:false},
+    {name:'id',data:'id'},
+    {
+    data: 'edition_image',
+    name: 'edition_image',
+    render: function(data, type, full, meta)
+    {
+        if (data == null) {
+                return "<img src=\"/storage/upload/default.png" + "\" height=\"auto\" width=\"100\" />";
+            }
+            else
+            {
+                return "<img src=\"/storage/upload/" + data + "\" height=\"auto\" width=\"100\" />";
+            }
+    }
+    },
+    {name:'edition_code',data:'edition_code'},
+    {name:'edition_year',data:'edition_year'},
+    {name:'edition_title',data:'edition_title'},
+    {name:'volume',data:'volume'},
+    {name:'chapter',data:'chapter'},
+    {name:'edition_no',data:'edition_no'},
+    {name:'publish_date',data:'publish_date'},
+    {name:'publish_month',data:'publish_month'},
+    {name:'publish_year',data:'publish_year'},
+    {name:'original_date',data:'original_date'},
+    {name:'call_number',data:'call_number'},
+]
+
+});
+$('#tblEdisi tbody').on( 'click', 'tr', function () {
+        if ( $(this).hasClass('selected') ) {
+            console.log(vtable.row(this).data());
+
+            // title(table.row(this).data()[1]);
+            edisii( vtable.row(this).data().id);
+        }
+        else {
+            table.$('tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+        }
+    } );
+
+    $('#button').click( function () {
+        table.row('.selected').remove().draw( false );
+    } );
+
+
+edisii = function(id_edisi){
+$.ajax({
+    url : '/articles/getEdisi?id='+id_edisi,
+    success : function(data){
+        console.log(data);
+       $('#myModal').modal('hide');
+        $('#edition_id').val(data.id);
+        $('#edition_id').addClass('disabled');
+        $('#edition_code').val(data.edition_code);
+        $('#edition_code').addClass('disabled');
+        $('#edition_year').val(data.edition_year);
+        $('#edition_year').addClass('disabled');
+        $('#edition_title').val(data.edition_title);
+        $('#edition_title').addClass('disabled');
+        $('#volume').val(data.volume);
+        $('#volume').addClass('disabled');
+        $('#chapter').val(data.chapter);
+        $('#chapter').addClass('disabled');
+        $('#edition_no').val(data.edition_no);
+        $('#edition_no').addClass('disabled');
+        $('#publish_date').val(data.publish_date);
+        $('#publish_date').addClass('disabled');
+        $('#publish_month').val(data.publish_month);
+        $('#publish_month').addClass('disabled');
+        $('#publish_year').val(data.publish_year);
+        $('#publish_year').addClass('disabled');
+        $('#original_date').val(data.original_date);
+        $('#original_date').addClass('disabled');
+        $('#call_number').val(data.call_number);
+        $('#call_number').addClass('disabled');
+    }
+})
+    $('#myModal1').modal('hide');
+
+}
+}
+
+
 } );
 </script>
 

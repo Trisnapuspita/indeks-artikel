@@ -23,23 +23,17 @@ Indeks Artikel | Menambahkan Artikel
         box-shadow: 0px 0px 17px -4px rgba(0,0,0,0.75);">
            <form class="form" method="POST" action="/titles/article/{{$title->id}}" enctype="multipart/form-data">
             <h4 style="font-weight: bold; padding-bottom:10px; text-align:center;color: black">Judul Sumber</h4>
-            <fieldset class="form-group">
-                    <div class="row was-validated">
-                        <legend class="col-form-label col-sm-3 pt-0">Jenis*</legend>
-                        <div class="col-sm-8">
-                        @foreach ($types as $types)
-                            <div class="form-check form-check-inline custom-control-inline custom-radio">
-                            <label class="form-check-label" for="types" >
-                                <input class="form-check-input" type="radio" name="types[]" id="type_Select"  required disabled
-                                value='{{$types->id}}' @if($title->types()->get()->contains($types->id)) checked @endif>{{$types->title}}
-                                </label>
-                            </div>
-                        @endforeach
-                        </div>
+            <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">Jenis*</label>
+                    <div class="col">
+                            @foreach ($title->types as $types)
+                        <input type="text" class="form-control" id="types" name="types"
+                         value="{{$types->title}}" placeholder="Tulis judul disini" disabled>
+                         @endforeach
                     </div>
-                </fieldset>
+                </div>
                 <div class="form-group row was-validated">
-                    <label class="col-sm-3 col-form-label">Kala Terbit*</label>
+                    <label class="col-sm-2 col-form-label">Kala Terbit*</label>
                     <div class="col">
                         <select class="form-control custom-select" name="times[]" id="time_Select" required disabled >
                             @foreach ($times as $times)
@@ -49,14 +43,14 @@ Indeks Artikel | Menambahkan Artikel
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="inputEmail3" class="col-sm-3 col-form-label">Judul*</label>
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">Judul*</label>
                     <div class="col">
                         <input type="text" class="form-control" id="title" name="title"
                          value="{{old('title') ? old('title') :$title->title}}" required disabled>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">Penerbitan*</label>
+                    <label class="col-sm-2 col-form-label">Penerbitan*</label>
                     <div class="col">
                         <input disabled type="text" class="form-control"  name="city" value="{{old('city') ? old('city') :$title->city}}">
                     </div>
@@ -68,14 +62,14 @@ Indeks Artikel | Menambahkan Artikel
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="inputEmail3" class="col-sm-3 col-form-label">Tahun Terbit Pertama*</label>
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">Tahun Terbit Pertama*</label>
                     <div class="col-sm-4 col-form-label">
                         <input disabled type="text" class="form-control" id="first_year" name="first_year"
                         value="{{old('first_year') ? old('first_year') :$title->first_year}}"  placeholder="Tulis tahun terbit pertama disini" required>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">Bahasa*</label>
+                    <label class="col-sm-2 col-form-label">Bahasa*</label>
                     <div class="col">
                         <select class="form-control" name="languages[]" id="language_Select" disabled>
 							@foreach ($languages as $languages)
@@ -85,7 +79,7 @@ Indeks Artikel | Menambahkan Artikel
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="inputPassword3" class="col-sm-3 col-form-label">Format*</label>
+                    <label for="inputPassword3" class="col-sm-2 col-form-label">Format*</label>
                     <div class="col">
                         <select class="form-control" name="formats[]" id="format_Select" disabled>
 							@foreach ($formats as $formats)
@@ -96,16 +90,9 @@ Indeks Artikel | Menambahkan Artikel
                 </div>
 
                 <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Gambar</label>
+                <label class="col-sm-2 col-form-label">Gambar</label>
                 <div class="col">
-                    <img src="/storage/upload/{{$title->featured_img}}" style="max-width: 150px; height: auto; "class="image-fluid"> 
-                    <br>
-                    <input type="file" class="form-control-file" type="file" name="featured_img" id="featured_img" disabled>
-					  @if ($errors->has('featured_img'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('featured_img') }}</strong>
-                    </span>
-                    @endif
+                    <img src="/storage/upload/{{$title->featured_img}}" style="max-width: 150px; height: auto; "class="image-fluid">
                     </div>
                 </div>
                 <br>
@@ -118,22 +105,27 @@ Indeks Artikel | Menambahkan Artikel
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Keterangan Edisi</label>
                             <div class="col">
+                                <label>Tahun</label>
                                 <input class="form-control" type="text" placeholder="Tahun"
 								 name="edition_year" id="edition_year" value="{{old('edition_year')}}">
                             </div>
                             <div class="col">
+                                <label>Edisi</label>
                                 <input class="form-control" type="text" placeholder="Edisi"
 								name="edition_title" id="edition_title" value="{{old('edition_title')}}">
                             </div>
                             <div class="col">
+                                <label>Volume</label>
                                 <input class="form-control" type="text" placeholder="Volume"
 								name="volume" id="volume" value="{{old('volume')}}">
                             </div>
                             <div class="col">
+                                <label>Jilid</label>
                                 <input class="form-control" type="text" placeholder="Jilid"
 								name="chapter" id="chapter" value="{{old('chapter')}}">
                             </div>
                             <div class="col">
+                                <label>Nomor</label>
                                 <input class="form-control" type="text" placeholder="No"
 								name="edition_no" id="edition_no" value="{{old('edition_no')}}">
                             </div>
@@ -176,17 +168,26 @@ Indeks Artikel | Menambahkan Artikel
                                     </div>
 							</div>
                     </fieldset>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Kode*</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control {{ $errors->get('edition_code') ? 'has-error' : '' }}" id="edition_code" name="edition_code" required
+                             value="{{old('edition_code')}}" placeholder="Tulis kode disini">
+                             @foreach($errors->get('edition_code') as $error)
+                                <span class="help-block">{{ $error }}</span>
+                            @endforeach
+                        </div>
+                        </div>
                     <div class="form-group row was-validated">
                         <label class="col-sm-2 col-form-label">Penulisan Tanggal Asli*</label>
                         <div class="col-sm-10">
                             <input class="form-control" type="text" placeholder="" id="original_date"  name="original_date" value="{{old('original_date')}}" required>
                         </div>
                     </div>
-                    <div class="form-group row was-validated">
+                    <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="validationServer03">No. Panggil*</label>
                         <div class="col-sm-10">
-                            <input class="form-control is-invalid" type="text" placeholder="" name="call_number" id="call_number" value="{{old('call_number')}}"
-                                required>
+                            <input class="form-control is-invalid" type="text" placeholder="" name="call_number" id="call_number" value="{{old('call_number')}}">
                         </div>
                     </div>
                     <div class="form-group row was-validated">
@@ -307,10 +308,11 @@ Indeks Artikel | Menambahkan Artikel
                     <th>Tanggal</th>
                     <th>Bulan</th>
                     <th>Tahun</th>
+                    <th>Kode</th>
                     <th>Tanggal Asli</th>
                     <th>Nomor Panggil</th>
                 </tr>
-			</thead>
+            </thead>
 			<tbody>
             @php $i=1 @endphp
             @foreach ($editions as $edition)
@@ -330,6 +332,7 @@ Indeks Artikel | Menambahkan Artikel
                     <td style="width:100px;">{{$edition->publish_month}}</td>
                     <td style="width:100px;">{{$edition->publish_date}}</td>
                     <td style="width:100px;">{{$edition->publish_year}}</td>
+                    <td style="width:100px;">{{$edition->edition_code}}</td>
                     <td style="width:150px;">{{$edition->original_date}}</td>
                     <td style="width:150px;">{{$edition->call_number}}</td>
                 </tr>
@@ -347,24 +350,110 @@ Indeks Artikel | Menambahkan Artikel
 @endsection
 
 @section('scripts')
+{{-- <script>
+    $(document).ready(function(){
+        var table = $('#example').DataTable({
+        processing: true,
+        serverSide: true,
+        responsive: true,
+        ajax:{
+        url: "{{ route('editions.index') }}"
+        },
+        columns:[
+        {
+        data:'DT_RowIndex',
+        name:'DT_RowIndex',
+        searchable: false
+        },
+        {
+        data: 'id',
+        name: 'id'
+        },
+        {
+        data: 'edition_image',
+        name: 'edition_image',
+        render: function(data, type, full, meta)
+        {
+            if (data == null) {
+                    return "<img src=\"/storage/upload/default.png" + "\" height=\"auto\" width=\"100\" />";
+                }
+                else
+                {
+                    return "<img src=\"/storage/upload/" + data + "\" height=\"auto\" width=\"100\" />";
+                }
+        }
+        },
+        {
+        data: 'mergeColumn',
+        name: 'mergeColumn'
+        },
+        {
+        data: 'edition_code',
+        name: 'edition_code'
+        },
+        {
+        data: 'edition_year',
+        name: 'edition_year'
+        },
+        {
+        data: 'edition_title',
+        name: 'edition_title'
+        },
+        {
+        data:'volume',
+        name:'volume'
+        },
+        {
+        data:'chapter',
+        name:'chapter'
+        },
+        {
+        data: 'edition_no',
+        name: 'edition_no'
+        },
+        {
+        data: 'original_date',
+        name: 'original_date'
+        },
+        {
+        data:'call_number',
+        name:'call_number'
+        },
+        {
+        data: 'title.title',
+        name: 'title.title'
+        },
+        {
+        data:'article',
+        name:'article'
+        }
+        ]
+        });
+
+        $('.filter-input').keyup(function() {
+            table.column( $(this).data('column') )
+            .search( $(this).val())
+            .draw();
+        });
+    });
+    </script> --}}
 <script type="text/javascript">
     $(document).ready(function() {
         var table = $('#example').DataTable({
             "columnDefs": [
             {
-                "targets": [ 1, 8, 9, 10 ],
+                "targets": [ 1, 9, 10, 11 ],
                 "visible": false,
                 "searchable": false
             }
         ]
         });
-        
+
         $('#example tbody').on( 'click', 'tr', function () {
             if ( $(this).hasClass('selected') ) {
                 console.log(table.row(this).data());
                 $('#myModal').modal('hide');
                 $('#edition_id').val(table.row(this).data()[1]);
-                $('#edition_id').addClass('disabled');
                 $('#edition_year').val(table.row(this).data()[3]);
                 $('#edition_year').addClass('disabled');
                 $('#edition_title').val(table.row(this).data()[4]);
@@ -375,15 +464,17 @@ Indeks Artikel | Menambahkan Artikel
                 $('#chapter').addClass('disabled');
                 $('#edition_no').val(table.row(this).data()[7]);
                 $('#edition_no').addClass('disabled');
-                $('#publish_date').val(table.row(this).data()[8]);
+                $('#edition_code').val(table.row(this).data()[8]);
+                $('#edition_code').addClass('disabled');
+                $('#publish_date').val(table.row(this).data()[9]);
                 $('#publish_date').addClass('disabled');
-                $('#publish_month').val(table.row(this).data()[9]);
+                $('#publish_month').val(table.row(this).data()[10]);
                 $('#publish_month').addClass('disabled');
-                $('#publish_year').val(table.row(this).data()[10]);
+                $('#publish_year').val(table.row(this).data()[11]);
                 $('#publish_year').addClass('disabled');
-                $('#original_date').val(table.row(this).data()[11]);
+                $('#original_date').val(table.row(this).data()[12]);
                 $('#original_date').addClass('disabled');
-                $('#call_number').val(table.row(this).data()[12]);
+                $('#call_number').val(table.row(this).data()[13]);
                 $('#call_number').addClass('disabled');
             }
             else {
@@ -391,11 +482,10 @@ Indeks Artikel | Menambahkan Artikel
                 $(this).addClass('selected');
             }
         } );
- 
+
         $('#button').click( function () {
             table.row('.selected').remove().draw( false );
         } );
     } );
 </script>
-
 @endsection

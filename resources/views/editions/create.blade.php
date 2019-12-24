@@ -52,38 +52,41 @@ Indeks Artikel | Edisi
                         </select>
                     </div>
                 </div>
-                <div class="form-group row was-validated">
+                <div class="form-group row">
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Judul*</label>
                     <div class="col">
-                        <input type="text" class="form-control" id="title" name="title" required>
+                        <input type="text" class="form-control" id="title" name="title" placeholder="Tulis judul disini" required>
                     </div>
                 </div>
-                <div class="form-group row was-validated">
-                    <label class="col-sm-2 col-form-label">Kode*</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control {{ $errors->get('kode') ? 'has-error' : '' }}" id="kode" name="kode" required
-                         value="{{old('kode')}}">
+                <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">Kode*</label>
+                    <div class="col">
+                        <input type="text" class="form-control {{ $errors->get('kode') ? 'has-error' : '' }}" id="kode" name="kode" placeholder="Tulis kode disini"
+                         value="{{old('kode')}}" maxlength="5">
                          @foreach($errors->get('kode') as $error)
                             <span class="help-block">{{ $error }}</span>
                         @endforeach
-                </div>
+                    </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Penerbitan*</label>
                     <div class="col">
-                        <input type="text" class="form-control"  name="city" id="city">
+                        <label for="">Kota</label>
+                        <input type="text" class="form-control"  name="city" id="city" placeholder="Kota">
                     </div>
                     <div class="col">
-                        <input type="text" class="form-control"  name="publisher" id="publisher">
+                        <label for="">Penerbit</label>
+                        <input type="text" class="form-control"  name="publisher" id="publisher" placeholder="Penerbit">
                     </div>
                     <div class="col">
-                        <input type="text" class="form-control"   name="year" id="year">
+                        <label for="">Tahun</label>
+                        <input type="text" class="form-control"   name="year" id="year" placeholder="Tahun">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Tahun Terbit Pertama*</label>
                     <div class="col-sm-10 col-form-label">
-                        <input type="text" class="form-control" id="first_year" name="first_year">
+                        <input type="text" class="form-control" id="first_year" name="first_year" placeholder="Tulis tahun terbit pertama disini">
                     </div>
                 </div>
                 <div class="form-group row">
@@ -124,27 +127,27 @@ Indeks Artikel | Edisi
                             <label class="col-sm-2 col-form-label">Keterangan Edisi</label>
                             <div class="col">
                             <label>Tahun</label>
-                                <input class="form-control" type="text"
+                                <input class="form-control" type="text" placeholder="Tahun"
 								 name="edition_year" value="{{old('edition_year')}}">
                             </div>
                             <div class="col">
                                 <label>Edisi</label>
-                                <input class="form-control" type="text"
+                                <input class="form-control" type="text" placeholder="Edisi"
 								name="edition_title" value="{{old('edition_title')}}">
                             </div>
                             <div class="col">
                             <label>Volume</label>
-                                <input class="form-control" type="text"
+                                <input class="form-control" type="text" placeholder="Volume"
 								name="volume" value="{{old('volume')}}">
                             </div>
                             <div class="col">
                             <label>Jilid</label>
-                                <input class="form-control" type="text"
+                                <input class="form-control" type="text" placeholder="Jilid"
 								name="chapter" value="{{old('chapter')}}">
                             </div>
                             <div class="col">
                             <label>Nomor</label>
-                                <input class="form-control" type="text"
+                                <input class="form-control" type="text" placeholder="Nomor"
 								name="edition_no" value="{{old('edition_no')}}">
                             </div>
                         </div>
@@ -154,7 +157,7 @@ Indeks Artikel | Edisi
                                 Edisi*</label>
                              <div class="col-lg-2">
                                             <label>Tanggal
-                                                <input class="form-control" type="text" tabindex="6"
+                                                <input class="form-control" type="text" tabindex="6" placeholder="Tanggal"
                                                 name="publish_date" value="{{old('publish_date')}}">
                                             </label>
                                     </div>
@@ -180,17 +183,17 @@ Indeks Artikel | Edisi
                                     <br>
                                     <div class="col-lg-2">
                                     <label >Tahun
-                                                <input class="form-control" type="text" tabindex="6"
+                                                <input class="form-control" type="text" tabindex="6" placeholder="Tahun"
                                                 name="publish_year" value="{{old('publish_year')}}">
                                             </label>
                                     </div>
 							</div>
                     </fieldset>
-                    <div class="form-group row was-validated">
+                    <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Kode*</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control {{ $errors->get('edition_code') ? 'has-error' : '' }}" id="edition_code" name="edition_code" required
-                         value="{{old('edition_code')}}">
+                         value="{{old('edition_code')}}" placeholder="Tulis kode disini">
                          @foreach($errors->get('edition_code') as $error)
                             <span class="help-block">{{ $error }}</span>
                         @endforeach
@@ -199,13 +202,13 @@ Indeks Artikel | Edisi
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Penulisan Tanggal Asli*</label>
                         <div class="col-sm-10">
-                            <input class="form-control" type="text" placeholder=""  name="original_date" value="{{old('original_date')}}" required>
+                            <input class="form-control" type="text" placeholder="Tulis tanggal asli disini"  name="original_date" value="{{old('original_date')}}" required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="validationServer03">No. Panggil</label>
                         <div class="col-sm-10">
-                            <input class="form-control is-invalid" type="text" placeholder="" name="call_number" value="{{old('call_number')}}">
+                            <input class="form-control" type="text" placeholder="Tulis nomor panggil disini" name="call_number" value="{{old('call_number')}}">
                         </div>
                     </div>
                     <div class="form-group row was-validated">
@@ -311,40 +314,40 @@ Indeks Artikel | Edisi
             }
         ]
         });
-        
+
         $('#example tbody').on( 'click', 'tr', function () {
             if ( $(this).hasClass('selected') ) {
                 console.log(table.row(this).data());
                 $('#myModal').modal('hide');
                 $('#title_id').val(table.row(this).data()[1]);
-                $('#title_id').addClass('disabled');
+                $('#title_id').addClass('disabled').attr("disabled", 'disabled');
                 $('#title').val(table.row(this).data()[3]);
-                $('#title').addClass('disabled');
+                $('#title').addClass('disabled').attr("disabled", 'disabled');
                 $('#kode').val(table.row(this).data()[4]);
-                $('#kode').addClass('disabled');
+                $('#kode').addClass('disabled').attr("disabled", 'disabled');
                 $('#types').val(table.row(this).data()[5]).change();
-                $('#types').addClass('disabled');
+                $('#types').addClass('disabled').attr("disabled", 'disabled');
                 $('#times').val(table.row(this).data()[6]).change();
-                $('#times').addClass('disabled');
+                $('#times').addClass('disabled').attr("disabled", 'disabled');
                 $('#city').val(table.row(this).data()[7]);
-                $('#city').addClass('disabled');
+                $('#city').addClass('disabled').attr("disabled", 'disabled');
                 $('#publisher').val(table.row(this).data()[8]);
-                $('#publisher').addClass('disabled');
+                $('#publisher').addClass('disabled').attr("disabled", 'disabled');
                 $('#year').val(table.row(this).data()[9]);
-                $('#year').addClass('disabled');
+                $('#year').addClass('disabled').attr("disabled", 'disabled');
                 $('#first_year').val(table.row(this).data()[10]);
-                $('#first_year').addClass('disabled');
+                $('#first_year').addClass('disabled').attr("disabled", 'disabled');
                 $('#languages').val(table.row(this).data()[11]).change();
-                $('#languages').addClass('disabled');
+                $('#languages').addClass('disabled').attr("disabled", 'disabled');
                 $('#formats').val(table.row(this).data()[12]);
-                $('#formats').addClass('disabled');
+                $('#formats').addClass('disabled').attr("disabled", 'disabled');
             }
             else {
                 table.$('tr.selected').removeClass('selected');
                 $(this).addClass('selected');
             }
         } );
- 
+
         $('#button').click( function () {
             table.row('.selected').remove().draw( false );
         } );

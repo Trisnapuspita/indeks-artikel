@@ -22,11 +22,11 @@ class ArticleImport implements ToCollection, WithHeadingRow
     public function collection(Collection $rows)
     {
         foreach ($rows as $row) {
-            
+
             $title;
             $edition;
 
-            if (Title::where('kode',  $row['kode'])->count() > 0){
+            if (Title::where('kode',  $row['kPode'])->count() > 0){
                 $title = Title::where('kode',  $row['kode'])->get();
                 $title = $title[0];
             } else {
@@ -37,7 +37,7 @@ class ArticleImport implements ToCollection, WithHeadingRow
                     'kode' => $row['kode']
             ]);
             }
-            
+
             if (EditionTitle::where('edition_code', $row['kode_edisi'])->count() > 0){
                 $edition = EditionTitle::where('edition_code', $row['kode_edisi'])->get();
                 $edition = $edition[0];
@@ -54,7 +54,7 @@ class ArticleImport implements ToCollection, WithHeadingRow
 
             ArticleEdition::create([
                 'user_id' => Auth::user()->id,
-                'edition_title_id' => $edition->id, 
+                'edition_title_id' => $edition->id,
                 'article_title' => $row['judul'],
                 'keyword'=> $row['kata_kunci'],
                 'subject' => $row['subjek'],
@@ -66,6 +66,6 @@ class ArticleImport implements ToCollection, WithHeadingRow
 
         }
     }
-    
+
 }
 

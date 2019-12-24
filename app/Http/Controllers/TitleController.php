@@ -1,10 +1,8 @@
 <?php
 namespace App\Http\Controllers;
 
-
-use Session;
 use Auth;
-use App\Models\User;
+use Session;
 use App\Models\Type;
 use App\Models\Time;
 use App\Models\Language;
@@ -13,37 +11,59 @@ use App\Models\Title;
 use App\Models\Status;
 use App\Models\EditionTitle;
 use App\Models\ArticleEdition;
-use App\Imports\TitleImport;
-use App\Exports\TitleExport;
-use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 use DB;
 
 class TitleController extends Controller
 {
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-
     public function index()
     {
-        $titles = Title::all();
-        $editions = EditionTitle::all();
-        $articles = ArticleEdition::all();
-        return view('titles.index', compact('titles', 'editions','articles'));
-    }
+        if(request()->ajax())
+        {
+            $query = Title::with('editions')->get();
 
-    public function etalase()
-    {
-        $titles = Title::all();
-        $editions = EditionTitle::all();
-        $articles = ArticleEdition::all();
-        return view('etalase', compact('titles', 'editions','articles'));
+            return datatables()->of($query)
+                    ->addIndexColumn()
+                    ->addColumn('types', function (Title $titles) {
+                        return $titles->types->map(function ($type) {
+                            return str_limit($type->title, 1000, '...');
+                        })->implode('<br>');
+                    })
+                    ->addColumn('times', function (Title $titles) {
+                        return $titles->times->map(function ($time) {
+                            return str_limit($time->title, 1000, '...');
+                        })->implode('<br>');
+                    })
+                    ->addColumn('languages', function (Title $titles) {
+                        return $titles->languages->map(function ($language) {
+                            return str_limit($language->title, 1000, '...');
+                        })->implode('<br>');
+                    })
+                    ->addColumn('formats', function (Title $titles) {
+                        return $titles->formats->map(function ($format) {
+                            return str_limit($format->title, 1000, '...');
+                        })->implode('<br>');
+                    })
+                    ->addColumn('article', function (Title $titles) {
+                        return $titles->editions->map(function ($edition) {
+                            return str_limit($edition->articles->count(), 1000, '...');
+                        })->implode('<br>'). ' '.'<a class="btn btn-xs btn-primary" href="titles/article/'.$titles->id.'">+</a>';
+                    })
+                    ->addColumn('edition', function ($titles) {
+                        return $titles->editions->count() . ' '. '<a class="btn btn-xs btn-primary" href="titles/'.$titles->id.'">+</a>';
+                    })
+                    ->addColumn('action',function($titles){
+                        return '<a class="btn btn-xs btn-primary" href="titles/'.$titles->id.'/edit">Sunting</a>';
+                      })
+                    ->addColumn('delete', function($data){
+                        $button= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-xs">Hapus</button>';
+                        return $button;
+                    })
+                    ->rawColumns(['types', 'action', 'delete', 'edition', 'article'])
+                    ->make(true);
+        }
+        return view('titles.index');
     }
-
 
     public function create()
     {
@@ -53,13 +73,14 @@ class TitleController extends Controller
         $formats = Format::all();
         return view('titles.create', compact('types', 'times', 'languages', 'formats'));
     }
-    
+
     public function store(Request $request)
     {
         $this->validate(request(), [
             'featured_img' => 'mimes:jpeg,jpg,png|max:1000',
-            'kode'=> 'required|unique:titles,kode',
-        ]);
+            'kode'=> 'required|unique:titles'
+        ], ['kode.unique'=> 'Kode sudah digunakan']);
+
         $slug = str_slug($request->title, '_');
         //cek slug ngga kembar
         if(Title::where('slug', $slug)->first() != null)
@@ -71,7 +92,7 @@ class TitleController extends Controller
             $fileName = $request->featured_img->getClientOriginalName(). '.png';
             $request->file('featured_img')->storeAs('public/upload', $fileName);
         }
-        
+
         $title = Title::create([
             'user_id'=> Auth::user()->id,
             'title'=>$request->title,
@@ -98,10 +119,10 @@ class TitleController extends Controller
         $languages = Language::all();
         $formats = Format::all();
         $statuses = Status::all();
-        $editions = EditionTitle::all();
+        $editions = EditionTitle::where('title_id', $id)->get();
         return view('titles.add_article', compact('types', 'times', 'languages', 'formats', 'title', 'statuses', 'editions'));
     }
-    
+
     public function store_article(Request $request, $id)
     {
         $this->validate(request(), [
@@ -111,8 +132,13 @@ class TitleController extends Controller
         $editions;
 
         if ($request->edition_id==null) {
+
+            $this->validate(request(), [
+                'edition_image' => 'mimes:jpeg,jpg,png|max:1000',
+                'edition_code'=> 'required|unique:edition_titles'
+            ], ['edition_code.unique'=> 'Kode sudah digunakan']);
+
             $slugs = str_slug($request->publish_date, '_');
-            //cek slugs ngga kembar
             if (EditionTitle::where('slugs', $slugs)->first() != null) {
                 $slugs = $slugs . '-'.time();
             }
@@ -135,6 +161,7 @@ class TitleController extends Controller
             'chapter'=>$request->chapter,
             'edition_no'=>$request->edition_no,
             'year'=>$request->year,
+            'edition_code'=>$request->edition_code,
             'publish_date'=>$request->publish_date,
             'publish_month'=>$request->publish_month,
             'publish_year'=>$request->publish_year,
@@ -160,7 +187,7 @@ class TitleController extends Controller
         ]);
             $articles->statuses()->attach($request->statuses);
 
-        return redirect('/titles')->with('msg', 'Data berhasil ditambahkan');
+        return redirect('/articles')->with('msg', 'Data berhasil ditambahkan');
     }
 
     public function show($id)
@@ -181,9 +208,11 @@ class TitleController extends Controller
 
     public function store_edition(Request $request, $id)
     {
-        $this->validate(request(), [
-            'edition_title'=>'required|min:1'
-        ]);
+         $this->validate(request(), [
+                'edition_image' => 'mimes:jpeg,jpg,png|max:1000',
+                'edition_code'=> 'required|unique:edition_titles'
+            ], ['edition_code.unique'=> 'Kode sudah digunakan']);
+
         $slugs = str_slug($request->publish_date, '_');
         //cek slug ngga kembar
         if(EditionTitle::where('slugs', $slugs)->first() != null)
@@ -215,7 +244,7 @@ class TitleController extends Controller
             'call_number'=>$request->call_number,
             'edition_image'=> $file
         ]);
-        
+
         return redirect('editions')->with('msg', 'Data berhasil ditambahkan');
     }
 
@@ -245,144 +274,6 @@ class TitleController extends Controller
 
     }
 
-    public function etalase_in()
-    {
-        $titles = Title::all();
-        $editions = EditionTitle::all();
-        $articles = ArticleEdition::all();
-        return view('displays.etalase', compact('titles', 'editions','articles'));
-    }
-
-    public function etalase_show_in($id)
-    {
-        $title = Title::find($id);
-        $types = Type::all();
-        $times = Time::all();
-        $languages = Language::all();
-        $formats = Format::all();
-
-        if(empty($title)){
-            abort(404);
-        }
-
-        return view('displays.etalase-sumber', compact('title', 'types', 'times', 'languages', 'formats'));
-    }
-
-    public function catalog_show_in($id)
-    {
-        $title = Title::find($id);
-
-        if(empty($title)){
-            abort(404);
-        }
-
-        return view('displays.catalog-list', compact('title'));
-    }
-
-    public function articlelog_show_in($id)
-    {
-        $article = ArticleEdition::find($id);//bener
-        $editions = EditionTitle::all();
-        $titles = Title::all();
-        // dd($article);
-
-        if(empty($article)){
-            abort(404);
-        }
-
-        return view('displays.article-catalog')->with(compact('article', 'titles', 'editions'));
-    }
-
-    public function hierarki_show_in($id)
-    {
-        $title = Title::find($id);
-
-        if(empty($title)){
-            abort(404);
-        }
-
-        return view('displays.hierarki-list')->with(compact('title'));
-    }
-
-    public function hierarkilog_show_in($id)
-    {
-        $title = Title::find($id);
-        $article = ArticleEdition::find($id);
-        $edition = EditionTitle::find($id);
-        // dd($article);
-
-        if(empty($article)){
-            abort(404);
-        }
-
-        return view('displays.hierarki-catalog')->with(compact('article', 'title', 'edition'));
-    }
-
-    public function etalase_show($id)
-    {
-        $title = Title::find($id);
-        $types = Type::all();
-        $times = Time::all();
-        $languages = Language::all();
-        $formats = Format::all();
-
-        if(empty($title)){
-            abort(404);
-        }
-
-        return view('etalase-sumber', compact('title', 'types', 'times', 'languages', 'formats'));
-    }
-
-    public function catalog_show($id)
-    {
-        $title = Title::find($id);
-
-        if(empty($title)){
-            abort(404);
-        }
-
-        return view('catalog-list', compact('title'));
-    }
-
-    public function articlelog_show($id)
-    {
-        $article = ArticleEdition::find($id);//bener
-        $editions = EditionTitle::all();
-        $titles = Title::all();
-        // dd($article);
-
-        if(empty($article)){
-            abort(404);
-        }
-
-        return view('article-catalog')->with(compact('article', 'titles', 'editions'));
-    }
-
-    public function hierarki_show($id)
-    {
-        $title = Title::find($id);
-
-        if(empty($title)){
-            abort(404);
-        }
-
-        return view('hierarki-list')->with(compact('title'));
-    }
-
-    public function hierarkilog_show($id)
-    {
-        $title = Title::find($id);
-        $article = ArticleEdition::find($id);
-        $edition = EditionTitle::find($id);
-        // dd($article);
-
-        if(empty($article)){
-            abort(404);
-        }
-
-        return view('hierarki-catalog')->with(compact('article', 'title', 'edition'));
-    }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -399,13 +290,7 @@ class TitleController extends Controller
         $title = Title::findOrFail($id);
         return view('titles.edit', compact('user','types', 'times', 'languages', 'formats', 'title'));
     }
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, $id)
     {
         $this->validate($request, [
@@ -421,9 +306,6 @@ class TitleController extends Controller
         } else {
             $fileName = $title->featured_img;
         }
-
-        // $fileName = time(). '.png';
-        // $request->file('featured_img')->storeAs('public/upload', $fileName);
 
         $title->update([
                     'updated_by'=>Auth::user()->id,
@@ -450,14 +332,18 @@ class TitleController extends Controller
      */
     public function destroy($id)
     {
-        $types = Type::all();
-        $times = Time::all();
-        $languages = Language::all();
-        $formats = Format::all();
-        $title= Title::findOrFail($id);
-        $title->delete();
-        return redirect('titles')->with('msg', 'Data berhasil di hapus');
+
+        $data= Title::findOrFail($id);
+        try {
+            $data->delete();
+            Session::flash('success', 'Berhasil menghapus');
+        }catch(\Illuminate\Database\QueryException $e) {
+            Session::flash('error', 'Gagal menghapus, karena judul ini direferensikan oleh beberapa edisi');
+        }
+
+        return redirect('titles');
     }
+
 
 
 }

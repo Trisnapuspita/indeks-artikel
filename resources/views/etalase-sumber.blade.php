@@ -1,11 +1,3 @@
-{{--  @extends('layouts.frontsin')
-
-@section('content')
-
-@section('title')
-Indeks Artikel | Etalase
-@endsection  --}}
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,11 +6,12 @@ Indeks Artikel | Etalase
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Indeks Artikel</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Indeks Artikel | Etalase Sumber</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="../../css/style-admin.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.7/css/mdb.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="shortcut icon" href="../../img/pnri-logo-76.png">
 </head>
 
 <body>
@@ -26,12 +19,19 @@ Indeks Artikel | Etalase
     <header>
         <!-- NAV BAR -->
         <div class="container-fluid p=0 align-content-center">
+            @if (Route::has('login'))
             <nav class="navbar navbar-expand-lg">
-                <a class="navbar-brand" href="index.html">
+                <a class="navbar-brand" href="/">
                     <img src="../../assets/logo-perpunas.png" width="33" height="30" class="d-inline-block align-top"
                         alt="">Indeks
                     Artikel
                 </a>
+                <div class="mr-auto">
+                    <ol class="breadcrumb">
+                      <li class="breadcrumb-item"><a href="index.html">Beranda</a></li>
+                      <li class="breadcrumb-item active" aria-current="page">Etalase IA</li>
+                    </ol>
+                  </div>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"><img src="../../assets/menu-2x.png"></span>
@@ -40,113 +40,153 @@ Indeks Artikel | Etalase
                     <div class="mr-auto"></div>
                     <ul class="navbar-nav">
                         <li class="nav-item active">
-                            <a class="nav-link" href="/">Beranda <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="/">Beranda <span
+                                    class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/etalase">Etalase</a>
                         </li>
+                        @guest
                         <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login')}}"}}>Login</a>
+                            <a class="nav-link" href="{{ route('login') }}"><i class="fas fa-sign-in-alt"
+                                    style="padding-right:5px;color:whitesmokes;display: inline"></i>{{ __('Login') }}</a>
                         </li>
-                    </ul>
-                </div>
-            </nav>
-        </div>
-    </header>
-
-
-<main style="height: 100%;padding: 45px">
-
-        <div class="mr-auto" style="padding-bottom:10px;">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/">Beranda</a></li>
-                <li class="breadcrumb-item"><a href="/etalase">Etalase</a></li>
-                <li class="breadcrumb-item active" aria-current="page">{{ $title->title }}</li>
-            </ol>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="containerImgCover">
-                        @if($title->featured_img == null)
-                        <img class="card-img-top" src="{{asset('storage/upload/default.png')}}">
-                        @else
-                        <img class="card-img-top" src="{{ asset('storage/upload/'.$title->featured_img) }}" alt="">
-                        @endif
-                        </div>
-                    </div>
-                    <div class="col-md-9">
-
-                        <table class="table table-striped">
-
-                            <tbody>
-                                <tr>
-                                    <td>Judul Sumber</td>
-                                    <td>:</td>
-                                    <td><span style="font-weight:bold;">{{ $title->title }}</span></td>
-                                </tr>
-                                <tr>
-                                    <td>Jenis</td>
-                                    <td>:</td>
-                                    @foreach ($title->types()->get() as $type)
-                                        <td><span style="font-weight:bold;">{{ $type->title }}</span></td>
-                                    @endforeach
-                                </tr>
-                                <tr>
-                                    <td>Kala terbit</td>
-                                    <td>:</td>
-                                    @foreach ($title->times()->get() as $time)
-                                        <td><span style="font-weight:bold;">{{ $time->title }}</span></td>
-                                    @endforeach
-                                </tr>
-                                <tr>
-                                    <td>Tahun Terbit Pertama</td>
-                                    <td>:</td>
-                                    <td><span style="font-weight:bold;">{{ $title->first_year }}</span></td>
-                                </tr>
-
-                                <tr>
-                                    <td>Bahasa</td>
-                                    <td>:</td>
-                                    @foreach ($title->languages()->get() as $language)
-                                        <td><span style="font-weight:bold;">{{ $language->title }}</span></td>
-                                    @endforeach
-                                </tr>
-                            </tbody>
-
-                        </table>
-
-                    </div>
-                </div>
-                <div class="row">&nbsp;</div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <ul class="nav nav-tabs" id="myTab" role="tablist">
-                            <li class="nav-item"><a class="nav-link active" href="#tab_daftar_katalog" role="tab"
-                                    data-toggle="tab">Daftar Isi Katalog</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#tab_hirarki_indeks" role="tab"
-                                    data-toggle="tab">Hirarki Indeks Artikel</a></li>
+						@else
+                        <li class="nav-item dropdown">
+                            <div class="dropdown">
+                                <a href="#" class="nav-link">Setting Master
+                                    <i class="fas fa-sort-down" style="font-size: 22px;display: inline"></i></a>
+                                <div class="dropdown-content">
+                                    <a href="/types" style="width: 100%">Jenis</a>
+                                    <a href="/times" style="width: 100%">Kala Terbit</a>
+                                    <a href="/languages" style="width: 100%">Bahasa</a>
+                                    <a href="/formats" style="width: 100%">Format</a>
+                                    <a href="/statuses" style="width: 100%">Status Ketersediaan</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/titles">Sumber</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/reports">Laporan Kinerja Karyawan</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                                <div class="dropdown">
+                                    <a href="#" class="nav-link">
+                                        <i class="fa fa-user"></i>
+                                        {{ Auth::user()->name }}
+                                        <i class="fa fa-chevron-down" style="font-size: .8em;"></i></a>
+                                    <div class="dropdown-content">
+                                        <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                                        document.getElementById('logout-form').submit();" style="width: 100%">Logout</a>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                            @csrf
+                                        </form>
+                                    </div>
+                                </div>
+                            </li>
+                            @endguest
                         </ul>
-                        <div class="tab-content">
-                            <div class="tab-pane active" id="tab_daftar_katalog">
-                                <div class="table-responsive">
-                                    <iframe height="500" style="width: 100%" src="/catalog/{{ $title->id }}" frameborder="0">
-                                    </iframe>
-                                </div>
-                            </div>
+                    </div>
+                @endif
+                </nav>
+            </div>
+        </header>
 
-                            <div class="tab-pane" id="tab_hirarki_indeks">
-                                <div class="table-responsive">
-                                    <iframe height="500" style="width: 100%" src="/hierarki/{{ $title->id }}" frameborder="0"></iframe>
-                                </div>
+
+    <main style="height: 100%;padding: 45px">
+
+            <div class="mr-auto" style="padding-bottom:10px;">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Beranda</a></li>
+                    <li class="breadcrumb-item"><a href="/etalase">Etalase</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ $title->title }}</li>
+                </ol>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="containerImgCover">
+                            @if($title->featured_img == null)
+                            <img class="card-img-top" src="{{asset('storage/upload/default.png')}}">
+                            @else
+                            <img class="card-img-top" src="{{ asset('storage/upload/'.$title->featured_img) }}" alt="">
+                            @endif
                             </div>
+                        </div>
+                        <div class="col-md-9">
+
+                            <table class="table table-striped">
+
+                                <tbody>
+                                    <tr>
+                                        <td>Judul Sumber</td>
+                                        <td>:</td>
+                                        <td><span style="font-weight:bold;">{{ $title->title }}</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Jenis</td>
+                                        <td>:</td>
+                                        @foreach ($title->types()->get() as $type)
+                                            <td><span style="font-weight:bold;">{{ $type->title }}</span></td>
+                                        @endforeach
+                                    </tr>
+                                    <tr>
+                                        <td>Kala terbit</td>
+                                        <td>:</td>
+                                        @foreach ($title->times()->get() as $time)
+                                            <td><span style="font-weight:bold;">{{ $time->title }}</span></td>
+                                        @endforeach
+                                    </tr>
+                                    <tr>
+                                        <td>Tahun Terbit Pertama</td>
+                                        <td>:</td>
+                                        <td><span style="font-weight:bold;">{{ $title->first_year }}</span></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Bahasa</td>
+                                        <td>:</td>
+                                        @foreach ($title->languages()->get() as $language)
+                                            <td><span style="font-weight:bold;">{{ $language->title }}</span></td>
+                                        @endforeach
+                                    </tr>
+                                </tbody>
+
+                            </table>
+
                         </div>
                     </div>
                     <div class="row">&nbsp;</div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item"><a class="nav-link active" href="#tab_daftar_katalog" role="tab"
+                                        data-toggle="tab">Daftar Isi Artikel</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#tab_hirarki_indeks" role="tab"
+                                        data-toggle="tab">Hirarki Indeks Artikel</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="tab_daftar_katalog">
+                                    <div class="table-responsive">
+                                        <iframe height="500" style="width: 100%" src="/catalog/{{ $title->id }}" frameborder="0">
+                                        </iframe>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane" id="tab_hirarki_indeks">
+                                    <div class="table-responsive">
+                                        <iframe height="500" style="width: 100%" src="/hierarki/{{ $title->id }}" frameborder="0"></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">&nbsp;</div>
+                    </div>
                 </div>
-            </div>
-    </main>
+        </main>
 {{--  @endsection  --}}
 <footer>
         <div class="container-fluid p-0">

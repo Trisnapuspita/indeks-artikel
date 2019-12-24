@@ -24,8 +24,8 @@ class ReportController extends Controller
         if(session()->get( 'data' ) !=null) {
             $data = session()->get( 'data' );
         }
-        
-        return view('reports.index', compact('data', 'user'));       
+
+        return view('reports.index', compact('data', 'user'));
     }
 
     public function searchByDay(Request $request) {
@@ -41,24 +41,24 @@ class ReportController extends Controller
             ->whereDate('created_at', '<=',$lastDay)
             ->where('user_id', $user->id)
             ->get();
-        }else if ($column == "call_number") {     
+        }else if ($column == "call_number") {
             $result = EditionTitle::where($column,'like','%'.$param.'%')
             ->whereDate('created_at', '>=', $firstDay)
             ->whereDate('created_at', '<=',$lastDay)
             ->where('user_id', $user->id)
-            ->get(); 
+            ->get();
         }else {
             $result = DB::select(DB::raw("SELECT * FROM `article_editions` WHERE
-            (`article_title` LIKE '%".$param."%' OR 
-            `subject` LIKE '%".$param."%' OR        
-            `writer` LIKE '%".$param."%' OR         
-            `desc` LIKE '%".$param."%' OR           
-            `keyword` LIKE '%".$param."%') AND 
-            `created_at` >= '".$firstDay ."' AND 
+            (`article_title` LIKE '%".$param."%' OR
+            `subject` LIKE '%".$param."%' OR
+            `writer` LIKE '%".$param."%' OR
+            `desc` LIKE '%".$param."%' OR
+            `keyword` LIKE '%".$param."%') AND
+            `created_at` >= '".$firstDay ."' AND
             `created_at` <= '". $lastDay ."' AND
-            `user_id` = '". $user->id. "'"));   
+            `user_id` = '". $user->id. "'"));
         }
-        
+
         return redirect()->route( 'reportsIndex' )->with( [ 'data' => $result ] );
     }
 
@@ -79,22 +79,22 @@ class ReportController extends Controller
             ->whereDate('created_at', '<=',$lastDate)
             ->where('user_id', $user->id)
             ->get();
-        }else if ($column == "call_number") {     
+        }else if ($column == "call_number") {
             $result = EditionTitle::where($column,'like','%'.$param.'%')
             ->whereDate('created_at', '>=', $firstDate)
             ->whereDate('created_at', '<=',$lastDate)
             ->where('user_id', $user->id)
-            ->get(); 
+            ->get();
         }else {
             $result = DB::select(DB::raw("SELECT * FROM `article_editions` WHERE
-            (`article_title` LIKE '%".$param."%' OR 
-            `subject` LIKE '%".$param."%' OR        
-            `writer` LIKE '%".$param."%' OR         
-            `desc` LIKE '%".$param."%' OR           
-            `keyword` LIKE '%".$param."%') AND 
-            `created_at` >= '".$firstDate ."' AND 
+            (`article_title` LIKE '%".$param."%' OR
+            `subject` LIKE '%".$param."%' OR
+            `writer` LIKE '%".$param."%' OR
+            `desc` LIKE '%".$param."%' OR
+            `keyword` LIKE '%".$param."%') AND
+            `created_at` >= '".$firstDate ."' AND
             `created_at` <= '". $lastDate ."' AND
-            `user_id` = '". $user->id. "'"));   
+            `user_id` = '". $user->id. "'"));
         }
 
         return redirect()->route( 'reportsIndex' )->with( [ 'data' => $result ] );
@@ -115,22 +115,22 @@ class ReportController extends Controller
             ->whereDate('created_at', '<=',$lastDate)
             ->where('user_id', $user->id)
             ->get();
-        }else if ($column == "call_number") {     
+        }else if ($column == "call_number") {
             $result = EditionTitle::where($column,'like','%'.$param.'%')
             ->whereDate('created_at', '>=', $firstDate)
             ->whereDate('created_at', '<=',$lastDate)
             ->where('user_id', $user->id)
-            ->get(); 
+            ->get();
         }else {
             $result = DB::select(DB::raw("SELECT * FROM `article_editions` WHERE
-            (`article_title` LIKE '%".$param."%' OR 
-            `subject` LIKE '%".$param."%' OR        
-            `writer` LIKE '%".$param."%' OR         
-            `desc` LIKE '%".$param."%' OR           
-            `keyword` LIKE '%".$param."%') AND 
-            `created_at` >= '".$firstDate ."' AND 
+            (`article_title` LIKE '%".$param."%' OR
+            `subject` LIKE '%".$param."%' OR
+            `writer` LIKE '%".$param."%' OR
+            `desc` LIKE '%".$param."%' OR
+            `keyword` LIKE '%".$param."%') AND
+            `created_at` >= '".$firstDate ."' AND
             `created_at` <= '". $lastDate ."' AND
-            `user_id` = '". $user->id. "'"));   
+            `user_id` = '". $user->id. "'"));
         }
 
          return redirect()->route( 'reportsIndex' )->with( [ 'data' => $result ] );

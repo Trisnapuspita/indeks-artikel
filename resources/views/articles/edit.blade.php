@@ -10,7 +10,7 @@ Indeks Artikel | Edit Artikel Sumber
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="beranda-user.html">Beranda</a></li>
                 <li class="breadcrumb-item"><a href="sumber.html">Sumber</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Buat Artikel Sumber</li>
+                <li class="breadcrumb-item active" aria-current="page">Edit Artikel Sumber</li>
             </ol>
         </div>
 
@@ -19,20 +19,15 @@ Indeks Artikel | Edit Artikel Sumber
         box-shadow: 0px 0px 17px -4px rgba(0,0,0,0.75);">
             <form class="form">
                 <h4 style="font-weight: bold; padding-bottom:10px; text-align:center;color: black">Judul Sumber</h4>
-                <fieldset class="form-group">
-                    <div class="row was-validated">
-                        <legend class="col-form-label col-sm-2 pt-0">Jenis*</legend>
-                        <div class="col-sm-8">
-                            <div class="form-check form-check-inline custom-control-inline custom-radio">
-                            <label class="form-check-label" for="types" >
-                            @foreach ($articles->edition_title->title->types as $types)
-                                <input class="form-check-input" type="radio" name="types[]" id="type_Select"  disabled>{{$types->title}}
-                                @endforeach
-                                </label>
-                            </div>
+                <div class="form-group row">
+                        <label for="inputEmail3" class="col-sm-2 col-form-label">Judul*</label>
+                        <div class="col">
+                                @foreach ($articles->edition_title->title->types as $types)
+                            <input type="text" class="form-control" id="title" name="title"
+                             value="{{$types->title}}" disabled>
+                             @endforeach
                         </div>
                     </div>
-                </fieldset>
                 <div class="form-group row was-validated">
                     <label class="col-sm-2 col-form-label">Kala Terbit*</label>
                     <div class="col">
@@ -99,7 +94,11 @@ Indeks Artikel | Edit Artikel Sumber
                 <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Gambar</label>
                 <div class="col">
-                    <img src="/storage/upload/{{$articles->edition_title->title->featured_img}}" style="max-width: 150px; height: auto; "class="image-fluid"> 
+                    @if($articles->edition_title->title->featured_img == null)
+                    <img src="/storage/upload/default.png" style="max-width: 150px; height: auto; "class="image-fluid">
+                    @else
+                    <img src="/storage/upload/{{$articles->edition_title->title->featured_img}}" style="max-width: 150px; height: auto; "class="image-fluid">
+                    @endif
                     </div>
                 </div>
             </form>
@@ -148,7 +147,7 @@ Indeks Artikel | Edit Artikel Sumber
                                     </div>
                                     <div class="col-lg-2">
                                             <label >Bulan
-                                            <select class="form-control custom-select"name="publish_month" 
+                                            <select class="form-control custom-select"name="publish_month"
                                             id="publish_month_Select" value="{{$articles->edition_title->publish_month}}" disabled>
                                                 <option value="1">Januari</option>
                                                 <option value="2">Februari</option>
@@ -196,7 +195,11 @@ Indeks Artikel | Edit Artikel Sumber
                     <div class="form-group row was-validated">
                         <label class="col-sm-2 col-form-label">Gambar :</label>
                         <div class="col-sm-10">
-                        <img src="/storage/upload/{{$articles->edition_title->edition_image}}" style="max-width: 150px; height: auto; "class="image-fluid"> 
+                        @if ($articles->edition_title->edition_image == null)
+                        <img src="/storage/upload/default.png" style="max-width: 150px; height: auto; "class="image-fluid">
+                        @else
+                        <img src="/storage/upload/{{$articles->edition_title->edition_image}}" style="max-width: 150px; height: auto; "class="image-fluid">
+                        @endif
                             </div>
                     </div>
                 </form>
@@ -278,7 +281,7 @@ Indeks Artikel | Edit Artikel Sumber
                         @foreach ($statuses as $statuses)
                             <div class="form-check form-check-inline custom-control-inline custom-radio">
                             <label class="form-check-label" for="statuses" >
-                                <input class="form-check-input" type="radio" name="statuses[]" id="type_Select"  required 
+                                <input class="form-check-input" type="radio" name="statuses[]" id="type_Select"  required
                                 value='{{$statuses->id}}' @if($articles->statuses()->get()->contains($statuses->id)) checked @endif>{{$statuses->title}}
                                 </label>
                             </div>
@@ -286,9 +289,9 @@ Indeks Artikel | Edit Artikel Sumber
                     </div>
                 </div>
                 (*) Wajib Diisi
-                
+
                 {{ csrf_field() }}
-                
+
                 <div class="form-group" style="text-align: center;">
                     <button type="submit"  class="btn btn-dark" name="submit"
                     style="text-align: center; width:100%; color:white; font-size: 17px; font-weight: 2px" onclick="return confirm('Apakah Anda yakin untuk mengedit?')">
@@ -302,9 +305,9 @@ Indeks Artikel | Edit Artikel Sumber
         -moz-box-shadow: 0px 0px 17px -4px rgba(0,0,0,0.75);
         box-shadow: 0px 0px 17px -4px rgba(0,0,0,0.75);">
         <p>
-        Dibuat Oleh: <strong> @foreach ($articles->user->where('id', $articles->user_id)->get() as $user) {{$user->longname}} @endforeach </strong>  
+        Dibuat Oleh: <strong> @foreach ($articles->user->where('id', $articles->user_id)->get() as $user) {{$user->longname}} @endforeach </strong>
         <br>
-        Dibuat Pada: {{$articles->created_at}} 
+        Dibuat Pada: {{$articles->created_at}}
         <br>
         Disunting Oleh: <strong> @foreach ($articles->user->where('id', $articles->updated_by)->get() as $user) {{$user->longname}} @endforeach </strong> <br>
         Disunting Pada: {{$articles->updated_at}}

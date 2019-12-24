@@ -12,7 +12,7 @@ Indeks Artikel | Menambahkan Artikel
 
                 <li class="breadcrumb-item"><a href="/home">Beranda</a></li>
                 <li class="breadcrumb-item"><a href="/titles">Sumber</a></li>
-                <li class="breadcrumb-item"><a href="/titles">Artikel</a></li>
+                <li class="breadcrumb-item"><a href="/editions">Edisi</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Tambah Artikel</li>
             </ol>
         </div>
@@ -99,13 +99,10 @@ Indeks Artikel | Menambahkan Artikel
                 <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Gambar</label>
                 <div class="col">
-                    <img src="/storage/upload/{{$title->featured_img}}" style="max-width: 150px; height: auto; "class="image-fluid"> 
-                    <br>
-                    <input type="file" class="form-control-file" type="file" name="featured_img" id="featured_img" disabled>
-					  @if ($errors->has('featured_img'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('featured_img') }}</strong>
-                    </span>
+                    @if ($title->featured_img == null)
+                    <img src="/storage/upload/default.png" style="max-width: 150px; height: auto; "class="image-fluid">
+                    @else
+                    <img src="/storage/upload/{{$title->featured_img}}" style="max-width: 150px; height: auto; "class="image-fluid">
                     @endif
                     </div>
                 </div>
@@ -116,7 +113,7 @@ Indeks Artikel | Menambahkan Artikel
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Keterangan Edisi</label>
                             <div class="col">
-                                <input class="form-control" type="text" disabled 
+                                <input class="form-control" type="text" disabled
 								 name="edition_year" id="edition_year" value="{{old('edition_year') ? old('edition_year') :$editions->edition_year}}">
                             </div>
                             <div class="col">
@@ -177,12 +174,11 @@ Indeks Artikel | Menambahkan Artikel
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Gambar :</label>
                         <div class="col-sm-10">
-						<input type="file" name="edition_image" id="edition_image" disabled>
-						@if ($errors->has('edition_image'))
-							<span class="help-block">
-								<strong>{{ $errors->first('edition_image') }}</strong>
-							</span>
-							@endif
+                                @if ($editions->edition_image == null)
+                                <img src="/storage/upload/default.png" style="max-width: 150px; height: auto; "class="image-fluid">
+                                @else
+                                <img src="/storage/upload/{{$editions->edition_image}}" style="max-width: 150px; height: auto; "class="image-fluid">
+                                @endif
                             </div>
                     </div>
                     <br>

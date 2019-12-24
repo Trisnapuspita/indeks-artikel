@@ -51,11 +51,11 @@ Indeks Artikel | Buat Judul Sumber
                          value="{{old('title')}}" placeholder="Tulis judul disini"  >
                     </div>
                 </div>
-                <div class="form-group row">
+                 <div class="form-group row">
                     <label for="inputEmail3" class="col-sm-3 col-form-label">Kode*</label>
                     <div class="col">
                         <input type="text" class="form-control {{ $errors->get('kode') ? 'has-error' : '' }}" id="kode" name="kode"
-                         value="{{old('kode')}}" placeholder="Tulis kode disini"  >
+                         value="{{old('kode')}}" maxlength="5" placeholder="Tulis kode disini">
                          @foreach($errors->get('kode') as $error)
                             <span class="help-block">{{ $error }}</span>
                         @endforeach

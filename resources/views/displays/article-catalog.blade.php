@@ -50,6 +50,14 @@
                                 </td>
                             </tr>
                             <tr>
+                                    <td style="width:200px">Status Ketersediaan</td>
+                                    <td>:</td>
+                                    @foreach ($article->statuses()->get() as $stat)
+                                    <td><span style="font-weight:bold;">{{ $stat->title }}</span>
+                                    </td>
+                                    @endforeach
+                                </tr>
+                            <tr>
                                 <td style="width:200px">Pengarang</td>
                                 <td>:</td>
                                 <td><span style="font-weight:bold;">{{ $article->writer }}</span></td>

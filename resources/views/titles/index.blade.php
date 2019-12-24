@@ -7,6 +7,22 @@ Indeks Artikel | Judul Sumber
 @section('content')
 <main style="background: white; padding:45px">
 
+        @if (Session::has('success'))
+
+        <div class="alert alert-success" role="alert">
+        <strong>Success:</strong>{{ Session::get('success')}}
+        </div>
+
+        @endif
+
+        @if (Session::has('error'))
+
+        <div class="alert alert-danger" role="alert">
+        <strong>Error:</strong>{{ Session::get('error')}}
+        </div>
+
+        @endif
+
         @if (session('msg'))
                 <div class="alert alert-success">
                     <p> {{session('msg')}} </p>
@@ -67,11 +83,11 @@ Indeks Artikel | Judul Sumber
 			</div>
 		</div>
 
-        <table id="example" name="example" class="table table-striped table-bordered table-responsive" style="width:100%">
+        <table id="titles_table" name="titles_table" class="table table-striped table-bordered table-responsive" style="width:100%">
            <thead>
                 <tr class="GridHeader">
-                    <td>No.</td>
-                    <td>Gambar</td>
+                    <th>No.</th>
+                    <th>Gambar</th>
                     <th>Judul Sumber</th>
                     <th>Kode</th>
                     <th>Jenis</th>
@@ -82,45 +98,62 @@ Indeks Artikel | Judul Sumber
                     <th>Tahun Terbit Pertama</th>
                     <th>Bahasa</th>
                     <th>Format</th>
-                    <td>Jumlah Edisi</td>
-                    <td>Jumlah Artikel</td>
-                    <td></td>
+                    <th>Jumlah Edisi</th>
+                    <th>Jumlah Artikel</th>
+                    <th></th>
+                    <th></th>
                 </tr>
-			</head>
-			<tbody>
-            @php $i=1 @endphp
-			@foreach ($titles as $title)
-                <tr class="GridItem">
-                    <td>{{ $i++ }}</td>
-                    @if($title->featured_img == null)
-                    <td><img src="{{asset('storage/upload/default.png')}}" style="max-width: 100px; height: auto;" class="image-fluid"></td>
-                    @else
-                    <td><img src="{{asset('storage/upload/'. $title->featured_img) }}" style="max-width: 100px; height: auto; "class="image-fluid"></td>
-                    @endif
-                    <td>{{$title->title}}</td>
-                    <td>{{$title->kode}}</td>
-                    <td>@foreach ($title->types()->get() as $types){{$types->title}}@endforeach</td>
-                    <td>@foreach ($title->times()->get() as $times){{$times->title}}@endforeach</td>
-                    <td>{{$title->city}}</td>
-                    <td>{{$title->publisher}}</td>
-                    <td>{{$title->year}}</td>
-                    <td>{{$title->first_year}}</td>
-                    <td>@foreach ($title->languages()->get() as $languages){{$languages->title}}@endforeach</td>
-                    <td>@foreach ($title->formats()->get() as $formats){{$formats->title}}@endforeach</td>
-                    <td>{{$editions->where('title_id',$title->id)->count()}}<a href="/titles/{{$title->id}}"><button style="float: right"><strong>+</strong></button></a></td>
-                    <td style="text-align: center">{{$articles->whereIn('edition_title_id',$editions->where('title_id',$title->id)->pluck('id'))->count()}}
-                    <a href="/titles/article/{{$title->id}}"><button style="float: right"><strong>+</strong></button></a></td>
-                    <td style="text-align: center">
-						<a href="/titles/{{$title->id}}/edit"><button class="fas fa-edit" style="width:30px;height:30px"></button></a>
-                        <br><br>
-						<a><form method="POST" action="/titles/{{$title->id}}">
-                        {{ csrf_field() }}
-							<input type="hidden" name="_method" value="DELETE"><button type="submit" class="fa fa-trash"
-                            style="width:30px;height:30px" onclick="return confirm('Apakah Anda yakin untuk menghapus?')"></button></form></a>
+            </thead>
+            <tfoot>
+                <td>
+                        <input type="text" class = "form-control filter-input" placeholder="Cari ...." data-column="0" hidden>
                     </td>
-                </tr>
-				 @endforeach
-            </tbody>
+                <td>
+                        <input type="text" class = "form-control filter-input" placeholder="Cari ...." data-column="1" hidden>
+                    </td>
+                <td>
+                    <input type="text" class = "form-control filter-input" placeholder="Cari Judul...." data-column="2">
+                </td>
+                <td>
+                        <input type="text" class = "form-control filter-input" placeholder="Cari Kode...." data-column="3">
+                </td>
+                <td>
+                    <input type="text" class = "form-control filter-input" placeholder="Cari Jenis...." data-column="4">
+                </td>
+                <td>
+                        <input type="text" class = "form-control filter-input" placeholder="Cari Kala Terbit...." data-column="5">
+                    </td>
+                <td>
+                    <input type="text" class = "form-control filter-input" placeholder="Cari Tempat Terbit...." data-column="6">
+                </td>
+                <td>
+                    <input type="text" class = "form-control filter-input" placeholder="Cari Penerbit...." data-column="7">
+                </td>
+                <td>
+                    <input type="text" class = "form-control filter-input" placeholder="Cari Tahun Terbit...." data-column="8">
+                </td>
+                <td>
+                    <input type="text" class = "form-control filter-input" placeholder="Cari Tahun Terbit Pertama...." data-column="9">
+                </td>
+                <td>
+                    <input type="text" class = "form-control filter-input" placeholder="Cari Bahasa...." data-column="10">
+                </td>
+                <td>
+                    <input type="text" class = "form-control filter-input" placeholder="Cari Format...." data-column="11">
+                </td>
+                <td>
+                    <input type="text" class = "form-control filter-input" placeholder="Cari ...." hidden>
+                </td>
+                <td>
+                    <input type="text" class = "form-control filter-input" placeholder="Cari ...." hidden>
+                </td>
+                <td>
+                    <input type="text" class = "form-control filter-input" placeholder="Cari ...." hidden>
+                </td>
+                <td>
+                    <input type="text" class = "form-control filter-input" placeholder="Cari ...." hidden>
+                </td>
+            </tfoot>
         </table>
         <div id="divTools" class="ToolsTable" style="padding-bottom: 10px">
             <table cellpadding="0" cellspacing="0">
@@ -139,33 +172,148 @@ Indeks Artikel | Judul Sumber
                 </tbody>
             </table>
         </div>
+
+        <div id="confirmModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">Konfirmasi</h3>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <h5 style="center">Apakah Anda yakin ingin menghapus?</h5>
+                    </div>
+                    <div class="modal-footer">
+                     <button type="button" name="ok_button" id="ok_button" class="btn btn-danger">Ya</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Tidak</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </main>
 @endsection
 
 @section('scripts')
-<script src="https://cdn.datatables.net/fixedcolumns/3.2.6/js/dataTables.fixedColumns.min.js"></script>
 <script>
-$(document).ready(function() {
-    // Setup - add a text input to each footer cell
-    $('#example thead tr').clone(true).appendTo( '#example thead' );
-    $('#example thead tr:eq(1) th').each( function (i) {
-        var title = $(this).text();
-        $(this).html( '<input type="text" placeholder="Cari '+title+'" />' );
- 
-        $( 'input', this ).on( 'keyup change', function () {
-            if ( table.column(i).search() !== this.value ) {
-                table
-                    .column(i)
-                    .search( this.value )
-                    .draw();
+  $(document).ready(function(){
+        var table = $('#titles_table').DataTable({
+        processing: true,
+        serverSide: true,
+        "responsive": true,
+        ajax:{
+        url: "{{ route('titles.index') }}"
+        },
+        columns:[
+        {
+        data:'DT_RowIndex',
+        name:'DT_RowIndex',
+        searchable: false
+        },
+        {
+        data: 'featured_img',
+        name: 'featured_img',
+        render: function(data, type, full, meta)
+        {
+            if (data == null) {
+                return "<img src=\"/storage/upload/default.png" + "\" height=\"auto\" width=\"100\" />";
             }
-        } );
-    } );
- 
-    var table = $('#example').DataTable( {
-        orderCellsTop: true,
-        fixedHeader: true
-    } );
-} );
-</script>
+            else
+            {
+                return "<img src=\"/storage/upload/" + data + "\" height=\"auto\" width=\"100\" />";
+            }
+        }
+        },
+        {
+        data: 'title',
+        name: 'title'
+        },
+        {
+        data: 'kode',
+        name: 'kode'
+        },
+        {
+        data:'types',
+        name:'types'
+        },
+        {
+        data:'times',
+        name:'times'
+        },
+        {
+        data:'city',
+        name:'city'
+        },
+        {
+        data: 'publisher',
+        name: 'publisher'
+        },
+        {
+        data: 'year',
+        name: 'year'
+        },
+        {
+        data:'first_year',
+        name:'first_year'
+        },
+        {
+        data:'languages',
+        name:'languages'
+        },
+        {
+        data:'formats',
+        name:'formats'
+        },
+        {
+        data: 'edition',
+        name: 'edition'
+        },
+        {
+        data:'article',
+        name:'article'
+        },
+        {
+        data: 'action',
+        name: 'action',
+        orderable: false
+        },
+        {
+        data: 'delete',
+        name: 'delete',
+        orderable: false
+        }
+        ]
+        });
+
+        $('.filter-input').keyup(function() {
+            table.column( $(this).data('column') )
+            .search( $(this).val())
+            .draw();
+        });
+
+        var title_id;
+
+        $(document).on('click', '.delete', function(){
+        title_id = $(this).attr('id');
+        $('#confirmModal').modal('show');
+        });
+
+        $('#ok_button').click(function(){
+        $.ajax({
+        url:"titles/delete/"+title_id,
+        // beforeSend:function(){
+        //     $('#ok_button').text('Deleting...');
+        // },
+        success:function(data)
+        {
+            setTimeout(function(){
+            $('#confirmModal').modal('hide');
+            $('#titles_table').DataTable().ajax.reload();
+            }, 2000);
+        }
+        })
+        });
+    });
+    </script>
 @endsection
+

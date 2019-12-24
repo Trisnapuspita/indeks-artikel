@@ -26,7 +26,7 @@ Indeks Artikel | Edit Judul Sumber
                         @foreach ($types as $types)
                             <div class="form-check form-check-inline custom-control-inline custom-radio">
                             <label class="form-check-label" for="types" >
-                                <input class="form-check-input" type="radio" name="types[]" id="type_Select"  required 
+                                <input class="form-check-input" type="radio" name="types[]" id="type_Select"  required
                                 value='{{$types->id}}' @if($title->types()->get()->contains($types->id)) checked @endif>{{$types->title}}
                                 </label>
                             </div>
@@ -101,7 +101,11 @@ Indeks Artikel | Edit Judul Sumber
                 <div class="form-group row">
                 <label class="col-sm-3 col-form-label">Gambar</label>
                 <div class="col">
-                    <img src="/storage/upload/{{$title->featured_img}}" style="max-width: 150px; height: auto; "class="image-fluid"> 
+                    @if ($title->featured_img == null)
+                    <img src="/storage/upload/default.png" style="max-width: 150px; height: auto; "class="image-fluid">
+                    @else
+                    <img src="/storage/upload/{{$title->featured_img}}" style="max-width: 150px; height: auto; "class="image-fluid">
+                    @endif
                     <br>
                     <input type="file" class="form-control-file" type="file" name="featured_img" id="featured_img">
 					  @if ($errors->has('featured_img'))
@@ -112,9 +116,9 @@ Indeks Artikel | Edit Judul Sumber
                     </div>
                 </div>
                 (*) Wajib Diisi
-                
+
                 {{ csrf_field() }}
-                
+
                 <div class="form-group" style="text-align: center;">
                     <button type="submit"  class="btn btn-dark" name="submit"
                     style="text-align: center; width:100%; color:white; font-size: 17px; font-weight: 2px" onclick="return confirm('Apakah Anda yakin untuk mengedit?')">
@@ -129,9 +133,9 @@ Indeks Artikel | Edit Judul Sumber
         -moz-box-shadow: 0px 0px 17px -4px rgba(0,0,0,0.75);
         box-shadow: 0px 0px 17px -4px rgba(0,0,0,0.75);">
         <p>
-        Dibuat Oleh: <strong> @foreach ($title->user->where('id', $title->user_id)->get() as $user) {{$user->longname}} @endforeach </strong>  
+        Dibuat Oleh: <strong> @foreach ($title->user->where('id', $title->user_id)->get() as $user) {{$user->longname}} @endforeach </strong>
         <br>
-        Dibuat Pada: {{$title->created_at}} 
+        Dibuat Pada: {{$title->created_at}}
         <br><br>
         Disunting Oleh: <strong> @foreach ($title->user->where('id', $title->updated_by)->get() as $user) {{$user->longname}} @endforeach </strong> <br>
         Disunting Pada: {{$title->updated_at}}

@@ -25,7 +25,7 @@ Indeks Artikel | Master Kala Terbit
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/home">Beranda</a></li>
                 <li class="breadcrumb-item"><a href="#">Setting Master</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Master Jenis</li>
+                <li class="breadcrumb-item active" aria-current="page">Master Kala Terbit</li>
             </ol>
         </div>
         <div class="createnew" style="padding-bottom: 10px">
@@ -70,4 +70,15 @@ Indeks Artikel | Master Kala Terbit
             </tbody>
         </table>
     </main>
+@endsection
+
+@section('scripts')
+<script>
+$(document).ready(function() {
+    var table = $('#example').DataTable( {
+        orderCellsTop: true,
+        fixedHeader: true
+    } );
+} );
+</script>
 @endsection

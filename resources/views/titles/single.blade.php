@@ -15,7 +15,7 @@ Indeks Artikel | Edisi
                 <li class="breadcrumb-item active" aria-current="page">{{ $title->title }}</li>
             </ol>
         </div>
-        
+
         <a data-toggle="collapse" href="#collapseExample1" role="button" aria-expanded="false"
             aria-controls="collapseExample1">
             <h5
@@ -26,22 +26,17 @@ Indeks Artikel | Edisi
         -moz-box-shadow: 0px 0px 17px -4px rgba(0,0,0,0.75);
         box-shadow: 0px 0px 17px -4px rgba(0,0,0,0.75);">
             <form class="form" method="POST" action="/titles" enctype="multipart/form-data">
-                <fieldset class="form-group">
-                    <div class="row was-validated">
-                        <legend class="col-form-label col-sm-3 pt-0">Jenis*</legend>
-                        <div class="col-sm-8">
-                        @foreach ($title->types as $types)
-                            <div class="form-check form-check-inline custom-control-inline custom-radio">
-                            <label class="form-check-label" for="types" >
-                                <input class="form-check-input" type="radio" value='{{$types->id}}' name="types[]" id="type_Select" disabled>{{$types->title}}
-                                </label>
-                            </div>
-                        @endforeach
-                        </div>
-                    </div>
-                </fieldset>
                 <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">Kala Terbit*</label>
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">Jenis*</label>
+                    <div class="col">
+                            @foreach ($title->types as $types)
+                        <input type="text" class="form-control" id="types" name="types"
+                         value="{{$types->title}}" placeholder="Tulis judul disini" disabled>
+                         @endforeach
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Kala Terbit*</label>
                     <div class="col">
                         <select class="form-control custom-select" name="times[]" id="time_Select" disabled>
                             @foreach ($title->times as $times)
@@ -51,14 +46,14 @@ Indeks Artikel | Edisi
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="inputEmail3" class="col-sm-3 col-form-label">Judul*</label>
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">Judul*</label>
                     <div class="col">
                         <input type="text" class="form-control" id="title" name="title"
                          value="{{$title->title}}" placeholder="Tulis judul disini" disabled>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">Penerbitan*</label>
+                    <label class="col-sm-2 col-form-label">Penerbitan*</label>
                     <div class="col">
                         <input type="text" class="form-control"  name="city" value="{{$title->city}}" placeholder="Kota Terbit" disabled>
                     </div>
@@ -70,14 +65,14 @@ Indeks Artikel | Edisi
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="inputEmail3" class="col-sm-3 col-form-label">Tahun Terbit Pertama*</label>
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">Tahun Terbit Pertama*</label>
                     <div class="col-sm-4 col-form-label">
                         <input type="text" class="form-control" id="first_year" name="first_year"
                          value="{{$title->first_year}}" placeholder="Tulis tahun terbit pertama disini" disabled>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">Bahasa*</label>
+                    <label class="col-sm-2 col-form-label">Bahasa*</label>
                     <div class="col">
                         <select class="form-control" name="languages[]" id="language_Select" disabled>
 							@foreach ($title->languages as $languages)
@@ -87,7 +82,7 @@ Indeks Artikel | Edisi
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="inputPassword3" class="col-sm-3 col-form-label">Format*</label>
+                    <label for="inputPassword3" class="col-sm-2 col-form-label">Format*</label>
                     <div class="col">
                         <select class="form-control" name="formats[]" id="format_Select" disabled>
 							@foreach ($title->formats as $formats)
@@ -98,16 +93,9 @@ Indeks Artikel | Edisi
                 </div>
 
                 <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Gambar</label>
+                <label class="col-sm-2 col-form-label">Gambar</label>
                 <div class="col">
                     <img src="/storage/upload/{{$title->featured_img}}" style="max-width: 150px; height: auto; "class="image-fluid">
-                    <br>
-                    <input type="file" class="form-control-file" type="file" name="featured_img" id="featured_img" disabled>
-					  @if ($errors->has('featured_img'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('featured_img') }}</strong>
-                    </span>
-                    @endif
                     </div>
                 </div>
             </form>
@@ -154,12 +142,16 @@ Indeks Artikel | Edisi
 								name="edition_no" value="{{old('edition_no')}}">
                             </div>
                         </div>
-                        <div class="form-group row was-validated">
-                        <label class="col-sm-2 col-form-label">Kode*</label>
-                        <div class="col-sm-10">
-                            <input class="form-control" type="text" placeholder="Tulis Kode"  name="edition_code" value="{{old('edition_code')}}" required>
-                        </div>
-                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Kode*</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control {{ $errors->get('edition_code') ? 'has-error' : '' }}" id="edition_code" name="edition_code" required
+                                 value="{{old('edition_code')}}" placeholder="Tulis kode disini">
+                                 @foreach($errors->get('edition_code') as $error)
+                                    <span class="help-block">{{ $error }}</span>
+                                @endforeach
+                            </div>
+                            </div>
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label" for="validationServer03">Tanggal Terbit
                                 Edisi*</label>
@@ -199,13 +191,13 @@ Indeks Artikel | Edisi
                     <div class="form-group row was-validated">
                         <label class="col-sm-2 col-form-label">Penulisan Tanggal Asli*</label>
                         <div class="col-sm-10">
-                            <input class="form-control is-invalid" type="text" placeholder=""  name="original_date" value="{{old('original_date')}}" required>
+                            <input class="form-control is-invalid" type="text" placeholder="Tulis tanggal asli disini"  name="original_date" value="{{old('original_date')}}" required>
                         </div>
                     </div>
                     <div class="form-group row was-validated">
                         <label class="col-sm-2 col-form-label" for="validationServer03">No. Panggil*</label>
                         <div class="col-sm-10">
-                            <input class="form-control is-invalid" type="text" placeholder="" name="call_number" value="{{old('call_number')}}"
+                            <input class="form-control is-invalid" type="text" placeholder="Tulis No. Panggil disini" name="call_number" value="{{old('call_number')}}"
                                 required>
                         </div>
                     </div>

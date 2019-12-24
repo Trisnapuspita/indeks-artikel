@@ -71,3 +71,14 @@ Indeks Artikel | Master Status Ketersediaan
         </table>
     </main>
 @endsection
+
+@section('scripts')
+<script>
+$(document).ready(function() {
+    var table = $('#example').DataTable( {
+        orderCellsTop: true,
+        fixedHeader: true
+    } );
+} );
+</script>
+@endsection

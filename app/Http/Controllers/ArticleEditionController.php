@@ -16,15 +16,40 @@ use App\Exports\ArticleExport;
 use App\Imports\ArticleImport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ArticleEditionController extends Controller
 {
     public function index()
     {
-        $title = Title::all();
-        $edition = EditionTitle::all();
-        $articles = ArticleEdition::all();
-        return view('articles.index', compact('articles', 'edition', 'title'));
+        if(request()->ajax())
+        {
+            $query = ArticleEdition::with('edition_title')->get();
+
+            return datatables()->of($query)
+                    ->addIndexColumn()
+                    ->addColumn('titles', function ($article_editions) {
+                        return $article_editions->edition_title->title->title;
+                    })
+                    ->addColumn('editions', function($article_editions){
+                        return ' '.$article_editions->edition_title->edition_year.','.$article_editions->edition_title->edition_no.','.$article_editions->edition_title->original_date;
+                    })
+                    ->addColumn('edit',function($article_editions){
+                        return '<a class="btn btn-xs btn-primary" href="articles/'.$article_editions->id.'/edit">Sunting</a>';
+                      })
+                    ->addColumn('delete', function($data){
+                        $button= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-xs">Hapus</button>';
+                        return $button;
+                    })
+                    ->addColumn('status', function ($article_editions) {
+                        return $article_editions->statuses->map(function ($status) {
+                            return str_limit($status->title, 30, '...');
+                        })->implode('<br>');
+                    })
+                    ->rawColumns(['edit', 'delete', 'editions', 'titles', 'status'])
+                    ->make(true);
+        }
+        return view('articles.index');
     }
 
     public function create()
@@ -98,27 +123,26 @@ class ArticleEditionController extends Controller
     }
 
     public function new_store(Request $request)
-    { 
-        $this->validate(request(), [
-            'article_title'=>'required|min:1',
-            'edition_title'=>'required|min:1',
-            'featured_img' => 'mimes:jpeg,jpg,png|max:1000'
-        ]);
-
+    {
         $title;
         if($request->title_id==null) {
+            $this->validate(request(), [
+                'featured_img' => 'mimes:jpeg,jpg,png|max:1000',
+                'kode'=> 'required|unique:titles'
+            ], ['kode.unique'=> 'Kode sudah digunakan']);
+
             $slug = str_slug($request->title, '_');
             //cek slug ngga kembar
             if(Title::where('slug', $slug)->first() != null)
                 $slug = $slug . '-'.time();
-    
+
             $fileName= null;
-    
+
             if($request->featured_img != null) {
                 $fileName = $request->featured_img->getClientOriginalName(). '.png';
                 $request->file('featured_img')->storeAs('public/upload', $fileName);
             }
-    
+
             $title = Title::create([
                 'user_id'=> Auth::user()->id,
                 'title'=>$request->title,
@@ -136,11 +160,17 @@ class ArticleEditionController extends Controller
             $title->formats()->attach($request->formats);
         } else {
             $title = Title::find($request->title_id);
-        } 
-        
+        }
+
         $editions;
 
         if ($request->edition_id==null) {
+
+            $this->validate(request(), [
+                'edition_image' => 'mimes:jpeg,jpg,png|max:1000',
+                'edition_code'=> 'required|unique:edition_titles'
+            ], ['edition_code.unique'=> 'Kode sudah digunakan']);
+
             $slugs = str_slug($request->publish_date, '_');
             //cek slugs ngga kembar
             if (EditionTitle::where('slugs', $slugs)->first() != null) {
@@ -155,21 +185,22 @@ class ArticleEditionController extends Controller
             }
 
             $editions = EditionTitle::create([
-            'user_id'=> Auth::user()->id,
-            'edition_year'=>$request->edition_year,
-            'edition_title'=>$request->edition_title,
-            'slugs'=>$slugs,
-            'title_id' => $title->id,
-            'volume'=>$request->volume,
-            'chapter'=>$request->chapter,
-            'edition_no'=>$request->edition_no,
-            'year'=>$request->year,
-            'publish_date'=>$request->publish_date,
-            'publish_month'=>$request->publish_month,
-            'publish_year'=>$request->publish_year,
-            'original_date'=>$request->original_date,
-            'call_number'=>$request->call_number,
-            'edition_image'=> $fileName
+                'user_id'=> Auth::user()->id,
+                'edition_year'=>$request->edition_year,
+                'edition_title'=>$request->edition_title,
+                'edition_code'=>$request->edition_code,
+                'slugs'=>$slugs,
+                'title_id' => $title->id,
+                'volume'=>$request->volume,
+                'chapter'=>$request->chapter,
+                'edition_no'=>$request->edition_no,
+                'year'=>$request->year,
+                'publish_date'=>$request->publish_date,
+                'publish_month'=>$request->publish_month,
+                'publish_year'=>$request->publish_year,
+                'original_date'=>$request->original_date,
+                'call_number'=>$request->call_number,
+                'edition_image'=> $fileName
             ]);
         } else {
             $editions = EditionTitle::find($request->edition_id);
@@ -282,6 +313,35 @@ class ArticleEditionController extends Controller
         $articles->delete();
 
         return redirect('/articles')->with('msg', 'Artikel berhasil di hapus');
+    }
+
+    public function download()
+    {
+        $path = storage_path('template');
+        return response()->download($path);
+    }
+
+    public function getEdition()
+    {
+        $title_id = request('title_id');
+        $query = EditionTitle::where('title_id',$title_id);
+
+        return datatables()->of($query)
+                ->addIndexColumn()
+                    ->rawColumns(['edit', 'delete', 'editions', 'titles', 'status'])
+                    ->make(true);
+    }
+
+    public function getSumber()
+    {
+        $id = request('id');
+        return Title::find($id);
+    }
+
+    public function getEdisi()
+    {
+        $id_edisi = request('id');
+        return EditionTitle::find($id_edisi);
     }
 
 }

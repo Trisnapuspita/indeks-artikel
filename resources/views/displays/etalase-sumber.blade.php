@@ -1,10 +1,11 @@
 @extends('layouts.frontsin')
 
-@section('content')
-
 @section('title')
 Indeks Artikel | Etalase
 @endsection
+@section('content')
+
+
 
 <main style="height: 100%;padding: 45px">
 
@@ -75,7 +76,7 @@ Indeks Artikel | Etalase
                     <div class="col-md-12">
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                             <li class="nav-item"><a class="nav-link active" href="#tab_daftar_katalog" role="tab"
-                                    data-toggle="tab">Daftar Isi Katalog</a></li>
+                                    data-toggle="tab">Daftar Isi Artikel</a></li>
                             <li class="nav-item"><a class="nav-link" href="#tab_hirarki_indeks" role="tab"
                                     data-toggle="tab">Hirarki Indeks Artikel</a></li>
                         </ul>

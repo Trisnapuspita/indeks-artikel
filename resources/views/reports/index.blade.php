@@ -30,13 +30,13 @@ Indeks Artikel | Laporan Kinerja User
                             <td>
                                 <select class="box" name="column" id="column" required>
                                     <option disabled selected hidden>Pilih Kriteria</option>
-                                    <option class="dropdown-item" value="all">Semua</option>
+                                    {{-- <option class="dropdown-item" value="all">Semua</option> --}}
                                     <option class="dropdown-item" value="subject">Subyek</option>
                                     <option class="dropdown-item" value="writer">Pengarang</option>
                                     <option class="dropdown-item" value="article_title">Judul Artikel</option>
-                                    <option class="dropdown-item" value="call_number">No. Panggil</option>
+                                    {{-- <option class="dropdown-item" value="call_number">No. Panggil</option> --}}
                                 </select>
-                                <input name="param" id="param">
+                                <input name="param" id="param" required>
                             </td>
                         </tr>
                         <tr>
@@ -177,25 +177,26 @@ Indeks Artikel | Laporan Kinerja User
                 </table>
             </div>
         </div>
-        <div id="divTools" class="ToolsTable" style="padding-bottom: 10px">
-        <table class="col-md-offset-2">
-            <tbody>
-                <tr>
-                    <td>
-                        Export:
-                    </td>
-                    <td style="border-right-style: solid; border-right-width: 1px; border-right-color: #EBEBEB">
-                        &nbsp;</td>
-                    <td>
-                        <a href="/reports/export"><img src="../../assets/Export_Excel.png"
-                            style="margin-top:10px;font-family:Arial;font-size:X-Small;height:40px;"></a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
         </div>
     </div>
 </div>
 </main>
+@endsection
+
+@section('scripts')
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.0/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.0/js/buttons.flash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.0/js/buttons.html5.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+      $('#example').DataTable({
+        dom: 'Bfrtip',
+        buttons: ['excel']
+    });
+  } );
+</script>
 @endsection

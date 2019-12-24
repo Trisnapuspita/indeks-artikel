@@ -72,3 +72,14 @@ Indeks Artikel | Master Bahasa
         </table>
     </main>
 @endsection
+
+@section('scripts')
+<script>
+$(document).ready(function() {
+    var table = $('#example').DataTable( {
+        orderCellsTop: true,
+        fixedHeader: true
+    } );
+} );
+</script>
+@endsection
